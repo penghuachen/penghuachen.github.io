@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="JavaScript的變數、範疇與hoisting 變數 關於變數這個部分會提到的是：  變數是什麼? 變數的型別與介紹 ES6新的變數宣告方法: let 與 const">
+<meta property="og:type" content="article">
+<meta property="og:title" content="連續記錄挑戰Day35-Javascript-變數">
+<meta property="og:url" content="https://penghuachen.github.io/2019/07/01/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day35-Javascript-%E8%AE%8A%E6%95%B8/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="JavaScript的變數、範疇與hoisting 變數 關於變數這個部分會提到的是：  變數是什麼? 變數的型別與介紹 ES6新的變數宣告方法: let 與 const">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2019-07-01T11:12:31.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.843Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/07/01/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day35-Javascript-%E8%AE%8A%E6%95%B8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/07/01/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day35-Javascript-%E8%AE%8A%E6%95%B8/","path":"2019/07/01/連續記錄挑戰Day35-Javascript-變數/","title":"連續記錄挑戰Day35-Javascript-變數"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>連續記錄挑戰Day35-Javascript-變數 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript%E7%9A%84%E8%AE%8A%E6%95%B8%E3%80%81%E7%AF%84%E7%96%87%E8%88%87hoisting"><span class="nav-number">1.</span> <span class="nav-text">JavaScript的變數、範疇與hoisting</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%8A%E6%95%B8"><span class="nav-number">1.1.</span> <span class="nav-text">變數</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E8%AE%8A%E6%95%B8"><span class="nav-number">1.1.1.</span> <span class="nav-text">什麼是變數 ?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%8A%E6%95%B8%E7%9A%84%E5%91%BD%E5%90%8D%E8%A6%8F%E5%89%87"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">變數的命名規則</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%8A%E6%95%B8%E7%9A%84%E5%9E%8B%E5%88%A5%E8%88%87%E4%BB%8B%E7%B4%B9"><span class="nav-number">1.2.</span> <span class="nav-text">變數的型別與介紹</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%9E%8B%E5%88%A5-%E6%95%B8%E5%AD%97-Number"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">基本型別:數字(Number)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NaN%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">NaN是什麼？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%9E%8B%E5%88%A5-%E6%96%87%E5%AD%97-String"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">基本型別:文字(String)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%9E%8B%E5%88%A5-%E5%B8%83%E6%9E%97%E5%80%BC-Boolean"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">基本型別:布林值(Boolean)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%9E%8B%E5%88%A5-%E7%A9%BA%E5%80%BC-null"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">基本型別:空值(null)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%9E%8B%E5%88%A5-%E6%9C%AA%E5%AE%9A%E7%BE%A9-undefined"><span class="nav-number">1.2.0.6.</span> <span class="nav-text">基本型別:未定義(undefined)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6%E6%96%B0%E7%9A%84%E8%AE%8A%E6%95%B8%E5%AE%A3%E5%91%8A%E6%96%B9%E6%B3%95-let-%E8%88%87-const"><span class="nav-number">1.2.1.</span> <span class="nav-text">ES6新的變數宣告方法: let 與 const</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%80%E5%A1%8A%E7%AF%84%E7%96%87-block-scope-%E3%80%81%E5%87%BD%E5%BC%8F%E7%AF%84%E7%96%87-function-scope"><span class="nav-number">1.3.</span> <span class="nav-text">區塊範疇(block scope)、函式範疇(function scope)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AF%84%E7%96%87-scope"><span class="nav-number">1.3.1.</span> <span class="nav-text">範疇(scope):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%80%E5%9F%9F%E7%AF%84%E7%96%87"><span class="nav-number">1.3.2.</span> <span class="nav-text">區域範疇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E7%AF%84%E7%96%87"><span class="nav-number">1.3.3.</span> <span class="nav-text">函式範疇</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%8D%87-hoisting"><span class="nav-number">1.4.</span> <span class="nav-text">提升(hoisting)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/07/01/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day35-Javascript-%E8%AE%8A%E6%95%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="連續記錄挑戰Day35-Javascript-變數 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          連續記錄挑戰Day35-Javascript-變數
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-07-01 19:12:31" itemprop="dateCreated datePublished" datetime="2019-07-01T19:12:31+08:00">2019-07-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="JavaScript的變數、範疇與hoisting"><a class="header-anchor" href="#JavaScript的變數、範疇與hoisting"></a>JavaScript的變數、範疇與hoisting</h1>
+<h2 id="變數"><a class="header-anchor" href="#變數"></a>變數</h2>
+<p>關於變數這個部分會提到的是：</p>
+<ol>
+<li>變數是什麼?</li>
+<li>變數的型別與介紹</li>
+<li>ES6新的變數宣告方法: <code>let</code> 與 <code>const</code></li>
+</ol>
+<span id="more"></span>
+<h3 id="什麼是變數"><a class="header-anchor" href="#什麼是變數"></a>什麼是變數 ?</h3>
+<p>「變數」，可以想成是用來存放資料的箱子，透過這個箱子中儲存的值，才使程式在執行過程中不斷存取資料的行為得以執行。</p>
+<p>變數的宣告方式在ES6之前只能透過<code>var</code>宣告，宣告方式如下:</p>
+<p><strong>var 變數名稱 = 初始值;</strong></p>
+<p><code>var number = 5;</code></p>
+<p>如果你對於同一個變數宣告了兩次，<strong>則第二次的宣告值會覆蓋第一次的值</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> number = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">var</span> number = <span class="number">15</span>;</span><br><span class="line"><span class="comment">//會得到值為15</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(number);</span><br></pre></td></tr></table></figure>
+<p>那也許你會想問，是不是可以不要給予初始值呢？</p>
+<p>答案是:當然可以。 所以下列這個寫法也是沒問題的:</p>
+<p><strong>var 變數名稱;</strong></p>
+<p><code>var number;</code></p>
+<p>那又或許你會想問：那不宣告直接指定值可以嗎，如下:</p>
+<p><code>msg = &quot;Hello World!&quot;</code></p>
+<p>在Javascript中，如果沒有先宣告就指定值給變數，Javascript就會自動幫你宣告該變數。</p>
+<p>但這樣可能會讓自己遇上些麻煩，所以請務必養成良好的習慣，<strong>使用變數前一定要記得宣告</strong>！</p>
+<h4 id="變數的命名規則"><a class="header-anchor" href="#變數的命名規則"></a>變數的命名規則</h4>
+<p>關於變數命名也是有其規則存在，必須按照這個規則設定才不會有問題</p>
+<table>
+<thead>
+<tr>
+<th>規則</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>開頭必須是英文字母、底線、錢字號</td>
+<td><code>name</code>、<code>_name</code>、<code>$name</code></td>
+</tr>
+<tr>
+<td>需要區分大小寫</td>
+<td><code>Name</code>、<code>name</code></td>
+</tr>
+<tr>
+<td>第二個字母後可以用數字、底線</td>
+<td><code>msg1</code>、<code>msg_1</code></td>
+</tr>
+<tr>
+<td>不能使用保留字</td>
+<td><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Lexical_grammar#ECMAScript_2015_%E4%BF%9D%E7%95%99%E9%97%9C%E9%8D%B5%E5%AD%97">保留字一覽表</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="變數的型別與介紹"><a class="header-anchor" href="#變數的型別與介紹"></a>變數的型別與介紹</h2>
+<p>變數分成兩大型別: 基本型別(primitive types)與物件型別(object types)</p>
+<ul>
+<li>基本型別 (primitive types)
+<ul>
+<li>數字(Number)</li>
+<li>字串(String)</li>
+<li>布林值(Boolean)</li>
+<li>null</li>
+<li>undefined</li>
+</ul>
+</li>
+</ul>
+<h4 id="基本型別-數字-Number"><a class="header-anchor" href="#基本型別-數字-Number"></a>基本型別:數字(Number)</h4>
+<p>JavaScript中的數字都是以浮點數來表示，所有的實數在JavaSript都是以<strong>浮點數格式</strong>精確的表示。</p>
+<p>JavaScript使用IEEE-754浮點表示法，為二元表示法。<strong>意即可以精確的表示1/2、1/8、1/1024這類小數，但對於0.1這類卻無法精確表示。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x= <span class="number">.3</span> - <span class="number">.2</span>;</span><br><span class="line"><span class="keyword">var</span> y = <span class="number">.2</span> - <span class="number">.1</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x == y); <span class="comment">// false，在JS中兩者不會得到相同答案</span></span><br></pre></td></tr></table></figure>
+<p>而且當運算結果如果發生下列狀況，並不會有錯誤訊息。</p>
+<table>
+<thead>
+<tr>
+<th>運算結果</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>overflow(溢位)</td>
+<td>Infinity(運算後的<strong>正值</strong>大於可表示的數字)</td>
+</tr>
+<tr>
+<td>overflow(溢位)</td>
+<td>-Infinity(運算後的<strong>負值</strong>大於可表示的數字)</td>
+</tr>
+<tr>
+<td>underflow(下溢)</td>
+<td>0 (運算後的值比最小可以表示的數字還要接近0時)</td>
+</tr>
+<tr>
+<td>0/0</td>
+<td>NaN(特殊的<strong>非數值</strong>)</td>
+</tr>
+<tr>
+<td>Infinity/Infinity</td>
+<td>NaN(特殊的<strong>非數值</strong>)</td>
+</tr>
+<tr>
+<td>-Infinity/-Infinity</td>
+<td>NaN(特殊的<strong>非數值</strong>)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="NaN是什麼？"><a class="header-anchor" href="#NaN是什麼？"></a>NaN是什麼？</h4>
+<p>NaN是Not-A-Number的意思，代表<strong>不是數值的數值</strong>。</p>
+<p>夠抽象吧，什麼是<strong>不是數值的數值</strong>?我想也許只能透過例子來了解了。</p>
+<p>首先，先確認一下NaN在JavaScript中是什麼型別？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">typeof</span> <span class="title class_">NaN</span>); <span class="comment">//型別為Number</span></span><br></pre></td></tr></table></figure>
+<p>再來，我們測試看看在什麼情況會獲得NaN的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>(<span class="number">1</span>)); <span class="comment">// 值為1，型別為Number</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>(<span class="string">&#x27;1&#x27;</span>)); <span class="comment">// 值為1，型別為Number</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>(<span class="string">&#x27;abc&#x27;</span>)); <span class="comment">// 值為NaN，型別為Number</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>(<span class="literal">undefined</span>)); <span class="comment">// 值為NaN，型別為Number</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>(<span class="number">0</span>/<span class="number">0</span>)); <span class="comment">// 值為NaN，型別為Number</span></span><br></pre></td></tr></table></figure>
+<p>關於上面的測試結果，在MDN有這一敘述：</p>
+<blockquote>
+<p>NaN值的來源:NaN 會在算術運算（arithmetic operations）出現 undefined 或是 unrepresentable 值的結果時產生。這些值不一定是溢出條件。NaN 亦為試圖給毫無可用數字的原始值、予以強制運算之結果。<br>
+<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/isNaN#NaN_%E5%80%BC%E7%9A%84%E4%BE%86%E6%BA%90">NaN 值的來源</a></p>
+</blockquote>
+<p>題外話，那有沒有辦法判斷輸入的值會不會得到NaN呢?</p>
+<p>可以的，透過 <strong>Number.isNaN()</strong> 可以判斷，若回傳true，則表示值為NaN，否則為false。</p>
+<p>將上面的測試例子透過Number.isNaN()檢視看看：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="title class_">Number</span>(<span class="number">1</span>))); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>.<span class="property">isNaN</span>.(<span class="title class_">Number</span>(<span class="string">&#x27;1&#x27;</span>))); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="title class_">Number</span>(<span class="string">&#x27;abc&#x27;</span>))); <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="title class_">Number</span>(<span class="literal">undefined</span>))); <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="title class_">Number</span>(<span class="number">0</span>/<span class="number">0</span>))); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>終於到了最後一個關於NaN的特性，那就是<strong>NaN:與任何值都不相等，包含他自己本身。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//因為NaN與任何值都不相等，包含自己本身，所以當x!=x時，才會是true。</span></span><br><span class="line"><span class="keyword">var</span> x = <span class="title class_">NaN</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x==<span class="title class_">NaN</span>); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x!=x); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h4 id="基本型別-文字-String"><a class="header-anchor" href="#基本型別-文字-String"></a>基本型別:文字(String)</h4>
+<p>文字型別其實蠻好理解的，我們可以透過單引號<code>''</code> 或者雙引號<code>&quot;&quot;</code>的方式讓值以字串格式呈現。</p>
+<p><code>var str = 'Hello World'；</code></p>
+<p><code>var str = &quot;Hello World&quot;；</code></p>
+<p>至於什麼時候該用單引號或雙引號，則可以依照字串的狀況做選擇。</p>
+<p>好比說字串的內容中已經有單引號，那就應該用雙引號包住字串</p>
+<p><code>var str = &quot;He\'s hero!&quot;;</code></p>
+<p>而且在上面的這個例子中有一個很明顯的 <code>\</code></p>
+<p>之所以會用到的原因在於字串型別中有一些有意義的特殊字，如果不透過這樣子處理會有問題。</p>
+<p>而透過 <strong><code>\</code>+字串</strong>的方式稱為跳脫序列</p>
+<h4 id="基本型別-布林值-Boolean"><a class="header-anchor" href="#基本型別-布林值-Boolean"></a>基本型別:布林值(Boolean)</h4>
+<ul>
+<li>只有兩個值： <strong>true / false</strong></li>
+<li>JavaScript中，任何值都可以轉為布林值。</li>
+</ul>
+<h4 id="基本型別-空值-null"><a class="header-anchor" href="#基本型別-空值-null"></a>基本型別:空值(null)</h4>
+<p>用在表示<strong>沒有相對應的值</strong>，而有趣的點是，透過typeof(null)會得到它的<strong>錯誤型別為物件</strong>。</p>
+<p>因為null才是正確型別，但許多網頁已經在這樣子的基礎上建立，所以如果修復的話會造成更多的bug。</p>
+<h4 id="基本型別-未定義-undefined"><a class="header-anchor" href="#基本型別-未定義-undefined"></a>基本型別:未定義(undefined)</h4>
+<p>用來表示某參數的值尚未被定義，有以下幾種情況:</p>
+<ul>
+<li>表示<strong>值不存在</strong>，但變數已經被宣告。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用物件未定義的屬性</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;Bill&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">hobbies</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>函式沒有回傳值</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ary = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> result = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    ary.<span class="title function_">forEach</span>(<span class="function"><span class="params">value</span>=&gt;</span>value*value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">result</span>(ary));</span><br></pre></td></tr></table></figure>
+<h3 id="ES6新的變數宣告方法-let-與-const"><a class="header-anchor" href="#ES6新的變數宣告方法-let-與-const"></a>ES6新的變數宣告方法: let 與 const</h3>
+<p>最後要提到的是ES6的新方法 let 與const，這兩個方法的出現，<strong>是為了更有效的控制變數的存取範圍</strong>。</p>
+<p>而let、const的宣告方式與var無異，如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> number = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">const</span> number2 =<span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>但是這兩者都規定不能重複宣告變數，否則會有Identidier ‘XXX’ has already been declared的提示字樣</strong></p>
+<p>而<code>const</code>的用途則又稍微有些不同，是用在<strong>常數的設定</strong>。</p>
+<p>意思是，<strong>透過const宣告的值通常都有一個特殊意義的值，且這個值不會被更動。</strong></p>
+<p>關於變數的介紹就到這邊為止囉！明天見～</p>
+<h2 id="區塊範疇-block-scope-、函式範疇-function-scope"><a class="header-anchor" href="#區塊範疇-block-scope-、函式範疇-function-scope"></a>區塊範疇(block scope)、函式範疇(function scope)</h2>
+<p>在了解什麼是區塊範疇(block scope)以及函式範疇(function scope)之前，要先知道什麼是範疇。</p>
+<h3 id="範疇-scope"><a class="header-anchor" href="#範疇-scope"></a><strong>範疇(scope):</strong></h3>
+<p>當我們在程式中引進變數時，我們必須給予這些變數<strong>一個安置它們的空間</strong>，如此一來我們才能在需要的時候將它們找出來使用。<strong>而範疇就是用來訂定安置變數的空間的規則</strong></p>
+<h3 id="區域範疇"><a class="header-anchor" href="#區域範疇"></a>區域範疇</h3>
+<p>區域範疇的定義是變數在 <code>&#123;...&#125;</code> 以外的地方為不可見的，只有在 <code>&#123;...&#125;</code> 裡面才可以使用到那些被宣告的變數。</p>
+<h3 id="函式範疇"><a class="header-anchor" href="#函式範疇"></a>函式範疇</h3>
+<p>函式範疇的定義是變數在 <code>function()&#123;...&#125;</code> 以外的地方為不可見，只有在函式中才可以使用那些被宣告的變數。</p>
+<p><strong>JavaScript在ES6之前是透過 <code>var</code> 宣告變數，所以會建立以函式為範疇的變數。<br>
+但在ES6之後可以透過 <code>let</code> / <code>const</code> 兩種新的變數宣告方法，建立以區塊為範疇的變數。</strong></p>
+<p>Ex1. 函式範疇</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">scope</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> a =<span class="number">1</span>;</span><br><span class="line">  <span class="comment">//a=1</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line">  <span class="keyword">let</span> b=<span class="number">2</span>;</span><br><span class="line">  <span class="keyword">if</span>(b&gt;<span class="number">1</span>)&#123;</span><br><span class="line">      <span class="comment">//a = 1</span></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">scope</span>();</span><br><span class="line"><span class="comment">//a is not defined</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br></pre></td></tr></table></figure>
+<p>Ex2. 函式範疇2</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">scope</span>(<span class="params"></span>)&#123;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">let</span> b=<span class="number">2</span>;</span><br><span class="line"> <span class="keyword">if</span>(b&gt;<span class="number">1</span>)&#123;</span><br><span class="line">   <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">   <span class="keyword">let</span> c = <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//a=2，因為var的宣告方式，讓變數使用的範疇規則為函式範疇，所以即使寫在if條件句中，也一樣可得到值。</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line">  <span class="comment">//c is not defined。 let的宣告方式讓c只在if條件句中可見，所以在這裡得不到值。</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(c);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">scope</span>();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Ex3. <code>let</code> / <code>const</code> : 只在本身定義的區塊 <code>&#123;...&#125;</code> 中有效</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">if</span>(foo)&#123;</span><br><span class="line"><span class="comment">//bar只在&#123;...&#125;的區塊有效，所以bar只在if條件句中可見</span></span><br><span class="line">  <span class="keyword">let</span> bar = foo*<span class="number">2</span>;</span><br><span class="line">  bar = <span class="title function_">something</span>(bar);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(bar);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ReferenceError</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(bar); </span><br></pre></td></tr></table></figure>
+<h2 id="提升-hoisting"><a class="header-anchor" href="#提升-hoisting"></a>提升(hoisting)</h2>
+<ul>
+<li>JavaScript環境建立時，會<strong>先將所有的變數、函數先存入記憶體位址中（但這過程並不包含指定給它們的值，其值會在原地等待被執行）</strong>，而這個會<strong>將宣告的變數、函式從原本撰寫的位置提升到程式碼最上端的行為也稱為hoisting</strong>。</li>
+</ul>
+<p>Ex. 變數的hoisting</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*透過console獲得a的值會得到 &#x27;undefined&#x27; 而非 &#x27;a is not defined&#x27; */</span></span><br><span class="line"><span class="comment">/*這裡就是因為hoisting的關係，變數a在一開始就被存入記憶體(但不包含值)，所以會是得到undefined(表示值不存在，但變數已經被宣告)。*/</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    執行過程等同：</span></span><br><span class="line"><span class="comment">    var a;</span></span><br><span class="line"><span class="comment">    console.log(a);</span></span><br><span class="line"><span class="comment">    a = 3;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<p>Ex2. 函式的hoisting</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*觀念同於變數，會先將函式名稱存入記憶體中，所以當console時可以得到值。*/</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">test</span>());</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Ex3. 函式裡面的變數</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*函式中的變數會hoisting到函式區塊的最上層(因為JS函式範疇的規範，所以不會跑出function scope)*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<div style="text-align:center;font-weight:bold;">力圖在這個世界上找尋可留下的感動，並用著文字扎實的記錄著。</div>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/30/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day34-position-%E5%AE%9A%E4%BD%8D/" rel="prev" title="連續記錄挑戰Day34-position 定位">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day34-position 定位
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/02/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day36-Javascript-%E9%81%8B%E7%AE%97%E5%BC%8F%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90/" rel="next" title="連續記錄挑戰Day36-Javascript-運算式與運算子">
+                  連續記錄挑戰Day36-Javascript-運算式與運算子 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

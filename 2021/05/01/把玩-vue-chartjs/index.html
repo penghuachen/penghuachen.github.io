@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 vue-chartjs 是基於 chart.js 服務封裝成 vue component 的圖表服務，基本上常見的圖表需求都可以透過這個服務達到目的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="把玩 vue-chartjs">
+<meta property="og:url" content="https://penghuachen.github.io/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="前言 vue-chartjs 是基於 chart.js 服務封裝成 vue component 的圖表服務，基本上常見的圖表需求都可以透過這個服務達到目的。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/3RiBUvM.png">
+<meta property="og:image" content="https://i.imgur.com/2BkyErz.png">
+<meta property="og:image" content="https://i.imgur.com/koVRF9Z.png">
+<meta property="og:image" content="https://i.imgur.com/nQVDmdF.png">
+<meta property="og:image" content="https://i.imgur.com/VQwvQA7.png">
+<meta property="og:image" content="https://i.imgur.com/eKi8eis.png">
+<meta property="og:image" content="https://i.imgur.com/lFuP0y2.png">
+<meta property="og:image" content="https://i.imgur.com/1gBkvyI.png">
+<meta property="og:image" content="https://i.imgur.com/TXyKUAa.png">
+<meta property="og:image" content="https://i.imgur.com/eqSkp43.png">
+<meta property="og:image" content="https://i.imgur.com/oXJIP70.png">
+<meta property="article:published_time" content="2021-05-01T03:29:39.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.836Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/3RiBUvM.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/","path":"2021/05/01/把玩-vue-chartjs/","title":"把玩 vue-chartjs"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>把玩 vue-chartjs | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-vue-chartjs-%E3%80%81-chart-js"><span class="nav-number">2.</span> <span class="nav-text">安裝 vue-chartjs 、 chart.js</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E5%BE%8C%E9%81%87%E5%88%B0%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E5%BE%8C%E5%B0%8E%E8%87%B4%E7%9A%84%E9%8C%AF%E8%AA%A4"><span class="nav-number">2.1.</span> <span class="nav-text">安裝後遇到版本更新後導致的錯誤</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E5%80%8B-vue-chart-js-%E5%9C%96%E8%A1%A8"><span class="nav-number">3.</span> <span class="nav-text">建立第一個 vue-chart.js 圖表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E4%B8%80%E5%80%8B-Line-Chart"><span class="nav-number">3.1.</span> <span class="nav-text">建立一個 Line Chart</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E-Line-Chart-%E4%B8%AD%E7%9A%84%E6%95%B8%E6%93%9A"><span class="nav-number">3.2.</span> <span class="nav-text">新增 Line Chart 中的數據</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">參考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="把玩 vue-chartjs | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          把玩 vue-chartjs
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-05-01 11:29:39" itemprop="dateCreated datePublished" datetime="2021-05-01T11:29:39+08:00">2021-05-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div style="text-align: center">
+  <img src="https://i.imgur.com/3RiBUvM.png">
+</div>
+<h2 id="前言"><a class="header-anchor" href="#前言"></a>前言</h2>
+<p>vue-chartjs 是基於 chart.js 服務封裝成 vue component 的圖表服務，基本上常見的圖表需求都可以透過這個服務達到目的。</p>
+<span id="more"></span>
+<p>由於筆者這陣子在專案中有使用圖表的需求，但要實作的功能只是簡單的將 API 回來的資料渲染到圖表上而已，並沒有辦法運用到這個服務的全部功能，所以筆者決定採用逐次更新的方式完善這個服務的學習。</p>
+<p>所以如果有興趣的讀者可以持續關注此篇幅，內容會不定期更新！</p>
+<p>那麼就趕緊進入主題吧！</p>
+<h2 id="安裝-vue-chartjs-、-chart-js"><a class="header-anchor" href="#安裝-vue-chartjs-、-chart-js"></a>安裝 vue-chartjs 、 chart.js</h2>
+<p>使用 vue-chartjs 時要同時安裝 chart.js 才可以，畢竟是基於 chart.js 封裝而來的服務。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn add vue-chartjs chart.js </span><br><span class="line"></span><br><span class="line">npm install vue-chartjs chart.js --save</span><br></pre></td></tr></table></figure>
+<h3 id="安裝後遇到版本更新後導致的錯誤"><a class="header-anchor" href="#安裝後遇到版本更新後導致的錯誤"></a>安裝後遇到版本更新後導致的錯誤</h3>
+<p>如果是大約 2021 年4月 之後使用這個服務的讀者可能會遇到以下的報錯：</p>
+<p><img src="https://i.imgur.com/2BkyErz.png" alt=""></p>
+<p><strong>報錯原因在於 chart.js 服務 v3 後的版本在 vue cli 中使用會有問題導致</strong></p>
+<p>然而將版本調降至 v2 的版本後就可以正常使用了</p>
+<p>這邊提供在 github 中這個 issue 的討論，有興趣的讀者可以持續關注這個問題是否已經被修正： <a target="_blank" rel="noopener" href="https://github.com/apertureless/vue-chartjs/issues/695">Chart.js 3.0 support #695</a>。</p>
+<p>不過尚未修正前，讀者們可能只能先暫時透過 v2 版本使用這個服務了。</p>
+<p>順帶一提，chat.js v2 與 v3 版本的文件可是不同的哦，附上連結：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.chartjs.org/docs/2.9.4/">前往 v2.9.4 文件(v2 最新版本)</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.chartjs.org/docs/latest/">前往 v3.2.0 文件(v3 最新版本)</a></li>
+</ul>
+<p>解決安裝時的小插曲後，接著來建立第一個圖表吧！</p>
+<h2 id="建立第一個-vue-chart-js-圖表"><a class="header-anchor" href="#建立第一個-vue-chart-js-圖表"></a>建立第一個 vue-chart.js 圖表</h2>
+<p>如果讀者有前往 <a target="_blank" rel="noopener" href="https://vue-chartjs.org/zh-cn/guide/#vue-%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6">vue-chart.js 文件</a> 閱讀的話第一次看會有幾點需要注意的部分：</p>
+<ul>
+<li><strong>圖表使用的元件不能使用 <code>&lt;template&gt;</code> 標籤</strong></li>
+<li><strong>更新圖表的幾種方式</strong></li>
+</ul>
+<p>至於不能使用 <code>&lt;template&gt;</code> 標籤的原因在文件中也有描述：</p>
+<blockquote>
+<p>不要使用Template標籤<br>
+不要在你的.vue文件中引入<code>&lt;template&gt;</code>標籤. Vue無法合併模板.如果你添加了一個空的<code>&lt;template&gt;</code>標籤, Vue將會從你的主鍵裡獲取模板,而不會從你extend中獲取,這將導致頁面為空並報錯.</p>
+</blockquote>
+<p>接著讓我們先從建立一個 Line Chart 開始：</p>
+<h3 id="建立一個-Line-Chart"><a class="header-anchor" href="#建立一個-Line-Chart"></a>建立一個 Line Chart</h3>
+<p>根據 <a target="_blank" rel="noopener" href="https://vue-chartjs.org/zh-cn/guide/#vue-%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6">vue-chart.js 文件</a> 可以梳理出一些步驟，假設今天要建立一個形式為 Line 的 chart ：</p>
+<ol>
+<li><strong>建立一個 component 將 vue-chartjs 封裝的 Line component 引入，</strong></li>
+<li><strong>extend vue-chartjs 封裝的 Line component</strong></li>
+<li><strong>建立 local data 或者取得由父層傳入的 props data</strong></li>
+<li><strong>透過 <code>renderChart()</code> 建立圖表</strong></li>
+</ol>
+<p>所以這邊我們建立一個 LineChart 元件，而資料與額外圖表的設定(<code>options</code>) 則由父層 props 進來：<br>
+<img src="https://i.imgur.com/koVRF9Z.png" alt=""></p>
+<p>一個基本的 Line 圖表我們已經建立好了，接著我們從父層 props data 到這個元件中:</p>
+<p><img src="https://i.imgur.com/nQVDmdF.png" alt=""></p>
+<p>data 的格式參考 <a target="_blank" rel="noopener" href="https://www.chartjs.org/docs/2.9.4/#creating-a-chart">chart.js</a> 服務中設定 data 的格式，這裡介紹一下這個 data 中的每個參數：</p>
+<ul>
+<li>第一層 <code>labels</code>: 類別軸定義，用於 x 軸(參考 <a target="_blank" rel="noopener" href="https://www.chartjs.org/docs/2.9.4/axes/cartesian/category.html">Category Cartesian Axis</a>)</li>
+<li><code>datasets</code>: 用來設定資料、樣式等等，依據圖表類型不同可設定的參數不一定相同(參考 <a target="_blank" rel="noopener" href="https://www.chartjs.org/docs/2.9.4/charts/">Charts</a>)</li>
+<li>第二層 <code>labels</code>: 顯示在圖表中對應的資料控制顯示，如下圖中的 「My First Dataset」
+<ul>
+<li><img src="https://i.imgur.com/VQwvQA7.png" alt=""></li>
+</ul>
+</li>
+<li><code>borderColor</code>, <code>pointBackgroundColor</code> 等：用於樣式設定</li>
+<li><code>options</code>: 該圖表的 config，如果有額外設定則需要寫在這裡</li>
+<li><code>resonsive</code>: 用於設定該圖表是否需要響應式(Responsive)(參考 <a target="_blank" rel="noopener" href="https://www.chartjs.org/docs/2.9.4/general/responsive.html">Responsive Charts</a>)</li>
+<li><code>maintainAspectRatio</code>: 用於設定縮放時是否維持 canvas 的大小(圖表是透過 canvas 渲染的)(參考 <a target="_blank" rel="noopener" href="https://www.chartjs.org/docs/2.9.4/general/responsive.html">Responsive Charts</a>)</li>
+<li><code>title</code>: 用於設定該圖表的標題(參考 <a target="_blank" rel="noopener" href="https://www.chartjs.org/docs/2.9.4/configuration/title.html">Title</a>)</li>
+</ul>
+<h3 id="新增-Line-Chart-中的數據"><a class="header-anchor" href="#新增-Line-Chart-中的數據"></a>新增 Line Chart 中的數據</h3>
+<p>如果還沒有查看文件中關於新增圖表數據相關說明的讀者，可能在新增資料時會很直接地認為是不是只要把新的 data push 到 <code>datasets</code> 中就好了。</p>
+<p>但很可惜並不是，在 <a target="_blank" rel="noopener" href="https://vue-chartjs.org/zh-cn/guide/#%E6%9B%B4%E6%96%B0-charts">更新Charts</a> 提到：</p>
+<blockquote>
+<p>如果你修改了數據集, Chart.js是不會提供實時更新的</p>
+</blockquote>
+<p>不過 vue-chart.js 提供了兩種方便我們更新數據的方式：</p>
+<ul>
+<li><code>reactiveProp</code></li>
+<li><code>reactiveData</code></li>
+</ul>
+<p>而這兩種方式的差別只在於<strong>資料是 local data 還是 props data 而已</strong></p>
+<p><strong>不過在使用 <code>reactiveProp</code> 或者 <code>reactiveData</code> 需要注意的一點是關於 data 參數的限定，只能是 <code>chartData</code>，否則就會有 props 的錯誤。</strong></p>
+<blockquote>
+<p>…<br>
+這兩個mixins其實實現的是相同的功能.大多數時間你將會使用 reactiveProp 它擴展了圖表組件的邏輯,並自動創建名為 chartData 的 prop s參數<br>
+…</p>
+</blockquote>
+<p>由於我們在前面建立的測試範例資料是 props 的，所以這裡我們要使用 <code>reactiveProp</code> ，並依據 vue-chart.js 要求的寫法設定：</p>
+<p><img src="https://i.imgur.com/eKi8eis.png" alt=""></p>
+<p>然後我們在父層設定一個用來新增一筆資料的 <code>updata</code> method:</p>
+<p><img src="https://i.imgur.com/lFuP0y2.png" alt=""></p>
+<p>當點擊按鈕 2 秒後就可以看到一筆新的數據被新增到圖表中了，是不是非常簡單呢？</p>
+<p>但也許會有讀者在想，有沒有辦法不要用 <code>chartData</code> 這個參數也一樣能更新圖表呢？</p>
+<p>答案是：有的！</p>
+<p>從文件中可以看到一段更新數據的描述：</p>
+<blockquote>
+<p>…<br>
+並為這個參數添加vue watch.當數據改變,如果數據在數據集中改變,它將調用 update();如果添加了新的數據集,它將調用 renderChart()<br>
+…</p>
+</blockquote>
+<p>從描述可以知道</p>
+<ul>
+<li>如果要新增資料，可以調用 <code>renderChart()</code></li>
+<li>如果要更新資料，可以調用 <code>update()</code></li>
+</ul>
+<p>這邊我們梳理出一些步驟來測試：</p>
+<ol>
+<li>將 <code>chartData</code> 命名變更為 <code>customChartData</code></li>
+<li>watch Line component 中 props 的 <code>customChartData</code></li>
+<li>如果資料有新增，調用 <code>renderChart()</code></li>
+<li>如果資料有更新，調用 <code>update()</code></li>
+</ol>
+<p>首先先看新增資料的時候，此時 Line component 的程式碼設計如圖：</p>
+<p><img src="https://i.imgur.com/1gBkvyI.png" alt=""></p>
+<p>父層為：</p>
+<p><img src="https://i.imgur.com/TXyKUAa.png" alt=""></p>
+<p>以上設定就可以不受命名的限制但依然可以新增資料到圖表囉！</p>
+<p>除了 <code>renderChart()</code> 之外，我們再來測試更新數據時要用到的 <code>update()</code></p>
+<p>而更新時則要透過這樣的方式使用 chart.js 中定義好的 <code>update()</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// delegate update method in __prtot__</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">$data</span>.<span class="property">_chart</span>.<span class="title function_">update</span>()</span><br></pre></td></tr></table></figure>
+<p>此時 Line component 的程式碼設計如圖：</p>
+<p><img src="https://i.imgur.com/eqSkp43.png" alt=""></p>
+<p>父層為：</p>
+<p><img src="https://i.imgur.com/oXJIP70.png" alt=""></p>
+<p>以上完成了一個基本 Line 圖表的呈現設定與更新數據，相關的測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/vue-chartjs-demo-9jtmk">點擊前往</a>。</p>
+<h2 id="參考"><a class="header-anchor" href="#參考"></a>參考</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://vue-chartjs.org/zh-cn/"> vue-chartjs</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.chartjs.org/">Chart.js</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"># Vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" rel="prev" title="整理 Vue2 中在元件裡達到雙向綁定的幾種方式">
+                  <i class="fa fa-chevron-left"></i> 整理 Vue2 中在元件裡達到雙向綁定的幾種方式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" rel="next" title="把玩 Leaflet">
+                  把玩 Leaflet <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

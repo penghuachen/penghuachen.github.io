@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="距離上一次的發文好像又隔了好一段時間(遠目)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="把玩 HTML Drag and Drop API">
+<meta property="og:url" content="https://penghuachen.github.io/2021/01/31/%E6%8A%8A%E7%8E%A9-HTML-Drag-and-Drop-API/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="距離上一次的發文好像又隔了好一段時間(遠目)">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/BrWK7Zo.gif">
+<meta property="og:image" content="https://i.imgur.com/cSGb7dh.gif">
+<meta property="og:image" content="https://i.imgur.com/sJuaxJH.gif">
+<meta property="og:image" content="https://i.imgur.com/T4VlHeX.gif">
+<meta property="og:image" content="https://i.imgur.com/BrWK7Zo.gif">
+<meta property="og:image" content="https://i.imgur.com/aPbMg1R.gif">
+<meta property="og:image" content="https://i.imgur.com/v5OiunQ.gif">
+<meta property="og:image" content="https://i.imgur.com/mY01dSD.gif">
+<meta property="article:published_time" content="2021-01-31T07:54:52.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.836Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="html5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/BrWK7Zo.gif">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2021/01/31/%E6%8A%8A%E7%8E%A9-HTML-Drag-and-Drop-API/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2021/01/31/%E6%8A%8A%E7%8E%A9-HTML-Drag-and-Drop-API/","path":"2021/01/31/把玩-HTML-Drag-and-Drop-API/","title":"把玩 HTML Drag and Drop API"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>把玩 HTML Drag and Drop API | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A2%B3%E7%90%86%E6%96%87%E7%AB%A0%E6%9E%B6%E6%A7%8B"><span class="nav-number">1.</span> <span class="nav-text">梳理文章架構</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3-Drag-and-Drop-API-%E7%9A%84%E7%94%A8%E9%80%94"><span class="nav-number">2.</span> <span class="nav-text">了解 Drag and Drop API 的用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3%E5%A6%82%E4%BD%95%E8%A8%AD%E5%AE%9A%E5%8F%AF%E6%8B%96%E6%9B%B3%E7%9A%84%E5%85%83%E7%B4%A0%E8%88%87%E5%8F%AF%E4%BB%A5%E6%94%BE%E7%BD%AE%E6%8B%96%E6%9B%B3%E5%85%83%E7%B4%A0%E7%9A%84%E5%8D%80%E5%A1%8A"><span class="nav-number">3.</span> <span class="nav-text">了解如何設定可拖曳的元素與可以放置拖曳元素的區塊</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A6%96%E5%85%88%EF%BC%8C%E7%94%B1%E3%80%8C%E4%BD%BF%E7%94%A8%E8%80%85%E9%81%B8%E5%8F%96%E5%88%B0%E4%B8%80%E5%80%8B%E5%8F%AF%E4%BB%A5%E8%A2%AB%E6%8B%96%E6%9B%B3-draggle-%E7%9A%84%E5%85%83%E7%B4%A0%E3%80%8D%E5%8F%AF%E4%BB%A5%E6%80%9D%E8%80%83%E5%88%B0%EF%BC%8C%E6%88%91%E5%80%91%E5%BF%85%E9%A0%88%E8%A8%AD%E5%AE%9A%E4%B8%80%E5%80%8B%E5%8F%AF%E4%BB%A5%E8%A2%AB%E6%8B%96%E6%9B%B3-draggle-%E7%9A%84%E5%85%83%E7%B4%A0%EF%BC%8C%E6%89%8D%E8%83%BD%E8%AE%93%E7%80%8F%E8%A6%BD%E5%99%A8%E5%88%86%E8%BE%A8%E5%93%AA%E4%BA%9B%E6%98%AF%E5%8F%AF%E4%BB%A5%E8%A2%AB%E6%8B%96%E6%9B%B3%E8%80%8C%E5%93%AA%E4%BA%9B%E4%B8%8D%E8%A1%8C%E3%80%82"><span class="nav-number">3.1.</span> <span class="nav-text">首先，由「使用者選取到一個可以被拖曳(draggle)的元素」可以思考到，我們必須設定一個可以被拖曳(draggle)的元素，才能讓瀏覽器分辨哪些是可以被拖曳而哪些不行。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E8%91%97%EF%BC%8C%E3%80%8C%E5%B0%87%E5%8F%AF%E8%A2%AB%E6%8B%96%E6%9B%B3%E7%9A%84%E5%85%83%E7%B4%A0%E6%8B%96%E6%9B%B3%E5%88%B0%E5%8F%AF%E4%BB%A5%E6%94%BE%E7%BD%AE%E6%8B%96%E6%9B%B3%E5%85%83%E7%B4%A0-dropple-%E7%9A%84%E5%8D%80%E5%A1%8A%E3%80%8D%E5%8F%AF%E4%BB%A5%E7%9F%A5%E9%81%93%E6%88%91%E5%80%91%E9%9C%80%E8%A6%81%E9%85%8D%E7%BD%AE%E4%B8%80%E5%A1%8A%E5%8F%AF%E4%BB%A5%E6%94%BE%E7%BD%AE%E6%8B%96%E6%9B%B3%E5%85%83%E7%B4%A0%E7%9A%84%E5%8D%80%E5%9F%9F%EF%BC%8C%E7%84%B6%E5%BE%8C%E5%B0%87%E5%85%83%E7%B4%A0%E6%94%BE%E7%BD%AE-drop-%E5%88%B0%E8%A9%B2%E5%8D%80%E5%A1%8A"><span class="nav-number">3.2.</span> <span class="nav-text">接著，「將可被拖曳的元素拖曳到可以放置拖曳元素(dropple)的區塊」可以知道我們需要配置一塊可以放置拖曳元素的區域，然後將元素放置(drop)到該區塊</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3%E4%BD%BF%E7%94%A8-Drag-and-Drop-API-%E6%99%82%E5%8F%AF%E4%BB%A5%E8%A7%B8%E7%99%BC%E7%9A%84%E4%BA%8B%E4%BB%B6-%E6%83%85%E5%A2%83"><span class="nav-number">4.</span> <span class="nav-text">了解使用 Drag and Drop API 時可以觸發的事件(情境)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%AA%9E%E6%B3%95%E7%9A%84%E7%B4%B0%E7%AF%80%E5%AD%B8%E7%BF%92"><span class="nav-number">5.</span> <span class="nav-text">其他語法的細節學習</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DataTransfer-%E7%89%A9%E4%BB%B6"><span class="nav-number">5.1.</span> <span class="nav-text">DataTransfer 物件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DataTransfer-%E7%89%A9%E4%BB%B6%E4%B8%AD%E7%9A%84-dropEffect-%E8%88%87-effectAllowed"><span class="nav-number">5.1.1.</span> <span class="nav-text">DataTransfer 物件中的 dropEffect 與 effectAllowed</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DataTransfer-%E7%89%A9%E4%BB%B6%E4%B8%AD%E7%9A%84-files"><span class="nav-number">5.1.2.</span> <span class="nav-text">DataTransfer 物件中的 files</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DataTransfer-%E7%89%A9%E4%BB%B6%E4%B8%AD%E7%9A%84-setData-getData-clearData"><span class="nav-number">5.1.3.</span> <span class="nav-text">DataTransfer 物件中的 setData(), getData(), clearData()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6-Demo"><span class="nav-number">6.</span> <span class="nav-text">測試 Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">7.</span> <span class="nav-text">參考來源</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2021/01/31/%E6%8A%8A%E7%8E%A9-HTML-Drag-and-Drop-API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="把玩 HTML Drag and Drop API | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          把玩 HTML Drag and Drop API
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-01-31 15:54:52" itemprop="dateCreated datePublished" datetime="2021-01-31T15:54:52+08:00">2021-01-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/html5/" itemprop="url" rel="index"><span itemprop="name">html5</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/html5/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>6.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>6 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>距離上一次的發文好像又隔了好一段時間(遠目)</p>
+<span id="more"></span>
+<p>但 2021 年都已經又快過完一個月了，怎麼還能不開張呢!!</p>
+<p>所以思來想去，最近剛好對於 HTML Drag and Drop API 的操作挺有興趣</p>
+<p>所以決定 2021 年的首發就從把玩 Drag and Drop API 開始吧！！</p>
+<h2 id="梳理文章架構"><a class="header-anchor" href="#梳理文章架構"></a>梳理文章架構</h2>
+<p>今天的篇幅會大致會拆分為如下幾個區塊:</p>
+<ol>
+<li>了解 Drag and Drop API 的用途</li>
+<li>了解如何設定可拖曳的元素與可以放置拖曳元素的區塊</li>
+<li>了解使用 Drag and Drop API 時可以觸發的事件(情境)</li>
+<li>其他語法的細節學習</li>
+<li>兩個測試 Demo</li>
+</ol>
+<p>接著，就讓我們趕緊來把玩這個 API 吧！！</p>
+<h2 id="了解-Drag-and-Drop-API-的用途"><a class="header-anchor" href="#了解-Drag-and-Drop-API-的用途"></a>了解 Drag and Drop API 的用途</h2>
+<p>想運用這些 API 之前，一定要先知道這些 API 的用途，了解這些 API 可以讓我們運用在哪些使用情境上。</p>
+<p>而 Drag and Drop API 透過單字的理解不難知道，這就是一個支援我們能夠在<mark>瀏覽器上拖曳元素及放置元素的 API</mark></p>
+<p>而這一個 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/drag_event#examples">MDN Example</a> 可以讓讀者更快了解如何使用，以及呈現的方式。</p>
+<p><img src="https://i.imgur.com/BrWK7Zo.gif" alt=""></p>
+<p>接著，讓我們來看看怎麼<strong>設定一個可拖曳的元素與一個可以放置拖曳元素的區塊</strong>吧！！</p>
+<h2 id="了解如何設定可拖曳的元素與可以放置拖曳元素的區塊"><a class="header-anchor" href="#了解如何設定可拖曳的元素與可以放置拖曳元素的區塊"></a>了解如何設定可拖曳的元素與可以放置拖曳元素的區塊</h2>
+<p>在寫程式時，為了可以更有效率的解決問題，所以我們<strong>在動手之前一定要先思考它的使用者流程會是怎麼運作。</strong></p>
+<p>以今天把玩的 Drag and Drop API 為例，我們會知道一個基本的拖曳與放置的流程會經過以下的流程:</p>
+<p><mark>1. 使用者選取到一個可以被拖曳(draggle)的元素<br>
+2. 將可被拖曳的元素拖曳到可以放置拖曳元素(dropple)的區塊<br>
+3. 將元素放置(drop)到該區塊</mark></p>
+<p>而上述的一個簡單的拖曳和放置的流程，我們可以搭配 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API#the_basics">MDN</a> 的部分來看看會用到哪些語法</p>
+<h3 id="首先，由「使用者選取到一個可以被拖曳-draggle-的元素」可以思考到，我們必須設定一個可以被拖曳-draggle-的元素，才能讓瀏覽器分辨哪些是可以被拖曳而哪些不行。"><a class="header-anchor" href="#首先，由「使用者選取到一個可以被拖曳-draggle-的元素」可以思考到，我們必須設定一個可以被拖曳-draggle-的元素，才能讓瀏覽器分辨哪些是可以被拖曳而哪些不行。"></a><strong>首先，由「使用者選取到一個可以被拖曳(draggle)的元素」可以思考到，我們必須設定一個可以被拖曳(draggle)的元素</strong>，才能讓瀏覽器分辨哪些是可以被拖曳而哪些不行。</h3>
+<p>而設定上也很簡單，只是加上 <code>draggable=&quot;true&quot;</code> 即可。</p>
+<p>這邊附上最後要呈現的其中一個小測試 Demo 的程式碼：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p id=&quot;drag-text&quot; draggable=&quot;true&quot;&gt;This is a draggable text&lt;/p&gt;</span><br></pre></td></tr></table></figure>
+<p>然後為了知道這個可拖曳(draggle)的元素什麼時候會被拖曳(drag)，我們需要<strong>替它註冊一個 dragstart 事件，在元素被拖曳時觸發。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dragText = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#drag-text&quot;</span>);</span><br><span class="line">dragText.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragstart&quot;</span>, dragStart);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">dragStart</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drag start!&#x27;</span>);</span><br><span class="line">  e.<span class="property">dataTransfer</span>.<span class="title function_">setData</span>(<span class="string">&quot;text/plain&quot;</span>, e.<span class="property">target</span>.<span class="property">id</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你也許會困惑 <code>e.dataTransfer.setData(&quot;text/plain&quot;, e.target.id)</code> 這一行程式碼的用途，這邊可以先簡單理解，<strong>瀏覽器會需要將正在拖曳的元素相關的數據儲存起來做後續的應用</strong>，所以當元素觸發 <code>dragstart</code> 事件時，必須執行上述該行的程式碼。</p>
+<p>這邊我們先看看有沒有成功註冊了 <code>dragstart</code> 事件：</p>
+<p><img src="https://i.imgur.com/cSGb7dh.gif" alt=""></p>
+<h3 id="接著，「將可被拖曳的元素拖曳到可以放置拖曳元素-dropple-的區塊」可以知道我們需要配置一塊可以放置拖曳元素的區域，然後將元素放置-drop-到該區塊"><a class="header-anchor" href="#接著，「將可被拖曳的元素拖曳到可以放置拖曳元素-dropple-的區塊」可以知道我們需要配置一塊可以放置拖曳元素的區域，然後將元素放置-drop-到該區塊"></a>接著，「將可被拖曳的元素拖曳到可以放置拖曳元素(dropple)的區塊」可以知道我們需要配置一塊可以放置拖曳元素的區域，然後將元素放置(drop)到該區塊</h3>
+<p>在 HTML 中我們配置一個簡單的區塊如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#ebeaea</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然後我們需要替這個區塊註冊兩個事件： <code>dragover</code> 與 <code>drop</code></p>
+<ul>
+<li><code>dragover</code> 事件<strong>會以每幾百毫秒的時間間隔來偵測拖曳元素是不是位於可以放置拖曳元素的區塊</strong>，</li>
+<li><code>drop</code> 事件則是<strong>當被拖曳中元素於可以放置拖曳元素的區塊被使用者放開時會觸發</strong></li>
+</ul>
+<p>接著讓我們看看這兩個事件的設計:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.box&quot;</span>);</span><br><span class="line">box.<span class="title function_">addEventListener</span>(<span class="string">&quot;drop&quot;</span>, drop)</span><br><span class="line"></span><br><span class="line">box.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragover&quot;</span>, dragOver);</span><br><span class="line">box.<span class="title function_">addEventListener</span>(<span class="string">&quot;drop&quot;</span>, drop);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">dragOver</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drag over!&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">drop</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drop&#x27;</span>);  </span><br><span class="line">  <span class="keyword">const</span> data = e.<span class="property">dataTransfer</span>.<span class="title function_">getData</span>(<span class="string">&quot;text/plain&quot;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line">  e.<span class="property">target</span>.<span class="title function_">appendChild</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(data));</span><br><span class="line">  e.<span class="property">dataTransfer</span>.<span class="title function_">clearData</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這邊會困惑的點可能會有兩點：</p>
+<ol>
+<li>為什麼需要使用 <code>e.preventDefault()</code>？</li>
+<li><code>e.dataTransfer.getData(&quot;text/plain&quot;);</code> 與 <code>e.dataTransfer.clearData();</code> 在此時的用途是？</li>
+</ol>
+<p>首先先解答第一點，為什麼需要使用 <code>e.preventDefault()</code>？原因是因為瀏覽器中可以被觸發的事件其實非常多，並且<mark>時常在觸發某個事件時也同時觸發了另一個事件</mark>，最常見之一莫過於<strong>同時觸發了 <code>click</code> 與 <code>blur</code> 事件造成的一些小困擾</strong>。</p>
+<p>而拖曳事件同樣也會有這個問題，所以透過 <code>e.preventDefault()</code> 來<mark>阻止這個事件觸發時，也有額外的事件觸發</mark></p>
+<p>接著是第二點，還是記得剛剛前面簡單瞭解的 <code>e.dataTransfer.setData(&quot;text/plain&quot;, e.target.id)</code> 嗎？ 我們把拖曳相關的狀態記錄起來，並在 <code>drop</code> 事件被觸發時可以透過 <code>e.dataTransfer.getData(&quot;text/plain&quot;);</code> 的方式<mark>取得這個我們儲存的拖曳元素</mark>，然後透過 <code>appendChild</code> 等等的方式將元素放置(drop)到該區塊。</p>
+<p>而 <code>e.dataTransfer.clearData();</code> 則是用來清除這個我們儲存的拖曳元素的狀態</p>
+<p>來看看實際執行的成果吧！！</p>
+<p><img src="https://i.imgur.com/sJuaxJH.gif" alt=""></p>
+<p>以上就完成一個簡單的拖放元素的操作囉!!蠻有趣而且 API 使用上也不會很難～</p>
+<h2 id="了解使用-Drag-and-Drop-API-時可以觸發的事件-情境"><a class="header-anchor" href="#了解使用-Drag-and-Drop-API-時可以觸發的事件-情境"></a>了解使用 Drag and Drop API 時可以觸發的事件(情境)</h2>
+<p>在前面我們完成了一個簡單的測試範例，接著要來看看除了上面提到的事件之外，我們還可以運用哪些事件。</p>
+<p>這裡不賣關子，直接上測試範例的程式碼和執行結果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dragText = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;#drag-text&quot;</span>);</span><br><span class="line">dragText.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragstart&quot;</span>, drag);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.box&quot;</span>);</span><br><span class="line">box.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragover&quot;</span>, dragOver);</span><br><span class="line">box.<span class="title function_">addEventListener</span>(<span class="string">&quot;drop&quot;</span>, drop);</span><br><span class="line">box.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragenter&quot;</span>, dragEnter);</span><br><span class="line">box.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragleave&quot;</span>, dragLeave);</span><br><span class="line">box.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragend&quot;</span>, dragEnd);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">drag</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drag start!&#x27;</span>);</span><br><span class="line">  e.<span class="property">dataTransfer</span>.<span class="title function_">setData</span>(<span class="string">&quot;text/plain&quot;</span>, e.<span class="property">target</span>.<span class="property">id</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">dragOver</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drag over!&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">drop</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drop&#x27;</span>);  </span><br><span class="line">  <span class="keyword">const</span> data = e.<span class="property">dataTransfer</span>.<span class="title function_">getData</span>(<span class="string">&quot;text/plain&quot;</span>);</span><br><span class="line">  e.<span class="property">target</span>.<span class="title function_">appendChild</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(data));</span><br><span class="line">  e.<span class="property">dataTransfer</span>.<span class="title function_">clearData</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">dragEnter</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drag enter!&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">dragLeave</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drag leave!&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">dragEnd</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drag end!&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/T4VlHeX.gif" alt=""></p>
+<ul>
+<li><code>dragstart</code>: 可拖曳元素<strong>開始被拖曳時</strong>觸發</li>
+<li><code>dragover</code>: 可拖曳元素<strong>進入</strong>到可放置拖曳元素的區塊時觸發</li>
+<li><code>dragEnter</code>: 可拖曳元素<strong>進入</strong>到可放置拖曳元素的區塊時觸發</li>
+<li><code>dragLeave</code>: 可拖曳元素<strong>離開</strong>到可放置拖曳元素的區塊時觸發</li>
+<li><code>dragEnd</code>:  <strong>一個拖曳操作完成時</strong>觸發</li>
+<li><code>drop</code>: 可拖曳元素<strong>放置</strong>在可放置拖曳元素的區塊時觸發</li>
+</ul>
+<p>而這些事件可以讓我們在拖曳過程中額外做很多事情，如同上面提到的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Document/drag_event#examples">MDN Example</a> ，在拖曳過程中的背景顏色等等的改變都是可以在這些事件中額外設定。</p>
+<p><img src="https://i.imgur.com/BrWK7Zo.gif" alt=""></p>
+<h2 id="其他語法的細節學習"><a class="header-anchor" href="#其他語法的細節學習"></a>其他語法的細節學習</h2>
+<p>這個部分要來看的是 <code>DataTransfer</code> 物件中提供的一些方法和特性：</p>
+<ol>
+<li><code>dropEffect</code></li>
+<li><code>effectAllowed</code></li>
+<li><code>files</code></li>
+<li><code>setData()</code></li>
+<li><code>getData()</code></li>
+<li><code>clearData()</code></li>
+</ol>
+<h3 id="DataTransfer-物件"><a class="header-anchor" href="#DataTransfer-物件"></a><code>DataTransfer</code> 物件</h3>
+<p>這個物件是瀏覽器用來<strong>保存拖放操作期間要拖動的數據而建立的物件</strong>。</p>
+<h4 id="DataTransfer-物件中的-dropEffect-與-effectAllowed"><a class="header-anchor" href="#DataTransfer-物件中的-dropEffect-與-effectAllowed"></a><code>DataTransfer</code> 物件中的 <code>dropEffect</code> 與 <code>effectAllowed</code></h4>
+<p>而這個物件提供了 <code>dropEffect</code> 與 <code>effectAllowed</code> 兩個特性來判定拖曳過程時 <mark>鼠標的樣式呈現與是否是一個符合當前拖曳操作類型的行為</mark>，可以透過這兩個特性來規定。</p>
+<p>首先先看看 <code>dropEffect</code> 的效果，有四種值可設定：</p>
+<ul>
+<li><code>none</code></li>
+<li><code>copy</code></li>
+<li><code>link</code></li>
+<li><code>move</code></li>
+</ul>
+<p>這裡擷取設定 <code>dropEffect</code> 的程式碼方便讀者閱讀:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">dragOver</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drag over!&#x27;</span>);</span><br><span class="line">  e.<span class="property">dataTransfer</span>.<span class="property">dropEffect</span> = <span class="string">&quot;copy&quot;</span>; <span class="comment">// control how cursor displays</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>當我們將 <code>dropEffect</code> 效果設定為 <code>copy</code> 時：</p>
+<p><img src="https://i.imgur.com/aPbMg1R.gif" alt=""></p>
+<p>可以清楚看見鼠標樣式與前面的測試範例長得非常不同，適用於 <code>copy</code> 時鼠標的呈現。</p>
+<p>接著是 <code>effectAllowed</code> 用來判定當前的拖曳操作是否為符合的操作，有九種值可設定：</p>
+<ul>
+<li><code>none</code></li>
+<li><code>copy</code></li>
+<li><code>link</code></li>
+<li><code>move</code></li>
+<li><code>copyLink</code></li>
+<li><code>copyMove</code></li>
+<li><code>linkMove</code></li>
+<li><code>all</code></li>
+<li><code>uninitialized</code></li>
+</ul>
+<p>為了更便於理解，這邊設定一個測試情境：</p>
+<p><strong><code>dropEffect</code> 設定為 <code>copy</code> 的情境，但是 <code>effectAllowed</code> 卻是 <code>move</code></strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">dragStart</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drag start!&#x27;</span>);</span><br><span class="line">  <span class="comment">// console.log(e);</span></span><br><span class="line">  e.<span class="property">dataTransfer</span>.<span class="title function_">setData</span>(<span class="string">&quot;text/plain&quot;</span>, e.<span class="property">target</span>.<span class="property">id</span>)</span><br><span class="line">  event.<span class="property">dataTransfer</span>.<span class="property">effectAllowed</span> = <span class="string">&quot;move&quot;</span>; <span class="comment">// limit what drag effect is allowed</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">dragOver</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drag over!&#x27;</span>);</span><br><span class="line">  e.<span class="property">dataTransfer</span>.<span class="property">dropEffect</span> = <span class="string">&quot;copy&quot;</span>; <span class="comment">// control how cursor displays</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同樣的來看看效果：</p>
+<p><img src="https://i.imgur.com/v5OiunQ.gif" alt=""></p>
+<p>會發現因為允許的拖曳操作為 <code>move</code>，但當前的拖曳操作行為為 <code>copy</code> ，因此無法成功放置拖曳元素。</p>
+<h4 id="DataTransfer-物件中的-files"><a class="header-anchor" href="#DataTransfer-物件中的-files"></a><code>DataTransfer</code> 物件中的 <code>files</code></h4>
+<p><mark>當使用情境是從本地拖曳一個文件類型的資料到可以放置拖曳元素的區域時，<code>files</code> 中會記錄這個資料相關的資訊</mark></p>
+<p>這裡我們透過從本地拖曳一張圖片來觀察 <code>files</code> 的變化：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">drop</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;drop&#x27;</span>); </span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(e.<span class="property">dataTransfer</span>.<span class="property">files</span>[<span class="number">0</span>]);  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/mY01dSD.gif" alt=""></p>
+<p>這個方式讓我們可以做出好比說像是<strong>拖曳本地圖片到瀏覽器中特地位置然後預覽</strong>的的效果，很是方便呢！！</p>
+<h4 id="DataTransfer-物件中的-setData-getData-clearData"><a class="header-anchor" href="#DataTransfer-物件中的-setData-getData-clearData"></a><code>DataTransfer</code> 物件中的 <code>setData()</code>, <code>getData()</code>, <code>clearData()</code></h4>
+<p><code>setData()</code> 允許我們將拖曳操作的資料<strong>設定為指定的數據和類型</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> dataTransfer.<span class="title function_">setData</span>(format, data);</span><br></pre></td></tr></table></figure>
+<p>這裡的 <code>format</code> 指的是 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Basics_of_HTTP/MIME_types">MIME TYPE</a> 規範的規則，有興趣的讀者可以前往閱讀。</p>
+<p>而 <code>data</code> 則是我們指定要拖曳的元素所儲存的資料。</p>
+<p>然後透過 <code>getData()</code> 取出符合類型的拖曳資料，我們就可以執行後續的想要的操作</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataTransfer.<span class="title function_">getData</span>(format);</span><br></pre></td></tr></table></figure>
+<p>而 <code>clearData()</code> 則是用來刪除剛剛給定類型的資料</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dataTransfer.<span class="title function_">clearData</span>([format]);</span><br></pre></td></tr></table></figure>
+<h2 id="測試-Demo"><a class="header-anchor" href="#測試-Demo"></a>測試 Demo</h2>
+<p>文章的最後不免俗的要將今天學習的部分做個測試範例，當作本篇幅的最後總結</p>
+<p>這邊提供筆者在測試時所做的範例提供給有興趣的讀者測試看看囉!!</p>
+<ul>
+<li>相關測試範例： <a target="_blank" rel="noopener" href="https://codesandbox.io/s/vigorous-star-2vzg6?file=/index.html">點擊前往</a>。</li>
+<li>筆者的 <a target="_blank" rel="noopener" href="https://github.com/penghuachen">Github</a></li>
+</ul>
+<h2 id="參考來源"><a class="header-anchor" href="#參考來源"></a>參考來源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API#the_basics">HTML Drag and Drop API</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer">DataTransfer</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/getData">DataTransfer.getData()</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/clearData">DataTransfer.clearData()</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/setData">DataTransfer.setData（）</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/Drag_operations#draggableattribute">Drag Operations</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/Basics_of_HTTP/MIME_types">MIME 類別 (IANA 媒體類別)</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+              <a href="/tags/html5/" rel="tag"># html5</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/10/%E9%80%8F%E9%81%8E-CSS-%E5%88%97%E5%8D%B0-print-%E8%A8%AD%E5%AE%9A%E7%B6%B2%E9%A0%81%E5%88%97%E5%8D%B0%E6%99%82%E7%9A%84%E6%A8%A3%E5%BC%8F/" rel="prev" title="透過 CSS 列印(print) 設定網頁列印時的樣式">
+                  <i class="fa fa-chevron-left"></i> 透過 CSS 列印(print) 設定網頁列印時的樣式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/02/27/Free-Cell-%E6%96%B0%E6%8E%A5%E9%BE%8D/" rel="next" title="Free Cell 新接龍">
+                  Free Cell 新接龍 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

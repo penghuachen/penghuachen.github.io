@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="CSS modules CSS modules 是另外一種可以用來設定元件樣式的方式，但這個部分需要修改 webpack 中的設定，所以今天就來看看怎麼修改以及需要注意的細節吧！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS modules">
+<meta property="og:url" content="https://penghuachen.github.io/2020/09/27/CSS-modules/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="CSS modules CSS modules 是另外一種可以用來設定元件樣式的方式，但這個部分需要修改 webpack 中的設定，所以今天就來看看怎麼修改以及需要注意的細節吧！">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/tiiXLd6.png">
+<meta property="article:published_time" content="2020-09-27T02:36:38.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.828Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/tiiXLd6.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/09/27/CSS-modules/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/09/27/CSS-modules/","path":"2020/09/27/CSS-modules/","title":"CSS modules"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CSS modules | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS-modules"><span class="nav-number">1.</span> <span class="nav-text">CSS modules</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Webpack-%E8%A8%AD%E5%AE%9A%E8%97%8F%E5%9C%A8%E5%93%AA%E8%A3%A1"><span class="nav-number">1.0.1.</span> <span class="nav-text">Webpack 設定藏在哪裡?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-webpack-%E4%B8%AD-css-loader-%E7%9A%84%E8%A8%AD%E5%AE%9A"><span class="nav-number">1.1.</span> <span class="nav-text">修改 webpack 中 css-loader 的設定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%8F%E9%81%8E-file-modules-css-%E7%9A%84%E6%96%B9%E5%BC%8F%E4%BD%BF%E7%94%A8-css-module"><span class="nav-number">1.2.</span> <span class="nav-text">透過 file.modules.css 的方式使用 css module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%BA%90"><span class="nav-number">1.3.</span> <span class="nav-text">資源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/09/27/CSS-modules/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CSS modules | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS modules
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-09-27 10:36:38" itemprop="dateCreated datePublished" datetime="2020-09-27T10:36:38+08:00">2020-09-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="CSS-modules"><a class="header-anchor" href="#CSS-modules"></a>CSS modules</h1>
+<p>CSS modules 是另外一種可以用來設定元件樣式的方式，但這個部分需要修改 webpack 中的設定，所以今天就來看看怎麼修改以及需要注意的細節吧！</p>
+<span id="more"></span>
+<h3 id="Webpack-設定藏在哪裡"><a class="header-anchor" href="#Webpack-設定藏在哪裡"></a>Webpack 設定藏在哪裡?</h3>
+<p>如果是透過 <code>npx create-react-app</code> 建立的專案，<strong>webpack 的設定預設是隱藏起來的</strong>，所以這時候要透過這個指令打開:</p>
+<p>這個指令的用途在於將所有 webpack 配置的部分顯示出來，這對於我們如果需要額外有客製化(如 webpack 的設定)時可以使用。</p>
+<p>但有個在使用上的前提，依據官方的描述:</p>
+<blockquote>
+<p>Note: this is a one-way operation. Once you eject, you can’t go back!</p>
+</blockquote>
+<p><strong>這是一項不可逆的指令</strong>，一旦執行後就無法再將這個專案回到使用 <code>npm run eject</code> 之前的狀態。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run eject</span><br></pre></td></tr></table></figure>
+<p>還有這邊要注意的是在執行這個指令之前需要先將專案 commit 起來後才可以執行，否則會出現提示先完成當前專案的修改後再執行的訊息。</p>
+<p>執行之後，觀察一下專案中 <code>package.json</code> 這隻檔案，會發現 create-creat-app 多了很多的配置，此外也會出現 config、scripts 這兩個資料夾。</p>
+<p>由於沒辦法預測使用者究竟會需要哪些配置，所以才會預先安裝了這麼多套件與設定在 create-react-app 中。</p>
+<p>接著，我們要修改一下 webpack 的設定:</p>
+<h2 id="修改-webpack-中-css-loader-的設定"><a class="header-anchor" href="#修改-webpack-中-css-loader-的設定"></a>修改 webpack 中 css-loader 的設定</h2>
+<p>這邊需要注意的部分是在 <strong>css-loader 的版本問題，在 3.0.0 的版本後，對於 <code>localIdentName</code> 的配置上不太一樣，這部分來看看文件 <a target="_blank" rel="noopener" href="https://github.com/webpack-contrib/css-loader/blob/master/CHANGELOG.md#300-2019-06-11">3.0.0 (2019-06-11)</a>的 README:</strong></p>
+<blockquote>
+<p>…略<br>
+modules option now can be {Object} and allow to setup CSS Modules options:</p>
+<ul>
+<li>localIdentName option was removed in favor modules.localIdentName option<br>
+…略</li>
+</ul>
+</blockquote>
+<p>這代表在使用上原本的寫法是這樣:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...略</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">use</span>: &#123;</span><br><span class="line">  <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">    <span class="attr">options</span>: &#123;</span><br><span class="line">      <span class="attr">sourceMap</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">importLoaders</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">localIdentName</span>: <span class="string">&#x27;[name]__[local]___[hash:base64:5]&#x27;</span>, </span><br><span class="line">      <span class="attr">modules</span>: <span class="literal">true</span> </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...略</span></span><br></pre></td></tr></table></figure>
+<p><strong>在 3.0.0 的版本後要調整成如下的寫法:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...略=</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">use</span>: &#123;</span><br><span class="line">  <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>,</span><br><span class="line">    <span class="attr">options</span>: &#123;</span><br><span class="line">      <span class="attr">sourceMap</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="attr">importLoaders</span>: <span class="number">2</span>,</span><br><span class="line">      <span class="attr">modules</span>: &#123;</span><br><span class="line">        <span class="attr">localIdentName</span>: <span class="string">&#x27;[name]__[local]__[hash:base64:5]&#x27;</span></span><br><span class="line">      &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...略</span></span><br></pre></td></tr></table></figure>
+<p><strong>其中 <code>localIdentName</code> 的意思是在使用 css module 下要產生的 class 名稱</strong>，而 <code>'[name]__[local]__[hash:base64:5]'</code> 則是產生後的格式，以這個格式而言，會是如下呈現:</p>
+<p><code>index__Card__M1d8z</code></p>
+<p>在 create-reate-app 的 webpack.config.js 中，應該會看到類似如下的程式碼:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">test</span>: cssRegex,</span><br><span class="line">  <span class="attr">exclude</span>: cssModuleRegex,</span><br><span class="line">  <span class="attr">use</span>: <span class="title function_">getStyleLoaders</span>(&#123;</span><br><span class="line">    <span class="attr">importLoaders</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">sourceMap</span>: isEnvProduction &amp;&amp; shouldUseSourceMap,</span><br><span class="line">    <span class="comment">// 新增這一行</span></span><br><span class="line">    <span class="attr">modules</span>: &#123;</span><br><span class="line">      <span class="attr">localIdentName</span>: <span class="string">&#x27;[name]__[local]__[hash:base64:5]&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="comment">// Don&#x27;t consider CSS imports dead code even if the</span></span><br><span class="line">  <span class="comment">// containing package claims to have no side effects.</span></span><br><span class="line">  <span class="comment">// Remove this when webpack adds a warning or an error for this.</span></span><br><span class="line">  <span class="comment">// See https://github.com/webpack/webpack/issues/6571</span></span><br><span class="line">  <span class="attr">sideEffects</span>: <span class="literal">true</span>,</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>完成 webpack 的重新配置後，記得要重啟專案才會生效哦！</p>
+<p>接著我們先將 Card 元件建立起來:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">&#x27;./index.css&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(styles)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Card</span> = (<span class="params"></span>) =&gt; (</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;styles.Card&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>This is a card.<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>card content...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Card</span>;</span><br></pre></td></tr></table></figure>
+<p>如果透過 <code>console</code> 查看 <code>styles</code> 的值，會得到如下的呈現:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="title class_">Card</span>-<span class="attr">div</span>: <span class="string">&quot;index__Card__M1d8z&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果可以成功看到這段結果，這代表已經可以像是使用物件特性(property)般那樣使用 <code>Card-div</code> 了</p>
+<p>最後讓我們在元件中使用 css module 的方式來設定樣式吧!</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* card.css */</span></span><br><span class="line"><span class="selector-class">.Card-div</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#8d8d8d</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">20px</span> auto;</span><br><span class="line">  <span class="attribute">text-align</span>: center;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">900px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@media</span> (<span class="attribute">max-width</span>: <span class="number">700px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.Card-div</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">500px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這裡簡單設定了 <code>Card</code> 元件的樣式以及在裝置尺寸小於 <code>700px</code> 時會將寬度修改為 <code>500px</code>。</p>
+<p>沒意外的話應該可以成功看到樣式設定後的結果囉</p>
+<p><img src="https://i.imgur.com/tiiXLd6.png" alt=""></p>
+<h2 id="透過-file-modules-css-的方式使用-css-module"><a class="header-anchor" href="#透過-file-modules-css-的方式使用-css-module"></a>透過 file.modules.css 的方式使用 css module</h2>
+<p>最後要提的部分是，如果是透過 create-react-app 建立起來的專案，還在 webpack 的設定中應該會發現這一段設定與註解：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... 略</span></span><br><span class="line"><span class="comment">// Adds support for CSS Modules (https://github.com/css-modules/css-modules)</span></span><br><span class="line"><span class="comment">// using the extension .module.css</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">test</span>: cssModuleRegex,</span><br><span class="line">  <span class="attr">use</span>: <span class="title function_">getStyleLoaders</span>(&#123;</span><br><span class="line">    <span class="attr">importLoaders</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">sourceMap</span>: isEnvProduction &amp;&amp; shouldUseSourceMap,</span><br><span class="line">    <span class="attr">modules</span>: &#123;</span><br><span class="line">      <span class="attr">getLocalIdent</span>: getCSSModuleLocalIdent,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;),</span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">// Opt-in support for SASS (using .scss or .sass extensions).</span></span><br><span class="line"><span class="comment">// By default we support SASS Modules with the</span></span><br><span class="line"><span class="comment">// extensions .module.scss or .module.sass</span></span><br></pre></td></tr></table></figure>
+<p>這代表我們可以透過將 <code>index.css</code> 檔案名稱修改為 <code>index.module.css</code>，一樣可以向前面那樣將 css 當作 property 來使用。</p>
+<p>這裡我們額外建立一個 <code>CardTwo</code> 元件，讓這個元件的樣式設定和前一個相同:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">&#x27;./index.module.css&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(styles)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">CardTwo</span> = (<span class="params"></span>) =&gt; (</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;styles.Card&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>This is a card two.<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>card content...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">CardTwo</span>;</span><br></pre></td></tr></table></figure>
+<p>需要注意的是 css 檔案與剛剛不同，變成了 index.module.css。</p>
+<p>而如果喜歡撰寫 scss 的開發者，這個方式一樣適用哦，只需要將檔名更改為 index.module.scss 即可</p>
+<p>關於 css module 的學習就先這樣囉！</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<h2 id="資源"><a class="header-anchor" href="#資源"></a>資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/webpack-contrib/css-loader/blob/master/CHANGELOG.md#300-2019-06-11">Webpack changelog</a></li>
+<li><a target="_blank" rel="noopener" href="https://create-react-app.dev/docs/available-scripts/#npm-run-eject">npm run eject</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/26/Styled-Component/" rel="prev" title="Styled Component">
+                  <i class="fa fa-chevron-left"></i> Styled Component
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/09/28/Higher-order-component-HOC/" rel="next" title="Higher order component(HOC)">
+                  Higher order component(HOC) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

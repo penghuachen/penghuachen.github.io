@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Styled Component 今天要學習的部分是在 React 中用來管理元件(Component)樣式(styling)的方式: styled component 與 CSS modules，而這兩種方式在使用上也不太一樣:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Styled Component">
+<meta property="og:url" content="https://penghuachen.github.io/2020/09/26/Styled-Component/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="Styled Component 今天要學習的部分是在 React 中用來管理元件(Component)樣式(styling)的方式: styled component 與 CSS modules，而這兩種方式在使用上也不太一樣:">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/PfB5VMh.png">
+<meta property="og:image" content="https://i.imgur.com/ofBIxn4.png">
+<meta property="article:published_time" content="2020-09-26T01:12:00.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.832Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/PfB5VMh.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/09/26/Styled-Component/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/09/26/Styled-Component/","path":"2020/09/26/Styled-Component/","title":"Styled Component"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Styled Component | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Styled-Component"><span class="nav-number">1.</span> <span class="nav-text">Styled Component</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%99%E7%B1%A4%E6%A8%A3%E6%9D%BF%E5%AD%97%E9%9D%A2%E5%80%BC-tagged-template-literal"><span class="nav-number">1.1.</span> <span class="nav-text">標籤樣板字面值(tagged template literal)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Styled-Component-%E5%88%9D%E6%8E%A2%E8%88%87%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">Styled Component 初探與使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A4%8E%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">基礎使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E6%93%9A%E6%A2%9D%E4%BB%B6%E5%81%9A%E4%B8%8D%E5%90%8C%E7%9A%84%E6%A8%A3%E5%BC%8F%E6%B8%B2%E6%9F%93"><span class="nav-number">1.2.2.</span> <span class="nav-text">依據條件做不同的樣式渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%B4%E5%B1%95-Extending-%E6%A8%A3%E5%BC%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">擴展(Extending)樣式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scss-like-%E7%9A%84%E6%92%B0%E5%AF%AB%E9%A2%A8%E6%A0%BC"><span class="nav-number">1.2.4.</span> <span class="nav-text">scss-like 的撰寫風格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8B%95%E7%95%AB%E7%9A%84%E6%92%B0%E5%AF%AB%E8%A8%AD%E5%AE%9A"><span class="nav-number">1.2.5.</span> <span class="nav-text">動畫的撰寫設定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%BA%90"><span class="nav-number">1.3.</span> <span class="nav-text">資源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/09/26/Styled-Component/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Styled Component | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Styled Component
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-09-26 09:12:00" itemprop="dateCreated datePublished" datetime="2020-09-26T09:12:00+08:00">2020-09-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>5.5k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Styled-Component"><a class="header-anchor" href="#Styled-Component"></a>Styled Component</h1>
+<p>今天要學習的部分是在 React 中用來管理元件(Component)樣式(styling)的方式: styled component 與 CSS modules，而這兩種方式在使用上也不太一樣:</p>
+<span id="more"></span>
+<ul>
+<li>styled component: 是一套讓我們可以在 <strong>JSX 中撰寫 css</strong> 的 libaray(CSS-In-JS)</li>
+<li>CSS modules: 透過<strong>修改 webpack 的設定</strong>，將 css 的 selector <strong>當成是 module 的 property 來使用</strong></li>
+</ul>
+<p>讓我們趕緊看看怎麼使用吧!</p>
+<h2 id="標籤樣板字面值-tagged-template-literal"><a class="header-anchor" href="#標籤樣板字面值-tagged-template-literal"></a>標籤樣板字面值(tagged template literal)</h2>
+<p>由於 Styled Component 的撰寫方式是使用了 ES6 推出的功能: <strong>標籤樣板字面值(tagged template literal)</strong>，所以我們先來了解一下其使用的方式吧。</p>
+<p>首先先看看在 MDN 的定義:</p>
+<blockquote>
+<p>標籤樣板字面值是一種更高級的樣板字面值形式，允許你透過標籤函數操作樣板字面值的輸出。</p>
+</blockquote>
+<p>什麼是標籤韓式操作樣板字面值？相信閱讀起來一定不是那麼好理解，所以這邊我們首先先需要記住的部分是它的一些規則：</p>
+<ul>
+<li>標籤函數的第一個參數是一字串陣列</li>
+<li>其餘參數則是處理過的表達式</li>
+</ul>
+<p>在文件中提到了這兩個規則，接著，讓我們搭配一些簡單的範例來了解：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">arr, params</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(arr);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(params);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo<span class="string">`Hello tagged template literal!`</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>在函式名稱後接上樣板字面值的設定方式，就是前面提到的標籤函數</strong>，這邊可以得到輸出的結果如下:</p>
+<p><img src="https://i.imgur.com/PfB5VMh.png" alt=""></p>
+<p>這也符合上述描述到的第一個規則：「標籤函數的第一個參數是一字串陣列」，所以 <code>arr</code> 會得到一個陣列，而 <code>params</code> 此時會是 <code>undefined</code> 。</p>
+<p>接著，讓我們在修改上述的範例來看看其他的變化：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> variables = <span class="string">&#x27;tagged template literal!&#x27;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params">arr, params</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(arr);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(params);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo<span class="string">`Hello <span class="subst">$&#123; variables &#125;</span>`</span>;</span><br></pre></td></tr></table></figure>
+<p>與前一個範例不同的是，這邊我們在標籤函式中寫入了一個變數 <code>variables</code>，此時在使用上會有一個很重要的差異: <strong>字串陣列會儲存不是變數的字串值，並將是變數的部分作為其他參數的值。</strong> 所以會得到如下方的結果:</p>
+<p><img src="https://i.imgur.com/ofBIxn4.png" alt=""></p>
+<p>關於使用標籤樣板字面值(tagged template literal)的方式就到這裡，接著我們把主題拉回到 styled component 吧</p>
+<h2 id="Styled-Component-初探與使用"><a class="header-anchor" href="#Styled-Component-初探與使用"></a>Styled Component 初探與使用</h2>
+<p>關於 Styled Component 的文件可以前往 <a target="_blank" rel="noopener" href="https://styled-components.com/docs/basics">Styled Component</a> 查看更多細節，這邊就先來學習如何使用。</p>
+<p>首先是安裝的部分，其實也很簡單，我們可以透過 npm 或者是 yarn 的方式安裝：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save styled-components</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add styled-components</span><br></pre></td></tr></table></figure>
+<p>Styled Component 也有提供 CDN 的使用方式:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;https://unpkg.com/styled-components/dist/styled-components.min.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>接著，根據範例來學習吧!!</p>
+<p>這邊有一個很重要的觀念: <strong>「撰寫 Styled Component 會直接建立出一個 React component 出來，而這個 component 是一個具有開發者設定樣式的元件。」</strong> 這代表我們可以在使用像是 <code>props</code> 來做額外的操作。</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/vigorous-volhard-vhmdl?file=/src/App.js">點擊前往</a>。</p>
+<h3 id="基礎使用"><a class="header-anchor" href="#基礎使用"></a>基礎使用</h3>
+<p>在程式碼中設定了 <code>Title</code>, <code>Wrapper</code> 兩個 React component，而寫法就如同一開始介紹的部分，是使用標籤樣板字面值(tagged template literal)撰寫，並在要使用這兩個樣式的區塊，像是使用 React component 般寫入即可。</p>
+<p>例如底下這段程式碼，建立兩個 styled component:</p>
+<ol>
+<li><code>Title</code>: 設定了 <code>h1</code> 的樣式。</li>
+<li><code>Wrapper</code>: 設定了 <code>section</code> 的樣式。</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ExampleOne.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="comment">// 引入 styled-components</span></span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">&quot;styled-components&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建立 styled component</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Title</span> = styled.<span class="property">h1</span><span class="string">`</span></span><br><span class="line"><span class="string">  font-size: 1.5em;</span></span><br><span class="line"><span class="string">  text-align: center;</span></span><br><span class="line"><span class="string">  color: palevioletred;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建立 styled component</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Wrapper</span> = styled.<span class="property">section</span><span class="string">`</span></span><br><span class="line"><span class="string">  padding: 4em;</span></span><br><span class="line"><span class="string">  background: papayawhip;</span></span><br><span class="line"><span class="string">  width: 60%;</span></span><br><span class="line"><span class="string">  margin: 0 auto;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">ExampleOne</span> = (<span class="params"></span>) =&gt; (</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Wrapper</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">Title</span>&gt;</span>Hello Styled components!<span class="tag">&lt;/<span class="name">Title</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">Wrapper</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">ExampleOne</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="依據條件做不同的樣式渲染"><a class="header-anchor" href="#依據條件做不同的樣式渲染"></a>依據條件做不同的樣式渲染</h3>
+<p>接著，還記得剛剛說的嗎? styled component 會是建立一個 React component，所以可以額外做一些像是透過<strong>判斷條件後選擇要設定的樣式等設定。</strong></p>
+<p>這裡我們可以使用 <code>props</code> 的方式來達成需求：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      // ...略</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>條件判斷渲染樣式，元件: ExampleTwo<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">ExampleTwo</span> <span class="attr">primary</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">hr</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ExampleTwo/index.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">&quot;styled-components&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">CustomButton</span> = styled.<span class="property">button</span><span class="string">`</span></span><br><span class="line"><span class="string">  font-size: 1em;</span></span><br><span class="line"><span class="string">  margin: 1em;</span></span><br><span class="line"><span class="string">  padding: 0.25em 1em;</span></span><br><span class="line"><span class="string">  border: 2px solid palevioletred;</span></span><br><span class="line"><span class="string">  border-radius: 3px;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  background: <span class="subst">$&#123;(props) =&gt; (props.primary ? <span class="string">&quot;palevioletred&quot;</span> : <span class="string">&quot;white&quot;</span>)&#125;</span>;</span></span><br><span class="line"><span class="string">  color: <span class="subst">$&#123;(props) =&gt; (props.primary ? <span class="string">&quot;white&quot;</span> : <span class="string">&quot;palevioletred&quot;</span>)&#125;</span>;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">ExampleTwo</span> = (<span class="params">props</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">CustomButton</span> <span class="attr">primary</span>=<span class="string">&#123;props.primary&#125;</span>&gt;</span>Custom Button<span class="tag">&lt;/<span class="name">CustomButton</span>&gt;</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">ExampleTwo</span>;</span><br></pre></td></tr></table></figure>
+<p>透過 <code>props</code> 得到的 <code>primary</code> 的值來判斷提供何種樣式，當判斷為:</p>
+<ul>
+<li><code>false</code>: <code>background: &quot;white&quot;</code>, <code>color: &quot;palevioletred&quot;</code>。</li>
+<li><code>true</code>: <code>background: &quot;palevioletred&quot;</code>, <code>color: &quot;white&quot;</code>。</li>
+</ul>
+<h3 id="擴展-Extending-樣式"><a class="header-anchor" href="#擴展-Extending-樣式"></a>擴展(Extending)樣式</h3>
+<p>我們也可以透過 styled component 的方式，在<strong>基於一個元件上擴展樣式，建立一個全新的元件出來。</strong></p>
+<p>這個情境最簡單的例子來說，就好像當我們有兩個架構一樣的按鈕(Button)，而差別僅僅只在於背景顏色、文字顏色的差異時，這個時候 Styled Component 也可以做到這樣的需求:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">&quot;styled-components&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Button</span> = styled.<span class="property">button</span><span class="string">`</span></span><br><span class="line"><span class="string">  width: auto;</span></span><br><span class="line"><span class="string">  padding: 10px;</span></span><br><span class="line"><span class="string">  margin-right: 10px;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">BookingButton</span> = <span class="title function_">styled</span>(<span class="title class_">Button</span>)<span class="string">`</span></span><br><span class="line"><span class="string">  background: palevioletred;</span></span><br><span class="line"><span class="string">  color: white;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">CancelButton</span> = <span class="title function_">styled</span>(<span class="title class_">Button</span>)<span class="string">`</span></span><br><span class="line"><span class="string">  background: blue;</span></span><br><span class="line"><span class="string">  color: white;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">ExampleThree</span> = (<span class="params"></span>) =&gt; (</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">Button</span>&gt;</span>基礎樣式的 Button<span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">BookingButton</span>&gt;</span>擴展樣式的 BookingButton<span class="tag">&lt;/<span class="name">BookingButton</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">CancelButton</span>&gt;</span>擴展樣式的 CancelButton<span class="tag">&lt;/<span class="name">CancelButton</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">ExampleThree</span>;</span><br></pre></td></tr></table></figure>
+<p>透過 <code>styled(Button)</code> 的方式，我們可以<strong>將一個定義好的 Styled Component 作為另一個 Styled Component 的基礎樣式，並且再額外擴展屬於自己的樣式。</strong></p>
+<p><code>Button</code> 作為這三個按鈕的基礎樣式，而 <code>BookingButton</code>、<code>CancelButton</code> 則是基於這個 <code>Button</code> 的樣式再擴展出自己的樣式(背景顏色、文字顏色)。</p>
+<h3 id="scss-like-的撰寫風格"><a class="header-anchor" href="#scss-like-的撰寫風格"></a>scss-like 的撰寫風格</h3>
+<p>一定有人會想問，<strong>可以在 styled component 中寫類似 scss 這種可以巢狀設定樣式的設定嗎？</strong></p>
+<p>答案是可以的！</p>
+<p>在 Styled Component 可以使用如同 scss 巢狀設定樣式的方式：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ExampleFour/index.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">&quot;styled-components&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">BookingSection</span> = styled.<span class="property">section</span><span class="string">`</span></span><br><span class="line"><span class="string">  width: 500px;</span></span><br><span class="line"><span class="string">  height: 200px;</span></span><br><span class="line"><span class="string">  margin: 0 auto;</span></span><br><span class="line"><span class="string">  border: 1px solid #8d8d8d;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  .booking-btn &#123;</span></span><br><span class="line"><span class="string">    background: palevioletred;</span></span><br><span class="line"><span class="string">    color: white;</span></span><br><span class="line"><span class="string">    padding: 10px;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">ExampleFour</span> = (<span class="params"></span>) =&gt; (</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">BookingSection</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">className</span>=<span class="string">&quot;booking-btn&quot;</span>&gt;</span>這是一個按鈕<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">BookingSection</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">ExampleFour</span>;</span><br></pre></td></tr></table></figure>
+<p>在 <code>BookingSection</code> 的樣式中我們額外透過巢狀設定樣式的方式，設定了 <code>className</code> 為 <code>booking-btn</code> 的樣式，可以看到 <code>BookingSection</code> 中的 <code>button</code> 一樣可以使用到這個樣式。</p>
+<h3 id="動畫的撰寫設定"><a class="header-anchor" href="#動畫的撰寫設定"></a>動畫的撰寫設定</h3>
+<p>Styled Component 提供 <code>keyframes</code> helper 的方式來處理動畫的部分，使用方式與原生 css 相似：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ExampleFive/index.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> styled, &#123; keyframes &#125; <span class="keyword">from</span> <span class="string">&quot;styled-components&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rotate = keyframes<span class="string">`</span></span><br><span class="line"><span class="string">  from &#123;</span></span><br><span class="line"><span class="string">    transform: rotate(0deg);</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  to &#123;</span></span><br><span class="line"><span class="string">    transform: rotate(360deg);</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">Rotate</span> = styled.<span class="property">div</span><span class="string">`</span></span><br><span class="line"><span class="string">  display: inline-block;</span></span><br><span class="line"><span class="string">  border: solid;</span></span><br><span class="line"><span class="string">  animation: <span class="subst">$&#123;rotate&#125;</span> 2s linear infinite;</span></span><br><span class="line"><span class="string">  padding: 2rem 1rem;</span></span><br><span class="line"><span class="string">  font-size: 1.2rem;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">ExampleFive</span> = (<span class="params"></span>) =&gt; <span class="language-xml"><span class="tag">&lt;<span class="name">Rotate</span> /&gt;</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">ExampleFive</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>這邊需要注意的是 <code>keyframes</code> helpers 一定要提供值才可以，不然會拋出錯誤。</p>
+<p>關於 Styled Component 的學習就到這裡囉</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<h2 id="資源"><a class="header-anchor" href="#資源"></a>資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://styled-components.com/docs/basics">Styled Component</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Template_literals">標籤樣板字面值</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/25/%E6%A2%9D%E4%BB%B6-Render%E3%80%81%E5%88%97%E8%A1%A8%E8%88%87-key/" rel="prev" title="條件 Render、列表與 key">
+                  <i class="fa fa-chevron-left"></i> 條件 Render、列表與 key
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/09/27/CSS-modules/" rel="next" title="CSS modules">
+                  CSS modules <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

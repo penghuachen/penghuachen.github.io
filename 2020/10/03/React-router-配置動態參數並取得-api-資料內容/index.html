@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="React router 配置動態參數並取得 api 資料內容 今天的篇幅要來學習透過切換動態參數的方式並取得 api 的資料內容後，渲染在網頁上。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React router 配置動態參數並取得 api 資料內容">
+<meta property="og:url" content="https://penghuachen.github.io/2020/10/03/React-router-%E9%85%8D%E7%BD%AE%E5%8B%95%E6%85%8B%E5%8F%83%E6%95%B8%E4%B8%A6%E5%8F%96%E5%BE%97-api-%E8%B3%87%E6%96%99%E5%85%A7%E5%AE%B9/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="React router 配置動態參數並取得 api 資料內容 今天的篇幅要來學習透過切換動態參數的方式並取得 api 的資料內容後，渲染在網頁上。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/DT4nezj.png">
+<meta property="article:published_time" content="2020-10-02T16:56:20.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.831Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/DT4nezj.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/10/03/React-router-%E9%85%8D%E7%BD%AE%E5%8B%95%E6%85%8B%E5%8F%83%E6%95%B8%E4%B8%A6%E5%8F%96%E5%BE%97-api-%E8%B3%87%E6%96%99%E5%85%A7%E5%AE%B9/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/10/03/React-router-%E9%85%8D%E7%BD%AE%E5%8B%95%E6%85%8B%E5%8F%83%E6%95%B8%E4%B8%A6%E5%8F%96%E5%BE%97-api-%E8%B3%87%E6%96%99%E5%85%A7%E5%AE%B9/","path":"2020/10/03/React-router-配置動態參數並取得-api-資料內容/","title":"React router 配置動態參數並取得 api 資料內容"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>React router 配置動態參數並取得 api 資料內容 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React-router-%E9%85%8D%E7%BD%AE%E5%8B%95%E6%85%8B%E5%8F%83%E6%95%B8%E4%B8%A6%E5%8F%96%E5%BE%97-api-%E8%B3%87%E6%96%99%E5%85%A7%E5%AE%B9"><span class="nav-number">1.</span> <span class="nav-text">React router 配置動態參數並取得 api 資料內容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E5%AF%AB%E6%B8%AC%E8%A9%A6%E7%AF%84%E4%BE%8B%E4%B8%A6%E9%85%8D%E7%BD%AE%E8%B7%AF%E7%94%B1%E7%9A%84%E5%8B%95%E6%85%8B%E5%8F%83%E6%95%B8"><span class="nav-number">1.1.</span> <span class="nav-text">改寫測試範例並配置路由的動態參數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%8F%96%E5%BE%97-history-%E7%89%A9%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">如何取得 history 物件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%BA%90"><span class="nav-number">1.3.</span> <span class="nav-text">資源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/10/03/React-router-%E9%85%8D%E7%BD%AE%E5%8B%95%E6%85%8B%E5%8F%83%E6%95%B8%E4%B8%A6%E5%8F%96%E5%BE%97-api-%E8%B3%87%E6%96%99%E5%85%A7%E5%AE%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="React router 配置動態參數並取得 api 資料內容 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React router 配置動態參數並取得 api 資料內容
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-03 00:56:20" itemprop="dateCreated datePublished" datetime="2020-10-03T00:56:20+08:00">2020-10-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="React-router-配置動態參數並取得-api-資料內容"><a class="header-anchor" href="#React-router-配置動態參數並取得-api-資料內容"></a>React router 配置動態參數並取得 api 資料內容</h1>
+<p>今天的篇幅要來學習透過<strong>切換動態參數的方式並取得 api 的資料內容後，渲染在網頁上。</strong></p>
+<span id="more"></span>
+<p>這部分我們延續昨天的 <a target="_blank" rel="noopener" href="https://codesandbox.io/s/quiet-mountain-glw7z">測試範例</a>，並改寫成透過 call api 的方式將資料替換成取得的資料。</p>
+<p>另外還要學習如何透過 <code>&lt;NavLink&gt;</code> 以外的方式達到同樣的目的。</p>
+<h2 id="改寫測試範例並配置路由的動態參數"><a class="header-anchor" href="#改寫測試範例並配置路由的動態參數"></a>改寫測試範例並配置路由的動態參數</h2>
+<p>首先我們先將昨天的程式碼改寫，讓兩個作為導航用的按鈕都會切換到同一個元件(PageA)，並且取得 props 中 router 提供的相關參數:</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/immutable-water-gtwdl?file=/src/App.js">點擊前往</a>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">PageA</span> <span class="keyword">from</span> <span class="string">&quot;./containers/PageA&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  <span class="title class_">BrowserRouter</span> <span class="keyword">as</span> <span class="title class_">Router</span>,</span><br><span class="line">  <span class="title class_">Switch</span>,</span><br><span class="line">  <span class="title class_">Route</span>,</span><br><span class="line">  <span class="title class_">NavLink</span>,</span><br><span class="line">  <span class="title class_">Redirect</span></span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Router</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>使用 NavLink<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">to</span>=<span class="string">&quot;/PageA/1&quot;</span> <span class="attr">activeClassName</span>=<span class="string">&quot;active&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                PageA, id: 1</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">to</span>=<span class="string">&quot;/PageA/2&quot;</span> <span class="attr">activeClassName</span>=<span class="string">&quot;active&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                PageA, id: 2</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">Redirect</span> <span class="attr">to</span>=<span class="string">&quot;/PageA/1&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/PageA/:id&quot;</span> <span class="attr">component</span>=<span class="string">&#123;PageA&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>透過設定 <code>&lt;NavLink to=&quot;/PageA/1&quot;&gt;</code> 配置<strong>當路由路徑為 <code>/PageA/1</code> 的時候，會渲染 PageA 且 <code>id = 1</code> 的內容</strong>，但是這樣還不夠，所以我們還要額外搭配 <code>&lt;Route path=&quot;/PageA/:id&quot; component=&#123;PageA&#125; /&gt;</code> 的方式才能成功導航，這邊的 <strong><code>:id</code>就是用來讓我們動態傳遞參數用的</strong>。</p>
+<p>透過 <code>:id</code> 的方式，當路由路徑符合 <code>/PageA/1</code> (或者任意數字時)，即可成功匹配。</p>
+<p>成功導航後，接著我們要取得剛剛提到的 <code>route</code> 的一些資訊，這個部分我們必須將昨天寫的方式:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/PageA&quot;</span>&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">PageA</span> /&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">Route</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>改寫成:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Route</span> path=<span class="string">&quot;/PageA/:id&quot;</span> component=&#123;<span class="title class_">PageA</span>&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<p>這樣我們才能在 <code>PageA</code> 元件中<strong>透過 <code>props</code> 取得 <code>route</code> 的資訊。</strong></p>
+<p>而 route 總共會取得三個 props:</p>
+<ol>
+<li><code>match</code></li>
+<li><code>location</code></li>
+<li><code>history</code></li>
+</ol>
+<p>而這邊我們會需要用到的部分則是 <code>match</code>，接著我們透過在 <code>pageA</code> 中取得 <code>match</code> 的值:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./index.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">PageA</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">post</span>: &#123;</span><br><span class="line">      <span class="attr">title</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">      <span class="attr">body</span>: <span class="string">&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// you can see route information here...</span></span><br><span class="line">  <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">match</span>);</span><br><span class="line">    <span class="keyword">const</span> &#123; id &#125; = <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">match</span>.<span class="property">params</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getPostHandler</span>(id);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentDidUpdate</span>(<span class="params">prevProps</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">match</span>.<span class="property">params</span>.<span class="property">id</span> !== prevProps.<span class="property">match</span>.<span class="property">params</span>.<span class="property">id</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> &#123; id &#125; = <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">match</span>.<span class="property">params</span>;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getPostHandler</span>(id);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  getPostHandler = <span class="keyword">async</span> (id) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; data &#125; = <span class="keyword">await</span> axios.<span class="title function_">get</span>(</span><br><span class="line">      <span class="string">`https://jsonplaceholder.typicode.com/posts/<span class="subst">$&#123;id&#125;</span>`</span></span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;</span><br><span class="line">      <span class="attr">post</span>: &#123;</span><br><span class="line">        <span class="attr">title</span>: data.<span class="property">title</span>,</span><br><span class="line">        <span class="attr">body</span>: data.<span class="property">body</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;page-a&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Page A Title: &#123;this.state.post.title&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Page A content &#123;this.state.post.body&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>id: &#123;this.props.match.params.id&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 <code>componentDidMount</code> 中，觀察 <code>this.props</code> 的 <code>match</code> 可以取得如下的內容：</p>
+<p><img src="https://i.imgur.com/DT4nezj.png" alt=""></p>
+<p>此時我們就可以透過 <code>params</code> 中的 <code>id</code> 來作為 call api 的參數，並在取得 response 後將資料呈現在畫面上囉。</p>
+<p>接著，還記得在前面提到我們要透過 <code>&lt;NavLink&gt;</code> 以外的方式達成同樣的目的嗎?</p>
+<p>這部分我們就需要學習透過 <code>history</code> 這個物件中的 <code>push</code> 來達成目的。</p>
+<p>讓我們繼續往下學習吧!</p>
+<h2 id="如何取得-history-物件"><a class="header-anchor" href="#如何取得-history-物件"></a>如何取得 <code>history</code> 物件</h2>
+<p>取得 <code>history</code> 物件的幾種方式:</p>
+<ol>
+<li>透過 HOC 元件： <code>withRouter</code></li>
+<li>透過 <code>&lt;Route&gt;</code> 的 <code>render</code> 方法</li>
+</ol>
+<p>首先先來看看使用 <code>withRouter</code> 的方式</p>
+<p>我們接著在剛剛的 <a target="_blank" rel="noopener" href="https://codesandbox.io/s/immutable-water-gtwdl?file=/src/App.js">測試範例</a> 中新增一個按鈕:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Button.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./index.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; withRouter &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Button</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">className</span>=<span class="string">&quot;btn&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> this.props.history.push(&quot;/pageA/3&quot;)&#125;</span></span><br><span class="line"><span class="language-xml">      &gt;</span></span><br><span class="line"><span class="language-xml">        PageA, id: 3</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">withRouter</span>(<span class="title class_">Button</span>);</span><br></pre></td></tr></table></figure>
+<p>透過 <code>withRouter</code> 這個作為 HOC 的元件，我們在 export <code>Button</code> 時，可以透過 <code>withRouter</code> 包住 <code>Button</code> 並獲得 <code>route</code> 相關的 <code>props</code>: <code>match</code>, <code>location</code>, <code>history</code>。</p>
+<p>這個我們就可以使用 <code>history</code> 中的 <code>push</code>，導航至要前往的元件內容。</p>
+<p>接著是透過 <code>&lt;Route&gt;</code> 的 <code>render</code> 方法，一樣在剛剛的測試範例中新增一個按鈕:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./index.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Route</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Button2</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">render</span>=<span class="string">&#123;(&#123;</span> <span class="attr">history</span> &#125;) =&gt;</span> (</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">button</span> <span class="attr">className</span>=<span class="string">&quot;btn&quot;</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> history.push(&quot;/pageA/4&quot;)&#125;&gt;</span></span><br><span class="line"><span class="language-xml">            PageA, id: 4</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        )&#125;</span></span><br><span class="line"><span class="language-xml">      /&gt;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Button2</span>;</span><br></pre></td></tr></table></figure>
+<p>在 <code>&lt;Route&gt;</code> 的 <code>render</code> 方法中，我們一樣可以獲得 <code>route</code> 相關的 <code>props</code>: <code>match</code>, <code>location</code>, <code>history</code>，進而取得 push 這個方法。</p>
+<p>最後要提的部分是關於<strong>重導向 <code>Redirect</code></strong>，在上面的程式碼中使用了最簡單的使用方式:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Redirect</span> to=<span class="string">&quot;/PageA/1&quot;</span> /&gt;</span><br></pre></td></tr></table></figure>
+<p>當頁面刷新時，透過 Redirect 可以將頁面導向到指定的位置。</p>
+<p>明天接續 React Router 的主題，來看看如何實現巢狀路由。</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<h2 id="資源"><a class="header-anchor" href="#資源"></a>資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://reactrouter.com/web/guides/quick-start">React Router</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/02/%E5%88%9D%E6%8E%A2-React-Router/" rel="prev" title="初探 React Router">
+                  <i class="fa fa-chevron-left"></i> 初探 React Router
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/04/%E5%B7%A2%E7%8B%80%E8%B7%AF%E7%94%B1%E3%80%81-Query-%E5%8F%83%E6%95%B8%E8%88%87%E9%87%8D%E5%B0%8E%E5%90%91/" rel="next" title="巢狀路由、 Query 參數與重導向">
+                  巢狀路由、 Query 參數與重導向 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

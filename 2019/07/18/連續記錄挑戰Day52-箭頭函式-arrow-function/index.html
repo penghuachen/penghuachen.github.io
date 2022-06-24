@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="ES6 箭頭函式(arrow function) 今天要提的部分是關於 ES6的新語法，箭頭函式(arrow function)。 它與ES6之前的函式有著一些差別:  箭頭函式(arrow function) 特有寫法 箭頭函式(arrow function) 沒有自己的this 箭頭函式(arrow function) 沒有自己的arguments 箭頭函式(arrow function) 不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="連續記錄挑戰Day52-箭頭函式(arrow function)">
+<meta property="og:url" content="https://penghuachen.github.io/2019/07/18/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day52-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="ES6 箭頭函式(arrow function) 今天要提的部分是關於 ES6的新語法，箭頭函式(arrow function)。 它與ES6之前的函式有著一些差別:  箭頭函式(arrow function) 特有寫法 箭頭函式(arrow function) 沒有自己的this 箭頭函式(arrow function) 沒有自己的arguments 箭頭函式(arrow function) 不">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/p3vJcRs.png">
+<meta property="og:image" content="https://i.imgur.com/rxiHoiz.png">
+<meta property="og:image" content="https://i.imgur.com/eCTu9Ba.png">
+<meta property="og:image" content="https://i.imgur.com/JpwA4m4.png">
+<meta property="og:image" content="https://i.imgur.com/rQ4gCjv.png">
+<meta property="og:image" content="https://i.imgur.com/1WDW13j.png">
+<meta property="article:published_time" content="2019-07-18T15:18:14.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.845Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/p3vJcRs.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/07/18/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day52-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/07/18/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day52-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/","path":"2019/07/18/連續記錄挑戰Day52-箭頭函式-arrow-function/","title":"連續記錄挑戰Day52-箭頭函式(arrow function)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>連續記錄挑戰Day52-箭頭函式(arrow function) | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ES6-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function"><span class="nav-number">1.</span> <span class="nav-text">ES6 箭頭函式(arrow function)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function-%E7%9A%84%E7%89%B9%E6%9C%89%E5%AF%AB%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">箭頭函式(arrow function)的特有寫法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function-%E6%B2%92%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84this"><span class="nav-number">1.2.</span> <span class="nav-text">箭頭函式(arrow function)沒有自己的this</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function-%E6%B2%92%E6%9C%89arguments"><span class="nav-number">1.3.</span> <span class="nav-text">箭頭函式(arrow function)沒有arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function-%E4%B8%8D%E8%83%BD%E7%94%A8%E4%BD%9C%E5%BB%BA%E6%A7%8B%E5%BC%8F%EF%BC%8C%E4%B9%9F%E6%B2%92%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84prototype"><span class="nav-number">1.4.</span> <span class="nav-text">箭頭函式(arrow function) 不能用作建構式，也沒有自己的prototype</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function-%E7%9A%84this%E4%B8%8D%E5%9B%A0%E7%82%BAcall-apply-bind%E8%80%8C%E8%A2%AB%E4%BF%AE%E6%94%B9"><span class="nav-number">1.5.</span> <span class="nav-text">箭頭函式(arrow function)的this不因為call&#x2F;apply&#x2F;bind而被修改</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/07/18/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day52-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="連續記錄挑戰Day52-箭頭函式(arrow function) | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          連續記錄挑戰Day52-箭頭函式(arrow function)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-07-18 23:18:14" itemprop="dateCreated datePublished" datetime="2019-07-18T23:18:14+08:00">2019-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="ES6-箭頭函式-arrow-function"><a class="header-anchor" href="#ES6-箭頭函式-arrow-function"></a>ES6 箭頭函式(arrow function)</h1>
+<p>今天要提的部分是關於 ES6的新語法，箭頭函式(arrow function)。</p>
+<p>它與ES6之前的函式有著一些差別:</p>
+<ul>
+<li>箭頭函式(arrow function) 特有寫法</li>
+<li>箭頭函式(arrow function) 沒有自己的this</li>
+<li>箭頭函式(arrow function) 沒有自己的arguments</li>
+<li>箭頭函式(arrow function) 不能用作建構式，因此沒有自己的prototype</li>
+<li>箭頭函式(arrow function)的this不因為 call()/apply()/bind()而被修改</li>
+</ul>
+<span id="more"></span>
+<h2 id="箭頭函式-arrow-function-的特有寫法"><a class="header-anchor" href="#箭頭函式-arrow-function-的特有寫法"></a>箭頭函式(arrow function)的特有寫法</h2>
+<p>箭頭函式有著全新樣貌的寫法，整理如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc</span> = (<span class="params"></span>) =&gt;&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;test&#x27;</span>);&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc2</span> = a =&gt; &#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(a);&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc3</span> = a =&gt; <span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc4</span> = (<span class="params">a,b</span>)=&gt;&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(a+b);&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc5</span> = (<span class="params"></span>)=&gt;(&#123;<span class="attr">name</span>:<span class="string">&quot;Bill&quot;</span>&#125;);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>如果<mark>沒有參數</mark>，可以只寫 <code>()</code>，如 <code>arrowFunc</code></li>
+<li>如果<mark>只有一個參數</mark>，可以不寫 <code>()</code>，如 <code>arrowFunc2</code></li>
+<li>如果<mark>程式碼行數只有單行</mark>，可以不需要 <code>&#123;&#125;</code>，如 <code>arrowFunc3</code></li>
+<li>如果<mark>有兩個參數以上</mark>，則必須寫 <code>()</code>，如 <code>arrowFunc4</code></li>
+<li>如果是<mark>物件格式</mark>，因為 <code>&#123;&#125;</code> 在箭頭函式中有意義， 所以必須要用 <code>()</code> 將整個物件包住，如<code>arrowFunc5</code></li>
+</ol>
+<h2 id="箭頭函式-arrow-function-沒有自己的this"><a class="header-anchor" href="#箭頭函式-arrow-function-沒有自己的this"></a>箭頭函式(arrow function)沒有自己的this</h2>
+<p>因為箭頭函式沒有自己的 <code>this</code>，所以依照範疇鍊(scope chain)的觀念會往外層找。</p>
+<p>來看看測試例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;Jin&#x27;</span>,</span><br><span class="line">    <span class="attr">callName</span>:<span class="keyword">function</span> (<span class="params"></span>)&#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">           <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">           <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">        &#125;,<span class="number">1000</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.<span class="title function_">callName</span>();</span><br></pre></td></tr></table></figure>
+<p><code>setTimeout</code> 裡面為一個箭頭函式，所以會往外層的匿名函式尋找 <code>this</code> ，並拿來使用。而匿名函式的 <code>this</code> 因為是透過方法調用所以指向 <code>obj()</code>。</p>
+<p><img src="https://i.imgur.com/p3vJcRs.png" alt=""></p>
+<p>但如果是下面這個例子的話:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name=<span class="string">&#x27;Bill&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;Jin&#x27;</span>,</span><br><span class="line">    <span class="attr">callName</span>:<span class="function">()=&gt;</span>&#123;</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">       <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.<span class="title function_">callName</span>();</span><br></pre></td></tr></table></figure>
+<p>因為箭頭函式的外層作用域就是全域，所以 <code>this</code> 指向全域，也得到全域變數 <code>name</code> 的值 <code>Bill</code></p>
+<p><img src="https://i.imgur.com/rxiHoiz.png" alt=""></p>
+<h2 id="箭頭函式-arrow-function-沒有arguments"><a class="header-anchor" href="#箭頭函式-arrow-function-沒有arguments"></a>箭頭函式(arrow function)沒有arguments</h2>
+<p>直接看看箭頭函式與 ES6之前的函式使用 <code>arguments</code> 的差別</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable language_">arguments</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arr</span> = (<span class="params"></span>) =&gt; <span class="variable language_">arguments</span>[<span class="number">0</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">arr</span>()); </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> arr2 = <span class="keyword">function</span>(<span class="params">a,b</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">arguments</span>;</span><br><span class="line">&#125; </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">arr2</span>(<span class="number">1</span>,<span class="number">2</span>)); </span><br></pre></td></tr></table></figure>
+<p>對於箭頭函式而言 <code>arguments</code> 只是單純的一個變數。但對於ES6之前的函式 <code>arguments</code>則是一個物件</p>
+<p><img src="https://i.imgur.com/eCTu9Ba.png" alt=""></p>
+<h2 id="箭頭函式-arrow-function-不能用作建構式，也沒有自己的prototype"><a class="header-anchor" href="#箭頭函式-arrow-function-不能用作建構式，也沒有自己的prototype"></a>箭頭函式(arrow function) 不能用作建構式，也沒有自己的prototype</h2>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title function_">car</span> = (<span class="params"></span>) =&gt; &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> toyota = <span class="keyword">new</span> <span class="title function_">car</span>(); </span><br></pre></td></tr></table></figure>
+<p>箭頭函式用於建構式會報錯。</p>
+<p><img src="https://i.imgur.com/JpwA4m4.png" alt=""></p>
+<p>也沒有自己的 prototype</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="title function_">Foo</span> = (<span class="params"></span>) =&gt; &#123;&#125;;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Foo</span>.<span class="property"><span class="keyword">prototype</span></span>); </span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/rQ4gCjv.png" alt=""></p>
+<h2 id="箭頭函式-arrow-function-的this不因為call-apply-bind而被修改"><a class="header-anchor" href="#箭頭函式-arrow-function-的this不因為call-apply-bind而被修改"></a>箭頭函式(arrow function)的this不因為call/apply/bind而被修改</h2>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> test = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br><span class="line">test.<span class="title function_">call</span>(<span class="string">&#x27;可以改變函式的this&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">test2</span> = (<span class="params"></span>)=&gt;&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br><span class="line">test2.<span class="title function_">call</span>(<span class="string">&#x27;無法改變函式的this，而且this指向window物件&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>可以看到箭頭函式的 <code>this</code> 指向全域，沒有因為使用 <code>call()</code> 而被修改</p>
+<p><img src="https://i.imgur.com/1WDW13j.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/17/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day51-%E4%BD%BF%E7%94%A8Javascript%E6%93%8D%E4%BD%9CDOM-Document-Object-Model-part1/" rel="prev" title="連續記錄挑戰Day51-使用Javascript操作DOM(Document Object Model) part1">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day51-使用Javascript操作DOM(Document Object Model) part1
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/19/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day53-%E4%BD%BF%E7%94%A8Javascript%E6%93%8D%E4%BD%9CDOM-Document-Object-Model-part2/" rel="next" title="連續記錄挑戰Day53-使用Javascript操作DOM-Document-Object-Model-part2">
+                  連續記錄挑戰Day53-使用Javascript操作DOM-Document-Object-Model-part2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

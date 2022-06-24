@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="React Element 與 Component 今天 React 好朋友要帶我了解:  什麼是 React Element。 Component 的建立與使用的方式。  事不宜遲，趕緊學習吧!!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Element 與 Component">
+<meta property="og:url" content="https://penghuachen.github.io/2020/09/19/React-Element-%E8%88%87-Component/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="React Element 與 Component 今天 React 好朋友要帶我了解:  什麼是 React Element。 Component 的建立與使用的方式。  事不宜遲，趕緊學習吧!!">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/06fewoq.png">
+<meta property="article:published_time" content="2020-09-19T02:36:39.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.831Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/06fewoq.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/09/19/React-Element-%E8%88%87-Component/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/09/19/React-Element-%E8%88%87-Component/","path":"2020/09/19/React-Element-與-Component/","title":"React Element 與 Component"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>React Element 與 Component | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React-Element-%E8%88%87-Component"><span class="nav-number">1.</span> <span class="nav-text">React Element 與 Component</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#React-Element"><span class="nav-number">1.1.</span> <span class="nav-text">React Element</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87-React-Element-%E6%B8%B2%E6%9F%93%E5%88%B0-DOM-%E4%B8%AD"><span class="nav-number">1.1.1.</span> <span class="nav-text">將 React Element 渲染到 DOM 中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-React-Element"><span class="nav-number">1.1.2.</span> <span class="nav-text">更新 React Element</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Component-%E7%9A%84%E5%BB%BA%E7%AB%8B%E8%88%87%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">Component 的建立與使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-Function-Component-%E8%88%87-Class-Component"><span class="nav-number">1.2.1.</span> <span class="nav-text">建立 Function Component 與 Class Component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Component-%E7%9A%84%E6%B8%B2%E6%9F%93"><span class="nav-number">1.2.2.</span> <span class="nav-text">Component 的渲染</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83%E4%BE%86%E6%BA%90"><span class="nav-number">1.3.</span> <span class="nav-text">參考來源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/09/19/React-Element-%E8%88%87-Component/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="React Element 與 Component | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React Element 與 Component
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-09-19 10:36:39" itemprop="dateCreated datePublished" datetime="2020-09-19T10:36:39+08:00">2020-09-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>5k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="React-Element-與-Component"><a class="header-anchor" href="#React-Element-與-Component"></a>React Element 與 Component</h1>
+<p>今天 React 好朋友要帶我了解:</p>
+<ol>
+<li>什麼是 <strong>React Element</strong>。</li>
+<li><strong>Component</strong> 的建立與使用的方式。</li>
+</ol>
+<p>事不宜遲，趕緊學習吧!!</p>
+<span id="more"></span>
+<h2 id="React-Element"><a class="header-anchor" href="#React-Element"></a>React Element</h2>
+<p>首先要了解的部分是 React Element，先來看看官方怎麼定義一個 React 應用程式的最小組成:</p>
+<blockquote>
+<p>建立 React 應用程式最小的單位是 element。</p>
+</blockquote>
+<p>我們透過 JSX 語法所建立的 element，只是一個<strong>單純的物件(Object)</strong>，但有一個很重要的觀念在於 「<strong>React 透過 React DOM ，比對當前 HTML 上的 DOM 與我們建立的 React Element，如果有不同就會將當前 HTML 上的 DOM 更新來符合 React Element 目前的結構」。</strong></p>
+<p>此外需要先建立的觀念是: <strong>React Element 並不一定是 component，但是 component 是由 React Element 而組成的。</strong></p>
+<h3 id="將-React-Element-渲染到-DOM-中"><a class="header-anchor" href="#將-React-Element-渲染到-DOM-中"></a>將 React Element 渲染到 DOM 中</h3>
+<p>了解了什麼是 React Element 與它和 component 的關係後，接著我們要看看如何將 React Element 渲染到 DOM 中。</p>
+<p>在 React 中，我們可以透過調用下面這個方法來達成：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(element, container[, callback])</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>element</code> 是我們要準備<strong>渲染到 DOM 上的 React Element</strong></li>
+<li><code>container</code> 則是我們指定<strong>要放入的 DOM 節點</strong>。</li>
+</ul>
+<p>以<a target="_blank" rel="noopener" href="https://zh-hant.reactjs.org/docs/rendering-elements.html#rendering-an-element-into-the-dom">官方文件範例程式碼</a>為例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, world<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(</span><br><span class="line">  element,</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>我們將建立好的 React Element(<code>&lt;h1&gt;Hello, world&lt;/h1&gt;</code>) 放入到 <code>root</code> DOM 節點中，如此一來就可以在網頁中看到囉。</p>
+<h3 id="更新-React-Element"><a class="header-anchor" href="#更新-React-Element"></a>更新 React Element</h3>
+<p>更新 React Element 有幾種方式:</p>
+<ol>
+<li>每次都重新建立一個新的 React Element，然後透過再次呼叫 <code>ReactDOM.render()</code> 方法更新畫面。</li>
+<li>透過<strong>更新 state 中的資料更新畫面。</strong></li>
+</ol>
+<p>第一點這裡以<a target="_blank" rel="noopener" href="https://zh-hant.reactjs.org/docs/rendering-elements.html#updating-the-rendered-element">官方文件範例程式碼</a>為例：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// UpdateTime.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">tick</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> element = (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>It is &#123;new Date().toLocaleTimeString()&#125;.<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">  <span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(element, <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">setInterval</span>(tick, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<p>從上方這個程式碼可以看到 <code>setInterval</code> 每秒調用 <code>ReactDOM.render()</code> 重新將 React Element 再次地放到 <code>root</code> DOM 節點中。</p>
+<p>而第二點則可以從兩個角度下手:</p>
+<ul>
+<li>Class-based Component</li>
+<li>Fucntion Component</li>
+</ul>
+<p>這邊提供兩種元件(Component)更新的方式，而這些更新方式與生命週期相關的部分會於後續的天數多做了解。</p>
+<p>首先是 Class-based Component 的部分，這邊擷取 TimerOne Component 的程式碼:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// TimerOne.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">TimerOne</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">date</span>: <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentDidMount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">updateTimer</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">updateTimer</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;</span><br><span class="line">        <span class="attr">date</span>: <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>現在時間是: &#123;this.state.date.toLocaleTimeString()&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>透過生命週期方法 <code>componentDidMount</code> 於元件掛載時(mounted)，執行更新 Timer 的函式 <code>updateTimer</code></p>
+<p>此時 <code>updateTimer</code> 會觸發<strong>在 Class-besed Component 中用來更新 state 的 <code>setState</code> 方法</strong>，並於更新 state 後重新渲染(render)畫面。</p>
+<p>接著是 <code>Function Component</code> 的部分，擷取 TimerTwo Component 的程式碼:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useState, useEffect &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">TimerTwo</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [state, setState] = <span class="title function_">useState</span>(&#123;</span><br><span class="line">    <span class="attr">date</span>: <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="title function_">updateTimer</span>();</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">updateTimer</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="title function_">setState</span>(&#123;</span><br><span class="line">        <span class="attr">date</span>: <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>現在時間是: &#123;state.date.toLocaleTimeString()&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">TimerTwo</span>;</span><br></pre></td></tr></table></figure>
+<p>透過 React Hook 方法 <code>useEffect</code> 於元件掛載時(mounted)，執行更新 Timer 的函式 <code>updateTimer</code></p>
+<p>此時 <code>updateTimer</code> 會觸發<strong>在 Class-besed Component 中用來更新 state 的 <code>setState</code> 方法</strong>，並於更新 state 後重新渲染(render)畫面。</p>
+<p>這邊額外需要提的部分是為什麼會需要額外呼叫 <code>toLocaleTiemString()</code></p>
+<p>原因在於我們透過 <code>new Date()</code> 拿到的其實是 Date 這個物件，而在 React 中如果直接將這個物件設在 <code>&#123;&#125;</code> 中的話，會得到如下的錯誤:</p>
+<p><img src="https://i.imgur.com/06fewoq.png" alt=""></p>
+<p>所以才需要透過呼叫 <code>toLocaleTiemString()</code> 將值轉為字串才可以。</p>
+<h2 id="Component-的建立與使用"><a class="header-anchor" href="#Component-的建立與使用"></a>Component 的建立與使用</h2>
+<p>接著要來學習的是 React 的重點之一: 元件(Component)，整個 React 應用程式是基於一個個元件(Component)才能搭建而成的，而如何更好的使用元件(Component)就是一門需要學習的課題了。</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/react-component-0prku">點擊前往</a>。</p>
+<h3 id="建立-Function-Component-與-Class-Component"><a class="header-anchor" href="#建立-Function-Component-與-Class-Component"></a>建立 Function Component 與 Class Component</h3>
+<p>建立 Function Component 最簡單的方式就是<strong>撰寫一個 Javascript function</strong>，如官方提供的範例程式碼:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">Welcome</span>  = (<span class="params">props</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, &#123;props.name&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>上面的 function <code>Welcome</code> 會回傳用來描述畫面的 React Element，並且也接受一個代表<strong>屬性(properties)的物件</strong>，符合上述的條件，因此也被稱為是 function component。</p>
+<p>而 Function Component 在 React Hook 之前也被稱為 Stateless Component，原因在於在 React Hook 之前， <strong>Function Component 是沒有辦法透過 state 儲存狀態的，必須要透過 Class-based Component 才可以。</strong></p>
+<p>另外建立 Class Component 最簡單的方式則是透過 ES6 Class 來定義:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ClassBasedComponent.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;React&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Welcome</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, &#123;this.props.name&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>透過繼承自 React 中的 Component 類別來建立一個 Class Component。</p>
+<p>這邊需要注意的是兩者在<strong>使用 <code>props</code> 的方式。</strong></p>
+<p>了解了基本建立元件的方式後，接著我們來看看怎麼渲染它</p>
+<h3 id="Component-的渲染"><a class="header-anchor" href="#Component-的渲染"></a>Component 的渲染</h3>
+<p>在前一篇學習文章 <a target="_blank" rel="noopener" href="https://hackmd.io/GH2o4ahAR-6UPbwAdTJw3Q">什麼是 JSX?</a> 中，我們撰寫了如下的 React element:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
+<p>但其實 React element <mark>也可以用在我們自定義的元件(Component)上，並且同時會將屬性(JSX 與 children)</mark> 傳進這個元件(Component)中。</p>
+<p>意思是透過 <strong><code>props</code></strong> 我們可以在元件(Component)中使用如下的屬性:</p>
+<ol>
+<li>自定義或者現有的 HTML 屬性</li>
+<li><code>children</code></li>
+</ol>
+<p>而這個部分在<a target="_blank" rel="noopener" href="https://zh-hant.reactjs.org/docs/components-and-props.html#rendering-a-component">文件</a>中其實描述的也很詳細:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// FunctionComponentOne.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">WelcomeOne</span> = (<span class="params">props</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, &#123;props.name&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">WelcomeOne</span>;</span><br></pre></td></tr></table></figure>
+<p><code>&lt;WelcomeOne name=&quot;Sara&quot; /&gt;</code> 是我們自定義的元件(Component)，並且當我們設定了一個自定義的屬性 <code>name=&quot;Sara&quot;</code> 時，React 會以 <code>&#123;name: 'Sara'&#125;</code> 的方式作為 <code>props</code> 傳入元件(Component)，如此一來才能在 function <code>WelcomeOne</code> 中透過 <code>props.name</code> 取得值。</p>
+<p>而另一個值得一提的是 <code>children</code> ，這邊我們先學習簡單的使用方式，我們將上述的程式碼稍微改寫一下：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// FunctionComponentTwo.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">WelcomeTwo</span> = (<span class="params">props</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;props.children&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">WelcomeTwo</span>;</span><br></pre></td></tr></table></figure>
+<p><code>children</code> 其中一種使用方式是允許我們在自定義的元件標籤中寫入值，如同上方的 <code>Hello World!</code>，而這也同樣會以 <code>&#123;name: 'Sara', children: 'Hello World!'&#125;</code> 作為 <code>props</code> 傳入到元件中。</p>
+<p>最後要提到的是 <strong>無論是  Function Component 或者 Class Component，對於修改自己的 props 都是不被允許的，在使用上一定要特別注意。</strong></p>
+<p>今天學習了 React Element 和 Component 的差異，明天繼續往前邁進。</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<h2 id="參考來源"><a class="header-anchor" href="#參考來源"></a>參考來源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zh-hant.reactjs.org/docs/rendering-elements.html#updating-the-rendered-element">Render Element</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/18/%E4%BB%80%E9%BA%BC%E6%98%AF-JSX/" rel="prev" title="什麼是 JSX">
+                  <i class="fa fa-chevron-left"></i> 什麼是 JSX
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/09/20/%E5%9C%A8-Class-based-Component-%E4%B8%AD%E7%9A%84-State-%E8%88%87%E4%BA%8B%E4%BB%B6%E8%99%95%E7%90%86/" rel="next" title="在 Class-based Component 中的 State 與事件處理">
+                  在 Class-based Component 中的 State 與事件處理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在版本 7.1 之後， React Redux 也加入了 Hooks，簡化了以往需要透過 connect 方法並傳入 mapStateToProps 與 mapStateToDispatch 的方式才可以操作 Redux 的 store 物件。 而今天要來看看怎麼使用，也會看看在文件中的定義。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Redux 與 Hooks">
+<meta property="og:url" content="https://penghuachen.github.io/2020/10/11/React-Redux-%E8%88%87-Hooks/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="在版本 7.1 之後， React Redux 也加入了 Hooks，簡化了以往需要透過 connect 方法並傳入 mapStateToProps 與 mapStateToDispatch 的方式才可以操作 Redux 的 store 物件。 而今天要來看看怎麼使用，也會看看在文件中的定義。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-10-11T02:30:15.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.831Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/10/11/React-Redux-%E8%88%87-Hooks/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/10/11/React-Redux-%E8%88%87-Hooks/","path":"2020/10/11/React-Redux-與-Hooks/","title":"React Redux 與 Hooks"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>React Redux 與 Hooks | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Hooks-%E7%9A%84%E5%89%8D%E7%BD%AE%E4%BD%9C%E6%A5%AD"><span class="nav-number">1.</span> <span class="nav-text">使用 Hooks 的前置作業</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useSelector"><span class="nav-number">2.</span> <span class="nav-text">useSelector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useDispatch"><span class="nav-number">3.</span> <span class="nav-text">useDispatch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useStore"><span class="nav-number">4.</span> <span class="nav-text">useStore</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E5%AF%AB%E6%B8%AC%E8%A9%A6%E7%AF%84%E4%BE%8B"><span class="nav-number">5.</span> <span class="nav-text">改寫測試範例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%BA%90"><span class="nav-number">6.</span> <span class="nav-text">資源</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/10/11/React-Redux-%E8%88%87-Hooks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="React Redux 與 Hooks | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          React Redux 與 Hooks
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-11 10:30:15" itemprop="dateCreated datePublished" datetime="2020-10-11T10:30:15+08:00">2020-10-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在版本 7.1 之後， React Redux 也加入了 Hooks，簡化了以往需要透過 <code>connect</code> 方法並傳入 <code>mapStateToProps</code> 與 <code>mapStateToDispatch</code> 的方式才可以操作 Redux 的 store 物件。</p>
+<p>而今天要來看看怎麼使用，也會看看在<a target="_blank" rel="noopener" href="https://react-redux.js.org/api/hooks">文件</a>中的定義。</p>
+<span id="more"></span>
+<h2 id="使用-Hooks-的前置作業"><a class="header-anchor" href="#使用-Hooks-的前置作業"></a>使用 Hooks 的前置作業</h2>
+<p>在使用 Hooks 之前需要先完成一些前置作業，這個部分其實也很簡單，就是建立一個 store 並將 store 物件透過 <code>Provider</code> 提供給 <code>App</code> 元件使用。</p>
+<p>這邊參考官方提供的範例，基本上相差不多:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = <span class="title function_">createStore</span>(rootReducer)</span><br><span class="line"></span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">App</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></span>,</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h2 id="useSelector"><a class="header-anchor" href="#useSelector"></a>useSelector</h2>
+<p>接著第一個要學習的是 <code>useSelector</code>，<strong>這個方法允許我們直接從 Redux store 中的狀態提取數據到元件中。</strong></p>
+<p>透過 <code>useSelector</code> 可以取代掉 <code>mapStateToProps</code> 的使用方式</p>
+<p>在之前如果我們需要從 store 中拿到某個狀態的數據會是這麼寫:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...略</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">mapStateToProps</span> = (<span class="params">state</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">counter</span>: state.<span class="property">counter</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">connect</span>(mapStateToProps)(<span class="title class_">App</span>)</span><br></pre></td></tr></table></figure>
+<p>但有了 Hooks，我們可以改寫成這樣:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; useSelector &#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">CounterComponent</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> counter = <span class="title function_">useSelector</span>(<span class="function"><span class="params">state</span> =&gt;</span> state.<span class="property">counter</span>)</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;counter&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而在使用上基本上 <code>mapStateToProps</code> 大致相同於 <code>useSelector</code>，但依然有些差異，以下擷取至<a target="_blank" rel="noopener" href="https://react-redux.js.org/api/hooks#useselector">文件</a>中的段落:</p>
+<ul>
+<li><code>useSelector</code> 可以回傳任何值，並不一定是一個物件(<code>mapStateToProps</code>則是必定回傳一個物件)。</li>
+<li><code>useSelector</code> 會將前一個結果與當前的結果進行比較，如果不同就會強制更新元件，不然就不會更新元件。</li>
+<li><code>useSelector</code> 沒有自己的 <code>props</code>，但可以透過 JavaScript 的閉包觀念取得元件中的 <code>props</code>。</li>
+<li><code>useSelector</code> 預設是使用 <code>===</code> 嚴格等於的方式檢查(<code>mapStateToProps</code> 則是 <code>==</code>)</li>
+</ul>
+<h2 id="useDispatch"><a class="header-anchor" href="#useDispatch"></a>useDispatch</h2>
+<p>然後要學習的是 <code>useDispatch</code>，對於 <code>useSelector</code> 有了一些認識就知道這個方法要用來做什麼</p>
+<p>沒錯，可以用來取代掉 <code>mapStateToDispatch</code> !!</p>
+<p>而看到這裡應該不難發現，使用了 Hooks 之後，我們基本上就要跟 <code>connect</code> 、 <code>mapStateToProps</code> 與 <code>mapStateToDispatch</code> 說再見啦，完全用不到了</p>
+<p>而之前如果我們需要發一個 <code>action</code> 到 Redux 的 Reducer 中更新 state 的時候會是這麼寫:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...略</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">mapDispatchToProps</span> = (<span class="params">dispatch</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">incrementHandler</span>: <span class="function">() =&gt;</span> <span class="title function_">dispatch</span>(&#123; <span class="attr">type</span>: <span class="string">&quot;INCREMENTHANDLER&quot;</span> &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">connect</span>(mapStateToProps, mapDispatchToProps)(<span class="title class_">App</span>);</span><br></pre></td></tr></table></figure>
+<p>但現在透過 Hooks 的話，可以這麼寫:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; useDispatch &#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">CounterComponent</span> = (<span class="params">&#123; value &#125;</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> dispatch = <span class="title function_">useDispatch</span>();</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;value&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> dispatch(&#123; type: &#x27;INCREMENTHANDLER&#x27; &#125;  )&#125;&gt;</span></span><br><span class="line"><span class="language-xml">        Increment counter</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+<p>而這邊需要注意的是在文件中有提到如果我們是透過 callback 的方式來發一個 <code>action</code> 時，需要透過 <code>useCallback</code> 的方式處理，避免掉多餘的重新渲染。</p>
+<p>所以我們把上面的程式碼修改如下:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; useDispatch &#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">CounterComponent</span> = (<span class="params">&#123; value &#125;</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> dispatch = <span class="title function_">useDispatch</span>();</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> incrementHandler = <span class="title function_">useCallback</span>(</span><br><span class="line">   <span class="function">() =&gt;</span> <span class="title function_">dispatch</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;INCREMENTHANDLER&#x27;</span> &#125;),</span><br><span class="line">   [dispatch]</span><br><span class="line">  );</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;value&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> incrementHandler )&#125;&gt;</span></span><br><span class="line"><span class="language-xml">        Increment counter</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="useStore"><a class="header-anchor" href="#useStore"></a>useStore</h2>
+<p>最後要學的是 <code>useStore</code> 這個方法，這個方法可以讓我們取得我們透過 <code>Provider</code> 提供的 store 物件。</p>
+<p>來看看官方提供的程式碼:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; useStore &#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">CounterComponent</span> = (<span class="params">&#123; value &#125;</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> store = <span class="title function_">useStore</span>()</span><br><span class="line"></span><br><span class="line">  <span class="comment">// EXAMPLE ONLY! Do not do this in a real app.</span></span><br><span class="line">  <span class="comment">// The component will not automatically update if the store state changes</span></span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;store.getState()&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="改寫測試範例"><a class="header-anchor" href="#改寫測試範例"></a>改寫測試範例</h2>
+<p>而在篇幅的最後，這裡要改寫第23天的測試範例</p>
+<p>這邊擷取出局部程式碼:</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/new-cherry-wvzjc?file=/src/App.js">點擊前往</a>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; useCallback &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useSelector, useDispatch &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">App</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> dispatch = <span class="title function_">useDispatch</span>();</span><br><span class="line">  <span class="keyword">const</span> number = <span class="title function_">useSelector</span>(<span class="function">(<span class="params">state</span>) =&gt;</span> state.<span class="property">number</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> incrementHandler = <span class="title function_">useCallback</span>(</span><br><span class="line">    <span class="function">() =&gt;</span> <span class="title function_">dispatch</span>(&#123; <span class="attr">type</span>: <span class="string">&quot;INCREMENTHANDLER&quot;</span> &#125;),</span><br><span class="line">    [dispatch]</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> decrementHandler = <span class="title function_">useCallback</span>(</span><br><span class="line">    <span class="function">() =&gt;</span> <span class="title function_">dispatch</span>(&#123; <span class="attr">type</span>: <span class="string">&quot;DECREMENTHANDLER&quot;</span> &#125;),</span><br><span class="line">    [dispatch]</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> incrementTenNumberHandler = <span class="title function_">useCallback</span>(</span><br><span class="line">    <span class="function">(<span class="params">number</span>) =&gt;</span></span><br><span class="line">      <span class="title function_">dispatch</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&quot;INCREMENTTENNUMBERHANDLER&quot;</span>,</span><br><span class="line">        <span class="attr">payload</span>: &#123; number &#125;</span><br><span class="line">      &#125;),</span><br><span class="line">    [dispatch]</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>使用 React Redux Hooks 改寫<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>數字: &#123;number&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;incrementHandler&#125;</span>&gt;</span>點擊 + 1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;decrementHandler&#125;</span>&gt;</span>點擊 - 1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">          incrementTenNumberHandler(number);</span></span><br><span class="line"><span class="language-xml">        &#125;&#125;</span></span><br><span class="line"><span class="language-xml">      &gt;</span></span><br><span class="line"><span class="language-xml">        由當前數字 + 10</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br></pre></td></tr></table></figure>
+<p>上面的測試範例是簡單的加減計數器，這裡透過 <code>useSelector</code> 取得 store 物件中的 <code>number</code> 狀態的數據，並透過 <code>useDispatch</code> 來 <code>dispatch</code> 對應的 action 到 Reducer 中，並執行後續的 state 更新。</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<h2 id="資源"><a class="header-anchor" href="#資源"></a>資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://react-redux.js.org/api/hooks">React Redux Hooks</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/10/Redux-%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81-Redux-saga-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/" rel="prev" title="Redux 非同步資料流 - Redux saga 基本用法">
+                  <i class="fa fa-chevron-left"></i> Redux 非同步資料流 - Redux saga 基本用法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/12/%E8%AA%8D%E8%AD%98-React-Hooks-%E4%B9%8B%E4%B8%80/" rel="next" title="認識 React Hooks 之一">
+                  認識 React Hooks 之一 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

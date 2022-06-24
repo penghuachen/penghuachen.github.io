@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="今天要學習的是在 Redux 中另一套可以用來處理非同步資料套件: Redux saga。 這套與 Redux thunk 都是目前算是蠻主流的套件，在使用上可以依據自己的喜好選擇使用 往下學習怎麼用之前，我們先對於 Redux-saga 再來多一點認識吧!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux 非同步資料流 - Redux saga 基本用法">
+<meta property="og:url" content="https://penghuachen.github.io/2020/10/10/Redux-%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81-Redux-saga-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="今天要學習的是在 Redux 中另一套可以用來處理非同步資料套件: Redux saga。 這套與 Redux thunk 都是目前算是蠻主流的套件，在使用上可以依據自己的喜好選擇使用 往下學習怎麼用之前，我們先對於 Redux-saga 再來多一點認識吧!">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/s8YlBzM.png">
+<meta property="article:published_time" content="2020-10-10T02:14:55.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.832Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/s8YlBzM.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/10/10/Redux-%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81-Redux-saga-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/10/10/Redux-%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81-Redux-saga-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/","path":"2020/10/10/Redux-非同步資料流-Redux-saga-基本用法/","title":"Redux 非同步資料流 - Redux saga 基本用法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redux 非同步資料流 - Redux saga 基本用法 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-saga-%E7%9A%84%E7%89%B9%E8%89%B2"><span class="nav-number">1.</span> <span class="nav-text">Redux-saga 的特色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8-Generators"><span class="nav-number">2.</span> <span class="nav-text">生成器(Generators)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E7%94%9F%E6%88%90%E5%99%A8%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">什麼是生成器？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9A%E7%BE%A9%E4%B8%80%E5%80%8B%E7%94%9F%E6%88%90%E5%99%A8%E5%87%BD%E5%BC%8F"><span class="nav-number">2.2.</span> <span class="nav-text">如何定義一個生成器函式?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%8F%96%E5%BE%97%E7%94%9F%E6%88%90%E5%99%A8%E7%94%A2%E7%94%9F%E7%9A%84%E5%80%BC"><span class="nav-number">2.3.</span> <span class="nav-text">如何取得生成器產生的值?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-saga-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">Redux-saga 的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-Redux-saga"><span class="nav-number">3.1.</span> <span class="nav-text">安裝 Redux-saga</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E8%A7%A3%E5%8A%A0%E5%85%A5-Redux-saga-%E5%89%8D%E5%BE%8C%E7%9A%84%E6%B5%81%E7%A8%8B%E5%B7%AE%E7%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">理解加入 Redux-saga 前後的流程差異</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%93%AC%E4%B8%80%E5%80%8B%E9%9D%9E%E5%90%8C%E6%AD%A5%E6%B5%81%E7%A8%8B-%E5%85%A9%E7%A7%92%E5%BE%8C%E8%AE%8A%E6%9B%B4%E5%8D%A1%E7%89%87%E5%85%83%E4%BB%B6%E7%9A%84%E5%85%A7%E5%AE%B9"><span class="nav-number">3.3.</span> <span class="nav-text">模擬一個非同步流程: 兩秒後變更卡片元件的內容</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E4%B8%80%E5%80%8B-Card-%E5%85%83%E4%BB%B6"><span class="nav-number">3.3.1.</span> <span class="nav-text">建立一個 Card 元件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A5%E8%91%97%EF%BC%8C%E5%AE%89%E8%A3%9D%E3%80%81%E5%BC%95%E5%85%A5-Redux%E3%80%81%E5%BB%BA%E7%AB%8B-reducer"><span class="nav-number">3.3.2.</span> <span class="nav-text">接著，安裝、引入 Redux、建立 reducer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E9%A0%AD%E6%88%B2%E4%B8%8A%E5%A0%B4%EF%BC%8C%E5%8A%A0%E5%85%A5-redux-saga-middleware"><span class="nav-number">3.3.3.</span> <span class="nav-text">重頭戲上場，加入 redux-saga middleware</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Middleware-API-createSagaMiddleware-options"><span class="nav-number">3.3.4.</span> <span class="nav-text">Middleware API: createSagaMiddleware(options)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Middleware-API-middleware-run-saga-args"><span class="nav-number">3.3.5.</span> <span class="nav-text">Middleware API: middleware.run(saga, ...args)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Effect-creators-put-action"><span class="nav-number">3.3.6.</span> <span class="nav-text">Effect creators: put(action)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Effect-creators-takeEvery-pattern-saga-args"><span class="nav-number">3.3.7.</span> <span class="nav-text">Effect creators: takeEvery(pattern, saga, ...args)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Effect-creators-delay-ms-val"><span class="nav-number">3.3.8.</span> <span class="nav-text">Effect creators: delay(ms, [val])</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Effect-combinators-all-effects"><span class="nav-number">3.3.9.</span> <span class="nav-text">Effect combinators: all([...effects])</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%BA%90"><span class="nav-number">4.</span> <span class="nav-text">資源</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/10/10/Redux-%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81-Redux-saga-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redux 非同步資料流 - Redux saga 基本用法 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redux 非同步資料流 - Redux saga 基本用法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-10 10:14:55" itemprop="dateCreated datePublished" datetime="2020-10-10T10:14:55+08:00">2020-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>7.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>7 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>今天要學習的是在 Redux 中另一套可以用來處理非同步資料套件: <strong>Redux saga</strong>。</p>
+<p>這套與 Redux thunk 都是目前算是蠻主流的套件，在使用上可以依據自己的喜好選擇使用</p>
+<p>往下學習怎麼用之前，我們先對於 Redux-saga 再來多一點認識吧!</p>
+<span id="more"></span>
+<h2 id="Redux-saga-的特色"><a class="header-anchor" href="#Redux-saga-的特色"></a>Redux-saga 的特色</h2>
+<p>依據<a target="_blank" rel="noopener" href="https://redux-saga.js.org/">文件</a>提到，這裡條列出幾個重點:</p>
+<ol>
+<li>可以<strong>在 Redux-saga 中處理 side effect 的行為</strong>，例如像是 fetching data 等，可以更有效率、簡單的管理。</li>
+<li>作為 Redux 的 middleware ，可以在 Redux 中調度 Redux 的操作，例如在 middleware 中 dispatch 一個 action。</li>
+<li>使用 ES6 的生成器(Generators)來處理非同步流。</li>
+<li>相較於 redux-thunk，不會陷入到 回呼地獄(callback hell)。</li>
+</ol>
+<p>以上為文件中提到關於 redux-saga 的特色，其中也提到了一個很重要的核心概念:<strong>生成器(Generators)</strong>。</p>
+<p>所以接著我們要先學習一下關於生成器(Generators)的一些知識。</p>
+<h2 id="生成器-Generators"><a class="header-anchor" href="#生成器-Generators"></a>生成器(Generators)</h2>
+<p>生成器(Generators)是 ES6 出的功能，那為什麼 Redux-saga 會是透過它來實作出這個套件呢?</p>
+<p>接著我們看一下關於生成器(Generators)的定義與一些關鍵字</p>
+<h3 id="什麼是生成器？"><a class="header-anchor" href="#什麼是生成器？"></a>什麼是生成器？</h3>
+<p><strong>生成器函式</strong>會產生一連串的值，但並不是一次全部產生出來，而是<strong>對每次請求產生一個值</strong>。</p>
+<p>在產生一個值之後，<strong>生成器函式不會像正常函式那樣結束執行，它只是先暫停，然後再請求另一個值時，從暫停的地方恢復運作</strong>。</p>
+<p><strong>生成器不同於標準函式，呼叫生成器不是執行生成器函式，而是建立出一個迭代器(iterator)的物件。</strong></p>
+<h3 id="如何定義一個生成器函式"><a class="header-anchor" href="#如何定義一個生成器函式"></a>如何定義一個生成器函式?</h3>
+<p>定義一個生成器函式： <strong>在 function 後面加上一個星號(*)</strong> 即可。</p>
+<p>然後<strong>透過 <code>yield</code> 關鍵字來產生個別的值</strong>。</p>
+<h3 id="如何取得生成器產生的值"><a class="header-anchor" href="#如何取得生成器產生的值"></a>如何取得生成器產生的值?</h3>
+<p><strong>呼叫迭代器(iterator)的方法: <code>next()</code>，可以向迭代器請求一個值，當生成器遇到 <code>yeild</code> 關鍵字時，會產生一個物件的值作為結果回傳，然後就暫時暫停執行，讓頁面其他動作可以繼續，直到生成器再次透過 <code>next()</code> 方法呼叫時才會再次喚醒生成器。</strong></p>
+<p>而剛剛提到回傳的結果為一個物件，從這個物件的值我們可以判斷是否還有值可以產生出來。</p>
+<p>例如物件的值長這樣的時候:</p>
+<p><code>&#123;value: &quot;Katana&quot;, done: false&#125;</code></p>
+<p>由於 <strong><code>done</code> 是 <code>false</code>，代表還有值可以產生</strong>。</p>
+<p>如果得到的值是 <code>&#123;value: undefined, done: true&#125;</code>，<strong>當 <code>done</code> 是 <code>true</code>，代表已經沒有值可以產生了。</strong></p>
+<p>大致了解了生成器(Generators)的定義、設定方式和如何取值之後，透過一個簡單的程式碼來幫助理解吧</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>* <span class="title class_">FruitGenerator</span>() &#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;apple&quot;</span>;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;pineapple&quot;</span>;</span><br><span class="line">  <span class="keyword">yield</span> <span class="string">&quot;orange&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fruitIterator = <span class="title class_">FruitGenerator</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(fruitIterator.<span class="title function_">next</span>());</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(fruitIterator.<span class="title function_">next</span>());</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(fruitIterator.<span class="title function_">next</span>());</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(fruitIterator.<span class="title function_">next</span>());</span><br></pre></td></tr></table></figure>
+<p>上面程式碼建立了一個 <code>FruitGenerator</code> 的生成器，並且我們產生了一個 <code>fruitIterator</code> 的迭代器物件，而當我們一次次請求時，也就是透過連續呼叫 <code>next()</code> 方法時，會取得一連串的回傳值:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">value</span>: <span class="string">&quot;apple&quot;</span>, <span class="attr">done</span>: <span class="literal">false</span>&#125;</span><br><span class="line">&#123;<span class="attr">value</span>: <span class="string">&quot;pineapple&quot;</span>, <span class="attr">done</span>: <span class="literal">false</span>&#125;</span><br><span class="line">&#123;<span class="attr">value</span>: <span class="string">&quot;orange&quot;</span>, <span class="attr">done</span>: <span class="literal">false</span>&#125;</span><br><span class="line">&#123;<span class="attr">value</span>: <span class="literal">undefined</span>, <span class="attr">done</span>: <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>關於生成器(Generators)的學習大致先到這裡，接著我們看看怎麼使用 Redux-saga</p>
+<h2 id="Redux-saga-的使用"><a class="header-anchor" href="#Redux-saga-的使用"></a>Redux-saga 的使用</h2>
+<h3 id="安裝-Redux-saga"><a class="header-anchor" href="#安裝-Redux-saga"></a>安裝 Redux-saga</h3>
+<p>安裝的部分相信大家都很熟悉了，可以透過 npm 或 yarn 的方式安裝</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save redux-saga</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add redux-saga</span><br></pre></td></tr></table></figure>
+<p>然後再往下之前，我們先將流程順過一次</p>
+<h3 id="理解加入-Redux-saga-前後的流程差異"><a class="header-anchor" href="#理解加入-Redux-saga-前後的流程差異"></a>理解加入 Redux-saga 前後的流程差異</h3>
+<p>將 redux-saga 加入到 redux 之前，我們先把 redux 更新同步資料的流程再順過一次:</p>
+<p>這裡把重點放在 React component dispatch 一個 action 到 reducer 中。</p>
+<ol>
+<li>在 component 中透過 <code>connect</code> 連接到 redux store</li>
+<li>透過 <code>mapDispatchToProps</code> <code>dispatch</code> 一個 <code>action</code> 到 <code>reducer</code> 中，並依照 action type 執行對應的 <code>state</code> 更新流程。</li>
+</ol>
+<p>而加入 redux-saga 之後的流程：</p>
+<ol>
+<li>在 component 中透過 <code>connect</code> 連接到 redux store</li>
+<li><strong>透過 <code>mapDispatchToProps</code> <code>dispatch</code> 一個 <code>action</code> 到 redux-saga 中，然後  在 redux-saga 中依照 action type 執行對應的非同步流程(例如: call api)後，再把資料往 <code>reducer</code> 中觸發對應的 <code>state</code> 更新流程。</strong></li>
+</ol>
+<p>上述流程的差異一定要先弄懂，才不會在實作的時候覺得卡住哦！</p>
+<h3 id="模擬一個非同步流程-兩秒後變更卡片元件的內容"><a class="header-anchor" href="#模擬一個非同步流程-兩秒後變更卡片元件的內容"></a>模擬一個非同步流程: 兩秒後變更卡片元件的內容</h3>
+<p>這裡為了可以更加了解完整整個 Redux 加入 redux-saga 的流程。</p>
+<p>所以撰寫了一個範例，並且從建置 Redux 開始一一了解。</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/clever-brattain-meo48?file=/src/store/reducers/rootReducer.js">點擊前往</a>。</p>
+<p>首先是這個範例的資料結構:</p>
+<p><img src="https://i.imgur.com/s8YlBzM.png" alt=""></p>
+<ul>
+<li>components: 管理 Card 元件</li>
+<li>store:
+<ul>
+<li>reducers: 管理 reducer，並依據 action type 更新 state</li>
+<li>sagas: 管理非同步流程，從 React component 中先 dispatch 到 middleware 中，處理完非同步流程後再 dispatch 到 reducer 中。</li>
+</ul>
+</li>
+</ul>
+<h4 id="建立一個-Card-元件"><a class="header-anchor" href="#建立一個-Card-元件"></a>建立一個 Card 元件</h4>
+<p>建立元件相信大家都很熟悉了，所以不再多做贅述:</p>
+<p>稍微需要提的是這裡透過前面篇幅學到的 styled componet 方式設定樣式的部分。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">&quot;styled-components&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">CardDiv</span> = styled.<span class="property">div</span><span class="string">`</span></span><br><span class="line"><span class="string">  width: 200px;</span></span><br><span class="line"><span class="string">  border: 1px solid #8d8d8d;</span></span><br><span class="line"><span class="string">  border-radius: 10px;</span></span><br><span class="line"><span class="string">  margin: 0 auto;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Card</span> = (<span class="params">props</span>) =&gt; (</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">CardDiv</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">h3</span> <span class="attr">className</span>=<span class="string">&quot;name&quot;</span>&gt;</span>&#123;props.person.name&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">className</span>=<span class="string">&quot;age&quot;</span>&gt;</span>&#123;props.person.age&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">className</span>=<span class="string">&quot;habbit&quot;</span>&gt;</span>&#123;props.person.habbit&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">CardDiv</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Card</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="接著，安裝、引入-Redux、建立-reducer"><a class="header-anchor" href="#接著，安裝、引入-Redux、建立-reducer"></a>接著，安裝、引入 Redux、建立 reducer</h4>
+<p>安裝 Redux 的部分不多提，這邊直接看看引入與建立 reducer 檔案:</p>
+<p>首先先建立 reducer：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = &#123;</span><br><span class="line">  <span class="attr">person</span>: &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;Bill&quot;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">28</span>,</span><br><span class="line">    <span class="attr">habbit</span>: <span class="string">&quot;Read comic books&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">rootReducer</span> = (<span class="params">state = initialState, action</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.<span class="property">type</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;changeCardContent&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...state,</span><br><span class="line">        <span class="attr">person</span>: action.<span class="property">payload</span></span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>接著引入 Redux，並將 reducer 傳入:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store/index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; rootReducer &#125; <span class="keyword">from</span> <span class="string">&quot;./reducers/rootReducer&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">&quot;redux&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> store = <span class="title function_">createStore</span>(rootReducer);</span><br></pre></td></tr></table></figure>
+<p>連接 Redux 與 React component，以 class-based component 為例:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Card</span> <span class="keyword">from</span> <span class="string">&quot;./components/Card&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>使用 redux-saga 模擬非同步流程<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>點擊按鈕後兩秒變更卡片的內容。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Card</span> <span class="attr">person</span>=<span class="string">&#123;this.props.person&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span>&gt;</span>Click Me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">mapStateToProps</span> = (<span class="params">state</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">person</span>: state.<span class="property">person</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">connect</span>(mapStateToProps)(<span class="title class_">App</span>);</span><br></pre></td></tr></table></figure>
+<p>到這裡沒意外的話，應該可以成功將 Redux 中的 <code>person</code> 的資料渲染到畫面上囉!</p>
+<h4 id="重頭戲上場，加入-redux-saga-middleware"><a class="header-anchor" href="#重頭戲上場，加入-redux-saga-middleware"></a>重頭戲上場，加入 redux-saga middleware</h4>
+<p>完成前置作業後，接著我們將 redux-saga 這個 middleware 加入到 Redux 中了！</p>
+<p>還記得剛剛提到的關於流程變更的那個部分嗎?</p>
+<p><strong>「透過 mapDispatchToProps dispatch 一個 action 到 redux-saga 中，然後 在 redux-saga 中依照 action type 執行對應的非同步流程(例如: call api)後，再把資料往 reducer 中觸發對應的 state 更新流程。」</strong></p>
+<p>這裡我們先在 sagas 資料夾中建立一個 index.js 檔案，並設定好<strong>讓 React component 可以 dispatch 到 saga middleware 中的 action 與要 dipatch 到 reducer 中的 action</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// sagas/index.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; delay, put, takeEvery, all &#125; <span class="keyword">from</span> <span class="string">&quot;redux-saga/effects&quot;</span>;</span><br><span class="line"><span class="keyword">function</span>* <span class="title function_">changeCardContentHandler</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;redux-saga works and execute the generator&quot;</span>);</span><br><span class="line">  <span class="comment">// 模擬 call api 兩秒後資料回來</span></span><br><span class="line">  <span class="keyword">yield</span> <span class="title function_">delay</span>(<span class="number">2000</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// disptach an action to reducer</span></span><br><span class="line">  <span class="keyword">yield</span> <span class="title function_">put</span>(&#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&quot;changeCardContent&quot;</span>,</span><br><span class="line">    <span class="attr">payload</span>: &#123;</span><br><span class="line">      <span class="attr">name</span>: <span class="string">&quot;Charlie&quot;</span>,</span><br><span class="line">      <span class="attr">age</span>: <span class="number">13</span>,</span><br><span class="line">      <span class="attr">habbit</span>: <span class="string">&quot;Play ball&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// receive an action from react component</span></span><br><span class="line"><span class="keyword">function</span>* <span class="title function_">watchChangeCardContentHandlerSaga</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="title function_">takeEvery</span>(<span class="string">&quot;CHANGE_CARD_CONTENT&quot;</span>, changeCardContentHandler);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span>* <span class="title function_">rootSaga</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">yield</span> <span class="title function_">all</span>([<span class="title function_">watchChangeCardContentHandlerSaga</span>()]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這裡有一些關於 redux-saga 中的方法相向會讓人一頭霧水，這部分稍後會提到，我們先繼續把流程建置好。</p>
+<p>接著我們要在 redux 中引入 redux-saga，並運行起來：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; rootReducer &#125; <span class="keyword">from</span> <span class="string">&quot;./reducers/rootReducer&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware &#125; <span class="keyword">from</span> <span class="string">&quot;redux&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 引入 redux-saga</span></span><br><span class="line"><span class="keyword">import</span> createSagaMiddleware <span class="keyword">from</span> <span class="string">&quot;redux-saga&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; rootSaga &#125; <span class="keyword">from</span> <span class="string">&quot;./sagas&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建立 sagaMiddleware 並引入到 redux 中</span></span><br><span class="line"><span class="keyword">const</span> sagaMiddleware = <span class="title function_">createSagaMiddleware</span>();</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> store = <span class="title function_">createStore</span>(rootReducer, <span class="title function_">applyMiddleware</span>(sagaMiddleware));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 運行我們設定的 saga generator</span></span><br><span class="line">sagaMiddleware.<span class="title function_">run</span>(rootSaga);</span><br></pre></td></tr></table></figure>
+<p>到這裡已經完成 redux-saga 的建置，最後一步就是在 React component 中 <code>dispatch</code> 一個 <code>action</code> 到 middleware 中囉</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Card</span> <span class="keyword">from</span> <span class="string">&quot;./components/Card&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>使用 redux-saga 模擬非同步流程<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>點擊按鈕後兩秒變更卡片的內容。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Card</span> <span class="attr">person</span>=<span class="string">&#123;this.props.person&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        // 觸發事件</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.props.changeCardContentHandler&#125;</span>&gt;</span>Click Me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">mapStateToProps</span> = (<span class="params">state</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">person</span>: state.<span class="property">person</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">mapDispatchToProps</span> = (<span class="params">dispatch</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">changeCardContentHandler</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// dipatch an action to redux-saga middleware</span></span><br><span class="line">      <span class="title function_">dispatch</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&quot;CHANGE_CARD_CONTENT&quot;</span></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">connect</span>(mapStateToProps, mapDispatchToProps)(<span class="title class_">App</span>);</span><br></pre></td></tr></table></figure>
+<p>順利的應該可以看到成功模擬非同步流程的結果了！</p>
+<p>不過還記得剛剛在過程中使用到的那些方法嗎?</p>
+<ul>
+<li>Middleware API
+<ul>
+<li><code>createSagaMiddleware(options)</code></li>
+<li><code>middleware.run(saga, ...args)</code></li>
+</ul>
+</li>
+<li>Effect creators
+<ul>
+<li><code>put(action)</code></li>
+<li><code>takeEvery(pattern, saga, ...args)</code></li>
+<li><code>delay(ms, [val])</code></li>
+</ul>
+</li>
+<li>Effect combinators
+<ul>
+<li><code>all([...effects])</code></li>
+</ul>
+</li>
+</ul>
+<p>這些是 redux-saga 提供的方法，透過這些方法我們才可以完成整個 middleware 的建置，接著一一來理解這些輔助函式的定義吧!</p>
+<h4 id="Middleware-API-createSagaMiddleware-options"><a class="header-anchor" href="#Middleware-API-createSagaMiddleware-options"></a>Middleware API: <code>createSagaMiddleware(options)</code></h4>
+<p>建立 Redux middleware 並將 sagas 與 Redux Store 做連接。</p>
+<h4 id="Middleware-API-middleware-run-saga-args"><a class="header-anchor" href="#Middleware-API-middleware-run-saga-args"></a>Middleware API: <code>middleware.run(saga, ...args)</code></h4>
+<p>運行 saga，只能在 <code>applyMiddleware</code> 後的階段運行才有效。</p>
+<h4 id="Effect-creators-put-action"><a class="header-anchor" href="#Effect-creators-put-action"></a>Effect creators: <code>put(action)</code></h4>
+<p>如同 Redux 中的 dispatch，會 disptach 一個 action 到 reducer 中執行後續的 state 更新</p>
+<h4 id="Effect-creators-takeEvery-pattern-saga-args"><a class="header-anchor" href="#Effect-creators-takeEvery-pattern-saga-args"></a>Effect creators: <code>takeEvery(pattern, saga, ...args)</code></h4>
+<p>讓 React component 可以 dispatch 一個 action 到 middleware 中，並直接符合 pattern 時的第二個參數，也就是要執行的函式。</p>
+<h4 id="Effect-creators-delay-ms-val"><a class="header-anchor" href="#Effect-creators-delay-ms-val"></a>Effect creators: <code>delay(ms, [val])</code></h4>
+<p>用於延遲程式流程執行，單位為毫秒(ms)。</p>
+<h4 id="Effect-combinators-all-effects"><a class="header-anchor" href="#Effect-combinators-all-effects"></a>Effect combinators: <code>all([...effects])</code></h4>
+<p>可同時運行多個 Effects，並等待這些 Effects 執行完成後才會繼續流程。</p>
+<p>關於 redux-saga 的基礎使用學習就到這裡囉，明天見</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<h2 id="資源"><a class="header-anchor" href="#資源"></a>資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://redux-saga.js.org/">redux-saga</a></li>
+<li><a target="_blank" rel="noopener" href="https://redux-saga.js.org/docs/api/">API Reference</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/09/Redux-%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E8%99%95%E7%90%86-%E4%BD%BF%E7%94%A8-Redux-Thunk/" rel="prev" title="Redux 非同步資料處理 - 使用 Redux Thunk">
+                  <i class="fa fa-chevron-left"></i> Redux 非同步資料處理 - 使用 Redux Thunk
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/11/React-Redux-%E8%88%87-Hooks/" rel="next" title="React Redux 與 Hooks">
+                  React Redux 與 Hooks <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

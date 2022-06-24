@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Redux 觀念初探 今天要學習的部分是管理應用程式中所有 State 的神器， Redux。 如果沒有它，當我們開發的應得程式越來越複雜的時候，亦或者是 containers 之間彼此需要相同資料的時候，就會顯得舉步維艱。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux 觀念初探">
+<meta property="og:url" content="https://penghuachen.github.io/2020/10/07/Redux-%E8%A7%80%E5%BF%B5%E5%88%9D%E6%8E%A2/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="Redux 觀念初探 今天要學習的部分是管理應用程式中所有 State 的神器， Redux。 如果沒有它，當我們開發的應得程式越來越複雜的時候，亦或者是 containers 之間彼此需要相同資料的時候，就會顯得舉步維艱。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://redux.js.org/img/tutorials/essentials/ReduxDataFlowDiagram.gif">
+<meta property="article:published_time" content="2020-10-07T02:48:46.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.832Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://redux.js.org/img/tutorials/essentials/ReduxDataFlowDiagram.gif">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/10/07/Redux-%E8%A7%80%E5%BF%B5%E5%88%9D%E6%8E%A2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/10/07/Redux-%E8%A7%80%E5%BF%B5%E5%88%9D%E6%8E%A2/","path":"2020/10/07/Redux-觀念初探/","title":"Redux 觀念初探"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redux 觀念初探 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redux-%E8%A7%80%E5%BF%B5%E5%88%9D%E6%8E%A2"><span class="nav-number">1.</span> <span class="nav-text">Redux 觀念初探</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%83%B3%E8%AA%8D%E8%AD%98-redux-%E5%97%8E-%E5%85%88%E8%AA%8D%E8%AD%98%E6%88%91%E5%B8%B8%E7%94%A8%E7%9A%84%E8%A9%9E%E5%BD%99%E8%88%87%E7%94%A8%E9%80%94%E5%90%A7"><span class="nav-number">1.1.</span> <span class="nav-text">想認識 redux 嗎? 先認識我常用的詞彙與用途吧!</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux-%E5%A5%BD%E6%9C%8B%E5%8F%8B%E5%B9%AB%E5%8A%A9%E6%88%91%E7%9A%84%E5%85%A9%E4%B8%89%E4%BA%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">Redux 好朋友幫助我的兩三事</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E5%8A%A0%E8%B2%BC%E8%BF%91-Redux-%E4%BA%86%E8%A7%A3%E8%A1%93%E8%AA%9E"><span class="nav-number">1.2.</span> <span class="nav-text">更加貼近 Redux - 了解術語</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Store"><span class="nav-number">1.2.1.</span> <span class="nav-text">Store</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reducers"><span class="nav-number">1.2.2.</span> <span class="nav-text">Reducers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dispatch"><span class="nav-number">1.2.3.</span> <span class="nav-text">Dispatch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Actions"><span class="nav-number">1.2.4.</span> <span class="nav-text">Actions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Action-Creators"><span class="nav-number">1.2.5.</span> <span class="nav-text">Action Creators</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-%E9%81%8B%E4%BD%9C%E6%A8%A1%E5%BC%8F%E7%90%86%E8%A7%A3"><span class="nav-number">1.3.</span> <span class="nav-text">Redux 運作模式理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%BA%90"><span class="nav-number">1.4.</span> <span class="nav-text">資源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/10/07/Redux-%E8%A7%80%E5%BF%B5%E5%88%9D%E6%8E%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redux 觀念初探 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redux 觀念初探
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-07 10:48:46" itemprop="dateCreated datePublished" datetime="2020-10-07T10:48:46+08:00">2020-10-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Redux-觀念初探"><a class="header-anchor" href="#Redux-觀念初探"></a>Redux 觀念初探</h1>
+<p>今天要學習的部分是<strong>管理應用程式中所有 State 的神器， Redux。</strong> 如果沒有它，當我們開發的應得程式越來越複雜的時候，亦或者是 containers 之間彼此需要相同資料的時候，就會顯得舉步維艱。</p>
+<span id="more"></span>
+<p>而今天是和 Redux 交朋友的第一天，所以我們先從認識 Redux 一些相關的詞彙與概念來慢慢增進與 redux 的關係吧!</p>
+<p>相關的知識可以從<a target="_blank" rel="noopener" href="https://redux.js.org/tutorials/essentials/part-1-overview-concepts#redux-essentials-part-1-redux-overview-and-concepts">官方文件</a>中查看。</p>
+<h2 id="想認識-redux-嗎-先認識我常用的詞彙與用途吧"><a class="header-anchor" href="#想認識-redux-嗎-先認識我常用的詞彙與用途吧"></a>想認識 redux 嗎? 先認識我常用的詞彙與用途吧!</h2>
+<h3 id="Redux-好朋友幫助我的兩三事"><a class="header-anchor" href="#Redux-好朋友幫助我的兩三事"></a>Redux 好朋友幫助我的兩三事</h3>
+<p>Redux 好朋友可以幫助我在開發 React 應用程式的時候可以<strong>更有效地[管理/更新]全域 state 的狀態。</strong></p>
+<p>至於如何更新 state 的狀態呢?</p>
+<p>我們在 React Component 中透過觸發事件(event) 來更新 state，<strong>在 Redux 也是相同的</strong>，我們在 Redux 中使用<strong>稱為 actions 的事件來更新 state</strong>。</p>
+<p>而要讓 Redux 中的 state / actions 可以在 React component 中使用，還需要借助一位朋友的幫忙。</p>
+<p>那就是 React-Redux。</p>
+<p>如果沒有 React-Redux， Redux 和 React 應用程式的友誼橋樑就會無法建立。</p>
+<p><strong>這表示要讓 Redux 中的 state/actions 得以在 React 應用程式使用，需要透過 React-Redux 才可以。</strong></p>
+<p>此外， Redux 好朋友還跟我提及了一個很重要的觀念，關於 <strong>「不可變(Immutability)」。</strong><br>
+因為 Javascript 中的<strong>物件與陣列都是可變的(mutable)</strong>，但是在 <strong>redux 中它希望在更新 state 中狀態的時候，是在不修改到原本 state 狀態下進行更新的(不變地更新值)。</strong></p>
+<p>所以為了避免這個問題，我們需要<strong>透過複製一份當前 state 的狀態，然後再將要更新的資料(陣列或者物件型別)放進去。</strong></p>
+<p>這邊舉個簡單的小例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> arr2 = arr; <span class="comment">// 指向同一個記憶體位置</span></span><br><span class="line">arr2.<span class="title function_">push</span>(<span class="string">&#x27;c&#x27;</span>) <span class="comment">// arr, arr2 同時都被修改了</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> arr2 = [...arr]; <span class="comment">// 淺層複製，修改第一層或新增資料時並不修改到 arr</span></span><br><span class="line">arr2.<span class="title function_">push</span>(<span class="string">&#x27;c&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>介紹至此，Redux 好朋友說暫時先介紹到這裡，再往下介紹之前，必須先瞭解一些在 Redux 中的術語。</p>
+<p>接著它就自顧自的開始介紹一些術語與運作方式呢。</p>
+<h2 id="更加貼近-Redux-了解術語"><a class="header-anchor" href="#更加貼近-Redux-了解術語"></a>更加貼近 Redux - 了解術語</h2>
+<h3 id="Store"><a class="header-anchor" href="#Store"></a>Store</h3>
+<p>在 Redux 中<strong>用來儲存 state 狀態的物件，稱為 store</strong>。</p>
+<p>並且藉由 redux 中的 createStore 方法，用來將 Reducer 傳入。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> rootReducer <span class="keyword">from</span> <span class="string">&#x27;./store/rootReducer&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">createStore</span>(rootReducer);</span><br></pre></td></tr></table></figure>
+<h3 id="Reducers"><a class="header-anchor" href="#Reducers"></a>Reducers</h3>
+<p><strong>是一個函式，用來接收當前的 state 與 action，並在需要的時候可以更新 state 的狀態。</strong></p>
+<p>此外，還有一些使用的規則需要注意:</p>
+<ol>
+<li>新的 state 狀態只能是透過 <strong>當前的 state 與 action 物件來取得。</strong></li>
+<li>不可以修改當前的 state，需要透過額外複製一份當前 state 的狀態，並從那份狀態來進行更新。</li>
+<li><strong>不可以在此設計非同步邏輯、隨機值或者其他會造成 side effect 的行為。</strong></li>
+</ol>
+<p>這裡提供一個片段的小例子來幫助理解：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = &#123; <span class="attr">value</span>: <span class="number">0</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">counterReducer</span>(<span class="params">state = initialState, action</span>) &#123;</span><br><span class="line">  <span class="comment">// Check to see if the reducer cares about this action</span></span><br><span class="line">  <span class="keyword">if</span> (action.<span class="property">type</span> === <span class="string">&#x27;counter/increment&#x27;</span>) &#123;</span><br><span class="line">    <span class="comment">// If so, make a copy of `state`</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      ...state,</span><br><span class="line">      <span class="comment">// and update the copy with the new value</span></span><br><span class="line">      <span class="attr">value</span>: state.<span class="property">value</span> + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// otherwise return the existing state unchanged</span></span><br><span class="line">  <span class="keyword">return</span> state</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>定義了 initialState，當 counterReducer 被執行的時候，<strong>initialState 作為 state 的預設值</strong>。</li>
+<li>藉由 action 中描述的事件，當在 React 應用程式中觸發了描述這個事件的 action 時(此為 counter/increment)， counterReducer 會<strong>回傳一個 value 值 + 1 的物件，更新 state 狀態。</strong></li>
+<li>更新 state 狀態時，記得要複製一份當前的 state 狀態，可以透過物件解構的方式達成。</li>
+</ol>
+<h3 id="Dispatch"><a class="header-anchor" href="#Dispatch"></a>Dispatch</h3>
+<p><strong>唯一一種用來將 action 物件傳入，並且更新 store 中  state 狀態的方式。</strong></p>
+<p>store.dispatch 可以視為是<strong>觸發一個事件，透過這個方式讓 store 知道我們想要觸發哪一個事件(藉由傳入 action 物件得知)。</strong></p>
+<p>而當執行 store.dispatch 時， store 其實是執行 ruducer 函式並更新 state 的狀態，以下方這個小例子為例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">store.<span class="title function_">dispatch</span>(&#123; <span class="attr">type</span>: <span class="string">&#x27;counter/increment&#x27;</span> &#125;)</span><br></pre></td></tr></table></figure>
+<p>我們將 <code>&#123; type: 'counter/increment' &#125;</code> 這個 action 物件傳入，讓 store 中的 reducer 方法知道我們現在要執行的是 <code>counter/increment</code>，然後執行對應更新 state 狀態的流程。</p>
+<h3 id="Actions"><a class="header-anchor" href="#Actions"></a>Actions</h3>
+<p>可以將 actions 視為是一個<strong>在 React 應用程式中用來描述某件事件可以被執行的事件。</strong></p>
+<p>Actions 具有 type 與 payload 欄位，其中:</p>
+<ul>
+<li>type 欄位用來描述這個可以被執行的事件</li>
+<li>payload 欄位用來提供額外的資訊可以被操作</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> addTodoAction = &#123;</span><br><span class="line">  <span class="attr">type</span>: <span class="string">&#x27;todos/todoAdded&#x27;</span>,</span><br><span class="line">  <span class="attr">payload</span>: <span class="string">&#x27;Buy milk&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Action-Creators"><a class="header-anchor" href="#Action-Creators"></a>Action Creators</h3>
+<p><strong>是一個函式，可以用來回傳一個 action 物件，並且可以額外提供參數傳入。</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">addTodo</span> = text =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&#x27;todos/todoAdded&#x27;</span>,</span><br><span class="line">    <span class="attr">payload</span>: text</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>介紹到這裡， Redux 好朋友認為我應該是都懂了…。</p>
+<p>於是又接著介紹運作的模式…</p>
+<h2 id="Redux-運作模式理解"><a class="header-anchor" href="#Redux-運作模式理解"></a>Redux 運作模式理解</h2>
+<p>為了讓我可以更快理解運作模式，這邊它區分為兩個部分來講解:</p>
+<ol>
+<li>初始設置</li>
+<li>更新 state 狀態</li>
+</ol>
+<p>首先是初始設定:</p>
+<ol>
+<li>建立 Redux Store 與 reducer 函式。</li>
+<li>Store 呼叫一次 reducer，並將取得的 state 狀態作為初始狀態。</li>
+<li>當 React 元件第一次渲染時，透過 react-redux 的幫助，可以取得 Redux Store 物件的 state 狀態，並將值運用在 React 元件中。</li>
+</ol>
+<p>再來是更新時:</p>
+<ol>
+<li>觸發像是點擊事件時，從 React 元件中 disptach 一個 action ，告訴 Store 中的 reducer，我現在要對於符合條件的進行對應的 state 更新流程。</li>
+<li>Store 中 state 被更新， React 元件中得知後就會重新渲染，並將更新後的 state 的狀態運用在 React 元件中。</li>
+</ol>
+<p>Redux 好朋友怕我看不懂文字的描述，還特地從 <a target="_blank" rel="noopener" href="https://redux.js.org/tutorials/essentials/part-1-overview-concepts#redux-application-data-flow">官方文件</a> 中找來這張圖:</p>
+<p><img src="https://redux.js.org/img/tutorials/essentials/ReduxDataFlowDiagram.gif" alt=""></p>
+<p>關於 Redux 的整體觀念大致就介紹到這裡， redux 好朋友說明天要透過範例讓我們了解如何處理同步資料流的部分。</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<p>明天見~</p>
+<h2 id="資源"><a class="header-anchor" href="#資源"></a>資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://redux.js.org/tutorials/essentials/part-1-overview-concepts#redux-essentials-part-1-redux-overview-and-concepts">Redux Essentials, Part 1: Redux Overview and Concepts</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/06/React-Router-%E8%88%87-hooks/" rel="prev" title="React Router 與 hooks">
+                  <i class="fa fa-chevron-left"></i> React Router 與 hooks
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/08/Redux-%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81/" rel="next" title="Redux 同步資料流">
+                  Redux 同步資料流 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

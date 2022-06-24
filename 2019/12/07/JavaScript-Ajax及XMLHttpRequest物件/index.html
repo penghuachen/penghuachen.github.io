@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Ajax(Asynchronous JavaScript and XML) 非同步 JavaScript 及 XML 在 MDN 是這麼解釋著：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript Ajax及XMLHttpRequest物件">
+<meta property="og:url" content="https://penghuachen.github.io/2019/12/07/JavaScript-Ajax%E5%8F%8AXMLHttpRequest%E7%89%A9%E4%BB%B6/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="Ajax(Asynchronous JavaScript and XML) 非同步 JavaScript 及 XML 在 MDN 是這麼解釋著：">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/9ADZwvY.png">
+<meta property="og:image" content="https://i.imgur.com/Ir6N6Pw.png">
+<meta property="article:published_time" content="2019-12-07T05:02:39.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.829Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/9ADZwvY.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/12/07/JavaScript-Ajax%E5%8F%8AXMLHttpRequest%E7%89%A9%E4%BB%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/12/07/JavaScript-Ajax%E5%8F%8AXMLHttpRequest%E7%89%A9%E4%BB%B6/","path":"2019/12/07/JavaScript-Ajax及XMLHttpRequest物件/","title":"JavaScript Ajax及XMLHttpRequest物件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript Ajax及XMLHttpRequest物件 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ajax-Asynchronous-JavaScript-and-XML-%E9%9D%9E%E5%90%8C%E6%AD%A5-JavaScript-%E5%8F%8A-XML"><span class="nav-number">1.</span> <span class="nav-text">Ajax(Asynchronous JavaScript and XML) 非同步 JavaScript 及 XML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XMLHttpRequest-%E7%89%A9%E4%BB%B6-XHR%E7%89%A9%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">XMLHttpRequest 物件(XHR物件)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%EF%BC%9A%E9%80%8F%E9%81%8EXHR%E7%89%A9%E4%BB%B6%E4%BB%8B%E6%8E%A5%E9%AB%98%E9%9B%84%E5%B8%82%E6%94%BF%E5%BA%9C%E8%B3%87%E6%96%99%E9%96%8B%E6%94%BE%E5%B9%B3%E5%8F%B0%E7%9A%84Open-Data"><span class="nav-number">3.</span> <span class="nav-text">實作：透過XHR物件介接高雄市政府資料開放平台的Open Data</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/12/07/JavaScript-Ajax%E5%8F%8AXMLHttpRequest%E7%89%A9%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript Ajax及XMLHttpRequest物件 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript Ajax及XMLHttpRequest物件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-12-07 13:02:39" itemprop="dateCreated datePublished" datetime="2019-12-07T13:02:39+08:00">2019-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Ajax-Asynchronous-JavaScript-and-XML-非同步-JavaScript-及-XML"><a class="header-anchor" href="#Ajax-Asynchronous-JavaScript-and-XML-非同步-JavaScript-及-XML"></a>Ajax(Asynchronous JavaScript and XML) 非同步 JavaScript 及 XML</h2>
+<p>在 MDN 是這麼解釋著：</p>
+<span id="more"></span>
+<blockquote>
+<p>AJAX 代表 Asynchronous JavaScript And XML，即非同步 JavaScript 及 XML。簡單地說，AJAX 使用 XMLHttpRequest(XHR) 物件來與伺服器進行通訊。它可以傳送並接收多種格式的資訊，包括 JSON、XML、HTML、以及文字檔案。AJAX 最吸引人的特點是「非同步」的本質，這代表它可以與伺服溝通、交換資料、以及更新頁面，且無須重整網頁。<br>
+<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/Guide/AJAX/Getting_Started#AJAX_%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F">什麼是AJAX?</a></p>
+</blockquote>
+<p>而上述提到了關於Ajax兩個很重要的觀念：</p>
+<ol>
+<li>
+<p>AJAX 使用 XMLHttpRequest 物件來與伺服器進行溝通、交換資料、以及更新頁面，且無須重整網頁(此為AJAX的非同步特性)</p>
+</li>
+<li>
+<p>XMLHttpRequest 物件可以傳送並接收多種格式的資訊，包括 JSON、XML、HTML、以及文字檔案</p>
+</li>
+</ol>
+<h2 id="XMLHttpRequest-物件-XHR物件"><a class="header-anchor" href="#XMLHttpRequest-物件-XHR物件"></a>XMLHttpRequest 物件(XHR物件)</h2>
+<p>既然 Ajax 是使用 XMLHttpRequest 物件作為與伺服器溝通的橋樑，那就必須了解一下關於這個XHR物件的屬性、方法。</p>
+<p>由於XHR物件有許多的屬性與方法，在此不一一敘述，僅提到測試例子有使用到的語法。</p>
+<p>(註：XMLHttpRequest物件以下簡稱為XHR物件)</p>
+<p>首先，要使用XHR物件的話，需要先實體化XHR物件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(xhr);</span><br></pre></td></tr></table></figure>
+<p>此時應該可以看到下圖的資訊</p>
+<p><img src="https://i.imgur.com/9ADZwvY.png" alt="Day24-1"><br>
+再來我們繼續往下看看它的屬性與方法</p>
+<p>剛建立的XHR物件，因為還沒有要和伺服器發出請求，所以可以看到readyState的狀態為0，<strong>代表是XHR物件已經被建立，但open()方法還沒有被呼叫</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">readyState</span>);</span><br></pre></td></tr></table></figure>
+<p>關於readyState的狀態變化，可以參考mdn的這個表格</p>
+<p><img src="https://i.imgur.com/Ir6N6Pw.png" alt="Day24-2"></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/API/XMLHttpRequest/readyState">XMLHttpRequest readyState</a></p>
+</blockquote>
+<p>當成功請求到資料時，會回傳一個DOMString，可以透過responseText屬性查看回應的內容，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line"><span class="comment">//還沒發出請求，會是空值</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">responseText</span>);</span><br></pre></td></tr></table></figure>
+<p>需要注意的是這邊拿到的會是字串型別的資料，我們還需要透過<strong>JSON.parse()的語法將資料轉成物件</strong>，如此一來才可以使用物件的操作技巧。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> a = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(xhr.<span class="property">responseText</span>);</span><br><span class="line"><span class="comment">//如果有成功拿到資料，經過JSON.parse()轉換後會得到物件型別的資料</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br></pre></td></tr></table></figure>
+<p>然後除了可以透過XHR物件查看對於伺服器發出的請求狀態之外，我們也可以透過 status屬性查看伺服器如何回應我們這次的請求。</p>
+<p>而statusText則是會回傳如&quot;200&quot;、&quot;OK&quot;這類的文字訊息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line"><span class="comment">//還沒發出請求，會是空值</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">status</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">statusText</span>);</span><br></pre></td></tr></table></figure>
+<p>大致提完了關於XHR物件的屬性，接下來要講到XHR物件的方法</p>
+<p>透過這些方法我們才能成功的向伺服器發出請求</p>
+<p>xhr.open()，設定請求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">xhr.<span class="title function_">open</span>(method,url,<span class="keyword">async</span>,user,password);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>method: 可以使用&quot;GET&quot;，“POST”，“PUT”，&quot;DELETE&quot;等方式做出請求</li>
+<li>url: 要提出請求的URL</li>
+<li>async: 是否執行非同步操作，預設值為true</li>
+<li>user: 用於身份驗證的使用者名稱，預設值為null</li>
+<li>password: 用於身份驗證的使用者密碼，預設值為null</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/API/XMLHttpRequest/open">XMLHttpRequest.open()<br>
+</a></p>
+</blockquote>
+<p>初始化請求之後，再來是要發送請求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">xhr.<span class="title function_">open</span>(method,url,<span class="keyword">async</span>,user,password);</span><br><span class="line">xhr.<span class="title function_">send</span>(body);</span><br></pre></td></tr></table></figure>
+<p>這裡的send()操作會因為GET、POST的使用不同而有所不同。</p>
+<p>單純請求資料(GET)，則xhr.send()可以是空值 -&gt; <code>xhr.send(null)</code></p>
+<p>若是需要將資料傳遞至伺服器，則還要補充相關訊息</p>
+<p>以傳遞純文字資料為例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line"><span class="comment">//需要告知要傳遞的資料格式</span></span><br><span class="line">xhr.<span class="title function_">open</span>(<span class="string">&quot;POST&quot;</span>,<span class="string">&quot;/log.php&quot;</span>);</span><br><span class="line">xhr.<span class="title function_">setRequestHeader</span>(<span class="string">&quot;Content-type&quot;</span>,<span class="string">&quot;text/plain;charset=UTF-8&quot;</span>);</span><br><span class="line">xhr.<span class="title function_">send</span>(<span class="string">&#x27;1234&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>重點在於 <code>xhr.setRequestHeader(&quot;Content-type&quot;,&quot;text/plain;charset=UTF-8&quot;);</code></p>
+<p>上面這行程式碼表明請求主體為純文字，而這就是我們如果需要將資料往伺服器端傳送時需要補充的訊息。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/API/XMLHttpRequest/send">XMLHttpRequest.send()<br>
+</a></p>
+</blockquote>
+<p>最後要提到的部分是關於對XHR物件的監聽</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">xhr.<span class="title function_">addEventListener</span>(<span class="string">&#x27;load&#x27;</span>,getRequest);</span><br><span class="line">request.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>, endpoint,<span class="literal">true</span>);</span><br><span class="line">request.<span class="title function_">send</span>(<span class="literal">null</span>); </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getRequest</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">responseText</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因為發出請求時不一定可以即時拿到資料，所以必須監聽當請求得到回覆後，才往下執行程式碼</p>
+<p>如果沒有這麼做的話會拿到空值。</p>
+<p>觸發事件的類型有很多，這邊則使用load事件，<strong>當目標資源加載完之後才觸發事件</strong></p>
+<h2 id="實作：透過XHR物件介接高雄市政府資料開放平台的Open-Data"><a class="header-anchor" href="#實作：透過XHR物件介接高雄市政府資料開放平台的Open-Data"></a>實作：透過XHR物件介接高雄市政府資料開放平台的Open Data</h2>
+<p>這個例子會透過XHR物件的GET方法取得高雄市政府資料開放平台的Open Data</p>
+<p>可以將程式碼貼到自己的編輯器嘗試運作看看</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://data.kcg.gov.tw/dataset/a98754a3-3446-4c9a-abfc-58dc49f2158c/resource/48d4dfc4-a4b2-44a5-bdec-70f9558cd25d/download/yopendata1070622opendatajson-1070622.json">電動機車充電站名稱及充電站地址</a></p>
+</blockquote>
+<ol>
+<li>撰寫HTML、CSS部分</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- css part --&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">  body &#123;</span><br><span class="line">    background: #f0d0d0;</span><br><span class="line">  &#125;</span><br><span class="line">  h1 &#123;</span><br><span class="line">    text-align: center;</span><br><span class="line">    font-weight: bold;</span><br><span class="line">    font-size: 48px;</span><br><span class="line">  &#125;</span><br><span class="line">  .charge-list &#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    list-style: none;</span><br><span class="line">    flex-wrap: wrap;</span><br><span class="line">  &#125;</span><br><span class="line">  .charge-list li &#123;</span><br><span class="line">    box-sizing: border-box;</span><br><span class="line">    flex: 0 1 24%;</span><br><span class="line">    padding: 10px;</span><br><span class="line">    margin: 0 1% 2% 0;</span><br><span class="line">    border-radius: 10px;</span><br><span class="line">    transition: all .4s;</span><br><span class="line">  &#125;</span><br><span class="line">  .charge-list li:hover &#123;</span><br><span class="line">    margin-top: -1%;</span><br><span class="line">  &#125;</span><br><span class="line">  .charge-list li:nth-child(n) &#123;</span><br><span class="line">    background: #aaaadd;</span><br><span class="line">  &#125;</span><br><span class="line">  .charge-list li:nth-child(2n) &#123;</span><br><span class="line">    background: #ddddaa;</span><br><span class="line">  &#125;</span><br><span class="line">  .charge-list li:nth-child(3n) &#123;</span><br><span class="line">    background: #dad;</span><br><span class="line">  &#125;</span><br><span class="line">  .charge-list li:nth-child(3n+1) &#123;</span><br><span class="line">    background: #aaf;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- html --&gt;</span><br><span class="line">&lt;ul class=&quot;charge-list&quot;&gt;&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>透過xhr物件向高雄市政府Open Data請求資料</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> endpoint = <span class="string">&#x27;https://data.kcg.gov.tw/dataset/a98754a3-3446-4c9a-abfc-58dc49f2158c/resource/48d4dfc4-a4b2-44a5-bdec-70f9558cd25d/download/yopendata1070622opendatajson-1070622.json&#x27;</span>; </span><br><span class="line"><span class="keyword">const</span> request = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">request.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>, endpoint,<span class="literal">true</span>);</span><br><span class="line">request.<span class="title function_">send</span>(<span class="literal">null</span>); </span><br><span class="line">request.<span class="title function_">addEventListener</span>(<span class="string">&#x27;load&#x27;</span>, getRequest); </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getRequest</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 可以將註解拿掉查看</span></span><br><span class="line">  <span class="comment">//console.log(request);</span></span><br><span class="line">  <span class="keyword">const</span> charge = [];</span><br><span class="line">  charge.<span class="title function_">push</span>(...<span class="title class_">JSON</span>.<span class="title function_">parse</span>(request.<span class="property">responseText</span>));</span><br><span class="line">  </span><br><span class="line">  <span class="title function_">createDomElement</span>(charge);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>將指定的資料內容(位置、地址)渲染到HTML頁面中</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">createDomElement</span>(<span class="params">charge</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> domElements = charge.<span class="title function_">map</span>(<span class="function"><span class="params">place</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;li&gt;</span></span><br><span class="line"><span class="string">      &lt;p class=&quot;location&quot;&gt;位置： <span class="subst">$&#123; place.Location &#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">      &lt;p class=&quot;address&quot;&gt;地址：<span class="subst">$&#123; place.Address &#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">    &lt;/li&gt;</span></span><br><span class="line"><span class="string">  `</span>;</span><br><span class="line">  &#125;).<span class="title function_">join</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> chargeList = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.charge-list&#x27;</span>);</span><br><span class="line">  chargeList.<span class="property">innerHTML</span> = domElements;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/12/05/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E4%BF%AE%E6%94%B9CSS-%E6%A8%A3%E5%BC%8F%E3%80%81%E5%B1%AC%E6%80%A7/" rel="prev" title="透過 JavaScript 動態修改CSS 樣式、屬性 ">
+                  <i class="fa fa-chevron-left"></i> 透過 JavaScript 動態修改CSS 樣式、屬性 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/01/12/%E4%BD%BF%E7%94%A8-jQuery%E7%9A%84-Ajax-%E6%8A%80%E8%A1%93%E5%92%8C%E4%BB%8B%E6%8E%A5api/" rel="next" title="使用 jQuery的 $.Ajax() 技術和介接api">
+                  使用 jQuery的 $.Ajax() 技術和介接api <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

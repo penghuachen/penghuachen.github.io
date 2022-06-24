@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="此篇幅聚焦於如何快速透過 vue2-google-maps 來製作一個客製化需求的 google map。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 vue cli3 中使用 vue2-google-maps 把玩 google map">
+<meta property="og:url" content="https://penghuachen.github.io/2020/06/13/%E5%9C%A8-vue-cli3-%E4%B8%AD%E4%BD%BF%E7%94%A8-vue2-google-maps-%E6%8A%8A%E7%8E%A9-google-map/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="此篇幅聚焦於如何快速透過 vue2-google-maps 來製作一個客製化需求的 google map。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-06-13T05:10:59.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.835Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/06/13/%E5%9C%A8-vue-cli3-%E4%B8%AD%E4%BD%BF%E7%94%A8-vue2-google-maps-%E6%8A%8A%E7%8E%A9-google-map/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/06/13/%E5%9C%A8-vue-cli3-%E4%B8%AD%E4%BD%BF%E7%94%A8-vue2-google-maps-%E6%8A%8A%E7%8E%A9-google-map/","path":"2020/06/13/在-vue-cli3-中使用-vue2-google-maps-把玩-google-map/","title":"在 vue cli3 中使用 vue2-google-maps 把玩 google map"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>在 vue cli3 中使用 vue2-google-maps 把玩 google map | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="nav-number">1.</span> <span class="nav-text">安裝 &amp; 注意事項</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8%EF%BC%8C%E4%BB%A5-Vue-file-components-%E7%82%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">開始使用，以 Vue file components 為例</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/06/13/%E5%9C%A8-vue-cli3-%E4%B8%AD%E4%BD%BF%E7%94%A8-vue2-google-maps-%E6%8A%8A%E7%8E%A9-google-map/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="在 vue cli3 中使用 vue2-google-maps 把玩 google map | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在 vue cli3 中使用 vue2-google-maps 把玩 google map
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-06-13 13:10:59" itemprop="dateCreated datePublished" datetime="2020-06-13T13:10:59+08:00">2020-06-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue-vue-cli3/" itemprop="url" rel="index"><span itemprop="name">vue vue cli3</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.7k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>此篇幅聚焦於如何快速透過 vue2-google-maps 來製作一個客製化需求的 google map。</p>
+<span id="more"></span>
+<p>如果之前有玩過 google 提供的 <a target="_blank" rel="noopener" href="https://developers.google.com/maps/documentation/javascript/tutorial">範例</a>，那就能很快理解 vue2-google-maps 該怎麼使用。</p>
+<p>至於透過原生寫法製作一個客製化需求 google map，則另外找時間再寫一篇了。</p>
+<h2 id="安裝-注意事項"><a class="header-anchor" href="#安裝-注意事項"></a>安裝 &amp; 注意事項</h2>
+<ul>
+<li>安裝 vue2-google-maps:</li>
+</ul>
+<p>透過 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/vue2-google-maps">npm</a> 或者 <a target="_blank" rel="noopener" href="https://github.com/xkjyeah/vue-google-maps">github</a> 其實就可以很清楚知道該怎麼使用，寫的挺清楚的。</p>
+<p>如果是透過 npm 方式安裝:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vue2-google-maps</span><br></pre></td></tr></table></figure>
+<p>順帶一提，如果透過 yarn 方式安裝則是:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add vue2-google-maps</span><br></pre></td></tr></table></figure>
+<p>此外，作者也有提供將整份 <a target="_blank" rel="noopener" href="https://github.com/xkjyeah/vue-google-maps/blob/vue2/dist/vue-google-maps.js">dist/vue-google-maps.js</a> 引入到 HTML 中的方式來使用，也提到了因為 HTML 採用 kebab case 的方式，所以要這麼寫:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 採用將整份 dist/vue-google-maps.js 引入到 HTML 中的方式 --&gt;</span><br><span class="line">&lt;gmap-map&gt;</span><br><span class="line">&lt;!-- 不可使用 --&gt;</span><br><span class="line">&lt;GmapMap&gt;</span><br></pre></td></tr></table></figure>
+<p>但筆者此次專案需求並沒有使用到，所以就留給有需要的讀者玩看看囉。</p>
+<ul>
+<li>In main.js:</li>
+</ul>
+<p>設定 google map 需要的一些基本設定，例如像是金鑰等。</p>
+<p>詳細的設定可以透過上述提供的連結查看，這裡筆者只單純設定了 key 和 libraries，並額外建立一支新的檔案管理。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @/plugins/vue2GoogleMaps/index.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> <span class="title class_">VueGoogleMaps</span> <span class="keyword">from</span> <span class="string">&#x27;vue2-google-maps&#x27;</span>;</span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">VueGoogleMaps</span>, &#123;</span><br><span class="line">  <span class="attr">load</span>: &#123;</span><br><span class="line">    <span class="attr">key</span>: <span class="string">&#x27;你的 Google map API key&#x27;</span>,</span><br><span class="line">    <span class="attr">libraries</span>: [<span class="string">&#x27;geometry&#x27;</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./plugins/vue2GoogleMaps&#x27;</span>; </span><br></pre></td></tr></table></figure>
+<h2 id="開始使用，以-Vue-file-components-為例"><a class="header-anchor" href="#開始使用，以-Vue-file-components-為例"></a>開始使用，以 Vue file components 為例</h2>
+<ul>
+<li>引入 component</li>
+</ul>
+<p>作者提到如果透過 Webpack 或者 Vue file components ，可以直接使用官方提供的 code：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;GmapMap</span><br><span class="line">  :center=&quot;&#123; lat:10, lng:10 &#125;&quot;</span><br><span class="line">  :zoom=&quot;7&quot;</span><br><span class="line">  map-type-id=&quot;terrain&quot;</span><br><span class="line">  style=&quot;width: 500px; height: 300px&quot;</span><br><span class="line">&gt;</span><br><span class="line">  &lt;GmapMarker</span><br><span class="line">    :key=&quot;index&quot;</span><br><span class="line">    v-for=&quot;(m, index) in markers&quot;</span><br><span class="line">    :position=&quot;m.position&quot;</span><br><span class="line">    :clickable=&quot;true&quot;</span><br><span class="line">    :draggable=&quot;true&quot;</span><br><span class="line">    @click=&quot;center=m.position&quot;</span><br><span class="line">  /&gt;</span><br><span class="line">&lt;/GmapMap&gt;</span><br></pre></td></tr></table></figure>
+<p>筆者目前習慣將額外透過 vue <code>computed</code> 將設定統一管理，所以額外會寫成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;GmapMap</span><br><span class="line">  :center=&quot;&#123; lat:10, lng:10 &#125;&quot;</span><br><span class="line">  :options=&quot;mapOptions&quot;</span><br><span class="line">  :style=&quot;mapStyle&quot;</span><br><span class="line">&gt;</span><br><span class="line">  &lt;GmapMarker</span><br><span class="line">    :key=&quot;index&quot;</span><br><span class="line">    v-for=&quot;(m, index) in markers&quot;</span><br><span class="line">    :position=&quot;m.position&quot;</span><br><span class="line">    :clickable=&quot;true&quot;</span><br><span class="line">    :draggable=&quot;true&quot;</span><br><span class="line">    @click=&quot;center=m.position&quot;</span><br><span class="line">  /&gt;</span><br><span class="line">&lt;/GmapMap&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//... 略</span></span><br><span class="line"><span class="attr">computed</span>: &#123;</span><br><span class="line">  <span class="title function_">mapOptions</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">zoom</span>: <span class="number">7</span>,</span><br><span class="line">      <span class="attr">mapTypeId</span>: <span class="string">&quot;terrain&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">mapStyle</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">width</span>: <span class="number">500</span> + <span class="string">&quot;px&quot;</span>,</span><br><span class="line">      <span class="attr">height</span>: <span class="number">300</span> + <span class="string">&quot;px&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這邊需要注意的是: 在官方 source code 中可以看出其把 <code>props</code> 的 <code>center</code> 的設定成 <mark><code>required: true</code></mark>，所以 <code>:center</code> 是必須被保留在 <code>template</code> 上的。 <a target="_blank" rel="noopener" href="https://github.com/xkjyeah/vue-google-maps/blob/vue2/src/components-implementation/map.js">source code 連結</a></p>
+<ul>
+<li>把資料透過 markers 標記在地圖上</li>
+</ul>
+<p>把 componet 引入後，接著要來把<strong>資料標記在地圖上</strong>了</p>
+<p>如果曾寫過 <a target="_blank" rel="noopener" href="https://developers.google.com/maps/documentation/javascript/marker-clustering">原生</a> 的話對於這一個部分就不會太難理解</p>
+<p>那如果是第一次使用則是可以先知道只要把 <strong>一個具有經緯度資料的陣列，當作 markers 的值傳入給 <code>GmapMarker</code> 即可。</strong></p>
+<p>大致程式碼如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;GmapMap</span><br><span class="line">  :center=&quot;&#123; lat:10, lng:10 &#125;&quot;</span><br><span class="line">  :options=&quot;mapOptions&quot;</span><br><span class="line">&gt;</span><br><span class="line">  &lt;GmapMarker</span><br><span class="line">    :key=&quot;index&quot;</span><br><span class="line">    v-for=&quot;(m, index) in markers&quot;</span><br><span class="line">    :position=&quot;m.position&quot;</span><br><span class="line">    :clickable=&quot;true&quot;</span><br><span class="line">    :draggable=&quot;true&quot;</span><br><span class="line">    @click=&quot;center=m.position&quot;</span><br><span class="line">  /&gt;</span><br><span class="line">&lt;/GmapMap&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//... 略</span></span><br><span class="line"><span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">markers</span>: [</span><br><span class="line">      &#123; </span><br><span class="line">        <span class="attr">position</span>: &#123; <span class="attr">lat</span>:<span class="number">20</span>, <span class="attr">lng</span>:<span class="number">20</span> &#125; </span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; </span><br><span class="line">        <span class="attr">position</span>: &#123; <span class="attr">lat</span>:<span class="number">30</span>, <span class="attr">lng</span>:<span class="number">30</span> &#125; </span><br><span class="line">      &#125;,</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>調用 Map 實例</li>
+</ul>
+<p>有時候我會需要調用一些方法，如同筆者在專案中需要用到計算兩點的直線距離為例，需要使用到的 google map api 中的 geometry 中的方法: <code>computeDistanceBetween</code>。</p>
+<p>而官方也有開接口讓我們可以存取 Map instance:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;GmapMap ref=&quot;mapRef&quot; ...&gt;&lt;/GmapMap&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  mounted () &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">mapRef</span>.<span class="property">$mapPromise</span>.<span class="title function_">then</span>(<span class="function">(<span class="params">map</span>) =&gt;</span> &#123;</span><br><span class="line">      map.<span class="title function_">panTo</span>(&#123;<span class="attr">lat</span>: <span class="number">1.38</span>, <span class="attr">lng</span>: <span class="number">103.80</span>&#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>文件中也提到當 vue component 在 mounted 時，此時 map 還沒有被初始化，所以要透過 <code>then</code> 的方式等確定初始化後才可以使用那些方法。</p>
+<p>不過筆者自己在測試時因為需要用到的方法在上述無法更快取得，於是搜尋了一下並改用下列方式取得要用的方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">mapRef</span>.$gmapApiPromiseLazy().<span class="title function_">then</span>(<span class="function"><span class="params">map</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; <span class="title class_">LatLng</span>, geometry &#125; = map.<span class="property">maps</span>;</span><br><span class="line">    <span class="keyword">const</span> result = geometry.<span class="property">spherical</span>.<span class="title function_">computeDistanceBetween</span>(</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">LatLng</span>(&#123; <span class="attr">lat</span>:<span class="number">20</span>, <span class="attr">lng</span>:<span class="number">20</span> &#125;),</span><br><span class="line">      <span class="keyword">new</span> <span class="title class_">LatLng</span>(&#123; <span class="attr">lat</span>:<span class="number">30</span>, <span class="attr">lng</span>:<span class="number">30</span> &#125;),</span><br><span class="line">    );</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">distance</span> = (result / <span class="number">1000</span>).<span class="title function_">toFixed</span>(<span class="number">1</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>調用 google 物件</li>
+</ul>
+<p>官方額外有提供存取 google 物件的方式讓我們使用，但筆者在測試時卻是一直得到 null 的值，並不能正常的存取到。</p>
+<p>所以如果有讀者成功取得的話，在麻煩底下留言給我，小弟不勝感激～</p>
+<p>以上就是這次在 vue cli3 中使用 vue2-google-maps 的開發記錄，相關測試程式碼可以到我的 Github 找到：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/penghuachen/vue2-google-maps-demo/blob/master/src/App.vue">點擊前往 Github</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/01/24/%E4%BD%BF%E7%94%A8-fetch-%E4%BE%86%E4%BB%8B%E6%8E%A5-api-%E5%90%A7/" rel="prev" title="使用 fetch() 來介接 api 吧! ">
+                  <i class="fa fa-chevron-left"></i> 使用 fetch() 來介接 api 吧! 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/06/20/vue%E4%B8%80%E5%80%8B%E7%B0%A1%E6%98%93%E9%A9%97%E8%AD%89%E7%A2%BC%E5%85%83%E4%BB%B6/" rel="next" title="vue一個簡易驗證碼元件">
+                  vue一個簡易驗證碼元件 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

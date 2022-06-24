@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="透過 JavaScript 動態建立 HTML 元素的幾種方式 今天要來學習的是如何透過JS在網頁上建立一個 HTML 的元素。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="透過 JavaScript 動態建立 HTML 元素的幾種方式">
+<meta property="og:url" content="https://penghuachen.github.io/2019/11/22/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E5%BB%BA%E7%AB%8B-HTML-%E5%85%83%E7%B4%A0%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="透過 JavaScript 動態建立 HTML 元素的幾種方式 今天要來學習的是如何透過JS在網頁上建立一個 HTML 的元素。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/11nU3q3.png">
+<meta property="og:image" content="https://i.imgur.com/p3tg2s0.png">
+<meta property="og:image" content="https://i.imgur.com/11nU3q3.png">
+<meta property="article:published_time" content="2019-11-22T14:21:31.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.838Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/11nU3q3.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/11/22/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E5%BB%BA%E7%AB%8B-HTML-%E5%85%83%E7%B4%A0%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/11/22/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E5%BB%BA%E7%AB%8B-HTML-%E5%85%83%E7%B4%A0%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/","path":"2019/11/22/透過-JavaScript-動態建立-HTML-元素的幾種方式/","title":"透過 JavaScript 動態建立 HTML 元素的幾種方式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>透過 JavaScript 動態建立 HTML 元素的幾種方式 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E5%BB%BA%E7%AB%8B-HTML-%E5%85%83%E7%B4%A0%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">透過 JavaScript 動態建立 HTML 元素的幾種方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Document-createElement-%E7%94%A8%E9%80%94"><span class="nav-number">1.1.</span> <span class="nav-text">Document.createElement() 用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-Document-createElement"><span class="nav-number">1.2.</span> <span class="nav-text">如何使用 Document.createElement()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Element-innerHTML-%E7%94%A8%E9%80%94"><span class="nav-number">1.3.</span> <span class="nav-text">Element.innerHTML 用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-Element-innerHTML"><span class="nav-number">1.4.</span> <span class="nav-text">如何使用 Element.innerHTML</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/11/22/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E5%BB%BA%E7%AB%8B-HTML-%E5%85%83%E7%B4%A0%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="透過 JavaScript 動態建立 HTML 元素的幾種方式 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          透過 JavaScript 動態建立 HTML 元素的幾種方式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-11-22 22:21:31" itemprop="dateCreated datePublished" datetime="2019-11-22T22:21:31+08:00">2019-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="透過-JavaScript-動態建立-HTML-元素的幾種方式"><a class="header-anchor" href="#透過-JavaScript-動態建立-HTML-元素的幾種方式"></a>透過 JavaScript 動態建立 HTML 元素的幾種方式</h1>
+<p>今天要來學習的是如何透過JS在網頁上建立一個 HTML 的元素。</p>
+<span id="more"></span>
+<p>如何使用 <code>Document.createElement()</code> 以及 <code>Element.innierHTML</code> 兩種方式達成目的</p>
+<p>事不宜遲，趕緊往下看吧!</p>
+<h2 id="Document-createElement-用途"><a class="header-anchor" href="#Document-createElement-用途"></a><code>Document.createElement()</code> 用途</h2>
+<p>可以在 HTML 中透過 <code>Document.createElement()</code> 這個方法指定要在哪個 HTML 元素底下建立另一個 HTML 元素。</p>
+<h2 id="如何使用-Document-createElement"><a class="header-anchor" href="#如何使用-Document-createElement"></a>如何使用 <code>Document.createElement()</code></h2>
+<p>關於怎麼使用，就直接看看測試的例子吧！</p>
+<ul>
+<li>測試例子一: 在 <code>&lt;ul&gt;</code> 元素底下新增 <code>&lt;li&gt;</code> 元素</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul class=&quot;list&quot;&gt;&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> list = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.list&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">const</span> li = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;LI&#x27;</span>);</span><br><span class="line">  li.<span class="property">textContent</span> = <span class="string">`這是第<span class="subst">$&#123;i&#125;</span>個 LI 元素`</span>;</span><br><span class="line">  list.<span class="title function_">appendChild</span>(li);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>透過 <code>textContent</code> 將文字內容新增到 <code>&lt;li&gt;</code> 元素中</p>
+<p><mark>而 <code>appendChild() </code> 用於將一個節點新增到指定父節點的子節點中</mark></p>
+<p>執行後可以得到5個在 <code>&lt;ul&gt;</code> 裡面新建立的 <code>&lt;li&gt;</code> 元素</p>
+<p><img src="https://i.imgur.com/11nU3q3.png" alt="Day21-2"></p>
+<ul>
+<li>測試例子二: 在 <code>div</code> 元素底下新增 <code>&lt;p&gt;</code> 、 <code>&lt;a&gt;</code> 元素</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;container&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> container = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.container&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> paragraph = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;P&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> link = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line"></span><br><span class="line">paragraph.<span class="property">textContent</span> = <span class="string">&#x27;Lorem ipsum dolor sit amet.&#x27;</span>;</span><br><span class="line">paragraph.<span class="title function_">setAttribute</span>(<span class="string">&#x27;class&#x27;</span>, <span class="string">&#x27;text&#x27;</span>);</span><br><span class="line">container.<span class="title function_">appendChild</span>(paragraph);</span><br><span class="line"></span><br><span class="line">link.<span class="property">textContent</span> = <span class="string">&#x27;This is a link&#x27;</span>;</span><br><span class="line">link.<span class="title function_">setAttribute</span>(<span class="string">&#x27;class&#x27;</span>, <span class="string">&#x27;link&#x27;</span>);</span><br><span class="line">link.<span class="title function_">setAttribute</span>(<span class="string">&#x27;href&#x27;</span>, <span class="string">&#x27;#&#x27;</span>);</span><br><span class="line">container.<span class="title function_">appendChild</span>(link);</span><br></pre></td></tr></table></figure>
+<p>這裡在 <code>div</code> 底下新增了 <code>&lt;p&gt;</code> 、 <code>&lt;a&gt;</code> 兩個元素</p>
+<p>並透過 <code>setAttribute()</code> 在這兩個元素上新增屬性，如下圖:</p>
+<p><img src="https://i.imgur.com/p3tg2s0.png" alt="Day21-1"></p>
+<h2 id="Element-innerHTML-用途"><a class="header-anchor" href="#Element-innerHTML-用途"></a><code>Element.innerHTML</code> 用途</h2>
+<p>透過字串的格式，將自定義的 HTML 格式渲染在 HTML 頁面上。</p>
+<p>但這個作法會讓原本 HTML 上的元素都被刪除並以自定義的格式取代。</p>
+<h2 id="如何使用-Element-innerHTML"><a class="header-anchor" href="#如何使用-Element-innerHTML"></a>如何使用 <code>Element.innerHTML</code></h2>
+<p>關於怎麼使用，就直接看看測試的例子吧！</p>
+<ul>
+<li>測試例子一: 在 <code>&lt;ul&gt;</code> 元素底下新增 <code>&lt;li&gt;</code> 元素</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul class=&quot;list&quot;&gt;</span><br><span class="line">  &lt;li&gt;1&lt;/li&gt;</span><br><span class="line">  &lt;li&gt;2&lt;/li&gt;</span><br><span class="line">  &lt;li&gt;3&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> list = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.list&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> content = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">const</span> domString = <span class="string">`&lt;li&gt;這是第<span class="subst">$&#123;i&#125;</span>個 LI 元素&lt;/li&gt;`</span>;</span><br><span class="line">  content += domString;</span><br><span class="line">&#125;</span><br><span class="line">list.<span class="property">innerHTML</span> = content;</span><br></pre></td></tr></table></figure>
+<p>從程式碼中可以知道原本 <code>&lt;ul&gt;</code> 裡面有三個 <code>&lt;li&gt;</code> 元素，但建立了5個 <code>&lt;li&gt;</code> 元素並使用 <code>Element.innierHTML</code> 渲染到頁面上後，可以看到原本的會被新建立的取代。</p>
+<p><img src="https://i.imgur.com/11nU3q3.png" alt="Day21-2"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/10/14/ES6-%E6%A8%A1%E6%9D%BF%E5%AD%97%E4%B8%B2-Template-literals/" rel="prev" title="ES6 模板字串(Template literals)">
+                  <i class="fa fa-chevron-left"></i> ES6 模板字串(Template literals)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/11/30/JavaScript-%E6%8D%95%E6%8D%89-capturing-%E8%88%87%E6%B0%A3%E6%B3%A1-bubbling/" rel="next" title="JavaScript 捕捉(capturing)與氣泡(bubbling)">
+                  JavaScript 捕捉(capturing)與氣泡(bubbling) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

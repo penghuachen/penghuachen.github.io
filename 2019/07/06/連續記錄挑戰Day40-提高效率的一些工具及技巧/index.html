@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="提高效率的一些工具及技巧 關於寫程式以外的一些工具，如果我們可以妥善的運用，對於整體的開發效率也會有相輔相成的效果！而底下是我目前會用的一些小工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="連續記錄挑戰Day40-提高效率的一些工具及技巧">
+<meta property="og:url" content="https://penghuachen.github.io/2019/07/06/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day40-%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E5%8F%8A%E6%8A%80%E5%B7%A7/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="提高效率的一些工具及技巧 關於寫程式以外的一些工具，如果我們可以妥善的運用，對於整體的開發效率也會有相輔相成的效果！而底下是我目前會用的一些小工具">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/BDQ4uD1.png">
+<meta property="og:image" content="https://i.imgur.com/pvXL1P3.png">
+<meta property="og:image" content="https://i.imgur.com/jUznfBP.png">
+<meta property="og:image" content="https://i.imgur.com/ibJYwdX.png">
+<meta property="og:image" content="https://i.imgur.com/3rQT4zs.png">
+<meta property="og:image" content="https://i.imgur.com/D43QIKv.png">
+<meta property="og:image" content="https://i.imgur.com/GM3Wcpk.png">
+<meta property="og:image" content="https://i.imgur.com/eA8N6J1.png">
+<meta property="og:image" content="https://i.imgur.com/h4gcey3.png">
+<meta property="og:image" content="https://i.imgur.com/lToBTgt.png">
+<meta property="article:published_time" content="2019-07-06T06:47:18.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.843Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="工具程式、提高開發效率">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/BDQ4uD1.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/07/06/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day40-%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E5%8F%8A%E6%8A%80%E5%B7%A7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/07/06/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day40-%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E5%8F%8A%E6%8A%80%E5%B7%A7/","path":"2019/07/06/連續記錄挑戰Day40-提高效率的一些工具及技巧/","title":"連續記錄挑戰Day40-提高效率的一些工具及技巧"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>連續記錄挑戰Day40-提高效率的一些工具及技巧 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E5%8F%8A%E6%8A%80%E5%B7%A7"><span class="nav-number">1.</span> <span class="nav-text">提高效率的一些工具及技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Marinara-Pomodoro%C2%AE-Assistant-br-google-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E5%95%86%E5%BA%97"><span class="nav-number">1.1.</span> <span class="nav-text">Marinara: Pomodoro® Assistant (google 應用程式商店)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E7%95%AA%E8%8C%84%E9%90%98%E5%B7%A5%E4%BD%9C%E6%B3%95%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">什麼是番茄鐘工作法？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Life-Is-Too-Short-br-google-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E5%95%86%E5%BA%97"><span class="nav-number">1.3.</span> <span class="nav-text">Life Is Too Short (google 應用程式商店)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AdBlock-google-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E5%95%86%E5%BA%97"><span class="nav-number">1.4.</span> <span class="nav-text">AdBlock (google 應用程式商店)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#waka-time"><span class="nav-number">1.5.</span> <span class="nav-text">waka time!</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8wakatime"><span class="nav-number">1.6.</span> <span class="nav-text">如何使用wakatime</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#skitch"><span class="nav-number">1.7.</span> <span class="nav-text">skitch</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/07/06/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day40-%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E5%8F%8A%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="連續記錄挑戰Day40-提高效率的一些工具及技巧 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          連續記錄挑戰Day40-提高效率的一些工具及技巧
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-07-06 14:47:18" itemprop="dateCreated datePublished" datetime="2019-07-06T14:47:18+08:00">2019-07-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7%E7%A8%8B%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">工具程式</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>670</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>1 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="提高效率的一些工具及技巧"><a class="header-anchor" href="#提高效率的一些工具及技巧"></a>提高效率的一些工具及技巧</h1>
+<p>關於寫程式以外的一些工具，如果我們可以妥善的運用，對於整體的開發效率也會有相輔相成的效果！而底下是我目前會用的一些小工具</p>
+<span id="more"></span>
+<h2 id="Marinara-Pomodoro®-Assistant-br-google-應用程式商店"><a class="header-anchor" href="#Marinara-Pomodoro®-Assistant-br-google-應用程式商店"></a>Marinara: Pomodoro® Assistant <br/>(google 應用程式商店)</h2>
+<p><img src="https://i.imgur.com/BDQ4uD1.png" alt=""></p>
+<h2 id="什麼是番茄鐘工作法？"><a class="header-anchor" href="#什麼是番茄鐘工作法？"></a>什麼是番茄鐘工作法？</h2>
+<p>關於蕃茄鐘的詳細解說，可以看看: <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%95%AA%E8%8C%84%E5%B7%A5%E4%BD%9C%E6%B3%95">維基百科-番茄工作法</a></p>
+<p>不過作法就是： <strong>以25分鐘為一個單位，並專注於當前任務，並用五分鐘時間專心休息，重複循環。</strong></p>
+<p>個人覺得如果無法時常保持專心的話，也許可以透過這個方法培養專注力。</p>
+<h2 id="Life-Is-Too-Short-br-google-應用程式商店"><a class="header-anchor" href="#Life-Is-Too-Short-br-google-應用程式商店"></a>Life Is Too Short <br/>(google 應用程式商店)</h2>
+<p><img src="https://i.imgur.com/pvXL1P3.png" alt=""></p>
+<p><img src="https://i.imgur.com/jUznfBP.png" alt=""></p>
+<p>透過倒數計時的呈現方式，可以自己看到距離55歲還有多久，還有每個月的剩餘時間。</p>
+<h2 id="AdBlock-google-應用程式商店"><a class="header-anchor" href="#AdBlock-google-應用程式商店"></a>AdBlock (google 應用程式商店)</h2>
+<p><img src="https://i.imgur.com/ibJYwdX.png" alt=""></p>
+<p>關於這個工具應該蠻常使用的，可以在很多時候幫我們擋掉一些廣告，也省了很多等待的秒數，無形中也是一種累積。</p>
+<h2 id="waka-time"><a class="header-anchor" href="#waka-time"></a>waka time!</h2>
+<p><img src="https://i.imgur.com/3rQT4zs.png" alt=""></p>
+<p><a target="_blank" rel="noopener" href="https://wakatime.com/">https://wakatime.com/</a></p>
+<p>用來追蹤自己平常在每個專案中使用的程式語言和所花費的時間，也可以紀錄整週的狀況。</p>
+<h2 id="如何使用wakatime"><a class="header-anchor" href="#如何使用wakatime"></a>如何使用wakatime</h2>
+<ol>
+<li>透過自己的IDE安裝</li>
+</ol>
+<p><img src="https://i.imgur.com/D43QIKv.png" alt=""></p>
+<ol start="2">
+<li>
+<p>安裝後會要求要輸入一組 key，而這組key要先申請wakatime的帳號(或透過github登入也可以)，再將key輸入即可。</p>
+</li>
+<li>
+<p>setting -&gt; account -&gt;即可看到需要的key<br>
+<img src="https://i.imgur.com/GM3Wcpk.png" alt=""></p>
+</li>
+<li>
+<p>透過dashboard可以查看相關數據</p>
+</li>
+</ol>
+<p><img src="https://i.imgur.com/eA8N6J1.png" alt=""></p>
+<p>更多的操作就留給大家去玩玩看囉！</p>
+<h2 id="skitch"><a class="header-anchor" href="#skitch"></a>skitch</h2>
+<p><img src="https://i.imgur.com/h4gcey3.png" alt=""></p>
+<p>是evernote的抓圖工具，可以快速截圖並做一些簡單註解。</p>
+<p>而檔案在很多地方都可以使用，對於做筆記來說是一大福音！</p>
+<p>但可惜的是目前只剩 Mac 才能使用。</p>
+<p><img src="https://i.imgur.com/lToBTgt.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7%E7%A8%8B%E5%BC%8F%E3%80%81%E6%8F%90%E9%AB%98%E9%96%8B%E7%99%BC%E6%95%88%E7%8E%87/" rel="tag"># 工具程式、提高開發效率</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/05/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day39-Javascript-%E8%BF%B0%E5%8F%A5-part3/" rel="prev" title="連續記錄挑戰Day39-Javascript-述句-part3">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day39-Javascript-述句-part3
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/07/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day41-%E7%89%A9%E4%BB%B6-Object-part1/" rel="next" title="連續記錄挑戰Day41-物件-Object-part1">
+                  連續記錄挑戰Day41-物件-Object-part1 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

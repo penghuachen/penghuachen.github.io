@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="函式(function) 函式(function)可以用在計算後得到某個值，也可以用於自定義某個任務。 關於定義函式的幾種方式，讓我們繼續接著往下看">
+<meta property="og:type" content="article">
+<meta property="og:title" content="連續記錄挑戰Day46-函式-function">
+<meta property="og:url" content="https://penghuachen.github.io/2019/07/12/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day46-%E5%87%BD%E5%BC%8F-function/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="函式(function) 函式(function)可以用在計算後得到某個值，也可以用於自定義某個任務。 關於定義函式的幾種方式，讓我們繼續接著往下看">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/5wXZKpX.png">
+<meta property="og:image" content="https://i.imgur.com/U49LdQB.png">
+<meta property="og:image" content="https://i.imgur.com/jJ6KuVV.png">
+<meta property="og:image" content="https://i.imgur.com/BrfTnyK.png">
+<meta property="og:image" content="https://i.imgur.com/80b4Jzi.png">
+<meta property="og:image" content="https://i.imgur.com/s6mplsq.png">
+<meta property="og:image" content="https://i.imgur.com/PbcIiIt.png">
+<meta property="og:image" content="https://i.imgur.com/6vCglVo.png">
+<meta property="article:published_time" content="2019-07-12T13:42:16.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.844Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/5wXZKpX.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/07/12/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day46-%E5%87%BD%E5%BC%8F-function/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/07/12/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day46-%E5%87%BD%E5%BC%8F-function/","path":"2019/07/12/連續記錄挑戰Day46-函式-function/","title":"連續記錄挑戰Day46-函式-function"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>連續記錄挑戰Day46-函式-function | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F-function"><span class="nav-number">1.</span> <span class="nav-text">函式(function)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E7%BE%A9%E5%87%BD%E5%BC%8F-function-%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">定義函式(function)的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E9%99%B3%E8%BF%B0%E5%BC%8F-function-statements"><span class="nav-number">1.1.1.</span> <span class="nav-text">函式陳述式(function statements)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E8%A1%A8%E9%81%94%E5%BC%8F-function-expression"><span class="nav-number">1.1.2.</span> <span class="nav-text">函式表達式(function expression)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E5%BB%BA%E6%A7%8B%E5%BC%8F-function-constructor-%E8%88%87-new"><span class="nav-number">1.1.3.</span> <span class="nav-text">函式建構式(function constructor) 與 new</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IIFE-Immediately-Invoked-Function-Expression-%E7%AB%8B%E5%8D%B3%E5%87%BD%E5%BC%8F"><span class="nav-number">1.1.4.</span> <span class="nav-text">IIFE(Immediately Invoked Function Expression) 立即函式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#arguments%E7%89%A9%E4%BB%B6"><span class="nav-number">1.1.5.</span> <span class="nav-text">arguments物件</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/07/12/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day46-%E5%87%BD%E5%BC%8F-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="連續記錄挑戰Day46-函式-function | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          連續記錄挑戰Day46-函式-function
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-07-12 21:42:16" itemprop="dateCreated datePublished" datetime="2019-07-12T21:42:16+08:00">2019-07-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="函式-function"><a class="header-anchor" href="#函式-function"></a>函式(function)</h1>
+<p>函式(function)可以用在計算後得到某個值，也可以用於自定義某個任務。</p>
+<p>關於定義函式的幾種方式，讓我們繼續接著往下看</p>
+<span id="more"></span>
+<h2 id="定義函式-function-的方式"><a class="header-anchor" href="#定義函式-function-的方式"></a>定義函式(function)的方式</h2>
+<p>以下有幾種方式可以定義函式，而每一種方式都有自己對應的稱呼方式。</p>
+<h3 id="函式陳述式-function-statements"><a class="header-anchor" href="#函式陳述式-function-statements"></a>函式陳述式(function statements)</h3>
+<p>在學習函式陳述式(function statements)之前，要先來了解關於陳述式的意思。</p>
+<p>陳述式就像句子，而我們透過執行句中的設定，使得某些事情發生。</p>
+<p>如同下方的程式碼，我們宣告了變數 <code>a</code> 以及設定了一個 <code>if</code> 條件句，而這每一行都是一個陳述式，也就是剛剛提到的句子，這些句子會決定程式要執行的行為。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"><span class="keyword">if</span>(a &gt; <span class="number">5</span>)&#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>將上述所提的概念用在函式上就成了 <mark>函式陳述式</mark>，如下:</p>
+<p>這個函式陳述式說明了如果執行時，會得到 <code>Hello!</code> 的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello!&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看完函式陳述式怎麼宣告，接下來要看看怎麼使用它</p>
+<p>其實使用的方式也很簡單，透過 <code>函式名稱()</code> 這樣就代表我們想要執行這個函式中我們定義的程式碼內容。</p>
+<p>拿上面的例子來測試，會得到:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello!&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">sayHi</span>();</span><br></pre></td></tr></table></figure>
+<p>當然我們也可以透過傳遞參數，讓這個函式能有更多的運用:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params">person</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Hello! <span class="subst">$&#123;person&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">sayHi</span>(<span class="string">&#x27;Bill&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>將 <code>Bill</code> 傳入到函式中，函式的內容就會找到與參數相同的名稱 <code>person</code> 並將 <code>Bill</code> 的值透過 <code>person</code> 給  <code>console.log(...);</code> 中的 <code>person</code> 使用</p>
+<p>再來我們來看看兩個測試例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params">a</span>)&#123;</span><br><span class="line">  a = <span class="number">5</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(a);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br></pre></td></tr></table></figure>
+<p>因為 <mark>傳值(call by value)</mark> 的關係，所以即使傳入到函式中的 變數 <code>a</code> 的值被更改，在全域的 <code>a</code> 也不會因此而被更改(兩者處於不同的記憶體空間)。</p>
+<p><img src="https://i.imgur.com/5wXZKpX.png" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123; <span class="attr">name</span>: <span class="string">&quot;Bill&quot;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params">person</span>)&#123;</span><br><span class="line">  person.<span class="property">name</span> = <span class="string">&quot;Jack&quot;</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(person);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(person);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(person);</span><br></pre></td></tr></table></figure>
+<p>因為 <mark>傳參考(call by reference)</mark> 的緣故，傳入到函式中的 <code>person</code> 物件當特性值被更改時會導致在全域的 <code>person</code> 物件也被更改(兩者指向同一個記憶體位址)。</p>
+<p><img src="https://i.imgur.com/U49LdQB.png" alt=""></p>
+<h3 id="函式表達式-function-expression"><a class="header-anchor" href="#函式表達式-function-expression"></a>函式表達式(function expression)</h3>
+<p>函式表達式(function expression) 可以將函式儲存在變數中，而這樣子的函式可以不需要函式名稱，也稱為匿名函式。使用方式如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> totalSum = <span class="keyword">function</span>(<span class="params">number,number2</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> number + number2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(totalSum);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">totalSum</span>(<span class="number">1</span>,<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+<p>從第一個結果可以看到變數 <code>totalSum</code> 儲存了一個匿名函式，所以當執行 <code>變數名稱()</code> 就可以取得這個變數儲存的函式運算後的值。</p>
+<p>而這個值我們必須透過 <code>return</code> 的方式將值傳回 <code>totalSum</code>。</p>
+<p><img src="https://i.imgur.com/jJ6KuVV.png" alt=""></p>
+<p>當用於遞迴時，這個匿名函式就可以有函式名稱。</p>
+<p>如下方儲存於<code>result</code> 變數中的 <code>factorial</code> 函式。</p>
+<p>當執行 <code>result(5)</code> 時就可以得到值 <code>120</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result = <span class="keyword">function</span> <span class="title function_">factorial</span>(<span class="params">number</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(number === <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">return</span> number;</span><br><span class="line">	<span class="keyword">return</span> number * <span class="title function_">factorial</span>(number - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">result</span>(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="函式建構式-function-constructor-與-new"><a class="header-anchor" href="#函式建構式-function-constructor-與-new"></a>函式建構式(function constructor) 與 new</h3>
+<p>函式建構式可以用於建立物件原型(也稱為模板)，關於建立時有一些可以先知道的部分:</p>
+<ul>
+<li>作為建構式的名稱，習慣上開頭會用大寫表示</li>
+<li>透過建構式建立的模板:，可重複被運用於建立每一個不同的物件</li>
+<li>建構式應該透過自身的 <code>prototype</code> 建立方法而不應該直接寫入到模板中</li>
+</ul>
+<p>接下來看看如何建立模板:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name,age,habbit</span>)&#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">habbit</span> = habbit;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> personA = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;Bill&#x27;</span>,<span class="number">23</span>,<span class="string">&#x27;Read books&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(personA);</span><br><span class="line"><span class="keyword">const</span> personB = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;Jack&#x27;</span>,<span class="number">30</span>,<span class="string">&#x27;Play tennis&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(personB);</span><br></pre></td></tr></table></figure>
+<p>首先先定義好模板 <code>Person</code> ，並新增這個模板需要的特性。<br>
+之後透過 <code>new</code> 關鍵字的方式建立物件，這邊需要注意的是 <code>this</code> 會指向透過 <code>new</code> 建立的物件。</p>
+<p>而透過建立的模板，可以建立多個有相同特性的不同物件。</p>
+<p><img src="https://i.imgur.com/BrfTnyK.png" alt=""></p>
+<p>那如果我們需要新增一個方法給這個模板呢？</p>
+<p>這裡可能會覺得為什麼不直接於一開始建立模板時就將方法也新增進去，</p>
+<p>但其實這麼做會有個問題，那就是造成佔據太多的記憶體空間。</p>
+<p>來看看測試的例子:</p>
+<p>先將方法直接在模板中建立</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name,age,habbit</span>)&#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">habbit</span> = habbit;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">sayHi</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hi&quot;</span>);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> personA = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;Bill&#x27;</span>,<span class="number">23</span>,<span class="string">&#x27;Read books&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(personA);</span><br><span class="line"><span class="keyword">const</span> personB = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;Jack&#x27;</span>,<span class="number">30</span>,<span class="string">&#x27;Play tennis&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(personB);</span><br></pre></td></tr></table></figure>
+<p>可以看到每一個物件都從模板中繼承了 <code>sayHi</code> 這個方法，</p>
+<p>但是 <code>sayHi</code> 方法可以被重複使用，二來是這樣的寫法會造成記憶體需要多保留這些重複建立的方法，</p>
+<p>也就造成了多餘的記憶體空間的浪費了</p>
+<p><img src="https://i.imgur.com/80b4Jzi.png" alt=""></p>
+<p>所以更好的方式是額外透過 <code>prototype</code> 語法將方法新增到模板，也就是這個原型物件上:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name,age,habbit</span>)&#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">habbit</span> = habbit;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> personA = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;Bill&#x27;</span>,<span class="number">23</span>,<span class="string">&#x27;Read books&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> personB = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;Jack&#x27;</span>,<span class="number">30</span>,<span class="string">&#x27;Play tennis&#x27;</span>);</span><br><span class="line"><span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">sayHi</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">&quot;Hi&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(personA);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(personB);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(personB.<span class="title function_">sayHi</span>());</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br></pre></td></tr></table></figure>
+<p>從圖中可以看到，新建立的 <code>personA</code>、<code>personB</code> 物件並沒有 <code>sayHi</code> 這個方法，但是可以在 <code>Person</code> 模板<br>
+中看到<code>sayHi</code> 這個方法，如此一來就能讓每個物件一樣能夠使用 <code>sayHi</code> ，但是記憶體卻只需要保留一個空間給它。</p>
+<p><img src="https://i.imgur.com/s6mplsq.png" alt=""></p>
+<h3 id="IIFE-Immediately-Invoked-Function-Expression-立即函式"><a class="header-anchor" href="#IIFE-Immediately-Invoked-Function-Expression-立即函式"></a>IIFE(Immediately Invoked Function Expression) 立即函式</h3>
+<p>立即函式，顧名思義就是會馬上執行的函式。</p>
+<p>JavaScript 引擎看到立即函式就會立刻編譯這個 function。</p>
+<p>而立即函式透過在函式外用 <code>()</code> 包住整個函式，可以達到避免裡面的變數污染到全域環境變數的效用。</p>
+<p>來看個測試例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">3</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>);</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>如同前面對於立即函式的描述，所以會馬上得到結果為 <code>3</code> 的值。</p>
+<h3 id="arguments物件"><a class="header-anchor" href="#arguments物件"></a>arguments物件</h3>
+<p><code>arguments</code> 物件是函式中的物件，是函式中可以調用的方法，可以用於儲存傳入的值。</p>
+<p>但 <code>arguments</code> 物件是類陣列(array-like)物件，所以如果需要透過陣列的方式操作，則需要轉為陣列才可以。</p>
+<p>來看看測試例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> test = <span class="keyword">function</span>(<span class="params">a,b,c</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>); </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(<span class="number">5</span>,<span class="number">10</span>,<span class="number">15</span>);</span><br></pre></td></tr></table></figure>
+<p>可以看到 <code>arguments</code> 物件除了將傳入的值存於一個類陣列(array-like)中，還包含了其他的方法(如 <code>callee</code>等)。</p>
+<p><img src="https://i.imgur.com/PbcIiIt.png" alt=""></p>
+<p>所以如果需要透過陣列的方式操作的話則必須還要做些處理:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> test = <span class="keyword">function</span>(<span class="params">a,b,c</span>)&#123;</span><br><span class="line">  <span class="keyword">let</span> ary = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">slice</span>.<span class="title function_">call</span>(<span class="variable language_">arguments</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(ary); </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>(<span class="number">5</span>,<span class="number">10</span>,<span class="number">15</span>);</span><br></pre></td></tr></table></figure>
+<p>透過 <code>Array.prototype.slice.call()</code> 可以將 <code>arguments</code> 物件轉為陣列型別。</p>
+<p><img src="https://i.imgur.com/6vCglVo.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/11/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day45-%E9%99%A3%E5%88%97-Array-part2/" rel="prev" title="連續記錄挑戰Day45-陣列-Array-part2">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day45-陣列-Array-part2
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/13/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day47-%E9%96%89%E5%8C%85-closure/" rel="next" title="連續記錄挑戰Day47-閉包(closure)">
+                  連續記錄挑戰Day47-閉包(closure) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

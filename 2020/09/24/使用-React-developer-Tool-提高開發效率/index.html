@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="今天的篇幅比較簡單，但是在透過框架開發時卻是一個會影響開發時間、效率很重要的關鍵工具之一，那就是 React 的 developer tools。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用 React developer Tool 提高開發效率">
+<meta property="og:url" content="https://penghuachen.github.io/2020/09/24/%E4%BD%BF%E7%94%A8-React-developer-Tool-%E6%8F%90%E9%AB%98%E9%96%8B%E7%99%BC%E6%95%88%E7%8E%87/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="今天的篇幅比較簡單，但是在透過框架開發時卻是一個會影響開發時間、效率很重要的關鍵工具之一，那就是 React 的 developer tools。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/2UxaNk5.png">
+<meta property="og:image" content="https://i.imgur.com/KQ49OrA.png">
+<meta property="og:image" content="https://i.imgur.com/WPWG6wS.png">
+<meta property="og:image" content="https://i.imgur.com/9BiM4zj.png">
+<meta property="og:image" content="https://i.imgur.com/RQnCEqh.png">
+<meta property="og:image" content="https://i.imgur.com/Zk3E6pZ.png">
+<meta property="og:image" content="https://i.imgur.com/Z6BlCyI.png">
+<meta property="og:image" content="https://i.imgur.com/KK7i3fn.png">
+<meta property="og:image" content="https://i.imgur.com/DBmGDM5.png">
+<meta property="article:published_time" content="2020-09-24T02:16:58.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.834Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/2UxaNk5.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/09/24/%E4%BD%BF%E7%94%A8-React-developer-Tool-%E6%8F%90%E9%AB%98%E9%96%8B%E7%99%BC%E6%95%88%E7%8E%87/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/09/24/%E4%BD%BF%E7%94%A8-React-developer-Tool-%E6%8F%90%E9%AB%98%E9%96%8B%E7%99%BC%E6%95%88%E7%8E%87/","path":"2020/09/24/使用-React-developer-Tool-提高開發效率/","title":"使用 React developer Tool 提高開發效率"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用 React developer Tool 提高開發效率 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%8F%E9%81%8E%E7%80%8F%E8%A6%BD%E5%99%A8%E5%AE%89%E8%A3%9D-React-developer-tools%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">透過瀏覽器安裝 React developer tools。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%8F%E9%81%8E%E7%B0%A1%E5%96%AE%E4%BE%8B%E5%AD%90%E4%BD%BF%E7%94%A8-React-developer-tools"><span class="nav-number">2.</span> <span class="nav-text">透過簡單例子使用 React developer tools</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/09/24/%E4%BD%BF%E7%94%A8-React-developer-Tool-%E6%8F%90%E9%AB%98%E9%96%8B%E7%99%BC%E6%95%88%E7%8E%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="使用 React developer Tool 提高開發效率 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用 React developer Tool 提高開發效率
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-09-24 10:16:58" itemprop="dateCreated datePublished" datetime="2020-09-24T10:16:58+08:00">2020-09-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>1 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>今天的篇幅比較簡單，但是在透過框架開發時卻是一個會影響開發時間、效率很重要的關鍵工具之一，那就是 React 的 developer tools。</p>
+<span id="more"></span>
+<p><img src="https://i.imgur.com/2UxaNk5.png" alt=""></p>
+<p>在開發過程時，我們肯定需要常常觀察元件(Component)中像是 state 的變化等等，這個時候就是 React developer tools 派上用場的時候囉!!</p>
+<p>而目前的學習階段由於還沒有學習到 Redux，所以 Redux 的 developer tools 的使用就留待後面學習到的時候再說囉XD</p>
+<p>接著讓我們來學習如何使用吧</p>
+<h2 id="透過瀏覽器安裝-React-developer-tools。"><a class="header-anchor" href="#透過瀏覽器安裝-React-developer-tools。"></a>透過瀏覽器安裝 React developer tools。</h2>
+<p>這邊介紹在 Google Chrome 與 Firefox 中安裝的部分。</p>
+<p>在 Google Chrome 可以透過 chrome 線上應用程式商店中安裝，<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?utm_source=chrome-ntp-icon">點擊連結前往</a>。</p>
+<p><img src="https://i.imgur.com/KQ49OrA.png" alt=""></p>
+<p>而在 Firefox 中則是可以透過在 ADD-ONS 中安裝，<a target="_blank" rel="noopener" href="https://addons.mozilla.org/zh-TW/firefox/addon/react-devtools/">點擊連結前往</a>。</p>
+<p><img src="https://i.imgur.com/WPWG6wS.png" alt=""></p>
+<p>接著就透過 Google 的 React developer tools 來看看怎麼使用吧!</p>
+<h2 id="透過簡單例子使用-React-developer-tools"><a class="header-anchor" href="#透過簡單例子使用-React-developer-tools"></a>透過簡單例子使用 React developer tools</h2>
+<p>這邊為了可以更聚焦如何使用 React developer tools，所以提供一個非常簡單的測試例子。</p>
+<p>情境： 當點擊 Card 元件時，會替換掉名字、年齡與嗜好。</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/boring-zhukovsky-ngyem?file=/src/App.js">點擊前往</a>。</p>
+<p>而這裡為了節省一些時間，透過 codesandbox 這個服務來觀察，這個服務已經將 React developer tools 也都準備好了，沒意外的話應該可以看到如下的畫面:</p>
+<p><img src="https://i.imgur.com/9BiM4zj.png" alt=""></p>
+<p>但這邊想要分享一個小小的技巧，通常我們將專案運行起來時會透過F12 打開 chrome 的 dev tools</p>
+<p>而如果有安裝 React developer tools 的話，預期右邊的工具列中會有兩個選項，分別是「Components」、「Profiler」(這兩個就是透過剛剛安裝後才能看到的，一般來說不會有哦!)</p>
+<p>但如果是透過筆電或者小螢幕開發時，如果要開啟 React developer tools ，我們<strong>總是需要點擊下拉選單才可以選取到</strong>，多少會造成一些不便。</p>
+<p>所以這邊有個自己覺得比較順手的開發習慣，<strong>就是將 「Components」移至最前方</strong>，這對於螢幕視窗不大卻要開發時，可以不會因為開發者工具視窗比較小而總是一直點擊下拉選單選取，增加了一些方便性呢！</p>
+<p><img src="https://i.imgur.com/RQnCEqh.png" alt=""></p>
+<p>拉回來主題，可以先點擊卡片區塊觀察是否有 state 中的資料替換掉，接著再看看 React developer tools state 的變化。</p>
+<p>預期會從這樣子的結果:</p>
+<p><img src="https://i.imgur.com/Zk3E6pZ.png" alt=""></p>
+<p>變成這樣子的結果:</p>
+<p><img src="https://i.imgur.com/Z6BlCyI.png" alt=""></p>
+<p>但除了可以觀察改變之外，我們也可以透過直接在這裡修改 <code>name</code> 的值來觀察變化，可以自行嘗試看看。</p>
+<p>而左方的部分，則是顯示了元件(Components) 的架構，如圖:</p>
+<p><img src="https://i.imgur.com/KK7i3fn.png" alt=""></p>
+<p>至於「props」，若是在元件中如果有使用到 props ，就會在這裡可以清楚看見。</p>
+<p>如 Card 元件，因為是透過 props 的值來顯示內容，所以可以看到如下資訊:</p>
+<p><img src="https://i.imgur.com/DBmGDM5.png" alt=""></p>
+<p>其他如「rendered by」及「source」則是用來讓開發者知道用的是哪個版本的 React-dom 與來源。</p>
+<p>開發者工具一定要了解怎麼使用，因為這會大幅提升開發的效率!!</p>
+<p>今天的學習就這樣囉，明天見~</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ol>
+<li><a href="https://penghuachen.github.io/">個人部落格</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/23/Class-based-Component-%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E6%96%B9%E6%B3%95-%E7%BA%8C/" rel="prev" title="Class-based Component 生命週期方法(續)">
+                  <i class="fa fa-chevron-left"></i> Class-based Component 生命週期方法(續)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/09/25/%E6%A2%9D%E4%BB%B6-Render%E3%80%81%E5%88%97%E8%A1%A8%E8%88%87-key/" rel="next" title="條件 Render、列表與 key">
+                  條件 Render、列表與 key <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

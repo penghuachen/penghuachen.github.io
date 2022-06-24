@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="操作陣列的方法 今天要來學一下關於操作陣列的手法，其實JavaScript提供了許多操作陣列的方法 如果能在適當時機使用，肯定會對於開發效率有正面的影響。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="連續記錄挑戰Day45-陣列-Array-part2">
+<meta property="og:url" content="https://penghuachen.github.io/2019/07/11/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day45-%E9%99%A3%E5%88%97-Array-part2/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="操作陣列的方法 今天要來學一下關於操作陣列的手法，其實JavaScript提供了許多操作陣列的方法 如果能在適當時機使用，肯定會對於開發效率有正面的影響。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2019-07-11T12:10:30.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.844Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/07/11/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day45-%E9%99%A3%E5%88%97-Array-part2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/07/11/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day45-%E9%99%A3%E5%88%97-Array-part2/","path":"2019/07/11/連續記錄挑戰Day45-陣列-Array-part2/","title":"連續記錄挑戰Day45-陣列-Array-part2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>連續記錄挑戰Day45-陣列-Array-part2 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E9%99%A3%E5%88%97%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">操作陣列的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-join"><span class="nav-number">1.0.1.</span> <span class="nav-text">Array.prototype.join()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-reverse"><span class="nav-number">1.0.2.</span> <span class="nav-text">Array.prototype.reverse()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-sort"><span class="nav-number">1.0.3.</span> <span class="nav-text">Array.prototype.sort()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-unshift"><span class="nav-number">1.0.4.</span> <span class="nav-text">Array.prototype.unshift()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-shift"><span class="nav-number">1.0.5.</span> <span class="nav-text">Array.prototype.shift()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-push"><span class="nav-number">1.0.6.</span> <span class="nav-text">Array.prototype.push()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-pop"><span class="nav-number">1.0.7.</span> <span class="nav-text">Array.prototype.pop()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-splice"><span class="nav-number">1.0.8.</span> <span class="nav-text">Array.prototype.splice()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-concat"><span class="nav-number">1.0.9.</span> <span class="nav-text">Array.prototype.concat()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-slice"><span class="nav-number">1.0.10.</span> <span class="nav-text">Array.prototype.slice()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-map"><span class="nav-number">1.0.11.</span> <span class="nav-text">Array.prototype.map()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-filter"><span class="nav-number">1.0.12.</span> <span class="nav-text">Array.prototype.filter()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-reduce"><span class="nav-number">1.0.13.</span> <span class="nav-text">Array.prototype.reduce()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-reduceRight"><span class="nav-number">1.0.14.</span> <span class="nav-text">Array.prototype.reduceRight()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-every"><span class="nav-number">1.0.15.</span> <span class="nav-text">Array.prototype.every()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-some"><span class="nav-number">1.0.16.</span> <span class="nav-text">Array.prototype.some()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-foreach"><span class="nav-number">1.0.17.</span> <span class="nav-text">Array.prototype.foreach()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-indexOf"><span class="nav-number">1.0.18.</span> <span class="nav-text">Array.prototype.indexOf()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Array-prototype-lastIndexOf"><span class="nav-number">1.0.19.</span> <span class="nav-text">Array.prototype.lastIndexOf()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Array-prototype-copyWithin"><span class="nav-number">1.0.20.</span> <span class="nav-text">ES6: Array.prototype.copyWithin()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Array-prototype-keys"><span class="nav-number">1.0.21.</span> <span class="nav-text">ES6: Array.prototype.keys()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Array-prototype-values"><span class="nav-number">1.0.22.</span> <span class="nav-text">ES6: Array.prototype.values()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Array-prototype-entries"><span class="nav-number">1.0.23.</span> <span class="nav-text">ES6: Array.prototype.entries()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Array-prototype-find"><span class="nav-number">1.0.24.</span> <span class="nav-text">ES6: Array.prototype.find()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Array-prototype-findIndex"><span class="nav-number">1.0.25.</span> <span class="nav-text">ES6: Array.prototype.findIndex()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-Array-prototype-fill"><span class="nav-number">1.0.26.</span> <span class="nav-text">ES6: Array.prototype.fill()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES7-Array-prototype-includes"><span class="nav-number">1.0.27.</span> <span class="nav-text">ES7: Array.prototype.includes()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES10-Array-prototype-flat"><span class="nav-number">1.0.28.</span> <span class="nav-text">ES10: Array.prototype.flat()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES10-Array-prototype-flatMap"><span class="nav-number">1.0.29.</span> <span class="nav-text">ES10: Array.prototype.flatMap()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String-prototype-split"><span class="nav-number">1.0.30.</span> <span class="nav-text">String.prototype.split()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9F%E8%A8%98%E8%A1%A8"><span class="nav-number">1.0.31.</span> <span class="nav-text">速記表</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/07/11/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day45-%E9%99%A3%E5%88%97-Array-part2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="連續記錄挑戰Day45-陣列-Array-part2 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          連續記錄挑戰Day45-陣列-Array-part2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-07-11 20:10:30" itemprop="dateCreated datePublished" datetime="2019-07-11T20:10:30+08:00">2019-07-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>11 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="操作陣列的方法"><a class="header-anchor" href="#操作陣列的方法"></a>操作陣列的方法</h1>
+<p>今天要來學一下關於操作陣列的手法，其實JavaScript提供了許多操作陣列的方法</p>
+<p>如果能在適當時機使用，肯定會對於開發效率有正面的影響。</p>
+<span id="more"></span>
+<p>我們可以透過查看陣列的原型物件了解</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br></pre></td></tr></table></figure>
+<p>就讓我們對於一些常用的方法好好的一探究竟吧！</p>
+<h3 id="Array-prototype-join"><a class="header-anchor" href="#Array-prototype-join"></a>Array.prototype.join()</h3>
+<p><strong>陣列轉字串</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">join</span>([separator])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>separator:用來隔開陣列中每個元素的字串。如果未傳入此參數，陣列中的元素將預設用英文逗號（「,」）隔開。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/join">Array.prototype.join()</a></p>
+</blockquote>
+<p>join()方法可以將<mark>陣列或者類陣列的所有元素串接並合併成一個字串回傳</mark></p>
+<p>而我們也可以自訂元素彼此之間的連接方式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array =[<span class="number">1</span>,<span class="number">2</span>,<span class="string">&#x27;test&#x27;</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> string = array.<span class="title function_">join</span>(<span class="string">&quot;-&quot;</span>);<span class="comment">//使用-分隔轉為字串後的每個元素</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(string);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-reverse"><a class="header-anchor" href="#Array-prototype-reverse"></a>Array.prototype.reverse()</h3>
+<p><strong>原陣列會改變</strong></p>
+<p><mark>會反轉原陣列內的元素</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">let</span> newArray = array.<span class="title function_">reverse</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArray);<span class="comment">//[5,4,3,2,1]</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-sort"><a class="header-anchor" href="#Array-prototype-sort"></a>Array.prototype.sort()</h3>
+<p><strong>原陣列會改變</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">sort</span>([compareFunction])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>compareFunction: 指定一個函式來定義排序順序。假如省略此參數，陣列將根據各個元素轉為字串後的每一個字元之 Unicode 編碼位置值進行排序。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/sort">Array.prototype.sort()</a></p>
+</blockquote>
+<p>會在原陣列內將元素排序並回傳排序後的陣列。</p>
+<p>Ex: 不帶引數時，依照字母排序</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array = [<span class="string">&#x27;g&#x27;</span>,<span class="string">&#x27;f&#x27;</span>,<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;v&#x27;</span>,<span class="string">&#x27;r&#x27;</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="title function_">sort</span>());</span><br></pre></td></tr></table></figure>
+<p>Ex2 : 將陣列內的數字依大小排列</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array =[<span class="number">55</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">66</span>,<span class="number">97</span>,<span class="number">66</span>];</span><br><span class="line"><span class="keyword">let</span> newArray = array.<span class="title function_">sort</span>(<span class="keyword">function</span>(<span class="params">param1,param2</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> param1 - param2;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArray);</span><br></pre></td></tr></table></figure>
+<p>Ex3: 不區分大小寫的排序</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array = [<span class="string">&#x27;Bug&#x27;</span>,<span class="string">&#x27;apple&#x27;</span>,<span class="string">&#x27;lion&#x27;</span>,<span class="string">&#x27;Cat&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> newArray = array.<span class="title function_">sort</span>(<span class="keyword">function</span>(<span class="params">param1,param2</span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> s = param1.<span class="title function_">toLowerCase</span>();</span><br><span class="line">    <span class="keyword">let</span> t = param2.<span class="title function_">toLowerCase</span>();</span><br><span class="line">    <span class="comment">//如果s的字母順位較t的字母順位高，往後排序</span></span><br><span class="line">    <span class="keyword">if</span>(s &gt; t) </span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>; </span><br><span class="line">    <span class="comment">//如果t的字母順位較s的字母順位高，往前排序</span></span><br><span class="line">    <span class="keyword">if</span>(t &gt; s) </span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArray);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-unshift"><a class="header-anchor" href="#Array-prototype-unshift"></a>Array.prototype.unshift()</h3>
+<p><strong>原陣列會改變</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">unshift</span>(element1[, ...[, elementN]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>elementN:欲添加至陣列開頭的元素。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift">Array.prototype.unshift()</a></p>
+</blockquote>
+<p>可以將<mark>一個或多個元素夾到陣列的開頭，並回傳陣列的新長度</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>,<span class="number">2</span>];</span><br><span class="line"> <span class="comment">//新增單一元素到陣列</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="title function_">unshift</span>(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>));</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-shift"><a class="header-anchor" href="#Array-prototype-shift"></a>Array.prototype.shift()</h3>
+<p><strong>原陣列會改變</strong></p>
+<p>會<mark>移除並回傳陣列的第一個元素</mark>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>];</span><br><span class="line"><span class="keyword">var</span> delElement = array.<span class="title function_">shift</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(delElement);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-push"><a class="header-anchor" href="#Array-prototype-push"></a>Array.prototype.push()</h3>
+<p><strong>原陣列會改變</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">push</span>(element1[, ...[, elementN]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>elementN:欲添加至陣列末端的元素。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/push">Array.prototype.push()</a></p>
+</blockquote>
+<p>可以在<mark>陣列最後面的位置新增一個或多個元素</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>];</span><br><span class="line">array.<span class="title function_">push</span>(<span class="string">&#x27;新增的文字&#x27;</span>); </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-pop"><a class="header-anchor" href="#Array-prototype-pop"></a>Array.prototype.pop()</h3>
+<p><strong>原陣列會改變</strong></p>
+<p>會<mark>移除並回傳陣列的最後一個元素</mark>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>];</span><br><span class="line"><span class="keyword">var</span> delElement = array.<span class="title function_">pop</span>(); </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(delElement);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-splice"><a class="header-anchor" href="#Array-prototype-splice"></a>Array.prototype.splice()</h3>
+<p><strong>原陣列會改變</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.<span class="title function_">splice</span>(start[, deleteCount[, item1[, item2[, ...]]]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>start：指定起始的索引位置</li>
+<li>deleteCount：要刪除的元素數量</li>
+<li>item1.item2：從 <code>start</code> 開始，要加入到陣列的元素。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/splice">Array.prototype.splice()</a></p>
+</blockquote>
+<p>可<mark>刪除</mark>或<mark>新增元素</mark>到陣列中，也可以同時執行這兩件事情</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>];</span><br><span class="line"><span class="keyword">let</span> newArray = array.<span class="title function_">splice</span>(<span class="number">2</span>,<span class="number">4</span>); <span class="comment">// 從索引位置2(包含)刪除四個元素</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArray);<span class="comment">// [3,4,5,6]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);<span class="comment">// [1,2,7,8,9]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> array2 =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>];</span><br><span class="line"><span class="keyword">let</span> newArray2 = array2.<span class="title function_">splice</span>(<span class="number">2</span>,<span class="number">4</span>,<span class="string">&#x27;aa&#x27;</span>,<span class="string">&#x27;bb&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array2);<span class="comment">// [1,2,&#x27;aa&#x27;,&#x27;bb&#x27;,7,8,9]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArray2);<span class="comment">// [3,4,5,6]</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-concat"><a class="header-anchor" href="#Array-prototype-concat"></a>Array.prototype.concat()</h3>
+<p><strong>回傳新陣列，原陣列不改變</strong></p>
+<p>需要合併兩個或多個陣列時使用<br>
+<code>var new_array = old_array.concat(value1[, value2[, ...[, valueN]]]) </code></p>
+<ul>
+<li>valueN: 可以是陣列或值</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> new_array = old_array.<span class="title function_">concat</span>(value1[, value2[, ...[, valueN]]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>valueN:陣列以及／或者值，用來合併成一個新的陣列。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/concat">Array.prototype.concat()</a></p>
+</blockquote>
+<p>要注意的是concat()中的引數若是一維陣列，則會將陣列的元素值串接回傳。<mark>但若是與二維(或多維)陣列合併的話，則會將裡面的陣列一併串接。</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="comment">// [1,2,3,4,5,6]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="title function_">concat</span>([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])); </span><br><span class="line"><span class="comment">// [1,2,3,7,8,9,Array(2)];</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="title function_">concat</span>([<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,[<span class="number">10</span>,<span class="number">11</span>]])); </span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-slice"><a class="header-anchor" href="#Array-prototype-slice"></a>Array.prototype.slice()</h3>
+<p><strong>回傳新陣列，原陣列不改變</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">slice</span>([begin[, end]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>begin：起始位置(索引位置)</li>
+<li>end：指定陣列結束位置(但不包含end的元素)</li>
+<li>若是省略end，則會拷貝begin到最後一個元素</li>
+<li>可使用負數索引，例如:
+<ul>
+<li><code>slice(-2)</code> 表示要拷貝陣列的最後兩個元素</li>
+<li><code>slice(1,-1)</code> 表示拷貝陣列中的第二個元素至倒數第二個元素</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/slice">Array.prototype.slice()</a></p>
+</blockquote>
+<p>要注意的是在slice方法中，兩個數字皆為索引值，但是在splice的第二個參數是<strong>要刪除的元素數量</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,[<span class="number">9</span>,<span class="number">10</span>]];</span><br><span class="line"><span class="comment">// 回傳從索引位置2到索引位置5之前的陣列元素</span></span><br><span class="line"><span class="keyword">const</span> newArray = array.<span class="title function_">slice</span>(<span class="number">2</span>,<span class="number">5</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArray); </span><br><span class="line"><span class="comment">// 原陣列沒有被修改，所以回傳索引位置2之後至最後一個元素之前的所有元素</span></span><br><span class="line"><span class="keyword">const</span> newArray2 = array.<span class="title function_">slice</span>(<span class="number">2</span>,-<span class="number">1</span>); </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArray2);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-map"><a class="header-anchor" href="#Array-prototype-map"></a>Array.prototype.map()</h3>
+<p><strong>回傳新陣列，原陣列不改變</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> new_array = arr.<span class="title function_">map</span>(<span class="keyword">function</span> <span class="title function_">callback</span>(<span class="params">currentValue[, index[, array]]</span>) &#123;</span><br><span class="line">    <span class="comment">// Return element for new_array</span></span><br><span class="line">&#125;[, thisArg])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>callback:為產生新陣列之元素的回呼函式，可傳入三個參數：
+<ul>
+<li>currentValue<br>
+原陣列目前所迭代處理中的元素。</li>
+<li>index<br>
+原陣列目前所迭代處理中的元素之索引。</li>
+<li>array<br>
+呼叫 map 方法的陣列。</li>
+<li>thisArg<br>
+選擇性的參數。執行 callback 回呼函式的 this 值。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/map">Array.prototype.map()</a></p>
+</blockquote>
+<p>map的意思是映射，維基百科中對於映射的定義是:</p>
+<blockquote>
+<p>設 A,B 是兩個非空集合，若對 A 中的任一元素 x , 依照某種規律（或法則）f , 恆有 B 中的唯一確定的元素 y 與之對應，則稱對應規律 f 為一個從 A 到 B 的映射」</p>
+</blockquote>
+<p>要簡單一點的解釋可以想成當<mark>輸入一個x值時，會有一個對應的y值輸出</mark></p>
+<p>且<mark>若是一個稀疏的陣列，則使用map()時，會將稀疏的位置一樣回傳</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一個稀疏陣列</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,<span class="number">2</span>,,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> newArray = array.<span class="title function_">map</span>(<span class="function"><span class="params">value</span> =&gt;</span> value * value);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArray);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-filter"><a class="header-anchor" href="#Array-prototype-filter"></a>Array.prototype.filter()</h3>
+<p><strong>回傳新陣列，原陣列不改變</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newArray = arr.<span class="title function_">filter</span>(<span class="title function_">callback</span>(element[, index[, array]])[, thisArg])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>callback:此函式為一個斷言，用於測試陣列中的每個元素。回傳值為 true 時將當前的元素保留至新陣列中，若為 false 則不保留。可傳入三個參數：
+<ul>
+<li>element<br>
+原陣列目前所迭代處理中的元素。</li>
+<li>index<br>
+原陣列目前所迭代處理中的元素之索引。</li>
+<li>array<br>
+呼叫 filter 方法的陣列。</li>
+<li>thisArg<br>
+可選的。執行 callback 回呼函式的 this 值。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/filter">Array.prototype.filter()</a></p>
+</blockquote>
+<p>filter的中文翻譯是「過濾」，可想而知就是可以用來作為<mark>資料篩選</mark>時使用</p>
+<p>且filter()會跳過稀疏陣列的空值部分，永遠只會是個密集陣列</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">const</span> newArray = array.<span class="title function_">filter</span>(<span class="function">(<span class="params">element,index</span>) =&gt;</span> (index + <span class="number">1</span>) % <span class="number">2</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArray);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-reduce"><a class="header-anchor" href="#Array-prototype-reduce"></a>Array.prototype.reduce()</h3>
+<p><strong>回傳值，原陣列不改變</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">reduce</span>(callback[accumulator, currentValue, currentIndex, array], initialValue)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>accumulator:一開始執行時，<strong>若是有初始值，則將初始值作為accumulator的第一個數值與陣列元素目前的值一併傳入函式運算</strong></li>
+<li>currentValue: 當前的陣列元素值</li>
+<li>currentIndex: 當前陣列元素的索引值元素。若有初始值則從索引值0的位置開始，如果沒有，則從索引值1的位置開始</li>
+<li>array:使用reduce()方法的陣列</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce">Array.prototype.reduce()</a></p>
+</blockquote>
+<p>使用<code>reduce()</code>時，<mark>累加器與下一個元素值進行運算並得到一個值，且這個值會成為累加器的值並繼續跟下一個元素運算</mark></p>
+<p>而且處理陣列元素順序為由索引低至索引高(由左至右)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  執行步驟： </span></span><br><span class="line"><span class="comment">  1. 初始值=1，此時accumulator=1,currentValue=1(陣列索引值0的值)，並帶入函式運算得到 1*1 =1，accumulator的值變為1</span></span><br><span class="line"><span class="comment">  2. accumulator值=1,accumulator=1,currentValue=2，並帶入函式運算得到 1*2 =2，accumulator的值變為2</span></span><br><span class="line"><span class="comment">  3. accumulator值=2,accumulator=2,currentValue=3，並帶入函式運算得到 2*3 =6，accumulator的值變為6</span></span><br><span class="line"><span class="comment">  4. 回傳最後運算的值 = 6</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> value = array.<span class="title function_">reduce</span>(<span class="function">(<span class="params">accumulator,currentValue</span>) =&gt;</span> accumulator * currentValue,<span class="number">1</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-reduceRight"><a class="header-anchor" href="#Array-prototype-reduceRight"></a>Array.prototype.reduceRight()</h3>
+<p><strong>回傳值，原陣列不改變</strong></p>
+<p>和reduce()行為相同，但處理陣列元素順序為由索引高至索引低(由右至左)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  執行步驟： </span></span><br><span class="line"><span class="comment">  1. 初始值=1，此時accumulator=1,currentValue=3(陣列索引值2的值)，並帶入函式運算得到 1*3 =3，此時accumulator的值變為3</span></span><br><span class="line"><span class="comment">  2. accumulator值=3,currentValue=2，並帶入函式運算得到 3*2 =6，accumulator的值變為6</span></span><br><span class="line"><span class="comment">  3. accumulator值=6,currentValue=1，並帶入函式運算得到 6*1 =6，accumulator的值變為6</span></span><br><span class="line"><span class="comment">  4. 回傳最後運算的值 = 6</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> value = array.<span class="title function_">reduceRight</span>(<span class="function">(<span class="params">accumulator,currentValue</span>) =&gt;</span> accumulator * currentValue,<span class="number">1</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-every"><a class="header-anchor" href="#Array-prototype-every"></a>Array.prototype.every()</h3>
+<p><strong>回傳布林值</strong></p>
+<p>當元素都回傳true時，才會回傳true，如果有任一個元素為false則回傳false並停止走訪陣列</p>
+<p><mark><code>every()</code>最終會回傳的值是一個布林值</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">const</span> checkRemainder = array.<span class="title function_">every</span>(<span class="function"><span class="params">value</span> =&gt;</span> value % <span class="number">2</span> );</span><br><span class="line">   </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(checkRemainder); </span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-some"><a class="header-anchor" href="#Array-prototype-some"></a>Array.prototype.some()</h3>
+<p><strong>回傳布林值</strong></p>
+<p>當元素都回傳false時，才會回傳false，如果有任一個元素回傳true，則回傳true，並停止走訪整個陣列</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">const</span> checkRemainder = array.<span class="title function_">some</span>(<span class="function"><span class="params">value</span> =&gt;</span> value % <span class="number">2</span> ===<span class="number">0</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(checkRemainder);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-foreach"><a class="header-anchor" href="#Array-prototype-foreach"></a>Array.prototype.foreach()</h3>
+<p><strong>單純走訪陣列</strong></p>
+<p>逐一將陣列元素值傳入自定義的函式中運算</p>
+<p>沒有提供方法可以停止foreach走訪陣列，如果需要停止則需要丟出(throw)例外</p>
+<blockquote>
+<p>mdn:除非是拋出異常，否則並沒有中止 forEach() 迴圈的辦法。如果你需要這樣做，forEach() 就是錯誤的用法，相反的，應該要用簡單的迴圈。如果你要測試陣列裡面的元素並回傳布林值，可以用 every() 或 some()。如果可以的話，新的方法 find() 或 findIndex() 也可以用於 true 值之後提前終止。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array =[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">array.<span class="title function_">foreach</span>(<span class="keyword">function</span>(<span class="params">value,index</span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(index);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-indexOf"><a class="header-anchor" href="#Array-prototype-indexOf"></a>Array.prototype.indexOf()</h3>
+<p><strong>回傳索引值或元素值</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">indexOf</span>(searchElement[, fromIndex])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>searchElement:欲在陣列中搜尋的元素。</li>
+<li>fromIndex:陣列中搜尋的起始索引。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf">Array.prototype.indexOf()<br>
+</a></p>
+</blockquote>
+<p>在陣列中<strong>由左至右</strong>找尋元素並<mark>回傳第一個被找到的元素索引值，沒有的話回傳-1</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"><span class="comment">// 回傳 index = 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="title function_">indexOf</span>(<span class="string">&#x27;a&#x27;</span>));</span><br><span class="line"><span class="comment">// 在索引值2的位置開始找元素a，所以找不到元素，index = -1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="title function_">indexOf</span>(<span class="string">&#x27;a&#x27;</span>,<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-lastIndexOf"><a class="header-anchor" href="#Array-prototype-lastIndexOf"></a>Array.prototype.lastIndexOf()</h3>
+<p><strong>回傳索引值或元素值</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">lastIndexOf</span>(searchElement, fromIndex)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>searchElement:欲在陣列中搜尋的元素。</li>
+<li>fromIndex:要由陣列尾部向後（即向前）搜尋的啟始索引。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf#%E8%AA%9E%E6%B3%95">Array.prototype.lastIndexOf()</a></p>
+</blockquote>
+<p>行為和 indexOf()相反，<mark>從陣列最後面找尋元素並回傳第一個符合的索引值</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>];</span><br><span class="line"><span class="comment">// 回傳 index = 0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="title function_">lastIndexOf</span>(<span class="string">&#x27;a&#x27;</span>));</span><br><span class="line"><span class="comment">// 回傳 index = 2</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="title function_">lastIndexOf</span>(<span class="string">&#x27;b&#x27;</span>,<span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="ES6-Array-prototype-copyWithin"><a class="header-anchor" href="#ES6-Array-prototype-copyWithin"></a>ES6: Array.prototype.copyWithin()</h3>
+<p><strong>原陣列會改變</strong></p>
+<p>copyWithin() 方法會對陣列的一部分進行淺拷貝至同一陣列的另一位置並回傳此陣列，而不修改其大小。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">copyWithin</span>(target)</span><br><span class="line">arr.<span class="title function_">copyWithin</span>(target, start)</span><br><span class="line">arr.<span class="title function_">copyWithin</span>(target, start, end)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>target: 要複製序列（sequence）至該位置的索引（起始為 0）。若為負數，target 將會自陣列末項開始計算。</li>
+<li>start: 開始拷貝的起始元素索引（起始為 0。若為負數，start 將會自陣列末項開始計算。</li>
+<li>end : 結束拷貝的結尾元素索引（起始為 0）。若為負數，end 將會自陣列末項開始計算。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin">Array.prototype.copyWithin()<br>
+</a></p>
+</blockquote>
+<p>這邊要注意的是要拷貝的陣列<mark>不包含end索引值上的值</mark></p>
+<p>讓我們看看下面的例子加速理解</p>
+<p>Ex:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 被拷貝的陣列元素:b,c，從元素a的位置開始取代</span></span><br><span class="line"><span class="comment">// [&#x27;b&#x27;, &#x27;c&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;e&#x27;]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array.<span class="title function_">copyWithin</span>(<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>));</span><br></pre></td></tr></table></figure>
+<p>Ex2:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array1 = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 被拷貝的陣列元素:b,c,d,e，從元素a的位置開始取代</span></span><br><span class="line"><span class="comment">// [&#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;e&#x27;, &#x27;e&#x27;]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array1.<span class="title function_">copyWithin</span>(<span class="number">0</span>,<span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<p>Ex3:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array2 = [<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;e&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 被拷貝的陣列元素:c,d，從元素e的位置開始取代</span></span><br><span class="line"><span class="comment">// 要注意的是如果要取代的位置後方已經沒有元素，則只會取代存在的元素</span></span><br><span class="line"><span class="comment">// [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;, &#x27;c&#x27;];</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array2.<span class="title function_">copyWithin</span>(-<span class="number">1</span>,-<span class="number">3</span>,-<span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="ES6-Array-prototype-keys"><a class="header-anchor" href="#ES6-Array-prototype-keys"></a>ES6: Array.prototype.keys()</h3>
+<p><strong>回傳索引值或元素值</strong></p>
+<p>keys() 方法會回傳一個包含陣列中的==每一個索引鍵（keys）==的新Array Iterator物件。</p>
+<p>關於 Array Iterator物件，在mdn中有這麼一段解釋:</p>
+<blockquote>
+<p>可迭代協議: 可迭代（iterable）協議允許 JavaScript 物件定義或客制他們的迭代行為，例如哪些值可在 for…of 語法結構中被迭代出來。<br>
+<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Iteration_protocols">可迭代協議</a></p>
+</blockquote>
+<p>可以先理解成能否使用for…of將值取出</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line"><span class="keyword">const</span> iterator = array.<span class="title function_">keys</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">of</span> iterator)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ES6-Array-prototype-values"><a class="header-anchor" href="#ES6-Array-prototype-values"></a>ES6: Array.prototype.values()</h3>
+<p><strong>回傳索引值或元素值</strong></p>
+<p>values() 方法會回傳一個包含陣列中的==每一個索引之對應值（values）==的新 Array Iterator 物件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="string">&#x27;aa&#x27;</span>,<span class="string">&#x27;bb&#x27;</span>,<span class="string">&#x27;cc&#x27;</span>,<span class="string">&#x27;dd&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> iterator = array.<span class="title function_">values</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> value <span class="keyword">of</span> iterator)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ES6-Array-prototype-entries"><a class="header-anchor" href="#ES6-Array-prototype-entries"></a>ES6: Array.prototype.entries()</h3>
+<p>entries() 方法會回傳一個包含陣列中==每一個索引之鍵值對（key/value pairs）==的新陣列迭代器（Array Iterator）物件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="string">&#x27;aa&#x27;</span>,<span class="string">&#x27;bb&#x27;</span>,<span class="string">&#x27;cc&#x27;</span>,<span class="string">&#x27;dd&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> iterator = array.<span class="title function_">entries</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> [key,value] <span class="keyword">of</span> iterator)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`索引值為:<span class="subst">$&#123;key&#125;</span>，值為: <span class="subst">$&#123;value&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ES6-Array-prototype-find"><a class="header-anchor" href="#ES6-Array-prototype-find"></a>ES6: Array.prototype.find()</h3>
+<p><strong>回傳索引值或元素值</strong></p>
+<p>find() 方法會回傳第一個滿足所提供之測試函式的元素值。否則回傳 undefined。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">find</span>(callback[, thisArg])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>callback:會處理陣列中每個元素的函數，它使用三個參數：
+<ul>
+<li>element<br>
+在陣列中正被處理的元素。</li>
+<li>index<br>
+在陣列中正被處理的元素的索引。</li>
+<li>array<br>
+呼叫 find 的陣列。</li>
+<li>thisArg<br>
+執行 callback 函式時被當作 this 的物件。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/find">Array.prototype.find()</a></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,-<span class="number">5</span>,<span class="number">55</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">const</span> value = array.<span class="title function_">find</span>(<span class="function"><span class="params">value</span>=&gt;</span> value &gt;= <span class="number">3</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br></pre></td></tr></table></figure>
+<h3 id="ES6-Array-prototype-findIndex"><a class="header-anchor" href="#ES6-Array-prototype-findIndex"></a>ES6: Array.prototype.findIndex()</h3>
+<p><strong>回傳索引值或元素值</strong></p>
+<p>與Array.prototype.find()行為類似，只是回傳的為元素的索引值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,-<span class="number">5</span>,<span class="number">55</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">const</span> value = array.<span class="title function_">findIndex</span>(<span class="function"><span class="params">value</span>=&gt;</span> value &gt;= <span class="number">3</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br></pre></td></tr></table></figure>
+<h3 id="ES6-Array-prototype-fill"><a class="header-anchor" href="#ES6-Array-prototype-fill"></a>ES6: Array.prototype.fill()</h3>
+<p><strong>原陣列會改變</strong></p>
+<p>fill() 方法會將陣列中索引的第一個到最後一個的每個位置全部填入一個靜態的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">fill</span>(value[, start[, end]])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>value:欲填入陣列的值。</li>
+<li>start:起始的索引值，預設為 0。</li>
+<li>end:結束的索引值</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/fill">Array.prototype.fill()</a></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,-<span class="number">5</span>,<span class="number">55</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="comment">//從索引值2的位置將值取代為4</span></span><br><span class="line"><span class="keyword">const</span> value = array.<span class="title function_">fill</span>(<span class="number">4</span>,<span class="number">2</span>);</span><br><span class="line"><span class="comment">//[1, -5, 4, 4, 4]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br><span class="line"></span><br><span class="line"><span class="comment">//將索引值2至索引值3(不包含)間的元素值取代為8</span></span><br><span class="line"><span class="comment">//[1, -5, 8, 4, 4]</span></span><br><span class="line"><span class="keyword">const</span> value2 = array.<span class="title function_">fill</span>(<span class="number">8</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value2);</span><br></pre></td></tr></table></figure>
+<h3 id="ES7-Array-prototype-includes"><a class="header-anchor" href="#ES7-Array-prototype-includes"></a>ES7: Array.prototype.includes()</h3>
+<p><strong>回傳布林值</strong></p>
+<p>includes() 方法會判斷陣列是否包含特定的元素，並以此來回傳 true 或 false。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.<span class="title function_">includes</span>(searchElement[, fromIndex])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>searchElement:要搜尋的元素。</li>
+<li>fromIndex:要於此陣列中開始搜尋 searchElement 的位置</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/includes">Array.prototype.includes()</a></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,-<span class="number">5</span>,<span class="number">55</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"><span class="keyword">const</span> value = array.<span class="title function_">includes</span>(-<span class="number">5</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> value2 = array.<span class="title function_">includes</span>(-<span class="number">9</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value2);</span><br></pre></td></tr></table></figure>
+<h3 id="ES10-Array-prototype-flat"><a class="header-anchor" href="#ES10-Array-prototype-flat"></a>ES10: Array.prototype.flat()</h3>
+<p><strong>回傳新陣列，原陣列不改變</strong></p>
+<p>flat() 函數以遞迴方式將特定深度的子陣列重新串接成為一新的陣列</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newArray = arr.<span class="title function_">flat</span>([depth]);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>depth:指定巢狀陣列展開的深度。預設為1。</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/flat">Array.prototype.flat()</a></p>
+</blockquote>
+<p>透過這個方法我們可以很快速地攤平多維陣列，變成一維陣列</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> array = [<span class="number">1</span>,-<span class="number">5</span>,[<span class="number">55</span>,<span class="number">33</span>,<span class="number">1</span>],<span class="number">4</span>,[[<span class="number">5</span>,<span class="number">7</span>,<span class="number">9</span>]]];</span><br><span class="line"><span class="keyword">const</span> value = array.<span class="title function_">flat</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> value2 = array.<span class="title function_">flat</span>(<span class="number">2</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(value2);</span><br></pre></td></tr></table></figure>
+<p>在這之前的方法是運用reduce()搭配concat()完成</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr1 = [<span class="number">1</span>, <span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]];</span><br><span class="line">arr1.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc, val</span>) =&gt;</span> acc.<span class="title function_">concat</span>(val), []);</span><br></pre></td></tr></table></figure>
+<h3 id="ES10-Array-prototype-flatMap"><a class="header-anchor" href="#ES10-Array-prototype-flatMap"></a>ES10: Array.prototype.flatMap()</h3>
+<p><strong>回傳新陣列，原陣列不改變</strong></p>
+<p>是將<mark>flat()與map()合併運用</mark>，先透過map()映射每個元素後再透過flat()將多維陣列攤平成一維陣列。</p>
+<p>這邊要注意的是<mark>flat()的深度=1，意思是只能將二維陣列攤平成一維陣列</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> new_array = arr .<span class="property">flatMap</span>（<span class="keyword">function</span> callback（currentValue [，index [，array]]）&#123;</span><br><span class="line">    <span class="comment">//返回new_array的元素</span></span><br><span class="line">&#125; [，thisArg ]）</span><br></pre></td></tr></table></figure>
+<ul>
+<li>callback:會處理陣列中每個元素的函數，它使用三個參數：
+<ul>
+<li>currentValue<br>
+在陣列中正被處理的元素值。</li>
+<li>index<br>
+在陣列中正被處理的元素的索引。</li>
+<li>array<br>
+呼叫flatMap的陣列。</li>
+<li>thisArg<br>
+執行callback函式時被當作this的物件。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap">Array.prototype.flatMap()</a></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</span><br><span class="line"><span class="keyword">const</span> newArray = array.<span class="title function_">flatMap</span>(<span class="function"><span class="params">value</span> =&gt;</span> [value * value]);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newArray);</span><br></pre></td></tr></table></figure>
+<p>以上是陣列的方法，相信如果能妥善運用的話，肯定在陣列的操作上功力會大增!!</p>
+<p>但你以為這樣就結束了嗎XD</p>
+<p>除了陣列以外有些很常與陣列方法搭配運用的方法也需要提一提~</p>
+<h3 id="String-prototype-split"><a class="header-anchor" href="#String-prototype-split"></a>String.prototype.split()</h3>
+<p><strong>字串轉陣列</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str .<span class="property">split</span>（[ separator [，limit ]]）</span><br></pre></td></tr></table></figure>
+<ul>
+<li>separator: 拆分的依據，可以是字串或者是正規表達式</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str =<span class="string">&#x27;1/2/4/5/7/6&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> array = str.<span class="title function_">split</span>(<span class="string">&quot;/&quot;</span>);<span class="comment">//透過/切割字串</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(array);</span><br></pre></td></tr></table></figure>
+<p>這麼多的方法是要怎麼記啊!!!</p>
+<p>所以底下我整理成了一個表格，記憶方式的參考依據為<mark>這個陣列方法使用後所得到的結果</mark></p>
+<p>對於我來說，我可以很快速地了解使用了這個方法會得到什麼值</p>
+<h3 id="速記表"><a class="header-anchor" href="#速記表"></a>速記表</h3>
+<div style="overflow-x:auto"><table style="width:1000px"><thead><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr></thead><tbody><tr><td>陣列轉字串</td><td>join()</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>原陣列會改變</td><td>reverse()</td><td>sort()</td><td>unshift()</td><td>shift()</td><td>push()</td><td>pop()</td><td>splice()</td><td>copyWithin()</td><td>fill()</td></tr><tr><td>回傳新陣列，原陣列不變</td><td>concat()</td><td>slice()</td><td>map()</td><td>filter()</td><td>flat()</td><td>flatMap()</td><td></td><td></td><td></td></tr><tr><td>回傳值，原陣列不變</td><td>reduce()</td><td>reduceRight()</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>回傳布林值</td><td>every()</td><td>some()</td><td>includes()</td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>走訪陣列</td><td>foreach()</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>回傳索引值或元素值</td><td>indexOf()</td><td>lastIndexOf()</td><td>keys()</td><td>values()</td><td>entries()</td><td>find()</td><td>findIndex()</td><td></td><td></td></tr><tr><td>字串轉陣列</td><td>spilt()</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+<p>關於陣列方法的介紹就到這裡囉！</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/10/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day44-%E9%99%A3%E5%88%97-Array-part1/" rel="prev" title="連續記錄挑戰Day44-陣列-Array-part1">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day44-陣列-Array-part1
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/12/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day46-%E5%87%BD%E5%BC%8F-function/" rel="next" title="連續記錄挑戰Day46-函式-function">
+                  連續記錄挑戰Day46-函式-function <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

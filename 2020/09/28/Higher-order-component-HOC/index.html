@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Higher order component(HOC) 今天要學習的部分是 Higher order component，這是一種可以複用元件邏輯的高階技術。 但除了複用元件的邏輯之外，也可以用於增強樣式、元件內容等等，在正常的情況下，不會對於原本的元件有任何的修改。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Higher order component(HOC)">
+<meta property="og:url" content="https://penghuachen.github.io/2020/09/28/Higher-order-component-HOC/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="Higher order component(HOC) 今天要學習的部分是 Higher order component，這是一種可以複用元件邏輯的高階技術。 但除了複用元件的邏輯之外，也可以用於增強樣式、元件內容等等，在正常的情況下，不會對於原本的元件有任何的修改。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-28T02:41:09.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.829Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/09/28/Higher-order-component-HOC/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/09/28/Higher-order-component-HOC/","path":"2020/09/28/Higher-order-component-HOC/","title":"Higher order component(HOC)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Higher order component(HOC) | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Higher-order-component-HOC"><span class="nav-number">1.</span> <span class="nav-text">Higher order component(HOC)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-Higher-order-component-HOC"><span class="nav-number">1.1.</span> <span class="nav-text">如何使用 Higher order component(HOC)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%BA%90"><span class="nav-number">1.2.</span> <span class="nav-text">資源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/09/28/Higher-order-component-HOC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Higher order component(HOC) | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Higher order component(HOC)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-09-28 10:41:09" itemprop="dateCreated datePublished" datetime="2020-09-28T10:41:09+08:00">2020-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>5.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Higher-order-component-HOC"><a class="header-anchor" href="#Higher-order-component-HOC"></a>Higher order component(HOC)</h1>
+<p>今天要學習的部分是 Higher order component，這是一種可以複用元件邏輯的高階技術。</p>
+<p>但除了複用元件的邏輯之外，也可以用於增強樣式、元件內容等等，在正常的情況下，不會對於原本的元件有任何的修改。</p>
+<span id="more"></span>
+<p>像是前幾天學習到的 styled component 其實就有使用到這個概念</p>
+<p>接著讓我們用一個情境來學習這個部分吧!</p>
+<h2 id="如何使用-Higher-order-component-HOC"><a class="header-anchor" href="#如何使用-Higher-order-component-HOC"></a>如何使用 Higher order component(HOC)</h2>
+<p>首先 Higher order component(HOC) 並不是使用了 React 的任何 API ，這個部分我們可以透過官方的定義來理解:</p>
+<blockquote>
+<p>a higher-order component is a function that takes a component and returns a new component</p>
+</blockquote>
+<p><strong>僅僅是一個函式，且傳入一個元件，會回傳一個被包裝後的元件回來。</strong></p>
+<p>先來看看一個簡單的使用情境: 透過 HOC 的方式包裝一個按鈕(Button)改變它的背景顏色。</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/magical-elbakyan-cryr4?file=/src/App.js">點擊前往</a>。</p>
+<p>備註： 為了理解 HOC 的方式才使用 HOC 的方式來理解。</p>
+<p>首先我們先建立一個 <code>BaseButton</code> 元件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  BaseButton.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./index.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">BaseButton</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>BaseButton<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">BaseButton</span>;</span><br></pre></td></tr></table></figure>
+<p>接著我們建立一個要用來包裝這個 <code>BaseButton</code> 元件的 <code>WrapComponent</code>，並且透過一個 div 包住，此外我們先設定成要將 Button 背景顏色改成藍色，文字顏色改成白色。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;.index.css&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">WithButtonBgAndColor</span> = (<span class="params">WrapComponent</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;btn-container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">WrapComponent</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">WithButtonBgAndColor</span>;</span><br></pre></td></tr></table></figure>
+<p>HOC 設置好之後，接著這邊可以有幾種寫法：</p>
+<p>第一種，<strong>將 <code>BaseButton</code> 引入到這個 HOC 函式中，我們在 <code>WithButtonBgAndColor</code> 中傳入 <code>BaseButton</code> 元件並且 <code>export</code> 出去，這樣在 App.js 中使用時會得到一個被包裝後的元件</strong>：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// WithButtonBgAndColor.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;.index.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">BaseButton</span> <span class="keyword">from</span> <span class="string">&quot;../../components/BaseButton/&quot;</span>; <span class="comment">// 要被包裝的 BaseButton</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">WithButtonBgAndColor</span> = (<span class="params">WrapComponent</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;btn-container&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">WrapComponent</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">WithButtonBgAndColor</span>(<span class="title class_">BaseButton</span>);</span><br></pre></td></tr></table></figure>
+<p>還記得一開始提到 HOC 定義嗎?</p>
+<p>「<strong>僅僅是一個函式，且傳入一個元件，會回傳一個被包裝後的元件回來。</strong>」。</p>
+<p>從這邊可以看到我們在 <code>WithButtonBgAndColor</code> 中回傳了一個元件。</p>
+<p>而由於這邊我們 <code>export</code> 時是回傳一個元件，<code>所以這邊要使用大寫的方式寫成WithButtonBgAndColor</code></p>
+<p>接著讓我們在 App.js 中使用：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">BaseButton</span> <span class="keyword">from</span> <span class="string">&quot;./components/BaseButton/&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">WithButtonBgAndColor</span> <span class="keyword">from</span> <span class="string">&#x27;./HOC/WithButtonBgAndColor&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">BaseButton</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">WithButtonBgAndColor</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>除了上述的方式外，我們也可以這麼寫</p>
+<p>將 <code>withButtonBgAndColor</code> 函式在 App.js 中引入，並包裝 <code>BaseButton</code> 後取得一個被包裝後的元件</p>
+<p>至於為什麼要把 <code>const AnotherButtonBgAndColor =  withButtonBgAndColor(BaseButton); </code> 寫在 App.js 之外呢，這部分在文件中有提到：</p>
+<p><strong>1. 每一次 render 都會重新建立一個新的 <code>WrapComponet</code> 元件</strong><br>
+<strong>2. 由於每次都是新的元件，所以 React 的 diff 算法會將舊的元件移除，並掛載新的元件，導致元件的狀態和子元件等都會丟失。</strong><br>
+<strong>3. 應該在定義元件的外部建立 HOC ，這樣就只會被創建一次。</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// withButtonBgAndColor.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./index.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">withButtonBgAndColor</span> = (<span class="params">WrapComponent</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">props</span>) =&gt;</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;btn-container-1&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">WrapComponent</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withButtonBgAndColor;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">BaseButton</span> <span class="keyword">from</span> <span class="string">&quot;./components/BaseButton/&quot;</span>;</span><br><span class="line"><span class="comment">// 請注意 WithButtonBgAndColor 和 withButtonBgAndColor 的差異</span></span><br><span class="line"><span class="comment">// 回傳一個元件</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">WithButtonBgAndColor</span> <span class="keyword">from</span> <span class="string">&quot;./HOC/WithButtonBgAndColor&quot;</span>;</span><br><span class="line"><span class="comment">// 是一個函式</span></span><br><span class="line"><span class="keyword">import</span> withButtonBgAndColor <span class="keyword">from</span> <span class="string">&quot;./HOC/withButtonBgAndColor&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">AnotherButtonBgAndColor</span> = <span class="title function_">withButtonBgAndColor</span>(<span class="title class_">BaseButton</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>基本的 Button<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">BaseButton</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>HOC - 直接包裝後回傳一個被包裝後的 Button<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">WithButtonBgAndColor</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>HOC - 呼叫函式後回傳一個被包裝後的 Button<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">AnotherButtonBgAndColor</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>但我們<strong>一定有需要依據值的不同而取得不同的內容</strong>，這個時候又該怎麼做呢?</p>
+<p>所以這邊我們將情境修改一下，我們透過動態傳入的值，來取得不同的 button 背景與文字顏色</p>
+<p>備註： 撰寫的方式很多種，這裡我們透過像是<strong>使用一般在函式使用的方式般傳入參數來達成</strong>，當然我們也可以透過傳入 props 的方式達到。</p>
+<p>首先，我們一樣先建立一個按鈕 <code>AnotherBaseButton</code></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AnotherBaseButton</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./index.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">AnotherBaseButton</span> = (<span class="params">props</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> &#123;<span class="attr">...props</span>&#125;&gt;</span>AnotherBaseButton<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">AnotherBaseButton</span>;</span><br></pre></td></tr></table></figure>
+<p>這邊可以看到和前一個的些微不同之處，這在後面會提到，接著我們撰寫一個 HOC</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// withDynamicButtonBgAndColor</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./index.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">withDynamicButtonBgAndColor</span> = (<span class="params">WrapComponent, type</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">props</span>) =&gt;</span> <span class="language-xml"><span class="tag">&lt;<span class="name">WrapComponent</span> <span class="attr">className</span>=<span class="string">&#123;type&#125;</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withDynamicButtonBgAndColor;</span><br></pre></td></tr></table></figure>
+<p>最後則是在 App.js 中使用，為了方便呈現，僅保留動態傳入值的程式碼，測試範例則包含兩者。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> withDynamicButtonBgAndColor <span class="keyword">from</span> <span class="string">&quot;./HOC/withDynamicButtonBgAndColor&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">AnotherBaseButton</span> <span class="keyword">from</span> <span class="string">&quot;./components/AnotherBaseButton&quot;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 透過 props 不同的值來取得被包裝後的元件</span></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">YellowBgAndBlackColor</span> = <span class="title function_">withDynamicButtonBgAndColor</span>(</span><br><span class="line">  <span class="title class_">AnotherBaseButton</span>,</span><br><span class="line">  <span class="string">&quot;yellow-bg-and-black-color&quot;</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title class_">RedBgAndWhiteColor</span> = <span class="title function_">withDynamicButtonBgAndColor</span>(</span><br><span class="line">  <span class="title class_">AnotherBaseButton</span>,</span><br><span class="line">  <span class="string">&quot;red-bg-and-white-color&quot;</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">h2</span>&gt;</span>HOC - 傳入不同的值動態修改 Button 的樣式<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">RedBgAndWhiteColor</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">YellowBgAndBlackColor</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我們在 HOC 中設定了兩組樣式 <code>yellow-bg-and-black-color</code>, <code>red-bg-and-white-color</code>，接著我們透過傳入的方式在 HOC 中可以將其作為元件的 class name 使用，這裡有幾個細節需要注意:</p>
+<ol>
+<li>在 <code>AnotherBaseButton</code> 元件中的 <code>&#123; ...props &#125;</code> 是為了讓元件可以獲得由 HOC 那層傳入的 <code>props</code>，否則會無法取得 <code>props</code> 進來的參數</li>
+<li>在 <code>withDynamicButtonBgAndColor</code> 函式中的 <code>&#123; ...props &#125;</code>是為了將由外層傳入的 <code>props</code> 的參數傳遞給 <code>AnotherBaseButton</code> 元件而寫，否則 <code>AnotherBaseButton</code> 元件會無法取得 props 進來的參數</li>
+<li><code>&#123; ...props &#125; </code>代表的是我們這次用不到的 <code>props</code> 的參數，如果需要用到的部分，可以透過 <code>className=&#123;type&#125;</code> 的方式額外撰寫。</li>
+</ol>
+<p>以上就是 HOC 的基礎學習，明天繼續下一個部分～</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<h2 id="資源"><a class="header-anchor" href="#資源"></a>資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zh-hant.reactjs.org/docs/higher-order-components.html">Higher-Order Components</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/27/CSS-modules/" rel="prev" title="CSS modules">
+                  <i class="fa fa-chevron-left"></i> CSS modules
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/09/29/createRef-%E5%AD%B8%E8%B5%B7%E4%BE%86%EF%BC%8Cfocus-%E5%85%83%E7%B4%A0%E4%B8%8D%E9%BA%BB%E7%85%A9/" rel="next" title="createRef 學起來，focus 元素不麻煩">
+                  createRef 學起來，focus 元素不麻煩 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

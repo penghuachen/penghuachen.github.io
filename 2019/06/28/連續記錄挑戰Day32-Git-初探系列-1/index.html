@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Git 初探系列 #1 關於Git，雖然不是前端的技術之一，但卻是和他人協作中不可或缺的重要工具之一。協作專案時會遇到的困難點很多都可以透過Git作為溝通的橋樑，也可以記錄每一次修改的記錄(如果你願意的話)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="連續記錄挑戰Day32-Git 初探系列 #1">
+<meta property="og:url" content="https://penghuachen.github.io/2019/06/28/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day32-Git-%E5%88%9D%E6%8E%A2%E7%B3%BB%E5%88%97-1/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="Git 初探系列 #1 關於Git，雖然不是前端的技術之一，但卻是和他人協作中不可或缺的重要工具之一。協作專案時會遇到的困難點很多都可以透過Git作為溝通的橋樑，也可以記錄每一次修改的記錄(如果你願意的話)。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/vxRLRqp.png">
+<meta property="og:image" content="https://i.imgur.com/nTkCaO8.png">
+<meta property="og:image" content="https://i.imgur.com/adS7w4j.png">
+<meta property="og:image" content="https://i.imgur.com/BcbvDoE.png">
+<meta property="og:image" content="https://i.imgur.com/OgpsqSi.png">
+<meta property="og:image" content="https://i.imgur.com/hJM8UuK.png">
+<meta property="og:image" content="https://i.imgur.com/vpnaixm.png">
+<meta property="og:image" content="https://i.imgur.com/lU9SknP.png">
+<meta property="og:image" content="https://i.imgur.com/4WYTRwJ.png">
+<meta property="article:published_time" content="2019-06-28T11:58:56.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.842Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Git">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/vxRLRqp.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/06/28/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day32-Git-%E5%88%9D%E6%8E%A2%E7%B3%BB%E5%88%97-1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/06/28/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day32-Git-%E5%88%9D%E6%8E%A2%E7%B3%BB%E5%88%97-1/","path":"2019/06/28/連續記錄挑戰Day32-Git-初探系列-1/","title":"連續記錄挑戰Day32-Git 初探系列 #1"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>連續記錄挑戰Day32-Git 初探系列 #1 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Git-%E5%88%9D%E6%8E%A2%E7%B3%BB%E5%88%97-1"><span class="nav-number">1.</span> <span class="nav-text">Git 初探系列 #1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">Git 是什麼？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Git%E7%9A%84%E5%89%8D%E7%BD%AE%E4%BD%9C%E6%A5%AD"><span class="nav-number">1.2.</span> <span class="nav-text">使用Git的前置作業</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%89%B5%E5%BB%BA%E5%B8%B3%E8%99%9F%E5%8F%8A%E5%AE%89%E8%A3%9D"><span class="nav-number">1.2.1.</span> <span class="nav-text">1. 創建帳號及安裝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E8%A8%AD%E5%AE%9A%E4%BD%BF%E7%94%A8%E8%80%85%E5%90%8D%E7%A8%B1%E8%88%87%E5%B8%B3%E8%99%9F"><span class="nav-number">1.2.2.</span> <span class="nav-text">2. 設定使用者名稱與帳號</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8E%A5%E8%A7%B8Git%E6%87%89%E8%A9%B2%E8%A6%81%E6%9C%89%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BA%86%E8%A7%A3-HTTPS%E8%88%87SSH"><span class="nav-number">1.2.3.</span> <span class="nav-text">3. 第一次接觸Git應該要有的基本了解-HTTPS與SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E8%A8%AD%E5%AE%9ASSH%E9%87%91%E9%91%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.4.</span> <span class="nav-text">4. 設定SSH金鑰方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8D%E6%96%BCGit%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%AB%AF%E8%88%87%E9%81%A0%E7%AB%AF%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%81%8B%E4%BD%9C%E9%97%9C%E4%BF%82%E5%9C%96-%E5%80%8B%E4%BA%BA%E8%AA%8D%E7%82%BA%E7%9A%84%E5%9F%BA%E7%A4%8E%E9%97%9C%E4%BF%82%E5%9C%96"><span class="nav-number">1.3.</span> <span class="nav-text">對於Git在本地端與遠端的基本運作關係圖(個人認為的基礎關係圖)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Git%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%AB%AF%E8%88%87%E9%81%A0%E7%AB%AF%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%81%8B%E4%BD%9C%E9%97%9C%E4%BF%82-%E4%B8%8A%E5%82%B3"><span class="nav-number">1.3.1.</span> <span class="nav-text">Git在本地端與遠端的基本運作關係(上傳)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git%E5%9C%A8%E6%9C%AC%E5%9C%B0%E7%AB%AF%E8%88%87%E9%81%A0%E7%AB%AF%E7%9A%84%E5%9F%BA%E6%9C%AC%E9%81%8B%E4%BD%9C%E9%97%9C%E4%BF%82-%E4%B8%8B%E8%BC%89"><span class="nav-number">1.3.2.</span> <span class="nav-text">Git在本地端與遠端的基本運作關係(下載)</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/06/28/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day32-Git-%E5%88%9D%E6%8E%A2%E7%B3%BB%E5%88%97-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="連續記錄挑戰Day32-Git 初探系列 #1 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          連續記錄挑戰Day32-Git 初探系列 #1
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-06-28 19:58:56" itemprop="dateCreated datePublished" datetime="2019-06-28T19:58:56+08:00">2019-06-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Git/" itemprop="url" rel="index"><span itemprop="name">Git</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Git-初探系列-1"><a class="header-anchor" href="#Git-初探系列-1"></a>Git 初探系列 #1</h1>
+<p>關於Git，雖然不是前端的技術之一，但卻是和他人協作中不可或缺的重要工具之一。協作專案時會遇到的困難點很多都可以透過Git作為溝通的橋樑，也可以記錄每一次修改的記錄(如果你願意的話)。</p>
+<span id="more"></span>
+<p>當然，最重要的一點：可以保護自己(誤)。</p>
+<p>好工具，不學嗎？</p>
+<p>Outline:</p>
+<ul>
+<li>Git 是什麼？</li>
+<li>使用Git的前置作業
+<ul>
+<li>第一次接觸Git應該要有的基本了解-Https與SSH優點及缺點</li>
+<li>設定SSH金鑰方式</li>
+<li>設定使用者名稱與帳號</li>
+</ul>
+</li>
+<li>Git在本地端與遠端的運作關係圖(個人認為的基礎關係圖)
+<ul>
+<li>Git在本地端與遠端的基本運作關係(上傳)</li>
+<li>Git在本地端與遠端的基本運作關係(下載)</li>
+</ul>
+</li>
+</ul>
+<h2 id="Git-是什麼？"><a class="header-anchor" href="#Git-是什麼？"></a>Git 是什麼？</h2>
+<p>淺談幾種版本控制的方式：</p>
+<ul>
+<li>
+<p>關於version control(版本控制)<br>
+可以記錄檔案在某一段時間裡的變化，例如新增、刪除、修改等。亦可以從中找回先前的某一個版本的記錄。</p>
+</li>
+<li>
+<p>Local Version Control Systems(本地端版本控制)<br>
+透過複製檔案到其他目錄的方式執行版本控制但這個方法很容易出錯，也不易查詢。<br>
+<img src="https://i.imgur.com/vxRLRqp.png" alt=""></p>
+</li>
+<li>
+<p>Centralized Version Control System(CVCSs 集中化版本控制系統)<br>
+將檔案全部集中於單一伺服器進行控管。<br>
+但當伺服器產生問題時，就會造成很大的問題。</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/nTkCaO8.png" alt=""></p>
+<ul>
+<li>Distributed Version Control Systems(DVCS  分散式版本控制)<br>
+檔案不只是在遠端才有，每個用戶端都可以有獨立的一份檔案可以各自運作，且當遠端伺服器產生問題時，可以透過任一個用戶端的檔案還原。
+<ul>
+<li><strong>Git、Mercurial、Bazaar 和 Darcs）屬於此類</strong><br>
+<img src="https://i.imgur.com/adS7w4j.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<h2 id="使用Git的前置作業"><a class="header-anchor" href="#使用Git的前置作業"></a>使用Git的前置作業</h2>
+<h3 id="1-創建帳號及安裝"><a class="header-anchor" href="#1-創建帳號及安裝"></a>1. 創建帳號及安裝</h3>
+<ul>
+<li>Git官網<a target="_blank" rel="noopener" href="https://git-scm.com/">安裝Git</a></li>
+<li>創建一個<a target="_blank" rel="noopener" href="https://github.com/">Github</a>/<a target="_blank" rel="noopener" href="https://about.gitlab.com/">Gitlab</a>的帳號</li>
+</ul>
+<h3 id="2-設定使用者名稱與帳號"><a class="header-anchor" href="#2-設定使用者名稱與帳號"></a>2. 設定使用者名稱與帳號</h3>
+<ul>
+<li>
+<p><strong>git config --global <a target="_blank" rel="noopener" href="http://user.name">user.name</a>  ‘你的名字’</strong></p>
+</li>
+<li>
+<p><strong>git config --global user.email ‘你的信箱’</strong></p>
+</li>
+</ul>
+<h3 id="3-第一次接觸Git應該要有的基本了解-HTTPS與SSH"><a class="header-anchor" href="#3-第一次接觸Git應該要有的基本了解-HTTPS與SSH"></a>3. 第一次接觸Git應該要有的基本了解-HTTPS與SSH</h3>
+<p>與遠端讀/取檔案的方法主要有底下這兩種方式：</p>
+<ul>
+<li>
+<p>HTTPS -&gt; 在每次上傳時都需要輸入帳號密碼，除非已經將帳號密碼儲存在電腦中</p>
+</li>
+<li>
+<p>SSH -&gt; 在電腦與遠端伺服器中各設定了一組相互對應的金鑰序號，並透過此金鑰達成。</p>
+</li>
+</ul>
+<p>目前得到的小結論: SSH安全性高於HTTPS</p>
+<h3 id="4-設定SSH金鑰方式"><a class="header-anchor" href="#4-設定SSH金鑰方式"></a>4. 設定SSH金鑰方式</h3>
+<p>以Mac為例</p>
+<ul>
+<li>
+<p>檢查自己的電腦是否已經有設定</p>
+<ul>
+<li><strong>cd ~/.ssh</strong></li>
+<li><strong>ls</strong></li>
+</ul>
+</li>
+<li>
+<p>產生金鑰</p>
+<ul>
+<li><strong>ssh-keygen</strong> : 會產出一個是id_rsa和id_rsa.pub兩個檔案<br>
+此時再執行檢查一次應該就會看到底下這個畫面。<br>
+<img src="https://i.imgur.com/BcbvDoE.png" alt=""></li>
+</ul>
+</li>
+<li>
+<p>獲得公共金鑰中的資訊：</p>
+<ul>
+<li>cat ~/.ssh/id_rsa.pub**</li>
+</ul>
+</li>
+<li>
+<p>將公鑰放到遠端的github / gitlab中，流程如下：</p>
+<ol>
+<li>從github中的右上角的使用者找到setting</li>
+<li>點擊 SSH and GPG keys中的 New SSH key，將公鑰中的資訊貼入並儲存即可<br>
+<img src="https://i.imgur.com/OgpsqSi.png" alt=""></li>
+</ol>
+</li>
+</ul>
+<h2 id="對於Git在本地端與遠端的基本運作關係圖-個人認為的基礎關係圖"><a class="header-anchor" href="#對於Git在本地端與遠端的基本運作關係圖-個人認為的基礎關係圖"></a>對於Git在本地端與遠端的基本運作關係圖(個人認為的基礎關係圖)</h2>
+<p>先有個概念：</p>
+<p>在學習後整理了一張關於上傳及下載檔案的簡單流程圖，方便自己記憶。</p>
+<p><img src="https://i.imgur.com/hJM8UuK.png" alt="自製流程圖"></p>
+<h3 id="Git在本地端與遠端的基本運作關係-上傳"><a class="header-anchor" href="#Git在本地端與遠端的基本運作關係-上傳"></a>Git在本地端與遠端的基本運作關係(上傳)</h3>
+<ol>
+<li>初始化.git 資料夾
+<ul>
+<li><strong>git init</strong></li>
+</ul>
+</li>
+<li>將檔案加入到git資料夾中進行追蹤
+<ul>
+<li><strong>git add .</strong> -&gt; 將所有檔案都加入</li>
+<li><strong>git add ‘檔案名稱’</strong> -&gt; 將指定的檔案名稱加入</li>
+</ul>
+</li>
+<li>將檔案存入版本儲存區，建立版本編號
+<ul>
+<li><strong>git commit</strong> -&gt; 需要較長的註解時使用
+<ul>
+<li>搭配vim的指令使用(註解編輯完後離開)：
+<ul>
+<li>w: write</li>
+<li>q: quit</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>git commit</strong>  -m ‘短註解’ -&gt; 用於註解較短時</li>
+</ul>
+</li>
+<li>將檔案上傳至遠端儲存庫
+<ul>
+<li>在github / gitlab點擊New Repository創建一個專案，此時可以看到底下畫面<br>
+<img src="https://i.imgur.com/vpnaixm.png" alt=""></li>
+<li>**git remote add origin <a href="mailto:git@github.com">git@github.com</a>:penghuachen/test.git **-&gt; 將等等要放到github中test的位置加入</li>
+<li><strong>git push origin master</strong> -&gt;將檔案推到github
+<ul>
+<li>origin 儲存庫默認的名字，這裡指的是test</li>
+<li>master 指的是遠端test的其中一支分支叫做master</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Git在本地端與遠端的基本運作關係-下載"><a class="header-anchor" href="#Git在本地端與遠端的基本運作關係-下載"></a>Git在本地端與遠端的基本運作關係(下載)</h3>
+<ol>
+<li>完整下載github上的專案：
+<ul>
+<li>
+<p>在github中找到圖中字樣 <code>Clone or download</code><br>
+<img src="https://i.imgur.com/lU9SknP.png" alt=""></p>
+</li>
+<li>
+<p>選擇HTTPS or SSH Keys的方式，並複製提供的連結<br>
+<img src="https://i.imgur.com/4WYTRwJ.png" alt=""></p>
+</li>
+<li>
+<p><strong>git clone 剛剛複製的連結</strong> ，即可將檔案下載下來</p>
+</li>
+</ul>
+</li>
+</ol>
+<div style="text-align:center;font-weight:bold;">力圖在這個世界上找尋可留下的感動，並用著文字扎實的記錄著。</div>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Git/" rel="tag"># Git</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/27/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day31-%E5%88%9D%E6%8E%A2Boostrap4/" rel="prev" title="連續記錄挑戰Day31-初探Boostrap4">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day31-初探Boostrap4
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/06/29/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day33-Float%20%E6%B5%AE%E5%8B%95/" rel="next" title="連續記錄挑戰Day33-Float 浮動">
+                  連續記錄挑戰Day33-Float 浮動 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

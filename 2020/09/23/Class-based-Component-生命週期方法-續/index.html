@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Class-based Component 生命週期方法(續) 今天的篇幅要延續昨天的部分繼續，要來看看在官方文件中如何定義了這些方法，以及哪些是常用的、應用在什麼地方。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Class-based Component 生命週期方法(續)">
+<meta property="og:url" content="https://penghuachen.github.io/2020/09/23/Class-based-Component-%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E6%96%B9%E6%B3%95-%E7%BA%8C/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="Class-based Component 生命週期方法(續) 今天的篇幅要延續昨天的部分繼續，要來看看在官方文件中如何定義了這些方法，以及哪些是常用的、應用在什麼地方。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-23T02:57:45.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.828Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/09/23/Class-based-Component-%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E6%96%B9%E6%B3%95-%E7%BA%8C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/09/23/Class-based-Component-%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E6%96%B9%E6%B3%95-%E7%BA%8C/","path":"2020/09/23/Class-based-Component-生命週期方法-續/","title":"Class-based Component 生命週期方法(續)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Class-based Component 生命週期方法(續) | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Class-based-Component-%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E6%96%B9%E6%B3%95-%E7%BA%8C"><span class="nav-number">1.</span> <span class="nav-text">Class-based Component 生命週期方法(續)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E4%BB%B6-Component-%E5%BB%BA%E7%AB%8B%E6%99%82-mounting-%E7%9A%84%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">元件(Component)建立時(mounting)的生命週期方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#contructor"><span class="nav-number">1.1.1.</span> <span class="nav-text">contructor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-getDerivedStateFromProps-props-state"><span class="nav-number">1.1.2.</span> <span class="nav-text">static getDerivedStateFromProps(props, state)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#render"><span class="nav-number">1.1.3.</span> <span class="nav-text">render</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentDidMount"><span class="nav-number">1.1.4.</span> <span class="nav-text">componentDidMount</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E4%BB%B6-Component-%E6%9B%B4%E6%96%B0%E6%99%82-updating-%E7%9A%84%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">元件(Component)更新時(updating)的生命週期方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shouldComponentUpdate-nextProps-nextState"><span class="nav-number">1.2.1.</span> <span class="nav-text">shouldComponentUpdate(nextProps, nextState)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getSnapshotBeforeUpdate-prevProps-prevState"><span class="nav-number">1.2.2.</span> <span class="nav-text">getSnapshotBeforeUpdate(prevProps, prevState)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#componentDidUpdate-prevProps-prevState-snapshot"><span class="nav-number">1.2.3.</span> <span class="nav-text">componentDidUpdate(prevProps, prevState, snapshot)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E4%BB%B6-Component-%E5%8D%B8%E4%B8%8B%E6%99%82-Unmount-%E7%9A%84%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">元件(Component)卸下時(Unmount)的生命週期方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%BA%90"><span class="nav-number">1.4.</span> <span class="nav-text">資源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/09/23/Class-based-Component-%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E6%96%B9%E6%B3%95-%E7%BA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Class-based Component 生命週期方法(續) | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Class-based Component 生命週期方法(續)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-09-23 10:57:45" itemprop="dateCreated datePublished" datetime="2020-09-23T10:57:45+08:00">2020-09-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>7.5k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>7 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Class-based-Component-生命週期方法-續"><a class="header-anchor" href="#Class-based-Component-生命週期方法-續"></a>Class-based Component 生命週期方法(續)</h1>
+<p>今天的篇幅要延續昨天的部分繼續，要來看看在<a target="_blank" rel="noopener" href="https://zh-hant.reactjs.org/docs/react-component.html">官方文件</a>中如何定義了這些方法，以及哪些是常用的、應用在什麼地方。</p>
+<span id="more"></span>
+<p>學習順序會依照元件建立、更新及銷毀的生命週期順序來學習。</p>
+<p>並在最後透過發一個非同步請求的範例來作為 ending，事不宜遲，趕緊來學習吧!</p>
+<h2 id="元件-Component-建立時-mounting-的生命週期方法"><a class="header-anchor" href="#元件-Component-建立時-mounting-的生命週期方法"></a>元件(Component)建立時(mounting)的生命週期方法</h2>
+<p>所有方法:</p>
+<ul>
+<li><code>constructor</code></li>
+<li><code>static getDerivedStateFromProps</code></li>
+<li><code>render</code></li>
+<li><code>componentDidMount</code></li>
+</ul>
+<p><strong>常用方法:</strong></p>
+<ul>
+<li><code>constructor</code></li>
+<li><code>render</code></li>
+<li><code>componentDidMount</code></li>
+</ul>
+<h3 id="contructor"><a class="header-anchor" href="#contructor"></a>contructor</h3>
+<p>首先在 mounting 階段時，最先被初始化的是 <code>constructor</code> 的部分，而這部分同時也是 JS class 類別，文件中提到:</p>
+<blockquote>
+<p>通常在 React 中 constructor 只會有兩種用途：</p>
+<ul>
+<li>透過指定一個 this.state 物件來初始化內部 state。</li>
+<li>為 event handler 方法綁定 instance。</li>
+</ul>
+</blockquote>
+<p>於是我們常常會有如下的設計:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span>&#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>();</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = &#123;</span><br><span class="line">      <span class="attr">persons</span>: [</span><br><span class="line">        &#123; <span class="attr">name</span>: <span class="string">&#x27;Bill&#x27;</span> &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">changeNameHandler</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// do something...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而由於 ES7 中將 Class 的寫法簡化，所以我們可以將上方改寫成如下的方式:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Test</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">persons</span>: [</span><br><span class="line">      &#123; <span class="attr">name</span>: <span class="string">&#x27;Bill&#x27;</span> &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">  changeNameHandler = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// do something...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外文件中還有提到:</p>
+<p><strong>Constructor 應該要是開發者唯一指定 state 的地方，其餘地方則是透過 this.setState 的方式修改 state 的狀態。</strong></p>
+<p><mark>直接修改 state 的資料是雖然會改變 state 的狀態，但是並不會觸發畫面的更新。</mark></p>
+<h3 id="static-getDerivedStateFromProps-props-state"><a class="header-anchor" href="#static-getDerivedStateFromProps-props-state"></a>static getDerivedStateFromProps(props, state)</h3>
+<p><strong>當子元件中具有自己的 state，並且這個 <code>state</code> 的改變是依賴父層 <code>props</code> 進來的值，那就可能需要用到這個方法。</strong></p>
+<p>此時會需要回傳一個物件來更新 <code>state</code>，但是如果並不需要更新的話，那其實也可以直接回傳 null 即可。</p>
+<p>這邊我們設計一種情境:</p>
+<p>父元件、子元件中皆有一個 radio box，切換任意一個的狀態時，都需要可以同步更新另一個 radio box 的狀態。</p>
+<p>相關測試程式碼，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/boring-perlman-vhrwy?file=/src/App.js">點擊前往</a></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./App.css&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">SubComponent</span> <span class="keyword">from</span> <span class="string">&#x27;./SubComponent&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>();</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = &#123;</span><br><span class="line">      <span class="attr">isTrue</span>: <span class="literal">true</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  changeRadioHandler = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> value = e.<span class="property">target</span>.<span class="property">value</span>;</span><br><span class="line">    <span class="keyword">const</span> checkTrue = value === <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      ? <span class="literal">true</span></span><br><span class="line">      : <span class="literal">false</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">setState</span>(<span class="function"><span class="params">state</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">isTrue</span>: checkTrue</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123; this.state.persons.map((person, idx) =&gt; (</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">Card</span> </span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">key</span>=<span class="string">&#123;</span> <span class="attr">idx</span> &#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">changeRadioHandler</span>=<span class="string">&#123;</span> <span class="attr">this.changeRadioHandler</span> &#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">isTrue</span>=<span class="string">&#123;</span> <span class="attr">this.state.isTrue</span> &#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          /&gt;</span> </span></span><br><span class="line"><span class="language-xml">        ))&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        True: <span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;</span> <span class="attr">e</span> =&gt;</span> this.changeRadioHandler(e) &#125; checked=&#123; this.state.isTrue &#125; type=&quot;radio&quot; name=&quot;main&quot; value=&quot;true&quot;/&gt;</span></span><br><span class="line"><span class="language-xml">        False: <span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;</span> <span class="attr">e</span> =&gt;</span> this.changeRadioHandler(e) &#125; checked=&#123; !this.state.isTrue &#125; type=&quot;radio&quot; name=&quot;main&quot; value=&quot;false&quot;/&gt;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SubComponent.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./index.css&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SubComponent</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>();</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">state</span> = &#123;</span><br><span class="line">      <span class="attr">isTrue</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">static</span> <span class="title function_">getDerivedStateFromProps</span>(<span class="params">props, state</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(props);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(state);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(props.<span class="property">isTrue</span> != state.<span class="property">isTrue</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">isTrue</span>: props.<span class="property">isTrue</span></span><br><span class="line">      &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;sub&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Sub Component<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        True: <span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;</span> <span class="attr">e</span> =&gt;</span> this.props.changeRadioHandler(e) &#125; checked=&#123; this.state.isTrue &#125; type=&quot;radio&quot; name=&quot;sub&quot; value=&quot;true&quot;/&gt;</span></span><br><span class="line"><span class="language-xml">        False: <span class="tag">&lt;<span class="name">input</span> <span class="attr">onChange</span>=<span class="string">&#123;</span> <span class="attr">e</span> =&gt;</span> this.props.changeRadioHandler(e) &#125; checked=&#123; !this.state.isTrue &#125; type=&quot;radio&quot; name=&quot;sub&quot; value=&quot;false&quot;/&gt;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">SubComponent</span>;</span><br></pre></td></tr></table></figure>
+<p>在 <code>SubComponent</code> 元件中使用了 <code>getDerivedStateFromProps</code> 方法，可以<strong>透過 props 取得外層傳入的最新值，透過比對元件自身的 state 決定是否要更新子元件中的 state 狀態</strong>，而這個就是一個簡單的使用情境。</p>
+<h3 id="render"><a class="header-anchor" href="#render"></a>render</h3>
+<ol>
+<li><code>render()</code> 是 <strong>class component 中唯一必要的方法。</strong></li>
+<li>透過 <code>render</code> 方法可以在瀏覽器上渲染出我們需要的 DOM。</li>
+<li>此外，不應該在 <code>render</code> 方法中改變 component 的 <code>state</code>。</li>
+</ol>
+<p>而 render 方法中接受以下的值(關於 portal 與  fragement 的細節留待後續學習)</p>
+<ul>
+<li>React element</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... 略</span></span><br><span class="line"><span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">MyComponent</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ... 略</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Array 和 fragment</li>
+</ul>
+<p>透過 array 產生數個元件</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... 略</span></span><br><span class="line"><span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">   &#123; </span></span><br><span class="line"><span class="language-xml">    [1,2,3].map(num =&gt; (</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">MyComponent</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    )) </span></span><br><span class="line"><span class="language-xml">   &#125;</span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ... 略</span></span><br></pre></td></tr></table></figure>
+<p>透過 Fragment 減少額外新增一個節點</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... 略</span></span><br><span class="line"><span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">React.Fragment</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">     <span class="tag">&lt;<span class="name">ChildA</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">     <span class="tag">&lt;<span class="name">ChildB</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">     <span class="tag">&lt;<span class="name">ChildC</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">React.Fragment</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ... 略</span></span><br></pre></td></tr></table></figure>
+<p>等同於：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... 略</span></span><br><span class="line"><span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">     <span class="tag">&lt;<span class="name">ChildA</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">     <span class="tag">&lt;<span class="name">ChildB</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">     <span class="tag">&lt;<span class="name">ChildC</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ... 略</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Portal</li>
+</ul>
+<blockquote>
+<p>它們讓你將 children render 到不同的 DOM subtree 中</p>
+</blockquote>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 參考官方範例</span></span><br><span class="line"><span class="keyword">return</span> <span class="title class_">ReactDOM</span>.<span class="title function_">createPortal</span>(</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">children</span>,</span><br><span class="line">  domNode</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>String 和 number</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... 略</span></span><br><span class="line"><span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello world!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ... 略</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Boolean 或 null</li>
+</ul>
+<p><code>test</code> 作為 flag，當 <code>test</code> 為 true 時才渲染 <code>&lt;Child /&gt;</code></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... 略</span></span><br><span class="line"><span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    test &amp;&amp; <span class="tag">&lt;<span class="name">Child</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ... 略</span></span><br></pre></td></tr></table></figure>
+<h3 id="componentDidMount"><a class="header-anchor" href="#componentDidMount"></a>componentDidMount</h3>
+<p>這個方法是一個<strong>蠻重要的方法</strong>，依據官方描述，<mark>我們可以在這個方法中做網路請求</mark></p>
+<p>意思是如果需要透過 call api 取得一些資料的話，在這個方法中非常適合。</p>
+<p>而文件中有描述到:</p>
+<blockquote>
+<p>這個方法適合設立任何 subscription。設立完 subscription 後，別忘了在 componentWillUnmount() 內取消 subscription。</p>
+</blockquote>
+<p>這是什麼意思呢? 意思是我們可能有時候會需要透過額外建立像是監聽事件:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">div.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, fn);</span><br></pre></td></tr></table></figure>
+<p>我們可以在 <code>componentDidMount</code> 中建立類似這種監聽事件，並於元件銷毀時取消:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在 componentWillUnmount life cycle method 中取消</span></span><br><span class="line">div.<span class="title function_">removeEventListener</span>(<span class="string">&#x27;click&#x27;</span>, fn);</span><br></pre></td></tr></table></figure>
+<p>另外就是可以在<strong>componentDidMount() 內呼叫 setState()</strong>，而這會觸發額外的一次 render ，但是會在瀏覽器更新螢幕之前發生。代表使用者並不會察覺到變化。</p>
+<p>但使用上需要注意，可能會<strong>導致效能問題</strong>。</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/wizardly-shtern-15gnn?file=/src/App.js">點擊前往</a>。</p>
+<h2 id="元件-Component-更新時-updating-的生命週期方法"><a class="header-anchor" href="#元件-Component-更新時-updating-的生命週期方法"></a>元件(Component)更新時(updating)的生命週期方法</h2>
+<p>所有方法:</p>
+<ul>
+<li><code>static getDerivedStateFromProps()</code></li>
+<li><code>shouldComponentUpdate()</code></li>
+<li><code>render()</code></li>
+<li><code>getSnapshotBeforeUpdate()</code></li>
+<li><code>componentDidUpdate()</code></li>
+</ul>
+<p><strong>常用方法:</strong></p>
+<ul>
+<li><code>render()</code></li>
+<li><code>componentDidUpdate()</code></li>
+</ul>
+<h3 id="shouldComponentUpdate-nextProps-nextState"><a class="header-anchor" href="#shouldComponentUpdate-nextProps-nextState"></a>shouldComponentUpdate(nextProps, nextState)</h3>
+<p><strong>透過 shouldComponentUpdate 可以用來決定 component 會不會跟著被更新的 state 或者 props 而有所變動。</strong></p>
+<p>當我們回傳 <code>false</code> 時，可以阻止 component 重新 render。</p>
+<p><strong>但 React 的預設行為是每次只要有更新就會觸發重新 render，所以在使用這個方法時要特別注意。雖然這個方法的存在是為了效能最佳化，使我們可以透過比對前後的 state, prop 來決定是否做此次的更新，但透過回傳 <code>false</code> 並不會避免子元件在自身 state 改變時的重新 render</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="title function_">shouldComponentUpdate</span>(<span class="params">nextProps, nextState</span>) &#123;</span><br><span class="line"> <span class="comment">// 可以在這裡比對 state, props 決定是否要做此次更新</span></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<h3 id="getSnapshotBeforeUpdate-prevProps-prevState"><a class="header-anchor" href="#getSnapshotBeforeUpdate-prevProps-prevState"></a>getSnapshotBeforeUpdate(prevProps, prevState)</h3>
+<p><strong>在最近一次 render 前可以讓我們做些處理的方法，通常可以用來在 DOM 改變之前先從其中抓取一些資訊，此外當使用了這個方法時，會回傳一個值作為參數傳遞給 componentDidUpdate()</strong></p>
+<p>最常使用的情況是用來處理 <strong>取得滾動軸位置</strong>，以官方的例子為例:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ScrollingList</span> <span class="keyword">extends</span> <span class="title class_ inherited__">React.Component</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">props</span>) &#123;</span><br><span class="line">    <span class="variable language_">super</span>(props);</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">listRef</span> = <span class="title class_">React</span>.<span class="title function_">createRef</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">getSnapshotBeforeUpdate</span>(<span class="params">prevProps, prevState</span>) &#123;</span><br><span class="line">    <span class="comment">// Are we adding new items to the list?</span></span><br><span class="line">    <span class="comment">// Capture the scroll position so we can adjust scroll later.</span></span><br><span class="line">    <span class="keyword">if</span> (prevProps.<span class="property">list</span>.<span class="property">length</span> &lt; <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">list</span>.<span class="property">length</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> list = <span class="variable language_">this</span>.<span class="property">listRef</span>.<span class="property">current</span>;</span><br><span class="line">      <span class="keyword">return</span> list.<span class="property">scrollHeight</span> - list.<span class="property">scrollTop</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">componentDidUpdate</span>(<span class="params">prevProps, prevState, snapshot</span>) &#123;</span><br><span class="line">    <span class="comment">// If we have a snapshot value, we&#x27;ve just added new items.</span></span><br><span class="line">    <span class="comment">// Adjust scroll so these new items don&#x27;t push the old ones out of view.</span></span><br><span class="line">    <span class="comment">// (snapshot here is the value returned from getSnapshotBeforeUpdate)</span></span><br><span class="line">    <span class="keyword">if</span> (snapshot !== <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> list = <span class="variable language_">this</span>.<span class="property">listRef</span>.<span class="property">current</span>;</span><br><span class="line">      list.<span class="property">scrollTop</span> = list.<span class="property">scrollHeight</span> - snapshot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ref</span>=<span class="string">&#123;this.listRef&#125;</span>&gt;</span>&#123;/* ...contents... */&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>透過在 <code>getSnapshotBeforeUpdate</code> 做些判斷並回傳值，作為 <code>componentDidUpdate</code> 中可以用來判斷並額外處理的值。</p>
+<h3 id="componentDidUpdate-prevProps-prevState-snapshot"><a class="header-anchor" href="#componentDidUpdate-prevProps-prevState-snapshot"></a>componentDidUpdate(prevProps, prevState, snapshot)</h3>
+<p>這是<strong>更新時最重要的方法</strong>，在<strong>更新後</strong>會馬上被呼叫。</p>
+<p>而依據官方解釋，在這邊也<strong>非常適合做網路請求，這代表我們也可以在這個生命週期 call api。</strong></p>
+<p><code>componentDidUpdate</code> 與 <code>componentDidMount</code> 用法類似，也可以在此呼叫 <code>setState</code> 來更新 <code>state</code> 的值，但需要特別注意的是，<strong>在 <code>componentDidUpdate</code> 中記得比較前後的值是否有差異，如果有差異的話才做新的一次網路請求，否則可能會影響 component 的效能。</strong></p>
+<p>此官方例子為例:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">componentDidUpdate</span>(<span class="params">prevProps</span>) &#123;</span><br><span class="line">  <span class="comment">// 常見用法（別忘了比較 prop）：</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">userID</span> !== prevProps.<span class="property">userID</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">fetchData</span>(<span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">userID</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="元件-Component-卸下時-Unmount-的生命週期方法"><a class="header-anchor" href="#元件-Component-卸下時-Unmount-的生命週期方法"></a>元件(Component)卸下時(Unmount)的生命週期方法</h2>
+<p>最後是元件生命週期的最後一哩路，就是銷毀或卸下這個元件。</p>
+<p>這個部分的生命週期方法只有 <code>componentWillUnmount</code>， <strong>會在一個 component 被 unmount 和 destroy 後馬上被呼叫，我們可以在這裡做一些清除的行為。</strong></p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<h2 id="資源"><a class="header-anchor" href="#資源"></a>資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zh-hant.reactjs.org/docs/react-component.html#componentdidupdate">React.Component</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/22/Class-based-Component-%E7%9A%84%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F/" rel="prev" title="Class-based Component 的生命週期">
+                  <i class="fa fa-chevron-left"></i> Class-based Component 的生命週期
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/09/24/%E4%BD%BF%E7%94%A8-React-developer-Tool-%E6%8F%90%E9%AB%98%E9%96%8B%E7%99%BC%E6%95%88%E7%8E%87/" rel="next" title="使用 React developer Tool 提高開發效率">
+                  使用 React developer Tool 提高開發效率 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

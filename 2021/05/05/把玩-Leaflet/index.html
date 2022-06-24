@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="前言 Leaflet 是一套開源的地圖服務，此外這套服務在網頁端與手機端都可以有良好的使用者體驗。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="把玩 Leaflet">
+<meta property="og:url" content="https://penghuachen.github.io/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="前言 Leaflet 是一套開源的地圖服務，此外這套服務在網頁端與手機端都可以有良好的使用者體驗。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/JRqzMRD.png">
+<meta property="og:image" content="https://i.imgur.com/oLW7IjE.png">
+<meta property="og:image" content="https://i.imgur.com/kYzRkZi.png">
+<meta property="og:image" content="https://i.imgur.com/fmIrAHm.jpg">
+<meta property="og:image" content="https://i.imgur.com/OUlVfDN.jpg">
+<meta property="og:image" content="https://i.imgur.com/TH0AKFH.png">
+<meta property="og:image" content="https://i.imgur.com/5YupCAY.png">
+<meta property="og:image" content="https://i.imgur.com/OUlKOIY.png">
+<meta property="og:image" content="https://i.imgur.com/SthHdfB.jpg">
+<meta property="article:published_time" content="2021-05-05T06:25:58.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.836Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/JRqzMRD.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/","path":"2021/05/05/把玩-Leaflet/","title":"把玩 Leaflet"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>把玩 Leaflet | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%8F%E9%81%8E-CDN-%E5%BC%95%E5%85%A5-Leaflet-%E6%9C%8D%E5%8B%99"><span class="nav-number">2.</span> <span class="nav-text">透過 CDN 引入 Leaflet 服務</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E5%80%8B%E5%9C%B0%E5%9C%96-Map"><span class="nav-number">3.</span> <span class="nav-text">建立第一個地圖(Map)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%96%E5%B1%A4-tile-layer-%E6%9C%8D%E5%8B%99%E8%A8%AD%E5%AE%9A%E5%9C%B0%E5%9C%96%E9%A2%A8%E6%A0%BC"><span class="nav-number">3.1.</span> <span class="nav-text">使用圖層(tile layer)服務設定地圖風格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%9C%B0%E5%9C%96%E4%B8%8A%E7%95%AB%E5%87%BA%E7%AF%84%E5%9C%8D-range-%EF%BC%9A%E4%BB%A5%E5%9C%93%E5%BD%A2-circle-%E5%92%8C%E5%A4%9A%E9%82%8A%E5%BD%A2-polygon-%E7%82%BA%E4%BE%8B"><span class="nav-number">3.2.</span> <span class="nav-text">在地圖上畫出範圍(range)：以圓形(circle)和多邊形(polygon)為例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%AD%E5%AE%9A%E7%AC%AC%E4%B8%80%E5%80%8B-marker-%E8%88%87%E4%BD%BF%E7%94%A8-popup"><span class="nav-number">3.3.</span> <span class="nav-text">設定第一個 marker 與使用 popup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E6%95%B4%E5%80%8B%E5%9C%B0%E5%9C%96%E8%88%87-marker-%E5%BB%BA%E7%AB%8B%E5%8F%AF%E4%BB%A5%E8%A7%B8%E7%99%BC%E7%9A%84%E9%BB%9E%E6%93%8A-click-%E4%BA%8B%E4%BB%B6"><span class="nav-number">3.4.</span> <span class="nav-text">在整個地圖與 marker 建立可以觸發的點擊(click)事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E7%AF%84%E4%BE%8B"><span class="nav-number">3.5.</span> <span class="nav-text">測試範例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%83%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">參考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="把玩 Leaflet | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          把玩 Leaflet
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-05-05 14:25:58" itemprop="dateCreated datePublished" datetime="2021-05-05T14:25:58+08:00">2021-05-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>5.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <div style="text-align: center">
+  <img src="https://i.imgur.com/JRqzMRD.png">
+</div>
+<h2 id="前言"><a class="header-anchor" href="#前言"></a>前言</h2>
+<p>Leaflet 是一套開源的地圖服務，此外這套服務在網頁端與手機端都可以有良好的使用者體驗。</p>
+<span id="more"></span>
+<p>如果讀者在之前有嘗試過 Google 的地圖服務，那麼在使用這套服務時相信不會遇到太大的問題，因為使用方式上並不會有太迥異的做法。</p>
+<p>但如果是第一次接觸地圖服務的讀者，那麼也不用擔心，筆者今天會依據 <a target="_blank" rel="noopener" href="https://leafletjs.com/examples/quick-start/">Leaflet Quick Start Guide</a> 的篇幅一步步測試文章中提到的部分。</p>
+<p>不得不說的是，<a target="_blank" rel="noopener" href="https://leafletjs.com/examples/quick-start/">Leaflet Quick Start Guide</a> 的內容真的很淺顯易懂，只要願意花心思好好看完，對於 Leaflet 的基礎應用就可以上手囉！</p>
+<p>而快速入門的篇幅大概可以歸納出以下的範圍，這裡整理出來方便讀者梳理文章的重點：</p>
+<ol>
+<li>透過 CDN 引入 Leaflet 服務</li>
+<li>建立第一個地圖(Map)</li>
+<li>使用圖層服務設定地圖風格</li>
+<li>在地圖上畫出範圍(range)：以圓形(circle)和多邊形(polygon)為例</li>
+<li>設定第一個 marker 與使用 popup</li>
+<li>在整體地圖與 marker 建立可以觸發的點擊(click)事件</li>
+</ol>
+<p>而本篇幅會依據使用情境的增加，逐步的更新上來，所以有興趣把玩 Leaflet 的讀者可以持續追蹤哦！</p>
+<h2 id="透過-CDN-引入-Leaflet-服務"><a class="header-anchor" href="#透過-CDN-引入-Leaflet-服務"></a>透過 CDN 引入 Leaflet 服務</h2>
+<p>文件中其實寫的很清楚，只是需要特別注意的是<strong>引入的順序</strong>:</p>
+<ol>
+<li>Leaflet 的 CSS</li>
+<li>Leaflet 的 Javascript</li>
+</ol>
+<p>引入這兩個檔案之後，後續就可以引入自己的 Javascript 與 CSS 囉</p>
+<ul>
+<li>CSS</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/leaflet@1.7.1/dist/leaflet.css&quot;</span><br><span class="line">   integrity=&quot;sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==&quot;</span><br><span class="line">   crossorigin=&quot;&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Javascript</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Make sure you put this AFTER Leaflet&#x27;s CSS --&gt;</span><br><span class="line"> &lt;script src=&quot;https://unpkg.com/leaflet@1.7.1/dist/leaflet.js&quot;</span><br><span class="line">   integrity=&quot;sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==&quot;</span><br><span class="line">   crossorigin=&quot;&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>到這裡，我們已經將 Leaflet 的地圖服務引入到專案裡囉，接著要初始化一個地圖</p>
+<h2 id="建立第一個地圖-Map"><a class="header-anchor" href="#建立第一個地圖-Map"></a>建立第一個地圖(Map)</h2>
+<p>首先，我們需要準備一個用來建立的地圖時使用的容器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- you can change id name whatever you want!--&gt;</span><br><span class="line">&lt;div id=&quot;mapid&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>然後給予這個容器一個高度，這樣才能顯示地圖：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#mapid</span> &#123; <span class="attribute">height</span>: <span class="number">600px</span>; &#125;</span><br></pre></td></tr></table></figure>
+<p>到這裡我們已經準備好一個地圖，接著我們要設定這個地圖初始化時的座標位置：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mymap = L.<span class="title function_">map</span>(<span class="string">&#x27;mapid&#x27;</span>).<span class="title function_">setView</span>([<span class="number">51.505</span>, -<span class="number">0.09</span>], <span class="number">13</span>);</span><br></pre></td></tr></table></figure>
+<p>這邊搭配 <a target="_blank" rel="noopener" href="https://leafletjs.com/reference-1.7.1.html">API 文件</a> 查看，可以知道 <code>L.map</code> 用來初始化一個 map 實例，而 <code>setView</code> 可以用來設定中心點與初始 zoom 的值。</p>
+<p>此外文件有提到一件事情是筆者覺得很方便的部分：</p>
+<blockquote>
+<p>Note that setView call also returns the map object — most Leaflet methods act like this when they don’t return an explicit value, which allows convenient jQuery-like method chaining.</p>
+</blockquote>
+<p><strong>意思是如果調用的 method 不是會明確回傳一個值的 method，那麼就會回傳一個 map 的物件(這個物件包含許多 methods)，便於我們透過像是 jQuery 那樣使用 method chaining 的寫法使用這些方法</strong>，真的是很便利！</p>
+<p>這邊舉個後面會提到的例子，剛剛這段話的實際寫法大概如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// method chaining 的寫法</span></span><br><span class="line"><span class="keyword">var</span> popup = L.<span class="title function_">popup</span>()</span><br><span class="line">  .<span class="title function_">setLatLng</span>([<span class="number">51.5</span>, -<span class="number">0.09</span>])</span><br><span class="line">  .<span class="title function_">setContent</span>(<span class="string">&quot;I am a standalone popup.&quot;</span>)</span><br><span class="line">  .<span class="title function_">openOn</span>(mymap);</span><br></pre></td></tr></table></figure>
+<p>這個時候我們已經建立了地圖與設定後初始縮放(zoom)與中心點了，如果照著設定的讀者應該會發現此時的地圖長這樣：</p>
+<p><img src="https://i.imgur.com/oLW7IjE.png" alt=""></p>
+<p>看起來好像壞掉了對吧？ 不要擔心，接下來讓我們把地圖的內容呈現出來吧！</p>
+<h3 id="使用圖層-tile-layer-服務設定地圖風格"><a class="header-anchor" href="#使用圖層-tile-layer-服務設定地圖風格"></a>使用圖層(tile layer)服務設定地圖風格</h3>
+<p>設計之前有幾個很重要的觀念，要知道 Leaflet 允許我們用不同的圖層服務來作為地圖內容呈現，意思是我們透過<strong>抽換圖層</strong>的方式能讓這個地圖的風格擁有非常多的風格</p>
+<p>此外，使用這些圖層服務需要了解使用時有什麼需要注意的地方</p>
+<p>最後是使用這些服務基本上與使用 Google 地圖服務類似，都需要一個 key，只是 Google 地圖的 key 除了讓我們可以正常使用地圖外，更重要的是作為收費的重要參數，<strong>而 Leaflet 在此則是需要取得圖層服務的 <code>access_token</code> 作為使用這些圖層的判定</strong></p>
+<p>而文件使用 <a target="_blank" rel="noopener" href="https://www.mapbox.com/">mapbox</a> 的圖層服務，所以我們必須先取得剛剛提到的  <code>access_token</code>  後續才能使用這個圖層(tile layer)，建立一個  <code>access_token</code> 的方式則參考 <a target="_blank" rel="noopener" href="https://www.mapbox.com/studio/account/tokens/">request an access token</a>。</p>
+<p>接著我們將圖層應用到我們的地圖上：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">L.<span class="title function_">tileLayer</span>(<span class="string">&#x27;https://api.mapbox.com/styles/v1/&#123;id&#125;/tiles/&#123;z&#125;/&#123;x&#125;/&#123;y&#125;?access_token=&#123;accessToken&#125;&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">attribution</span>: <span class="string">&#x27;Map data &amp;copy; &lt;a href=&quot;https://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt; contributors, Imagery © &lt;a href=&quot;https://www.mapbox.com/&quot;&gt;Mapbox&lt;/a&gt;&#x27;</span>,</span><br><span class="line">    <span class="attr">maxZoom</span>: <span class="number">18</span>,</span><br><span class="line">    <span class="attr">id</span>: <span class="string">&#x27;mapbox/streets-v11&#x27;</span>,</span><br><span class="line">    <span class="attr">tileSize</span>: <span class="number">512</span>,</span><br><span class="line">    <span class="attr">zoomOffset</span>: -<span class="number">1</span>,</span><br><span class="line">    <span class="attr">accessToken</span>: <span class="string">&#x27;your.mapbox.access.token&#x27;</span></span><br><span class="line">&#125;).<span class="title function_">addTo</span>(mymap);</span><br></pre></td></tr></table></figure>
+<p>這邊快速提一下這些參數的定義，詳細的設定則要到 API 文件中查看。</p>
+<ul>
+<li>使用 <a target="_blank" rel="noopener" href="https://leafletjs.com/reference-1.7.1.html#tilelayer-url-template">URL template</a> 設定</li>
+<li><code>attribution</code>: 標注貢獻者</li>
+<li><code>maxZoom</code>: 最大縮放參數，超過則以 <code>maxZoom</code> 的值為準</li>
+<li><code>id</code>: 圖層服務的圖層 style 的對應 id， 可參考 <a target="_blank" rel="noopener" href="https://docs.mapbox.com/api/maps/styles/#mapbox-styles">Mapbox styles</a></li>
+<li><code>tileSize</code>: 每一圖格的大小，預設是 256</li>
+<li><code>zoomOffset</code>: 縮放偏移量</li>
+<li><code>accessToken</code>： 存取該圖層服務的 token</li>
+</ul>
+<p>關於 <code>tileSize</code> 與 <code>zoomOffset</code> 的設定可以參考 <a target="_blank" rel="noopener" href="https://docs.mapbox.com/help/troubleshooting/migrate-legacy-static-tiles-api/#leaflet-implementations">mapbox - Leaflet implementations</a> 提到的 warning:</p>
+<blockquote>
+<p>Warning<br>
+By default, the modern Static Tiles API returns a 512×512 map tile, instead of the 256×256 that Mapbox classic styles returned. If you do not include the tileSize: 512 and zoomOffset: -1 options, your map will still load but labels, icons, and other features may appear much smaller than expected.</p>
+</blockquote>
+<p>如果照著設定的讀者應該可以成功看到地圖的內容囉：</p>
+<p><img src="https://i.imgur.com/kYzRkZi.png" alt=""></p>
+<p>接著我們要來開始在地圖上加上一些東西了！</p>
+<h3 id="在地圖上畫出範圍-range-：以圓形-circle-和多邊形-polygon-為例"><a class="header-anchor" href="#在地圖上畫出範圍-range-：以圓形-circle-和多邊形-polygon-為例"></a>在地圖上畫出範圍(range)：以圓形(circle)和多邊形(polygon)為例</h3>
+<p>以畫出一個圓形(circle)和多邊形(polygon)為例，要調用的方法如下：</p>
+<ul>
+<li>圓形(circle): <code>L.circle(&lt;LatLng&gt; latlng, &lt;Circle options&gt; options?)</code></li>
+<li>多邊形(polygon): <code>L.polygon(&lt;LatLng[]&gt; latlngs, &lt;Polyline options&gt; options?)</code></li>
+</ul>
+<p>相關的設定可以參考文件，這邊筆者只有替換地圖的座標而已：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 圓形(circle)</span></span><br><span class="line"><span class="keyword">var</span> circle = L.<span class="title function_">circle</span>([<span class="number">22.9990296</span>,<span class="number">120.2106981</span>], &#123;</span><br><span class="line">  <span class="attr">color</span>: <span class="string">&quot;#f00&quot;</span>,</span><br><span class="line">  <span class="attr">fillColor</span>: <span class="string">&quot;#f03&quot;</span>,</span><br><span class="line">  <span class="attr">fillOpacity</span>: <span class="number">0.5</span>,</span><br><span class="line">  <span class="attr">radius</span>: <span class="number">500</span></span><br><span class="line">&#125;).<span class="title function_">addTo</span>(mymap);</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/fmIrAHm.jpg" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 多邊形(polygon)</span></span><br><span class="line"><span class="keyword">var</span> polygon = L.<span class="title function_">polygon</span>([</span><br><span class="line">  [<span class="number">22.9990296</span>,<span class="number">120.2106981</span>],</span><br><span class="line">  [<span class="number">22.9990541</span>,<span class="number">120.204132</span>],</span><br><span class="line">  [<span class="number">23.0038765</span>,<span class="number">120.2100078</span>],</span><br><span class="line">]).<span class="title function_">addTo</span>(mymap);</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/OUlVfDN.jpg" alt=""></p>
+<h3 id="設定第一個-marker-與使用-popup"><a class="header-anchor" href="#設定第一個-marker-與使用-popup"></a>設定第一個 marker 與使用 popup</h3>
+<p>了解如何設定範圍之後，接著要來看看最常使用的設定：建立 marker</p>
+<p>首先先看看 marker 要調用的方法：<br>
+<code>L.marker(&lt;LatLng&gt; latlng, &lt;Marker options&gt; options?)</code></p>
+<p>接著看如何使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> marker = L.<span class="title function_">marker</span>([<span class="number">22.9990296</span>,<span class="number">120.2106981</span>]).<span class="title function_">addTo</span>(mymap);</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/TH0AKFH.png" alt=""></p>
+<p>那麼假設我有多組資料需要呈現多個 marker 呢？</p>
+<p>其實不難，可以參考以下設計：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = [</span><br><span class="line">  &#123; <span class="attr">lat</span>: <span class="number">22.9990296</span>, <span class="attr">lng</span>: <span class="number">120.2106981</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">lat</span>: <span class="number">22.9991296</span>, <span class="attr">lng</span>: <span class="number">120.2116981</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">lat</span>: <span class="number">22.9992296</span>, <span class="attr">lng</span>: <span class="number">120.2126981</span> &#125;,</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">data.<span class="title function_">forEach</span>(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">  L.<span class="title function_">marker</span>([item.<span class="property">lat</span>, item.<span class="property">lng</span>]).<span class="title function_">addTo</span>(mymap);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/5YupCAY.png" alt=""></p>
+<p>了解如何設定 marker 後，接著還有一個很常搭配使用的設定，那就是 popup 的資訊視窗</p>
+<p>而操作 popup 的顯示、關閉與資訊內容有幾種方式：</p>
+<ol>
+<li>只能在 marker 上使用的方法： <code>.bindPopup()</code></li>
+<li>可應用在整個地圖的方法： <code>L.popup()</code></li>
+</ol>
+<p>在 <code>.bindPopup()</code> 中我們可以設定要呈現的內容，以範例為例：</p>
+<p>搭配 <code>.openPopup()</code> 可以一開始就顯示 popup</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">marker.<span class="title function_">bindPopup</span>(<span class="string">&quot;&lt;b&gt;Hello world!&lt;/b&gt;&lt;br&gt;I am a popup.&quot;</span>).<span class="title function_">openPopup</span>();</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/OUlKOIY.png" alt=""></p>
+<p>而透過 <code>L.popup()</code> 則可以透過 method chaining 的方式使用多個 method 設定，這裡依序設定了座標(<code>setLatLng</code>)、要顯示的內容(<code>setContent</code>)與在地圖上打開 popup 的方法(<code>openOn</code>)</p>
+<p>來看看如何使用:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> popup = L.<span class="title function_">popup</span>()</span><br><span class="line">  .<span class="title function_">setLatLng</span>([<span class="number">22.9990396</span>,<span class="number">120.2206991</span>])</span><br><span class="line">  .<span class="title function_">setContent</span>(<span class="string">&quot;I am a standalone popup.&quot;</span>)</span><br><span class="line">  .<span class="title function_">openOn</span>(mymap);</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/SthHdfB.jpg" alt=""></p>
+<h3 id="在整個地圖與-marker-建立可以觸發的點擊-click-事件"><a class="header-anchor" href="#在整個地圖與-marker-建立可以觸發的點擊-click-事件"></a>在整個地圖與 marker 建立可以觸發的點擊(click)事件</h3>
+<p>文件最後學習的是如何觸發事件，而這裡則是透過 <code>on</code> 的方式觸發事件，這裡以點擊事件為例：</p>
+<p>首先是一個只在 marker 上點擊時才觸發的事件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> marker2 = L.<span class="title function_">marker</span>([<span class="number">22.9990296</span>,<span class="number">120.2006981</span>]).<span class="title function_">addTo</span>(mymap);</span><br><span class="line"></span><br><span class="line">marker2.<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, onMarkerClick);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">onMarkerClick</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  L.<span class="title function_">popup</span>()</span><br><span class="line">    .<span class="title function_">setLatLng</span>(e.<span class="property">latlng</span>)</span><br><span class="line">    .<span class="title function_">setContent</span>(<span class="string">&quot;You clicked the map at &quot;</span> + e.<span class="property">latlng</span>.<span class="title function_">toString</span>())</span><br><span class="line">    .<span class="title function_">openOn</span>(mymap);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外一個是點擊地圖任何一處都可以被觸發的事件:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mymap = L.<span class="title function_">map</span>(<span class="string">&#x27;map&#x27;</span>).<span class="title function_">setView</span>([<span class="number">22.9990296</span>,<span class="number">120.2106981</span>], <span class="number">16</span>);</span><br><span class="line">mymap.<span class="title function_">on</span>(<span class="string">&#x27;click&#x27;</span>, onMapClick);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">onMapClick</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="title function_">alert</span>(<span class="string">&quot;You clicked the map at &quot;</span> + e.<span class="property">latlng</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上是 <a target="_blank" rel="noopener" href="https://leafletjs.com/examples/quick-start/">Leaflet Quick Start Guide</a> 提到的入門內容，如果讀者們有理解的話，基本就可以做一些基礎的應用囉！</p>
+<h3 id="測試範例"><a class="header-anchor" href="#測試範例"></a>測試範例</h3>
+<p>測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/leaflet-t0pjf">點擊前往</a>。</p>
+<h2 id="參考"><a class="header-anchor" href="#參考"></a>參考</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leafletjs.com/">leafletjs</a></li>
+<li><a target="_blank" rel="noopener" href="https://leafletjs.com/examples/quick-start/">Leaflet Quick Start Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://leafletjs.com/reference-1.7.1.html">API document</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mapbox.com/">mapbox</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.mapbox.com/help/troubleshooting/migrate-legacy-static-tiles-api/#leaflet-implementations">mapbox - Leaflet implementations</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.mapbox.com/studio/account/tokens/">request an access token</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Vue/" rel="tag"># Vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" rel="prev" title="把玩 vue-chartjs">
+                  <i class="fa fa-chevron-left"></i> 把玩 vue-chartjs
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" rel="next" title="把玩 vue-leaflet">
+                  把玩 vue-leaflet <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

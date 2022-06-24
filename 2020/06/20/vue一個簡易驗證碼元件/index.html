@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="這陣子剛好因為專案需求，所以需要做一個簡訊驗證碼的功能，於是就嘗試自己手刻了一個簡易的四碼輸入驗證的元件，於是順道做了個學習與開發的記錄。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue一個簡易驗證碼元件">
+<meta property="og:url" content="https://penghuachen.github.io/2020/06/20/vue%E4%B8%80%E5%80%8B%E7%B0%A1%E6%98%93%E9%A9%97%E8%AD%89%E7%A2%BC%E5%85%83%E4%BB%B6/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="這陣子剛好因為專案需求，所以需要做一個簡訊驗證碼的功能，於是就嘗試自己手刻了一個簡易的四碼輸入驗證的元件，於是順道做了個學習與開發的記錄。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/Lf6sGeC.gif">
+<meta property="article:published_time" content="2020-06-20T10:41:59.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.833Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="vue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/Lf6sGeC.gif">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/06/20/vue%E4%B8%80%E5%80%8B%E7%B0%A1%E6%98%93%E9%A9%97%E8%AD%89%E7%A2%BC%E5%85%83%E4%BB%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/06/20/vue%E4%B8%80%E5%80%8B%E7%B0%A1%E6%98%93%E9%A9%97%E8%AD%89%E7%A2%BC%E5%85%83%E4%BB%B6/","path":"2020/06/20/vue一個簡易驗證碼元件/","title":"vue一個簡易驗證碼元件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>vue一個簡易驗證碼元件 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E4%BB%B6%E5%8A%9F%E8%83%BD"><span class="nav-number">1.</span> <span class="nav-text">元件功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C%E9%87%8D%E9%BB%9E%E8%A8%98%E9%8C%84"><span class="nav-number">2.</span> <span class="nav-text">實作重點記錄</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E6%AC%84%E4%BD%8D%E5%80%BC%E7%9A%84%E8%BC%B8%E5%85%A5%E9%95%B7%E5%BA%A6"><span class="nav-number">2.1.</span> <span class="nav-text">限制欄位值的輸入長度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%8F%E9%81%8E%E6%AD%A3%E8%A6%8F%E5%BC%8F%E9%81%8E%E6%BF%BE%E6%95%B8%E5%AD%97%E4%BB%A5%E5%A4%96%E7%9A%84%E6%89%80%E6%9C%89%E5%AD%97%E7%AC%A6-%E5%8C%85%E5%90%AB%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6-%EF%BC%8C%E5%83%85%E5%8F%AF%E8%BC%B8%E5%85%A5%E6%95%B8%E5%AD%97"><span class="nav-number">2.2.</span> <span class="nav-text">透過正規式過濾數字以外的所有字符(包含特殊字符)，僅可輸入數字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%8F%E9%81%8E-vue-%E7%9A%84-refs-%E9%81%B8%E5%8F%96%E5%88%B0-input-%E7%9A%84%E7%AF%80%E9%BB%9E"><span class="nav-number">2.3.</span> <span class="nav-text">透過 vue 的$refs 選取到 input 的節點</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%8F%E9%81%8E-HTMLInputElement-select-%E6%96%B9%E5%BC%8F%E9%81%B8%E5%8F%96%E5%88%B0-input-%E4%B8%AD%E7%9A%84%E5%80%BC"><span class="nav-number">2.4.</span> <span class="nav-text">透過 HTMLInputElement.select() 方式選取到 input 中的值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B8%A9%E5%9D%91%E8%A8%98%E9%8C%84"><span class="nav-number">3.</span> <span class="nav-text">踩坑記錄</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-input-type-%E2%80%9Cnumber%E2%80%9D"><span class="nav-number">3.1.</span> <span class="nav-text">使用 input type&#x3D;“number”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#input-keyboard-keyup-keydown-keypress-%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%A7%B8%E7%99%BC%E9%A0%86%E5%BA%8F"><span class="nav-number">3.2.</span> <span class="nav-text">input, keyboard(keyup, keydown, keypress) 事件的觸發順序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%86%E6%BA%90"><span class="nav-number">4.</span> <span class="nav-text">來源</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/06/20/vue%E4%B8%80%E5%80%8B%E7%B0%A1%E6%98%93%E9%A9%97%E8%AD%89%E7%A2%BC%E5%85%83%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="vue一個簡易驗證碼元件 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vue一個簡易驗證碼元件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-06-20 18:41:59" itemprop="dateCreated datePublished" datetime="2020-06-20T18:41:59+08:00">2020-06-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue-vue-cli3/" itemprop="url" rel="index"><span itemprop="name">vue vue cli3</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img src="https://i.imgur.com/Lf6sGeC.gif" alt=""></p>
+<p>這陣子剛好因為專案需求，所以需要做一個<mark>簡訊驗證碼</mark>的功能，於是就嘗試自己手刻了一個簡易的四碼輸入驗證的元件，於是順道做了個學習與開發的記錄。</p>
+<span id="more"></span>
+<h2 id="元件功能"><a class="header-anchor" href="#元件功能"></a>元件功能</h2>
+<p>為了挑戰一下，所以稍微在製作這個元件上多做了些事情，功能如下:</p>
+<ol>
+<li><mark>過濾數字以外的所有字符(包含特殊字符)</mark>，僅可輸入數字。</li>
+<li>如果輸入為非數字，則<mark>停留在當前欄位，直到輸入符合條件的值</mark>。</li>
+<li>輸入符合的值，<mark>自動跳至下一個欄位</mark>，提高使用者體驗。</li>
+<li>修改欄位中的值，會<mark>自動將值選取(select)起來</mark>，提高使用者體驗</li>
+</ol>
+<h2 id="實作重點記錄"><a class="header-anchor" href="#實作重點記錄"></a>實作重點記錄</h2>
+<h3 id="限制欄位值的輸入長度"><a class="header-anchor" href="#限制欄位值的輸入長度"></a>限制欄位值的輸入長度</h3>
+<p>這邊透過 <code>&lt;input type=&quot;text&quot; maxlength=&quot;1&quot;&gt;</code> 控制輸入的欄位值只能<strong>一位數</strong>。</p>
+<p>依據 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input">MDN</a> 中提到關於 <code>maxlength</code> 的定義: 「<mark>可以限定設定輸入值的長度</mark>」。所以我們可以達成這個目的。</p>
+<p>這邊需要注意的是如果 <mark>你是使用<code>&lt;input type=&quot;number&quot; maxlength=&quot;1&quot;&gt;</code>的方式的話</mark>，是無法設定 <code>maxlength</code>的，在使用上需要注意。</p>
+<p>起初在開發時筆者也是使用 <code>&lt;input type=&quot;number&quot; maxlength=&quot;1&quot;&gt;</code> 的方式進行開發，但後來為什麼改成用 <code>&lt;input type=&quot;text&quot; maxlength=&quot;1&quot;&gt;</code> ，這會於稍後的採坑記錄中會提到。</p>
+<h3 id="透過正規式過濾數字以外的所有字符-包含特殊字符-，僅可輸入數字"><a class="header-anchor" href="#透過正規式過濾數字以外的所有字符-包含特殊字符-，僅可輸入數字"></a>透過正規式過濾數字以外的所有字符(包含特殊字符)，僅可輸入數字</h3>
+<p>由於要過濾到所有非數字的字符，所以這邊我透過<mark>正規式</mark>的方式進行欄位值的過濾。</p>
+<p>如果符合則不替換，否則替換成 <code>''</code>，相信讀者都可以理解這個部分。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">checkInputValue</span>(<span class="params">value</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> value.<span class="title function_">replace</span>(<span class="regexp">/[^\d]/g</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="透過-vue-的-refs-選取到-input-的節點"><a class="header-anchor" href="#透過-vue-的-refs-選取到-input-的節點"></a>透過 vue 的<code>$refs</code> 選取到 input 的節點</h3>
+<p>在 vue 中有一個語法可以讓我們如同在寫原生 JavaScript 時使用 <code>document.querySelector</code> 的方式來選取 dom，那就是 <code>$refs</code>。</p>
+<p>使用的方式也很簡單，如下方程式碼：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 請在 vue 中使用 --&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; :ref=&quot;index&quot; @click=&quot;getInputDom&quot;&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... 略</span></span><br><span class="line"><span class="attr">methods</span>: &#123;</span><br><span class="line"> <span class="title function_">getInputDom</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">$ref</span>.<span class="property">index</span>);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>說明部分可以前往 vue 的文件查看: <a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#vm-refs">vue $refs</a></p>
+<p>透過這個方式我們可以在觸發事件時，指定我們要取得的 dom，也就達成了功能中 2,3 點的需求。</p>
+<h3 id="透過-HTMLInputElement-select-方式選取到-input-中的值"><a class="header-anchor" href="#透過-HTMLInputElement-select-方式選取到-input-中的值"></a>透過 <code>HTMLInputElement.select()</code> 方式選取到 input 中的值</h3>
+<p>最後要提到的部分是如何<mark>在點擊 input 欄位時，若是欄位中有值，可以直接選取到這個值。</mark></p>
+<p>這個部分就要透過 <code>HTMLInputElement.select()</code> 的語法來達成，根據 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select">MDN HTMLInputElement.select()</a> 的定義： 「可以選取到 input、 textarea 中的值」。</p>
+<p>以上為這個驗證碼元件的開發重點記錄，相信讀者應該都可以理解的XD</p>
+<h2 id="踩坑記錄"><a class="header-anchor" href="#踩坑記錄"></a>踩坑記錄</h2>
+<p>最後是開發過程中採坑的部分，最主要遇到的坑有二：</p>
+<ol>
+<li>使用 input type=“number”</li>
+<li>input, keyboard(keyup, keydown, keypress) 事件的觸發順序</li>
+</ol>
+<h3 id="使用-input-type-“number”"><a class="header-anchor" href="#使用-input-type-“number”"></a>使用 input type=“number”</h3>
+<ol>
+<li>首先，於前面的篇幅有提到，當 input type=“number” 時，是不支援 <code>maxlength</code> 屬性的，而這也是後續才從 MDN 上的內容查得。</li>
+<li>其次是當使用 input type=“number” 時，需要注意的是 <mark>e,E,+,-,.</mark> 作為的輸入值，這些值在輸入時依然可以被輸入，並不會因為設定 type=“number” 而無法輸入，原因在搜尋後從這篇 stackoverflow 可以得到：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/31706611/why-does-the-html-input-with-type-number-allow-the-letter-e-to-be-entered-in">Why does the html input with type “number” allow the letter ‘e’ to be entered in the field?</a> 解答，這篇講的很詳細，所以就不在此多做贅述。</li>
+<li>最後需要特別注意的是當 input type=“number” 時，透過 <code>e.target.value</code> 會拿到的並不是 <mark>e,E,+,-,.</mark> 這幾個值，而是<mark>空字串(<code>''</code>)</mark>，請讀者在使用時需要特別留意。至於原因則可以查看這篇 Github 上的 issue 可以得到：<a target="_blank" rel="noopener" href="https://github.com/facebook/react/issues/13752">input[type=‘number’] event.target.value changes to empty string when . or , pressed and onChange not emitted when . and , used</a></li>
+</ol>
+<h3 id="input-keyboard-keyup-keydown-keypress-事件的觸發順序"><a class="header-anchor" href="#input-keyboard-keyup-keydown-keypress-事件的觸發順序"></a>input, keyboard(keyup, keydown, keypress) 事件的觸發順序</h3>
+<p>最後要來提的是關於事件的觸發先後順序，重點就是:</p>
+<ul>
+<li>input 比 keyup 早</li>
+<li>input 比 keydown 晚</li>
+<li>input keypress 筆者認為是幾乎同時(如果有誤，麻煩留言跟我說，thanks!)</li>
+</ul>
+<p>如果有興趣的人可以嘗試從這段程式碼中觀察行為的差異:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--請在 vue 中使用，並透過改變事件: keypress, keyup, keydown 查看差別--&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; @input=&quot;inputEvent&quot; @keyup=&quot;keyboardEvent&quot;&gt;  </span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ... 略</span></span><br><span class="line"><span class="attr">methods</span>: &#123;</span><br><span class="line">  <span class="title function_">inputEvent</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;input event first!!&#x27;</span>);</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">keyboardEvent</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;keyboard event first!!&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相關程式碼可以從 Github 中查看， <a target="_blank" rel="noopener" href="https://github.com/penghuachen/sms-verify-demo">點擊前往</a>。</p>
+<h2 id="來源"><a class="header-anchor" href="#來源"></a>來源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select">HTMLInputElement.select()</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">The Input (Form Input) element</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/facebook/react/issues/13752">input[type=‘number’] event.target.value changes to empty string when . or , pressed and onChange not emitted when . and , used</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/31706611/why-does-the-html-input-with-type-number-allow-the-letter-e-to-be-entered-in">Why does the html input with type “number” allow the letter ‘e’ to be entered in the field?</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vue/" rel="tag"># vue</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/06/13/%E5%9C%A8-vue-cli3-%E4%B8%AD%E4%BD%BF%E7%94%A8-vue2-google-maps-%E6%8A%8A%E7%8E%A9-google-map/" rel="prev" title="在 vue cli3 中使用 vue2-google-maps 把玩 google map">
+                  <i class="fa fa-chevron-left"></i> 在 vue cli3 中使用 vue2-google-maps 把玩 google map
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/09/16/%E6%8B%89%E9%96%8B%E5%BA%8F%E5%B9%95%EF%BC%8C%E8%AA%8D%E8%AD%98-React-%E5%A5%BD%E6%9C%8B%E5%8F%8B/" rel="next" title="拉開序幕，認識 React 好朋友">
+                  拉開序幕，認識 React 好朋友 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

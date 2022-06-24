@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="什麼是 JSX? 今天 React 好朋友要帶我看看在 React 中很常使用的語法: JSX，這個語法是一個 JavaScript 的語法擴充，而且是在寫 React 的時候，官方推薦使用的語法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什麼是 JSX">
+<meta property="og:url" content="https://penghuachen.github.io/2020/09/18/%E4%BB%80%E9%BA%BC%E6%98%AF-JSX/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="什麼是 JSX? 今天 React 好朋友要帶我看看在 React 中很常使用的語法: JSX，這個語法是一個 JavaScript 的語法擴充，而且是在寫 React 的時候，官方推薦使用的語法。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-09-18T01:16:21.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.833Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/09/18/%E4%BB%80%E9%BA%BC%E6%98%AF-JSX/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/09/18/%E4%BB%80%E9%BA%BC%E6%98%AF-JSX/","path":"2020/09/18/什麼是-JSX/","title":"什麼是 JSX"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>什麼是 JSX | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF-JSX"><span class="nav-number">1.</span> <span class="nav-text">什麼是 JSX?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%8E%E9%BA%BC%E4%BD%BF%E7%94%A8-JSX-%E8%AA%9E%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">怎麼使用 JSX 語法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-JSX-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E5%BC%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用 JSX 的基本方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%87%E8%AE%8A%E6%95%B8%E5%82%B3%E5%85%A5-JSX-%E8%AA%9E%E6%B3%95%E4%B8%AD"><span class="nav-number">1.1.2.</span> <span class="nav-text">將變數傳入 JSX 語法中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-JSX-%E4%B8%AD%E5%9F%B7%E8%A1%8C%E5%87%BD%E5%BC%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">在 JSX 中執行函式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E6%A2%9D%E4%BB%B6%E5%88%A4%E6%96%B7%E5%9B%9E%E5%82%B3%E4%B8%AD%E4%BD%BF%E7%94%A8-JSX"><span class="nav-number">1.1.4.</span> <span class="nav-text">在條件判斷回傳中使用 JSX</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-JSX-%E6%99%82%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E9%99%90%E5%88%B6"><span class="nav-number">1.2.</span> <span class="nav-text">使用 JSX 時需要注意的限制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-%E5%B1%AC%E6%80%A7%E5%9C%A8-JSX-%E4%B8%AD%E7%9A%84%E8%A1%A8%E7%A4%BA%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">HTML 屬性在 JSX 中的表示方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSX-%E4%B8%80%E5%AE%9A%E8%A6%81%E6%9C%89%E4%B8%80%E5%80%8B%E6%A0%B9%E5%85%83%E7%B4%A0-one-single-root-element"><span class="nav-number">1.2.2.</span> <span class="nav-text">JSX 一定要有一個根元素(one single root element)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%AF%E6%AA%94%E5%90%8D%E8%A6%81%E7%94%A8-js-%E9%82%84%E6%98%AF-jsx"><span class="nav-number">1.3.</span> <span class="nav-text">副檔名要用 .js 還是 .jsx?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-createElement"><span class="nav-number">1.4.</span> <span class="nav-text">React.createElement()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E9%97%9C%E8%B3%87%E6%BA%90"><span class="nav-number">1.5.</span> <span class="nav-text">相關資源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/09/18/%E4%BB%80%E9%BA%BC%E6%98%AF-JSX/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="什麼是 JSX | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          什麼是 JSX
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-09-18 09:16:21" itemprop="dateCreated datePublished" datetime="2020-09-18T09:16:21+08:00">2020-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.6k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="什麼是-JSX"><a class="header-anchor" href="#什麼是-JSX"></a>什麼是 JSX?</h1>
+<p>今天 React 好朋友要帶我看看在 React 中很常使用的語法: <strong>JSX</strong>，這個語法是一個 JavaScript 的語法擴充，而且是在寫 React 的時候，官方推薦使用的語法。</p>
+<span id="more"></span>
+<p>JSX 語法的重點在於<strong>允許我們在 JS 的檔案中使用 HTML 的標籤，並且使用 JSX 語法建立的是「<mark>一個 React 的 element</mark>」，此外這樣的標籤語法比起 HTML，更貼近於 JavaScript。</strong></p>
+<p>趕緊來看看怎麼使用吧！</p>
+<h2 id="怎麼使用-JSX-語法"><a class="header-anchor" href="#怎麼使用-JSX-語法"></a>怎麼使用 JSX 語法</h2>
+<h3 id="使用-JSX-的基本方式"><a class="header-anchor" href="#使用-JSX-的基本方式"></a>使用 JSX 的基本方式</h3>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/jsx-demo-jvwfr">點擊前往</a>。</p>
+<p>在 React 中，我們可以這麼寫：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
+<p>而上面方式就是一個簡單使用 JSX 語法的方式。</p>
+<h3 id="將變數傳入-JSX-語法中"><a class="header-anchor" href="#將變數傳入-JSX-語法中"></a>將變數傳入 JSX 語法中</h3>
+<p>接著，由於我們是在 JavaScript 中撰寫，所以我們可以<strong>在 JSX 語法撰寫的程式碼中寫入 JavaScript 表達式</strong>，如同下面程式碼中的 <code>name</code>:</p>
+<p>以下擷取範例來自官方文件: <a target="_blank" rel="noopener" href="https://zh-hant.reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx">在 JSX 中嵌入 Expression<br>
+</a></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 將變數 name 傳入至 element 中的方式，在 JSX 中是被允許的。</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;Josh Perez&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> element = <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, &#123;name&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">ReactDom</span>.<span class="title function_">render</span>(</span><br><span class="line">  element,</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h3 id="在-JSX-中執行函式"><a class="header-anchor" href="#在-JSX-中執行函式"></a>在 JSX 中執行函式</h3>
+<p>當然也可以在 JSX 中執行一個函式並得到一個回傳的結果值：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">formatName</span>(<span class="params">user</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> user.<span class="property">firstName</span> + <span class="string">&#x27; &#x27;</span> + user.<span class="property">lastName</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">  <span class="attr">firstName</span>: <span class="string">&#x27;Harper&#x27;</span>,</span><br><span class="line">  <span class="attr">lastName</span>: <span class="string">&#x27;Perez&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> element = (</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    Hello, &#123;formatName(user)&#125;!</span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="title class_">ReactDom</span>.<span class="title function_">render</span>(</span><br><span class="line">  element,</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>而這邊需要提醒的是變數 <code>element</code> 的值被 <code>()</code> 括起來，但 <code>()</code> 並不是 JSX 語法的一環，而是當我們有多行 JSX 的語法時，需要<strong>透過括號的方式來避免自動分好補足的麻煩。</strong></p>
+<h3 id="在條件判斷回傳中使用-JSX"><a class="header-anchor" href="#在條件判斷回傳中使用-JSX"></a>在條件判斷回傳中使用 JSX</h3>
+<p>在某些條件下，我們需要不同的 DOM，而 JSX 語法也允許我們將其作為參數並透由函式回傳。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">formatName</span>(<span class="params">user</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> user.<span class="property">firstName</span> + <span class="string">&#x27; &#x27;</span> + user.<span class="property">lastName</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getGreeting</span>(<span class="params">user</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> user</span><br><span class="line">    ? <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, &#123;formatName(user)&#125;!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line">    : <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello, Stranger.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">  <span class="attr">firstName</span>: <span class="string">&#x27;Harper&#x27;</span>,</span><br><span class="line">  <span class="attr">lastName</span>: <span class="string">&#x27;Perez&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> element = <span class="title function_">getGreeting</span>(user);</span><br><span class="line"></span><br><span class="line"><span class="title class_">ReactDom</span>.<span class="title function_">render</span>(</span><br><span class="line">  element,</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>例如 <code>const element = getGreeting(user);</code> 的 <code>user</code> 傳入為 <code>undefind</code>，所以會取得 <code>getGreeting</code> 回傳值為 <code>&lt;p&gt;Hello, Stranger.&lt;/p&gt;</code>。</p>
+<p>關於 JSX 的使用就先到這裡，接著要來看看使用 JSX 的一些限制</p>
+<h2 id="使用-JSX-時需要注意的限制"><a class="header-anchor" href="#使用-JSX-時需要注意的限制"></a>使用 JSX 時需要注意的限制</h2>
+<h3 id="HTML-屬性在-JSX-中的表示方式"><a class="header-anchor" href="#HTML-屬性在-JSX-中的表示方式"></a>HTML 屬性在 JSX 中的表示方式</h3>
+<p>A、首先第一點是由於 <strong>React DOM 使用 camelCase 作為屬性命名規範</strong>，這代表像是說在 HTML 中的 <code>tabindex</code>，在 JSX 中則必須寫成 <code>tabIndex</code>。</p>
+<p>B、接著第二點是像是在 HTML 中的 <strong><code>class</code>, <code>label</code> 的 <code>for</code>，由於在 JS 中是保留字(preserve word)</strong>，所以需要額外改寫成 <strong><code>className</code> 與 <code>htmlFor</code></strong>。</p>
+<p>C、但是凡事總是會有例外，諸如 <code>aria-*</code>, <code>data-*</code> 則<strong>不需要使用 camelCase 作為屬性命名規範</strong></p>
+<p>以上 React 會幫我們將上述提到的部分在編譯時轉換成在 HTML DOM 上其對應的屬性。</p>
+<h3 id="JSX-一定要有一個根元素-one-single-root-element"><a class="header-anchor" href="#JSX-一定要有一個根元素-one-single-root-element"></a>JSX 一定要有一個根元素(one single root element)</h3>
+<p>在使用 JSX 的時候，<strong>是至少需要一個根元素的</strong>，否則就會報錯。</p>
+<h2 id="副檔名要用-js-還是-jsx"><a class="header-anchor" href="#副檔名要用-js-還是-jsx"></a>副檔名要用 .js 還是 .jsx?</h2>
+<p>關於 JSX 部分最後要提的是一個也許在研究過程中會遇到的困惑:</p>
+<p><strong>「在 React 中為什麼有些檔案的副檔名除了 .js 之外還有 .jsx 呢？」</strong></p>
+<p>這個問題我也是很困惑，索性就爬文查看看差異處在哪，然後就找到了這一篇 <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/46169472/reactjs-js-vs-jsx/46169521#46169521">stackoverflow</a> 的發問，摘錄出最佳回答的回覆:</p>
+<blockquote>
+<p>There are however some other considerations when deciding what to put into a .js or a .jsx file type. Since JSX isn’t standard JavaScript one could argue that anything that is not “plain” JavaScript should go into its own extensions ie., .jsx for JSX and .ts for TypeScript for example</p>
+</blockquote>
+<p>大致重點在於<strong>使用 .jsx 作為副檔名的判斷依據在於認為是否為標準的 Javascript。</strong></p>
+<p>由於 JSX 並不是標準的 Javascript，所以就透過以 .jsx 為副檔名來管理這類的檔案。</p>
+<p>就好像使用 Typescript 會用 .ts 的副檔名一樣。</p>
+<p>所以在實作上都可以成功運作，但怎麼管理就讓大家自己思考囉!</p>
+<h2 id="React-createElement"><a class="header-anchor" href="#React-createElement"></a><code>React.createElement()</code></h2>
+<p>今天最後要提的部分是 <code>React.createElement()</code> ， <strong>JSX 可以說是這個語法的語法糖</strong>， 因為在官方文件的描述中有提到：</p>
+<blockquote>
+<p>Babel 將 JSX 編譯為呼叫 React.createElement() 的程式。</p>
+</blockquote>
+<p>此外，這個語法提供了三個參數可以使用:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">React</span>.<span class="title function_">createElement</span>(</span><br><span class="line">  type,</span><br><span class="line">  [props],</span><br><span class="line">  [...children]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>參數</th>
+<th>說明</th>
+<th>是否必填</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>設定 HTML 標籤</td>
+<td>必填</td>
+</tr>
+<tr>
+<td>props</td>
+<td>設定屬性</td>
+<td>選填</td>
+</tr>
+<tr>
+<td>children</td>
+<td>設定子節點</td>
+<td>選填</td>
+</tr>
+</tbody>
+</table>
+<p>接著讓我們來將上面的程式碼透過 <code>React.createElement()</code> 改寫：</p>
+<p>首先是剛剛在上方透過 JSX 語法方式所寫的程式碼：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
+<p>接著是透過 <code>React.createElement()</code> 所寫的程式碼：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">React</span>.<span class="title function_">createElement</span>(</span><br><span class="line">  <span class="string">&#x27;p&#x27;</span>,</span><br><span class="line">  <span class="literal">null</span>,</span><br><span class="line">  <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>那如果今天想要呈現如下的 DOM 結構呢?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">  &lt;p&gt;這是一個子節點&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>這樣的話，如果以使用 <code>React.createElement()</code> 達成目的的話，就需要調用 <code>React.createElement()</code> 兩次來建立：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 建立一個 p 標籤</span></span><br><span class="line"><span class="keyword">const</span> element = <span class="title class_">React</span>.<span class="title function_">createElement</span>(</span><br><span class="line">  <span class="string">&#x27;p&#x27;</span>,</span><br><span class="line">  <span class="literal">null</span>,</span><br><span class="line">  <span class="string">&#x27;這是一個子節點&#x27;</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 建立一個 div 標籤，並有一個 p 標籤的子節點</span></span><br><span class="line"><span class="keyword">const</span> element2 = <span class="title class_">React</span>.<span class="title function_">createElement</span>(</span><br><span class="line"> <span class="string">&#x27;div&#x27;</span>,</span><br><span class="line"> &#123; <span class="attr">className</span>: <span class="string">&#x27;container&#x27;</span> &#125;,</span><br><span class="line"> element</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>今天的學習應該可以解惑昨天部分程式碼了吧！</p>
+<p>透過 JSX 語法的方式可以讓我們寫出更好維護的 HTML 架構，輕鬆許多呢!</p>
+<p>明天 React 好朋友要帶我們了解關於「React Element」與「React Component」的相異之處。</p>
+<p>程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<p>明天見～</p>
+<h2 id="相關資源"><a class="header-anchor" href="#相關資源"></a>相關資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zh-hant.reactjs.org/docs/introducing-jsx.html#embedding-expressions-in-jsx">在 JSX 中嵌入 Expression<br>
+</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/09/17/%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E5%80%8B-React-Code/" rel="prev" title="建立第一個 React Code">
+                  <i class="fa fa-chevron-left"></i> 建立第一個 React Code
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/09/19/React-Element-%E8%88%87-Component/" rel="next" title="React Element 與 Component">
+                  React Element 與 Component <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

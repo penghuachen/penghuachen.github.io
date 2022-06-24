@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="無限賽局  以「無限賽局」、「無限思維」、「有限賽局」、「有限思維」貫穿全文並加以詳述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="i閱讀系列-無限賽局">
+<meta property="og:url" content="https://penghuachen.github.io/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="無限賽局  以「無限賽局」、「無限思維」、「有限賽局」、「有限思維」貫穿全文並加以詳述">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/l6F2RqA.png">
+<meta property="article:published_time" content="2021-05-22T02:54:56.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.833Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="i閱讀">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/l6F2RqA.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/","path":"2021/05/22/i閱讀系列-無限賽局/","title":"i閱讀系列-無限賽局"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>i閱讀系列-無限賽局 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80"><span class="nav-number">1.</span> <span class="nav-text">無限賽局</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E5%8B%95%E7%84%A1%E9%99%90%E6%80%9D%E7%B6%AD%E7%9A%84%E4%BA%94%E9%A0%85%E6%A2%9D%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">推動無限思維的五項條件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B4%87%E9%AB%98%E7%9A%84%E4%BF%A1%E5%BF%B5"><span class="nav-number">1.1.1.</span> <span class="nav-text">崇高的信念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9F%E5%8F%AC%E5%BF%97%E5%90%8C%E9%81%93%E5%90%88%E7%9A%84%E5%A4%A5%E4%BC%B4"><span class="nav-number">1.1.2.</span> <span class="nav-text">號召志同道合的夥伴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8B%99%E5%B0%8E%E5%90%91%EF%BC%9A%E5%B0%8D%E5%88%A5%E4%BA%BA%E5%A5%BD%EF%BC%8C%E8%87%AA%E5%B7%B1%E4%B9%9F%E6%9C%83%E5%8F%97%E7%9B%8A"><span class="nav-number">1.1.3.</span> <span class="nav-text">服務導向：對別人好，自己也會受益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B6%93%E5%BE%97%E8%B5%B7%E8%80%83%E9%A9%97"><span class="nav-number">1.1.4.</span> <span class="nav-text">經得起考驗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%81%A0%E7%9A%84%E7%90%86%E6%83%B3"><span class="nav-number">1.1.5.</span> <span class="nav-text">高遠的理想</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E4%BF%A1%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">如何找到信念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E7%B6%AD%E7%9A%84%E4%B8%8D%E5%90%8C"><span class="nav-number">1.2.1.</span> <span class="nav-text">思維的不同</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%93%E4%BF%A1%E5%BF%B5%E5%82%B3%E4%B8%8B%E5%8E%BB"><span class="nav-number">1.3.</span> <span class="nav-text">讓信念傳下去</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%81%E6%A5%AD%E8%B2%AC%E4%BB%BB"><span class="nav-number">1.4.</span> <span class="nav-text">企業責任</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%8F%E5%BF%97%E8%88%87%E8%B3%87%E6%BA%90"><span class="nav-number">1.5.</span> <span class="nav-text">意志與資源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E4%BB%BB%E7%9A%84%E5%9C%98%E9%9A%8A"><span class="nav-number">1.6.</span> <span class="nav-text">信任的團隊</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E5%BF%83%E9%81%93%E5%BE%B7%E8%A4%AA%E8%89%B2"><span class="nav-number">1.7.</span> <span class="nav-text">小心道德褪色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E6%95%AC%E7%9A%84%E5%B0%8D%E6%89%8B"><span class="nav-number">1.8.</span> <span class="nav-text">可敬的對手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B8%E9%97%9C%E5%AD%98%E4%BA%A1%E7%9A%84%E6%87%89%E8%AE%8A"><span class="nav-number">1.9.</span> <span class="nav-text">攸關存亡的應變</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A0%98%E5%B0%8E%E7%9A%84%E5%8B%87%E6%B0%A3"><span class="nav-number">1.10.</span> <span class="nav-text">領導的勇氣</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="i閱讀系列-無限賽局 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          i閱讀系列-無限賽局
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-05-22 10:54:56" itemprop="dateCreated datePublished" datetime="2021-05-22T10:54:56+08:00">2021-05-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/i%E9%96%B1%E8%AE%80/" itemprop="url" rel="index"><span itemprop="name">i閱讀</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="無限賽局"><a class="header-anchor" href="#無限賽局"></a>無限賽局</h1>
+<p><img src="https://i.imgur.com/l6F2RqA.png" alt=""></p>
+<p><mark>以「無限賽局」、「無限思維」、「有限賽局」、「有限思維」貫穿全文並加以詳述</mark></p>
+<span id="more"></span>
+<ul>
+<li>有限賽局：已知玩家、已知規則、有限時間獲得一個結果(贏、輸或者平手)</li>
+<li>有限思維：在武斷的時間與武斷的標準下嘗試獲得一個結果、贏過對手，爭一個「暫時」的輸贏;或者試圖從客戶、消費者等身上獲得某些成果(能獲取多少利益)，藉此達成某些標準。思考的角度是「我」而非「我們」，不喜歡突發狀況介入</li>
+<li>無限賽局：未知玩家、少許規則(允許打破規則)、無限時間以及暫時的結果</li>
+<li>無限思維：思考的是如何讓組織可以永續發展，做出對社會有益的事情，並藉由夠好的品質吸引客戶、消費者願意消費(能替顧客帶來什麼好處)，思考的角度是「我們」而非「我」，已有突發狀況隨時介入的準備，並接受因為意外而發生的改變</li>
+<li>舉凡教育、人生等都屬於無限賽局的一種</li>
+<li>面對無限賽局，應該要思考能夠長期延續的做法，而非短期獲益的手段</li>
+<li>在無限賽局中採取有限思維的做法傷害的是彼此的信任、合作。</li>
+<li>以美國打越戰為例，北越以無限賽局的思維迎戰美國基於有限思維的打的作戰導致資源耗盡，不得不退出戰場</li>
+<li>有限思維領導者優先關注比較和取勝，以實現有限的目標為前提，而這也會導致組織只關心「緊急的事」而不是「重要的事」</li>
+</ul>
+<h2 id="推動無限思維的五項條件"><a class="header-anchor" href="#推動無限思維的五項條件"></a>推動無限思維的五項條件</h2>
+<ul>
+<li>崇高的信念</li>
+<li>號召志同道合的夥伴</li>
+<li>服務導向：對別人好，自己也會受益</li>
+<li>經得起考驗</li>
+<li>高遠的理想</li>
+</ul>
+<h3 id="崇高的信念"><a class="header-anchor" href="#崇高的信念"></a>崇高的信念</h3>
+<p><strong>關鍵在於：願意為了這個信念而付出並且不後悔。</strong></p>
+<ul>
+<li><strong>「是對一個尚不存在的未來懷抱具體的願景;這個未來令人嚮往到願意犧牲小我。來實現這個願景」</strong></li>
+<li>有限目標所獲得的成就無法持續長久，但信念可以不斷堅持並使工作和生活能有不同意義</li>
+<li>不只著眼自己的成就，放眼更大的目標</li>
+</ul>
+<p>崇高的信念需要：</p>
+<ol>
+<li><strong>「支持」一個理念，而不是用「對抗」的方式思考</strong></li>
+</ol>
+<p>Ex. 「對抗」貧窮和「支持」每個人養家的權利，前者相信可以打敗貧窮，後者則給予值得努力的理由。</p>
+<p>除了語義不同，更影響我們如何看待這個問題及我們的願景</p>
+<h3 id="號召志同道合的夥伴"><a class="header-anchor" href="#號召志同道合的夥伴"></a>號召志同道合的夥伴</h3>
+<p>找到和自己對相同事情有同樣熱情的人，願意為了相同願景努力</p>
+<h3 id="服務導向：對別人好，自己也會受益"><a class="header-anchor" href="#服務導向：對別人好，自己也會受益"></a>服務導向：對別人好，自己也會受益</h3>
+<p>利他方能利己，先讓別人受益，自己最後也能受益</p>
+<h3 id="經得起考驗"><a class="header-anchor" href="#經得起考驗"></a>經得起考驗</h3>
+<p>產品和服務是推動信念的方法，而非信念本身。</p>
+<p>技術會出新，所以需要的是更持久的信念維持下去</p>
+<h3 id="高遠的理想"><a class="header-anchor" href="#高遠的理想"></a>高遠的理想</h3>
+<h2 id="如何找到信念"><a class="header-anchor" href="#如何找到信念"></a>如何找到信念</h2>
+<p>以「登月計劃」、「成為第一」、「成長」為例，說明為何這些例子是「有限思維」</p>
+<ul>
+<li>「登月計劃」: 追求有限目標(雖然時間可能很長)</li>
+<li>「成為第一」: 只關注自身，而非服務他人</li>
+<li>「成長」：想法空泛，沒有明確意義</li>
+</ul>
+<h3 id="思維的不同"><a class="header-anchor" href="#思維的不同"></a>思維的不同</h3>
+<ul>
+<li>有限思維：賺到錢才做好事</li>
+<li>無限思維：做好事也能賺到錢</li>
+</ul>
+<h2 id="讓信念傳下去"><a class="header-anchor" href="#讓信念傳下去"></a>讓信念傳下去</h2>
+<ul>
+<li>個人表達訊息順序透露<strong>心中實際優先順序和策略重點</strong></li>
+<li>以無限思維傳遞正確的信念</li>
+</ul>
+<h2 id="企業責任"><a class="header-anchor" href="#企業責任"></a>企業責任</h2>
+<p>前半段篇幅批判傅利曼所提出的「在自由企業、私有財產系統中，企業主管是企業所有者的員工，對雇主負有直接責任，也就是按僱主的意志來經營企業，同時符合社會的基本規則，包括法律和道德上的原則。」實際上就是在企業領導者思維從無限思維推向有限思維的推手</p>
+<p>而這導致企業只關注自身公司、股東的利益，而非從客戶的角度思考需求。</p>
+<p>後半段篇幅提出「企業的責任是運用意志和資源來推動比企業本身更遠大的理念，保護與企業相關的人群和土地，進而創造更多資源，使企業能長久存續。只要對後果負責，企業可以依自己想要的方式經營」</p>
+<p>以無限賽局的思維而言，「推動使命」、「保護大家」、「創造利潤」是不可或缺的三大支柱</p>
+<h2 id="意志與資源"><a class="header-anchor" href="#意志與資源"></a>意志與資源</h2>
+<p>這個篇幅描述意志與資源在無限賽局中為必備的條件，尤其以意志更為重要</p>
+<ul>
+<li>資源：讓組織持續健全的所有財務指標總和</li>
+<li>意志：讓組織持續健全的所有人為因素總和</li>
+</ul>
+<p>以蘋果、好市多(無限思維組織)和其他(有限思維組織)看待員工的方式為例</p>
+<ul>
+<li>其他(有限思維組織): 把員工當成需要被管理的成本</li>
+<li>蘋果、好市多(無限思維組織): 把員工當人，認為人的價值無法被計算</li>
+</ul>
+<p>而只有在當員工認同自己是公司的一份子，才會願意為了信念將個人的利益擺在其次順位，盡全力付出與陪著公司度過難關</p>
+<h2 id="信任的團隊"><a class="header-anchor" href="#信任的團隊"></a>信任的團隊</h2>
+<p>只追求績效但信任度低的的個人或者團隊在短期內也許可以有不錯的結果，但以長期來說則會造成有害整體組織文化的情況</p>
+<p>因此如果要長期維持組織的健康，建立一個讓彼此都能夠信任對方的團隊才是長久之計</p>
+<p>本篇幅舉了福特公司的例子，由於前任執行長的做事方式，如果提出自己看到問題會被當場羞辱，甚至丟了飯碗，因此高層主管在會議上時都會為了保護自己而不敢提出真正的想法。</p>
+<p>而新任執行長花費了好幾週的時間，並透過行動證明提出問題的主管並不會因此受到責難或者丟掉飯碗，反而會獲得正面肯定，也因為如此逐漸改善了福特公司內遇到的問題。</p>
+<ul>
+<li>在信任的團隊，我們可以放心展現脆弱，我們可以放心舉手承認錯誤，坦承自己的不足，為自己的行為負責並尋求幫助。</li>
+<li>彼此的心裡安全感越強，資訊就越暢通</li>
+<li>寧可選擇信任度高但績效低或平平的人，也不選擇信任度低而績效高的人(這類人對於組織的長久文化會造成有害影響)</li>
+<li>好的領導加上信任的團隊，可以讓團隊把工作做到最好，打造出解決問題的文化，而不是隱藏問題的文化。</li>
+</ul>
+<h2 id="小心道德褪色"><a class="header-anchor" href="#小心道德褪色"></a>小心道德褪色</h2>
+<ul>
+<li>當人們被迫在壓力下做決定時，願意做出正確決定的機率會大幅下降</li>
+<li>我們常藉由委婉措辭來合理化自己的不道德行為，將問題歸咎於大環境的體制、別人，並不認為是自己的問題</li>
+<li>具有有限思維的公司或個人可能會因為看重短期的利益而做出一些自己認為合理，但實際上卻不然的不道德行為</li>
+<li>具有無限思維的公司或個人了解如果要長期發展，那麼就要讓崇高的信念凌駕於利益之前，不透過委婉措辭合理化自己為了短期利益所做的事情，而是正視問題。並認為透過最高道德標準也依然可以賺到錢</li>
+</ul>
+<h2 id="可敬的對手"><a class="header-anchor" href="#可敬的對手"></a>可敬的對手</h2>
+<ul>
+<li>如果我們是參與無限賽局的玩家，就不該再把其他玩家視為要擊敗的競爭者，應該開始把他們看作可以幫助自己成為更好玩家的可敬對手。</li>
+<li>傳統競爭思維讓我們採取要獲勝的態度，可敬的對手則啟發我們採取改進的態度。</li>
+<li>「信念盲目」是指沉迷於自己的信念，或沉迷於另一個玩家信念的「錯誤」，而無法看見別人的優勢，或自己的缺點。</li>
+<li>「信念盲目」會削弱謙卑，放大傲慢。</li>
+</ul>
+<p>採取無限賽局的思維，我們不以贏過誰作為判斷的基準，而是如何從這些無論是我們喜歡的、不喜歡的對手身上學習到我們不足的部分，知道自己要貫徹的信念，而不是只能有一方獲勝，也可以是你與對手雙贏。</p>
+<p>避免一昧堅持自己的信念而落入傲慢、只有自己是真理，其他人都是錯誤的情況，否則只會讓自己慢慢從無限賽局中消失</p>
+<h2 id="攸關存亡的應變"><a class="header-anchor" href="#攸關存亡的應變"></a>攸關存亡的應變</h2>
+<p>有限思維的企業或玩家只會死守著過往曾經帶來好處的商業模式或做法，以控管成本為優先考量，而不願隨著時代與技術的進步而有所前進。</p>
+<p>擁有無限思維的玩家則知道模式會隨著時代變遷而需要有所調整，因此也會做好隨時做出改變的準備，具備改變的勇氣。</p>
+<p>以蘋果為例，賈伯斯在看到透過 GUI 介面操作電腦後，毅然決然的往這個方向發展，而不是死守著已經為公司帶來許多獲利的現有產品的使用模式，而賈伯斯是具有無限思維的玩家</p>
+<p>以柯達為例，高層主管只願意死守著當時為他們帶來更大獲益的商業模式，而不願理解未來可能會有的趨勢與技術的迭代，最終導致於公司宣告破產。</p>
+<h2 id="領導的勇氣"><a class="header-anchor" href="#領導的勇氣"></a>領導的勇氣</h2>
+<p>領導者的思維決定於團體或企業的走向，擁有無限思維的領導者知道做對的事情比做對自己有益的事情還要更重要。</p>
+<p>而做對的事情需要有著很大的勇氣與堅強來面對許許多多的非議，勢必要度過在短期內無法看到效益而對長期來說可以有著深遠影響的過渡期。</p>
+<p>擁有無限思維的領導者也可能因為在過程中的不自覺而漸漸走向有限思維的做法，如果領導者沒有意識並有勇氣的做出調整，那最後就可能會退出無限賽局的遊戲中。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/i%E9%96%B1%E8%AE%80/" rel="tag"># i閱讀</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" rel="prev" title="把玩 vue-leaflet">
+                  <i class="fa fa-chevron-left"></i> 把玩 vue-leaflet
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/24/Setting-up-for-TDD/" rel="next" title="Setting up for TDD">
+                  Setting up for TDD <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

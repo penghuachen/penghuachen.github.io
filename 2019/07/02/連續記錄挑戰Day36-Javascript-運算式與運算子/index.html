@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="運算式與運算子 Javascript直譯器可以透過計算運算式產生一個結果值，而複雜的運算式則是由運算子建構而成。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="連續記錄挑戰Day36-Javascript-運算式與運算子">
+<meta property="og:url" content="https://penghuachen.github.io/2019/07/02/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day36-Javascript-%E9%81%8B%E7%AE%97%E5%BC%8F%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="運算式與運算子 Javascript直譯器可以透過計算運算式產生一個結果值，而複雜的運算式則是由運算子建構而成。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2019-07-02T11:33:39.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.843Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/07/02/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day36-Javascript-%E9%81%8B%E7%AE%97%E5%BC%8F%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/07/02/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day36-Javascript-%E9%81%8B%E7%AE%97%E5%BC%8F%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90/","path":"2019/07/02/連續記錄挑戰Day36-Javascript-運算式與運算子/","title":"連續記錄挑戰Day36-Javascript-運算式與運算子"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>連續記錄挑戰Day36-Javascript-運算式與運算子 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%8B%E7%AE%97%E5%BC%8F%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">1.</span> <span class="nav-text">運算式與運算子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8B%E7%AE%97%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">運算式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E9%81%8B%E7%AE%97%E5%BC%8F"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本運算式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%E8%88%87%E9%99%A3%E5%88%97%E7%9A%84%E5%88%9D%E5%80%BC%E8%A8%AD%E5%AE%9A%E5%BC%8F-%E6%A6%82%E8%A7%80"><span class="nav-number">1.1.2.</span> <span class="nav-text">物件與陣列的初值設定式(概觀)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E9%81%8B%E7%AE%97%E5%BC%8F-%E6%A6%82%E8%A7%80"><span class="nav-number">1.1.3.</span> <span class="nav-text">函式運算式(概觀)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%80%A7%E5%AD%98%E5%8F%96%E9%81%8B%E7%AE%97%E5%BC%8F-%E6%A6%82%E8%A7%80"><span class="nav-number">1.1.4.</span> <span class="nav-text">特性存取運算式(概觀)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AA%BF%E7%94%A8%E9%81%8B%E7%AE%97%E5%BC%8F-%E6%A6%82%E8%A7%80"><span class="nav-number">1.1.5.</span> <span class="nav-text">調用運算式(概觀)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%E5%89%B5%E5%BB%BA%E9%81%8B%E7%AE%97%E5%BC%8F"><span class="nav-number">1.1.6.</span> <span class="nav-text">物件創建運算式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E8%A1%93%E9%81%8B%E7%AE%97%E5%BC%8F"><span class="nav-number">1.1.7.</span> <span class="nav-text">算術運算式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%9C%E4%BF%82%E9%81%8B%E7%AE%97%E5%BC%8F"><span class="nav-number">1.1.8.</span> <span class="nav-text">關係運算式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%82%8F%E8%BC%AF%E9%81%8B%E7%AE%97%E5%BC%8F"><span class="nav-number">1.1.9.</span> <span class="nav-text">邏輯運算式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%8D%E5%A4%96%E7%9A%84%E7%B7%B4%E7%BF%92%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">額外的練習：</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/07/02/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day36-Javascript-%E9%81%8B%E7%AE%97%E5%BC%8F%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="連續記錄挑戰Day36-Javascript-運算式與運算子 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          連續記錄挑戰Day36-Javascript-運算式與運算子
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-07-02 19:33:39" itemprop="dateCreated datePublished" datetime="2019-07-02T19:33:39+08:00">2019-07-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="運算式與運算子"><a class="header-anchor" href="#運算式與運算子"></a>運算式與運算子</h1>
+<p>Javascript直譯器可以透過計算運算式產生一個結果值，而複雜的運算式則是由運算子建構而成。</p>
+<span id="more"></span>
+<p>Outline</p>
+<ul>
+<li>運算式
+<ul>
+<li>基本運算式</li>
+<li>物件與陣列的初值設定式 (概觀)</li>
+<li>函式運算式 (概觀)</li>
+<li>特性存取運算式 (概觀)</li>
+<li>調用運算式 (概觀)</li>
+<li>物件創建運算式(概觀)</li>
+<li>算術運算式</li>
+<li>關係運算式</li>
+<li>邏輯運算式</li>
+</ul>
+</li>
+</ul>
+<h2 id="運算式"><a class="header-anchor" href="#運算式"></a>運算式</h2>
+<h3 id="基本運算式"><a class="header-anchor" href="#基本運算式"></a>基本運算式</h3>
+<p>包括：常數(constant)或字面值(literal value)、保留字、變數參考</p>
+<ul>
+<li>常數(constant)或字面值(literal value): 1.23 / “hello world”</li>
+<li>語言關鍵字:
+<ul>
+<li>true / false 結果值為布林值的 true / false值</li>
+<li>null 結果值為 null</li>
+<li>this 結果值為物件</li>
+</ul>
+</li>
+<li>變數參考:
+<ul>
+<li>undefined</li>
+<li>sum (結果值為sum的值)</li>
+</ul>
+</li>
+</ul>
+<h3 id="物件與陣列的初值設定式-概觀"><a class="header-anchor" href="#物件與陣列的初值設定式-概觀"></a>物件與陣列的初值設定式(概觀)</h3>
+<p>物件與陣列的初值設定式是一種運算式，其結果值為新創建的物件或陣列。</p>
+<h3 id="函式運算式-概觀"><a class="header-anchor" href="#函式運算式-概觀"></a>函式運算式(概觀)</h3>
+<p>運算值為定義的函式:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> square = <span class="keyword">function</span>(<span class="params">x</span>)&#123;<span class="keyword">return</span> x*x;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="特性存取運算式-概觀"><a class="header-anchor" href="#特性存取運算式-概觀"></a>特性存取運算式(概觀)</h3>
+<p>運算值為物件的特性值或者陣列的元素值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;<span class="attr">x</span>:<span class="number">1</span>,<span class="attr">y</span>:&#123;<span class="attr">Z</span>:<span class="number">3</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">var</span> a - [o,<span class="number">4</span>,[<span class="number">5</span>,<span class="number">6</span>]];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o.<span class="property">x</span>) <span class="comment">// 運算式o的特性x</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a[<span class="number">0</span>].<span class="property">x</span>) <span class="comment">// 運算式a[0]的特性x</span></span><br></pre></td></tr></table></figure>
+<h3 id="調用運算式-概觀"><a class="header-anchor" href="#調用運算式-概觀"></a>調用運算式(概觀)</h3>
+<ul>
+<li>Javascript用來呼叫(調用)函式或方法的語法。</li>
+<li>如果呼叫(調用)的是特性存取運算式，則稱為呼叫(調用)了物件的<strong>方法</strong></li>
+</ul>
+<h3 id="物件創建運算式"><a class="header-anchor" href="#物件創建運算式"></a>物件創建運算式</h3>
+<p>透過 new 語法建立新物件，也稱為<strong>建構式</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title function_">point</span>(<span class="number">2</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="算術運算式"><a class="header-anchor" href="#算術運算式"></a>算術運算式</h3>
+<ul>
+<li>
+<p>運算子的權重 : <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Operators/Operator_Precedence">運算子優先序</a><br>
+Ex:加減乘除中，其運算子的權重為-&gt;加(13)減(13)乘(14)除(14)，所以處理的優先順序為 <strong>先乘除，後加減</strong>。</p>
+</li>
+<li>
+<p>關於 + 運算子</p>
+<ol>
+<li>讓字串串接有較高的優先序，<strong>只要有任一個值為字串，或者可以轉換為字串，那麼另一個值就型別就會轉為字串</strong><br>
+Ex:</li>
+</ol>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//小細節： google 開發者工具下的數字為藍色，而文字為黑色，可以幫助判別</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;1&quot;</span>+<span class="number">2</span>); <span class="comment">// &#x27;12&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span> + &#123;&#125;); <span class="comment">// 1[object object]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="關係運算式"><a class="header-anchor" href="#關係運算式"></a>關係運算式</h3>
+<p>用於檢查值與值之間的關係，並回傳 true / false。</p>
+<ul>
+<li>相等性運算子 ==
+<ul>
+<li><strong>允許在型別轉換、較寬鬆的同等性定義下檢查</strong>兩個值是否相等。</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>==的檢查模式</th>
+<th>檢查兩個值的關係</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>一個為null、一個為undefined</td>
+<td>相等</td>
+</tr>
+<tr>
+<td>值為true</td>
+<td>轉為1後比較</td>
+</tr>
+<tr>
+<td>值為false</td>
+<td>轉為0後比較</td>
+</tr>
+<tr>
+<td>一個為字串、一個為數字</td>
+<td>型轉後若值相同則相等</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>嚴格相等性運算子 ===
+<ul>
+<li><strong>不允許型別轉換，並用嚴格的同等性定義檢查。</strong></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>===的檢查模式</th>
+<th>檢查兩個值的關係</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>型別都不同</td>
+<td>不相等</td>
+</tr>
+<tr>
+<td>兩者都是NaN、單一個NaN</td>
+<td>都不相等</td>
+</tr>
+<tr>
+<td>兩者都是null</td>
+<td>相等</td>
+</tr>
+<tr>
+<td>兩者都是undefined</td>
+<td>相等</td>
+</tr>
+<tr>
+<td>兩者都是true</td>
+<td>相等</td>
+</tr>
+<tr>
+<td>兩者都是false</td>
+<td>相等</td>
+</tr>
+<tr>
+<td>0和-0</td>
+<td>相等</td>
+</tr>
+<tr>
+<td>兩者參考到同一個物件</td>
+<td>相等</td>
+</tr>
+</tbody>
+</table>
+<h3 id="邏輯運算式"><a class="header-anchor" href="#邏輯運算式"></a>邏輯運算式</h3>
+<ul>
+<li>AND &amp;&amp; : 條件需要都為true時，才會是true</li>
+<li>OR || : <strong>由左至右判斷，當任一條件</strong>為true時即為true</li>
+<li>NOT ! : 反轉布林值</li>
+</ul>
+<h2 id="額外的練習："><a class="header-anchor" href="#額外的練習："></a>額外的練習：</h2>
+<ol>
+<li>Ex1 null / ‘’ / undefined</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> a = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="literal">undefined</span>;</span><br><span class="line"><span class="keyword">let</span> c= <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!a)&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(a);&#125; <span class="comment">// false才會顯示空值</span></span><br><span class="line"><span class="keyword">if</span>(!b)&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(b);&#125; <span class="comment">//false才會顯示undefined</span></span><br><span class="line"><span class="keyword">if</span>(!b)&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(b);&#125;<span class="comment">// false才會顯示undefined</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">null</span> == <span class="literal">undefined</span>); <span class="comment">// true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">null</span> === <span class="literal">undefined</span>); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">null</span> == <span class="string">&#x27; &#x27;</span>); <span class="comment">// false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="literal">undefined</span> == <span class="string">&#x27; &#x27;</span>); <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Ex2 Number.isNaN(NaN)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// MDN</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="title class_">NaN</span>);        <span class="comment">// true</span></span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="title class_">Number</span>.<span class="property">NaN</span>); <span class="comment">// true</span></span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="number">0</span> / <span class="number">0</span>)       <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="literal">undefined</span>);  <span class="comment">// false</span></span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(&#123;&#125;);         <span class="comment">// false</span></span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="string">&quot;blabla&quot;</span>);   <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 下面的都返回 false</span></span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="literal">null</span>);</span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="number">37</span>);</span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="string">&quot;37&quot;</span>);</span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="string">&quot;37.37&quot;</span>);</span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="string">&quot;&quot;</span>);</span><br><span class="line"><span class="title class_">Number</span>.<span class="built_in">isNaN</span>(<span class="string">&quot; &quot;</span>);</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Ex3. 字串與數字執行四則運算時。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;1&quot;</span> + <span class="number">2</span>); <span class="comment">//&quot;12&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;3&quot;</span> - <span class="number">2</span>); <span class="comment">// 1</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;3&quot;</span> * <span class="number">2</span>); <span class="comment">// 6</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>Ex4. 字串與數字的相等性</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;1&#x27;</span> == <span class="number">1</span>); <span class="comment">//true</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;1&#x27;</span> === <span class="number">1</span>); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/01/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day35-Javascript-%E8%AE%8A%E6%95%B8/" rel="prev" title="連續記錄挑戰Day35-Javascript-變數">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day35-Javascript-變數
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/03/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day37-Javascript-%E8%BF%B0%E5%8F%A5-part1/" rel="next" title="連續記錄挑戰Day37-Javascript-述句-part1">
+                  連續記錄挑戰Day37-Javascript-述句-part1 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

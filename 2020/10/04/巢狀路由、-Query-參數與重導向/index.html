@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="巢狀路由、 Query 參數與重導向 今天要學習的是關於如何在 React router 中設定巢狀路由、設定 Query 參數以及重導向(Redirect)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="巢狀路由、 Query 參數與重導向">
+<meta property="og:url" content="https://penghuachen.github.io/2020/10/04/%E5%B7%A2%E7%8B%80%E8%B7%AF%E7%94%B1%E3%80%81-Query-%E5%8F%83%E6%95%B8%E8%88%87%E9%87%8D%E5%B0%8E%E5%90%91/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="巢狀路由、 Query 參數與重導向 今天要學習的是關於如何在 React router 中設定巢狀路由、設定 Query 參數以及重導向(Redirect)。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/K4HQ4bw.png">
+<meta property="og:image" content="https://i.imgur.com/4QvsUuS.png">
+<meta property="og:image" content="https://i.imgur.com/qef9qbR.png">
+<meta property="og:image" content="https://i.imgur.com/Q9tpkxm.png">
+<meta property="og:image" content="https://i.imgur.com/PlHR2YM.png">
+<meta property="og:image" content="https://i.imgur.com/STUtJYl.png">
+<meta property="og:image" content="https://i.imgur.com/eGEqnYe.png">
+<meta property="article:published_time" content="2020-10-04T02:09:12.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.836Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/K4HQ4bw.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/10/04/%E5%B7%A2%E7%8B%80%E8%B7%AF%E7%94%B1%E3%80%81-Query-%E5%8F%83%E6%95%B8%E8%88%87%E9%87%8D%E5%B0%8E%E5%90%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/10/04/%E5%B7%A2%E7%8B%80%E8%B7%AF%E7%94%B1%E3%80%81-Query-%E5%8F%83%E6%95%B8%E8%88%87%E9%87%8D%E5%B0%8E%E5%90%91/","path":"2020/10/04/巢狀路由、-Query-參數與重導向/","title":"巢狀路由、 Query 參數與重導向"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>巢狀路由、 Query 參數與重導向 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A2%E7%8B%80%E8%B7%AF%E7%94%B1%E3%80%81-Query-%E5%8F%83%E6%95%B8%E8%88%87%E9%87%8D%E5%B0%8E%E5%90%91"><span class="nav-number">1.</span> <span class="nav-text">巢狀路由、 Query 參數與重導向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A2%E7%8B%80%E8%B7%AF%E7%94%B1-Nesting-Route"><span class="nav-number">1.1.</span> <span class="nav-text">巢狀路由(Nesting Route)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Query-%E5%8F%83%E6%95%B8"><span class="nav-number">1.2.</span> <span class="nav-text">Query 參數</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%B0%8E%E5%90%91"><span class="nav-number">1.3.</span> <span class="nav-text">重導向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%BA%90"><span class="nav-number">1.4.</span> <span class="nav-text">資源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/10/04/%E5%B7%A2%E7%8B%80%E8%B7%AF%E7%94%B1%E3%80%81-Query-%E5%8F%83%E6%95%B8%E8%88%87%E9%87%8D%E5%B0%8E%E5%90%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="巢狀路由、 Query 參數與重導向 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          巢狀路由、 Query 參數與重導向
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-04 10:09:12" itemprop="dateCreated datePublished" datetime="2020-10-04T10:09:12+08:00">2020-10-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>7.7k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>7 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="巢狀路由、-Query-參數與重導向"><a class="header-anchor" href="#巢狀路由、-Query-參數與重導向"></a>巢狀路由、 Query 參數與重導向</h1>
+<p>今天要學習的是關於如何在 React router 中<strong>設定巢狀路由、設定 Query 參數以及重導向(Redirect)。</strong></p>
+<span id="more"></span>
+<p>今天學習的部分都可以參考測試例子來幫助理解。</p>
+<p>接著就趕緊今天的學習吧!</p>
+<h2 id="巢狀路由-Nesting-Route"><a class="header-anchor" href="#巢狀路由-Nesting-Route"></a>巢狀路由(Nesting Route)</h2>
+<p>按照慣例，一樣先將測試範例中的情境描述一下，加速進入狀況:</p>
+<ol>
+<li>設置兩個按鈕作為第一層 Router 切換畫面使用，此時也會看到預設寫在 PageA 元件中的兩個按鈕:</li>
+</ol>
+<p><img src="https://i.imgur.com/K4HQ4bw.png" alt=""></p>
+<ol start="2">
+<li>接著當點擊 PageA 元件中任一個按鈕的時候，顯示對應的元件內容，以Page A Nested Component 為例：</li>
+</ol>
+<p><img src="https://i.imgur.com/4QvsUuS.png" alt=""></p>
+<p>以上是簡單的巢狀路由使用的方式，接著讓我們來看看在 PageA 元件中是怎麼設定巢狀路由吧！</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/happy-tu-5puv5?file=/src/App.js">點擊前往</a>。</p>
+<p>首先是第一層的路由設置，相信大家已經知道怎麼使用了。</p>
+<ol>
+<li>透過 <code>&lt;BrowserRouter&gt;</code> 將 App 元件內容包住，才可以使用 Router 相關的元件(<code>&lt;Route&gt;</code>,<code>&lt;NavLink&gt;</code>, <code>Switch</code>)。</li>
+<li>在 <code>&lt;NavLink&gt;</code> 中配置要切換的路由路徑， <code>to=&quot;/PageA&quot;</code>, <code>to=&quot;/PageB&quot;</code>，以及當按鈕為 active 時的樣式設定(<code>activeClassName=&quot;link&quot;</code>)。</li>
+<li>在 <code>&lt;Switch&gt;</code> 中配置 <code>&lt;Route&gt;</code> ，用來渲染符合路徑匹配的元件內容。</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  <span class="title class_">BrowserRouter</span> <span class="keyword">as</span> <span class="title class_">Router</span>,</span><br><span class="line">  <span class="title class_">Route</span>,</span><br><span class="line">  <span class="title class_">NavLink</span>,</span><br><span class="line">  <span class="title class_">Switch</span></span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">PageA</span> <span class="keyword">from</span> <span class="string">&quot;./containers/PageA&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">PageB</span> <span class="keyword">from</span> <span class="string">&quot;./containers/PageB&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Router</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">activeClassName</span>=<span class="string">&quot;link&quot;</span> <span class="attr">to</span>=<span class="string">&quot;/PageA&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            Link-A</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">activeClassName</span>=<span class="string">&quot;link&quot;</span> <span class="attr">to</span>=<span class="string">&quot;/PageB&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            Link-B</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/pageA&quot;</span> <span class="attr">component</span>=<span class="string">&#123;PageA&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/pageB&quot;</span> <span class="attr">component</span>=<span class="string">&#123;PageB&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接著來看看 PageA 元件中的路由配置，而這邊也是今天巢狀路由的重點:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./index.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Route</span>, <span class="title class_">NavLink</span>, <span class="title class_">Switch</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">PageAComponent</span> <span class="keyword">from</span> <span class="string">&quot;../../components/PageAComponent&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">PageAAnotherComponent</span> <span class="keyword">from</span> <span class="string">&quot;../../components/PageAAnotherComponent&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PageA</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Page A Component<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">NavLink</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">className</span>=<span class="string">&quot;nonactive-link&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">activeClassName</span>=<span class="string">&quot;nested-link&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            // 重點觀察位置</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">to</span>=<span class="string">&#123;this.props.match.url</span> + &quot;/<span class="attr">PageAComponent</span>&quot;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          &gt;</span></span></span><br><span class="line"><span class="language-xml">            Nested Link - A Nested Component</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">NavLink</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">className</span>=<span class="string">&quot;nonactive-link&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">activeClassName</span>=<span class="string">&quot;nested-link&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            // 重點觀察位置</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">to</span>=<span class="string">&#123;this.props.match.url</span> + &quot;/<span class="attr">PageAAnotherComponent</span>&quot;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          &gt;</span></span></span><br><span class="line"><span class="language-xml">            Nested Link - A Another Nested Component</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            // 重點觀察位置</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">path</span>=<span class="string">&#123;this.props.match.url</span> + &quot;/<span class="attr">:cmp</span>&quot;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            // 重點觀察位置</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            <span class="attr">render</span>=<span class="string">&#123;(props)</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">              // console.log(props);</span></span><br><span class="line"><span class="language-xml">              // 以目前需求簡化成如下判斷式</span></span><br><span class="line"><span class="language-xml">              if (props.location.pathname === &quot;/PageA/PageAAnotherComponent&quot;) &#123;</span></span><br><span class="line"><span class="language-xml">                return <span class="tag">&lt;<span class="name">PageAAnotherComponent</span> /&gt;</span>;</span></span><br><span class="line"><span class="language-xml">              &#125; else &#123;</span></span><br><span class="line"><span class="language-xml">                return <span class="tag">&lt;<span class="name">PageAComponent</span> /&gt;</span>;</span></span><br><span class="line"><span class="language-xml">              &#125;</span></span><br><span class="line"><span class="language-xml">            &#125;&#125;</span></span><br><span class="line"><span class="language-xml">          /&gt;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">PageA</span>;</span><br></pre></td></tr></table></figure>
+<p>為了更聚焦在重點觀察的位置，這邊我們擷取每一部分的程式碼出來:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">NavLink</span></span><br><span class="line">  className=<span class="string">&quot;nonactive-link&quot;</span></span><br><span class="line">  activeClassName=<span class="string">&quot;nested-link&quot;</span></span><br><span class="line">  <span class="comment">// 重點觀察位置</span></span><br><span class="line">  to=&#123;<span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">match</span>.<span class="property">url</span> + <span class="string">&quot;/PageAComponent&quot;</span>&#125;</span><br><span class="line">&gt;</span><br><span class="line">  <span class="title class_">Nested</span> <span class="title class_">Link</span> - A <span class="title class_">Nested</span> <span class="title class_">Component</span></span><br><span class="line">&lt;/<span class="title class_">NavLink</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>首先是巢狀路由中的配置方式，在 <code>to=&#123;this.props.match.url + &quot;/PageAComponent&quot;&#125;</code> 中可以發現這裡使用了 <code>this.props.match.url</code> 來設定路由路徑，所以讓我們看看這個 <code>this.props.match</code> 的物件內容:</p>
+<p><img src="https://i.imgur.com/qef9qbR.png" alt=""></p>
+<p>從圖中可以得知，<code>this.props.match.url</code>拿到的值為 <code>/PageA</code>。</p>
+<p>緊接著我們在後方加上了 <code>/PageAComponent</code>，所以當我們點擊對應的按鈕時，此時會取得的路由路徑為: <code>/PageA/PageAComponent</code>，而到這裡，我們已經成功配置好路由的路徑。</p>
+<p>接著我們要做什麼呢? 相信大家都猜到了，沒錯，我們接著要配置可以渲染元件內容的 <code>&lt;Route&gt;</code>:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Switch</span>&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    // 重點觀察位置</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">path</span>=<span class="string">&#123;this.props.match.url</span> + &quot;/<span class="attr">:cmp</span>&quot;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    // 重點觀察位置</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">render</span>=<span class="string">&#123;(props)</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">      // console.log(props);</span></span><br><span class="line"><span class="language-xml">      // 以目前需求簡化成如下判斷式</span></span><br><span class="line"><span class="language-xml">      if (props.location.pathname === &quot;/PageA/PageAAnotherComponent&quot;) &#123;</span></span><br><span class="line"><span class="language-xml">        return <span class="tag">&lt;<span class="name">PageAAnotherComponent</span> /&gt;</span>;</span></span><br><span class="line"><span class="language-xml">      &#125; else &#123;</span></span><br><span class="line"><span class="language-xml">        return <span class="tag">&lt;<span class="name">PageAComponent</span> /&gt;</span>;</span></span><br><span class="line"><span class="language-xml">      &#125;</span></span><br><span class="line"><span class="language-xml">    &#125;&#125;</span></span><br><span class="line"><span class="language-xml">  /&gt;</span></span><br><span class="line">&lt;/<span class="title class_">Switch</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>以這個測試範例的巢狀路由為例，會得到如下的路由路徑：</p>
+<ol>
+<li><code>/PageA/PageAComponent</code></li>
+<li><code>/PageA/PageAAnotherComponent</code></li>
+</ol>
+<p>所以這邊在 <code>path</code> 中的設定，我們可以搭配路由參數的方式，簡化<br>
+<code>&lt;Route&gt;</code> 的配置。</p>
+<p>接著這邊遇到了一個小問題: 在原本的方式中，我們透過 component 的寫法來渲染對應的元件內容:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Switch</span>&gt;</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/pageA&quot;</span> <span class="attr">component</span>=<span class="string">&#123;PageA&#125;</span> /&gt;</span></span></span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/pageB&quot;</span> <span class="attr">component</span>=<span class="string">&#123;PageB&#125;</span> /&gt;</span></span></span><br><span class="line">&lt;/<span class="title class_">Switch</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>但是這樣的的方式並沒有辦法讓我們可以條件選擇要渲染的元件內容。</p>
+<p>所以這邊我們要使用另外一種在 Router 中渲染元件內容的方式， 這邊我們使用 <code>render</code> 方法。</p>
+<p>在 <code>render</code> 方法中， React Router 允許我們傳入 route 的 props 到這個函式中，於是我們可以透過判斷當前的路由來條件選擇要渲染的元件內容。</p>
+<p>以上就是關於巢狀路由的簡單使用方式，接著讓我們往下繼續學習 Query 參數。</p>
+<h2 id="Query-參數"><a class="header-anchor" href="#Query-參數"></a>Query 參數</h2>
+<p>Query 參數最常應用的地方之一，就是有切換分頁行為的時候，當我們在切換分頁時，常常會看到類似這種 <code>http://xxxx/search?page=5</code> 的 url:</p>
+<p>而這邊我們也透過一個簡單的測試範例來呈現這樣的 url 吧！</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/headless-moon-iut38?file=/src/App.js">點擊前往</a>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">BrowserRouter</span> <span class="keyword">as</span> <span class="title class_">Router</span>, <span class="title class_">Link</span>, <span class="title class_">Route</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">parsingQueryParams</span> = (<span class="params">paramsString</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> searchParams = <span class="keyword">new</span> <span class="title class_">URLSearchParams</span>(paramsString);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> p <span class="keyword">of</span> searchParams) &#123;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Item</span> = (<span class="params">props</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [param, value] = <span class="title function_">parsingQueryParams</span>(props.<span class="property">location</span>.<span class="property">search</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      Query 的參數為: &#123;param&#125;，值為 &#123;value&#125;</span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">Router</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">Link</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">to</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">pathname:</span> &quot;/<span class="attr">item</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">search:</span> &quot;?<span class="attr">page</span>=<span class="string">1</span>&quot;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            &gt;</span></span></span><br><span class="line"><span class="language-xml">              模擬切換至 page 1</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">Link</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">Link</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              <span class="attr">to</span>=<span class="string">&#123;&#123;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">pathname:</span> &quot;/<span class="attr">item</span>&quot;,</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">search:</span> &quot;?<span class="attr">page</span>=<span class="string">2</span>&quot;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">              &#125;&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">            &gt;</span></span></span><br><span class="line"><span class="language-xml">              模擬切換至 page 2</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">Link</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/Item&quot;</span> <span class="attr">component</span>=<span class="string">&#123;Item&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這邊一樣我們將將上方的程式碼的重點擷取出來:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Link</span></span><br><span class="line">  to=&#123;&#123;</span><br><span class="line">    <span class="attr">pathname</span>: <span class="string">&quot;/item&quot;</span>,</span><br><span class="line">    <span class="attr">search</span>: <span class="string">&quot;?page=2&quot;</span></span><br><span class="line">  &#125;&#125;</span><br><span class="line">&gt;</span><br><span class="line">  模擬切換至 page <span class="number">2</span></span><br><span class="line">&lt;/<span class="title class_">Link</span>&gt;</span><br></pre></td></tr></table></figure>
+<p><code>to</code> 除了可以接受字串格式之外，也可以接收物件格式，而所有可接受的格式為:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="title class_">Link</span></span><br><span class="line">  to=&#123;&#123;</span><br><span class="line">    <span class="attr">pathname</span>: <span class="string">&quot;/courses&quot;</span>,</span><br><span class="line">    <span class="attr">search</span>: <span class="string">&quot;?sort=name&quot;</span>,</span><br><span class="line">    <span class="attr">hash</span>: <span class="string">&quot;#the-hash&quot;</span>,</span><br><span class="line">    <span class="attr">state</span>: &#123; <span class="attr">fromDashboard</span>: <span class="literal">true</span> &#125;</span><br><span class="line">  &#125;&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>search</code> 就是用來設置 query 參數的位置。</p>
+<p>當我們設定好 query 參數後，我們可以在點擊 <code>&lt;Link&gt;</code> 時發現到 url 在點擊時會是如下呈現:</p>
+<p><img src="https://i.imgur.com/Q9tpkxm.png" alt=""></p>
+<p>而另外一個值得學習的部分是，如何快速解析 query 參數，這邊我可以透過上方完整程式碼中的 <code>parsingQueryParams</code> 方法來處理:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">parsingQueryParams</span> = (<span class="params">paramsString</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 重點觀察位置</span></span><br><span class="line">  <span class="keyword">const</span> searchParams = <span class="keyword">new</span> <span class="title class_">URLSearchParams</span>(paramsString);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> p <span class="keyword">of</span> searchParams) &#123;</span><br><span class="line">    <span class="keyword">return</span> p;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>透過建立一個 URLSearchParams 物件，並傳入如 <code>/item?page=2</code> 的字串，可以透過 <code>for..of</code> 的方式得到一個陣列值:</p>
+<p>這裡借用上方的函式來執行看看會得到什麼結果:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> result = <span class="title function_">parsingQueryParams</span>(<span class="string">&#x27;?page=2&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(result); <span class="comment">// [&quot;page&quot;, &quot;2&quot;]</span></span><br></pre></td></tr></table></figure>
+<p>當我們需要處理 url 的 Query 參數時，這會是一個很好用的方式。</p>
+<p>但需要注意的是這個方法在 IE 中並不支援，在使用時要注意。</p>
+<h2 id="重導向"><a class="header-anchor" href="#重導向"></a>重導向</h2>
+<p>今天最後要學習的是重導向(Redirect)，最常使用的情境大概就在於當使用者權限不足時，必須將使用者導航至首頁或者登入頁等等。</p>
+<p>這邊我們一樣透過一個模擬情境來學習這個部分。</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/patient-paper-g5yl4?file=/src/App.js">點擊前往</a>。</p>
+<p>首先我們會有一個登入畫面:</p>
+<p><img src="https://i.imgur.com/PlHR2YM.png" alt=""></p>
+<p>接著輸入帳號密碼之後，可以成功跳轉至 Home 元件內容中</p>
+<p><img src="https://i.imgur.com/STUtJYl.png" alt=""></p>
+<p>在 Home 元件內容中，設定一個用來模擬當頁面切換但驗證卻失敗的時候，跳轉回到登入畫面</p>
+<p><img src="https://i.imgur.com/eGEqnYe.png" alt=""></p>
+<p>接著這邊擷取重點程式碼來觀察：</p>
+<p>首先是路由的配置:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=<span class="string">&quot;App&quot;</span>&gt;</span><br><span class="line">  &#123;<span class="comment">/* 重要觀察位置 */</span>&#125;</span><br><span class="line">  &lt;<span class="title class_">Redirect</span> to=<span class="string">&quot;/Login&quot;</span> /&gt;</span><br><span class="line">  &#123;<span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">auth</span> ? (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">to</span>=<span class="string">&quot;/Home&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">render</span>=<span class="string">&#123;(props)</span> =&gt;</span> (</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Home</span> <span class="attr">loginFailed</span>=<span class="string">&#123;this.loginFailed&#125;</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span></span></span><br><span class="line"><span class="language-xml">      )&#125;</span></span><br><span class="line"><span class="language-xml">    /&gt;</span></span><br><span class="line">  ) : (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">to</span>=<span class="string">&quot;/Login&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">      <span class="attr">render</span>=<span class="string">&#123;(props)</span> =&gt;</span> <span class="tag">&lt;<span class="name">Login</span> <span class="attr">login</span>=<span class="string">&#123;this.login&#125;</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">    /&gt;</span></span><br><span class="line">  )&#125;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>當進入這個網頁時，透過 <code>&lt;Redirect&gt;</code> 將路由導航至登入畫面，路經變成 <code>/Login</code>，而網頁內容的部分則透過 state 中的 auth 判斷渲染的元件內容。</p>
+<p>接著我們透過點擊登入按鈕時，修改 state 中 auth 的值，並將路由導航至 Home 元件：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">login = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 重要觀察位置</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123; <span class="attr">auth</span>: <span class="literal">true</span> &#125;, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">auth</span>) &#123;</span><br><span class="line">      <span class="title function_">alert</span>(<span class="string">&quot;模擬登入成功!!&quot;</span>);</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">history</span>.<span class="title function_">push</span>(<span class="string">&quot;/Home&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// console.log(this.props);</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>這邊需要注意的部分是透過 <code>withRouter</code> 這個 HOC 元件將 App 元件包住，才可以在 App 元件中使用到 route 物件中的方法 push。</p>
+<p>然後在 Home 元件中設定了一個用來模擬身份失效時，導航至登入畫面的按鈕，觸發身份失敗時回到登入畫面的方法。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">loginFailed = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 重要觀察位置</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123; <span class="attr">auth</span>: <span class="literal">false</span> &#125;, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">auth</span>) &#123;</span><br><span class="line">      <span class="title function_">alert</span>(<span class="string">&quot;身份驗證失敗，回到登入畫面!!&quot;</span>);</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">history</span>.<span class="title function_">push</span>(<span class="string">&quot;/Login&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>重導向的使用基本上不難，所以就搭配著簡單的驗證方式來學習與理解囉。</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<h2 id="資源"><a class="header-anchor" href="#資源"></a>資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://reactrouter.com/web/guides/quick-start">React Router</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/03/React-router-%E9%85%8D%E7%BD%AE%E5%8B%95%E6%85%8B%E5%8F%83%E6%95%B8%E4%B8%A6%E5%8F%96%E5%BE%97-api-%E8%B3%87%E6%96%99%E5%85%A7%E5%AE%B9/" rel="prev" title="React router 配置動態參數並取得 api 資料內容">
+                  <i class="fa fa-chevron-left"></i> React router 配置動態參數並取得 api 資料內容
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/05/%E9%80%8F%E9%81%8E-React-Router-config-%E7%B5%B1%E4%B8%80%E7%AE%A1%E7%90%86%E8%B7%AF%E7%94%B1/" rel="next" title="透過 React Router config 統一管理路由">
+                  透過 React Router config 統一管理路由 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

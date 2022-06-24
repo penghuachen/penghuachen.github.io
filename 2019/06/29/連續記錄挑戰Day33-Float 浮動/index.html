@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Float 浮動 前言： 浮動元素一直被用於當作網頁排版的技巧，但浮動元素從來就不是為了排版而生，所以必須要知道雖然可以這麼用，卻是誤用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="連續記錄挑戰Day33-Float 浮動">
+<meta property="og:url" content="https://penghuachen.github.io/2019/06/29/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day33-Float%20%E6%B5%AE%E5%8B%95/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="Float 浮動 前言： 浮動元素一直被用於當作網頁排版的技巧，但浮動元素從來就不是為了排版而生，所以必須要知道雖然可以這麼用，卻是誤用。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/s4WfTBR.png">
+<meta property="og:image" content="https://i.imgur.com/MJEuVyZ.png">
+<meta property="og:image" content="https://i.imgur.com/Ghvq8JR.png">
+<meta property="og:image" content="https://i.imgur.com/Hnpxhh6.png">
+<meta property="og:image" content="https://i.imgur.com/ufhPWED.png">
+<meta property="og:image" content="https://i.imgur.com/x3u7rgR.png">
+<meta property="og:image" content="https://i.imgur.com/hDiopOh.png">
+<meta property="og:image" content="https://i.imgur.com/fKjRMBs.png">
+<meta property="article:published_time" content="2019-06-29T08:48:12.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.842Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="HTML&#x2F;CSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/s4WfTBR.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/06/29/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day33-Float%20%E6%B5%AE%E5%8B%95/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/06/29/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day33-Float%20%E6%B5%AE%E5%8B%95/","path":"2019/06/29/連續記錄挑戰Day33-Float 浮動/","title":"連續記錄挑戰Day33-Float 浮動"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>連續記錄挑戰Day33-Float 浮動 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Float-%E6%B5%AE%E5%8B%95"><span class="nav-number">1.</span> <span class="nav-text">Float 浮動</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E6%B5%AE%E5%8B%95-Float"><span class="nav-number">1.1.</span> <span class="nav-text">什麼是浮動 Float?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E5%8B%95%E7%9A%84%E8%AA%9E%E6%B3%95%E6%80%8E%E9%BA%BC%E8%A8%AD%E5%AE%9A%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">浮動的語法怎麼設定？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%AE%E5%8B%95%E5%85%83%E7%B4%A0%E7%9A%84%E7%9B%B8%E9%97%9C%E6%94%BE%E7%BD%AE%E8%A6%8F%E5%89%87"><span class="nav-number">1.3.</span> <span class="nav-text">浮動元素的相關放置規則</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AFclear"><span class="nav-number">1.4.</span> <span class="nav-text">什麼是clear?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clear%E8%AA%9E%E6%B3%95%E6%80%8E%E9%BA%BC%E8%A8%AD%E5%AE%9A%EF%BC%9F"><span class="nav-number">1.5.</span> <span class="nav-text">clear語法怎麼設定？</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/06/29/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day33-Float%20%E6%B5%AE%E5%8B%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="連續記錄挑戰Day33-Float 浮動 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          連續記錄挑戰Day33-Float 浮動
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-06-29 16:48:12" itemprop="dateCreated datePublished" datetime="2019-06-29T16:48:12+08:00">2019-06-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%8A%E7%8E%A9Css/" itemprop="url" rel="index"><span itemprop="name">把玩Css</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.5k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>1 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Float-浮動"><a class="header-anchor" href="#Float-浮動"></a>Float 浮動</h1>
+<p>前言：</p>
+<p>浮動元素一直被用於當作網頁排版的技巧，但<strong>浮動元素從來就不是為了排版而生</strong>，所以必須要知道雖然可以這麼用，卻是誤用。</p>
+<span id="more"></span>
+<p>關於 float 的一些特性，趁著有空的時候做個整理並且記錄放上來，也順帶和前面的 <a href="https://penghuachen.github.io/2019/06/16/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day20-float%E5%92%8C%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8B%95%E7%9A%84%E6%96%B9%E6%B3%95/">連續記錄挑戰Day20-float和清除浮動的方法</a> 做個呼應。</p>
+<p>Outline</p>
+<ul>
+<li>什麼是浮動 Float?</li>
+<li>浮動的語法怎麼設定？</li>
+<li>浮動的相關規則
+<ul>
+<li>當元素設定為浮動時，其他內容會圍繞四周</li>
+<li>浮動元素左/右的最外邊緣不能是容器左/右的最內邊緣</li>
+<li>浮動元素的左外側邊界必須要在前一個已經設定浮動元素的右邊界，反之亦然。</li>
+<li>浮動元素的上邊緣不能比容器高，且當浮動元素若位於兩個重疊邊界的範圍間，則浮動元素的放置位置會如同設定 display:block的效果。</li>
+<li>浮動元素的上邊緣不能高於前一個浮動元素或區塊元素的上邊緣，且元素寬度加總大於容器寬度時，次排序的浮動元素會自動往下一排放置。</li>
+<li>浮動元素若放置於行方框(例如p段落)中最前面時，浮動位置為該行方框的上緣，與行方框切齊，而並不會浮動到最上方。</li>
+<li>浮動元素與margin負值:可以讓浮動元素移動到容器之外</li>
+<li>浮動元素在行內方框(例如span)及區塊元素時的邊框、背景、內容的重疊情形</li>
+</ul>
+</li>
+<li>什麼是clear?</li>
+<li>clear語法怎麼設定？</li>
+</ul>
+<h2 id="什麼是浮動-Float"><a class="header-anchor" href="#什麼是浮動-Float"></a>什麼是浮動 Float?</h2>
+<p><strong>可以使元素脫離原本的文檔流向，使得容器高度會因為沒有元素無法撐開(高度=0)，但要記住依然會影響排版的結果。</strong></p>
+<h2 id="浮動的語法怎麼設定？"><a class="header-anchor" href="#浮動的語法怎麼設定？"></a>浮動的語法怎麼設定？</h2>
+<table>
+<thead>
+<tr>
+<th>語法</th>
+<th>數值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>float</td>
+<td>left / right / none</td>
+</tr>
+</tbody>
+</table>
+<h2 id="浮動元素的相關放置規則"><a class="header-anchor" href="#浮動元素的相關放置規則"></a>浮動元素的相關放置規則</h2>
+<ol>
+<li>
+<p>當元素設定為浮動時，其他內容會圍繞四周。<br>
+<a target="_blank" rel="noopener" href="https://codepen.io/kids5346/pen/GbyzBr?editors=1100">測試範例一</a><br>
+而且<strong>不會發生 margin collpase 的情形</strong>。而這必須討論關於BFC的建立與margin collpase之間的關係。詳細可以看此篇 <a href="https://penghuachen.github.io/2019/06/02/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day06-margin-collapse%E7%94%B1%E4%BE%86%E8%88%87BFC%E5%8E%9F%E7%90%86/">margin collapse由來與BFC原理</a><br>
+<img src="https://i.imgur.com/s4WfTBR.png" alt=""></p>
+</li>
+<li>
+<p>浮動元素左/右的<strong>最外邊緣</strong>不能是容器左/右的<strong>最內邊緣</strong><br>
+<a target="_blank" rel="noopener" href="https://codepen.io/kids5346/pen/GbyzBr?editors=1100">測試範例二</a><br>
+意思是浮動元素的最外邊緣最多就只到容器的最內邊緣而已<br>
+<img src="https://i.imgur.com/MJEuVyZ.png" alt=""></p>
+</li>
+<li>
+<p>浮動元素的<strong>左外側邊界必須要在前一個已經設定浮動元素的右邊界</strong>，反之亦然。<br>
+<a target="_blank" rel="noopener" href="https://codepen.io/kids5346/pen/GbyzBr?editors=1100">測試範例三</a><br>
+為了避免浮動元素相互覆蓋，所以會讓次序後面的浮動元素緊貼著前一個。<br>
+<img src="https://i.imgur.com/Ghvq8JR.png" alt=""></p>
+</li>
+<li>
+<p>浮動元素的上邊緣不能比容器高，且當浮動元素若位於兩個重疊邊界的範圍間，則浮動元素的放置位置會如同設定 display:block的效果。<br>
+<a target="_blank" rel="noopener" href="https://codepen.io/kids5346/pen/GbyzBr?editors=1100">測試範例四</a><br>
+<img src="https://i.imgur.com/Hnpxhh6.png" alt=""></p>
+</li>
+<li>
+<p>浮動元素的上邊緣不能高於前一個浮動元素或區塊元素的上邊緣，且元素寬度加總大於容器寬度時，次排序的浮動元素會自動往下一排放置。<br>
+<a target="_blank" rel="noopener" href="https://codepen.io/kids5346/pen/GbyzBr?editors=1100">測試範例五</a><br>
+<img src="https://i.imgur.com/ufhPWED.png" alt=""></p>
+</li>
+<li>
+<p>浮動元素若放置於行方框(例如p段落)中最前面時，浮動位置為該行方框的上緣，與行方框切齊，而並不會浮動到最上方。<br>
+<a target="_blank" rel="noopener" href="https://codepen.io/kids5346/pen/GbyzBr?editors=1100">測試範例六</a><br>
+<img src="https://i.imgur.com/x3u7rgR.png" alt=""></p>
+</li>
+<li>
+<p>浮動元素與margin負值:可以讓浮動元素移動到容器之外<br>
+<a target="_blank" rel="noopener" href="https://codepen.io/kids5346/pen/GbyzBr?editors=1100">測試範例七</a><br>
+瀏覽器為了找到浮動元素上方的內側邊界，所以會做此計算： 100px + (-15px) + 0padding = 85px<br>
+所以浮動元素的內側邊界會是在85px的位置，且沒有違反規則。是一個很有趣的特性<br>
+<img src="https://i.imgur.com/hDiopOh.png" alt=""></p>
+</li>
+<li>
+<p>浮動元素在行內方框(例如span)及區塊元素時的<strong>邊框、背景、內容</strong>的重疊情形</p>
+<ul>
+<li>行內方框：邊框、背景、內容都會在浮動元素<strong>之上</strong></li>
+<li>區塊元素：邊框、背景會在浮動元素<strong>之下</strong>，但內容會在浮動元素<strong>之上</strong>。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://codepen.io/kids5346/pen/GbyzBr?editors=1100">測試範例八</a><br>
+<img src="https://i.imgur.com/fKjRMBs.png" alt=""></p>
+</li>
+</ol>
+<h2 id="什麼是clear"><a class="header-anchor" href="#什麼是clear"></a>什麼是clear?</h2>
+<p><strong>用於清除浮動的語法</strong>，在css2.1中引入了clearance，用來在上邊界加入空間並藉此將元素往下推超過浮動元素，達到清除浮動所造成的影響</p>
+<h2 id="clear語法怎麼設定？"><a class="header-anchor" href="#clear語法怎麼設定？"></a>clear語法怎麼設定？</h2>
+<table>
+<thead>
+<tr>
+<th>語法</th>
+<th>數值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clear</td>
+<td>left / right / none</td>
+</tr>
+</tbody>
+</table>
+<p>關於清除浮動的幾種方式，可參考這一篇 <a href="https://penghuachen.github.io/2019/06/16/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day20-float%E5%92%8C%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8B%95%E7%9A%84%E6%96%B9%E6%B3%95/">連續記錄挑戰Day20-float和清除浮動的方法</a></p>
+<div style="text-align:center;font-weight:bold;">力圖在這個世界上找尋可留下的感動，並用著文字扎實的記錄著。</div>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/HTML-CSS/" rel="tag"># HTML/CSS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/28/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day32-Git-%E5%88%9D%E6%8E%A2%E7%B3%BB%E5%88%97-1/" rel="prev" title="連續記錄挑戰Day32-Git 初探系列 #1">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day32-Git 初探系列 #1
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/06/30/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day34-position-%E5%AE%9A%E4%BD%8D/" rel="next" title="連續記錄挑戰Day34-position 定位">
+                  連續記錄挑戰Day34-position 定位 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

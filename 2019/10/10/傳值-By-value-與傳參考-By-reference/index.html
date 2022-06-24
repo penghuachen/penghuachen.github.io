@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="傳值(By value)與傳參考(By reference) 講在前面: 這個篇幅會搭配 understanding the weird parts(克服JS奇怪的部分) 的影片章節來學習。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="傳值(By value)與傳參考(By reference)">
+<meta property="og:url" content="https://penghuachen.github.io/2019/10/10/%E5%82%B3%E5%80%BC-By-value-%E8%88%87%E5%82%B3%E5%8F%83%E8%80%83-By-reference/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="傳值(By value)與傳參考(By reference) 講在前面: 這個篇幅會搭配 understanding the weird parts(克服JS奇怪的部分) 的影片章節來學習。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1vpQv7t3cnWahm4P8Y9ZPjBQ_wwjLGxKo=w2880-h1530-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1C1mvQDTEkOf_EunFBJE3T899hmMFTHlK=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1ZzeXr96BS5hBQrtS5_i6cD-UyXv1hr0a=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1FzYhUkEgFYABClA0B9EO-h-wXJFTWGmZ=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1WRhaxBO3gfvPR-xvMfT1ZaRGkXJzwrs3=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1je-Ablfv99ZfXEEFNpyMfwnsSclggJTH=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1AnDlULzTH9Qcm4iuxMGK93doemrNYqyh=w1298-h1498-iv1">
+<meta property="article:published_time" content="2019-10-10T03:20:58.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.834Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lh3.google.com/u/0/d/1vpQv7t3cnWahm4P8Y9ZPjBQ_wwjLGxKo=w2880-h1530-iv1">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/10/10/%E5%82%B3%E5%80%BC-By-value-%E8%88%87%E5%82%B3%E5%8F%83%E8%80%83-By-reference/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/10/10/%E5%82%B3%E5%80%BC-By-value-%E8%88%87%E5%82%B3%E5%8F%83%E8%80%83-By-reference/","path":"2019/10/10/傳值-By-value-與傳參考-By-reference/","title":"傳值(By value)與傳參考(By reference)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>傳值(By value)與傳參考(By reference) | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%82%B3%E5%80%BC-By-value-%E8%88%87%E5%82%B3%E5%8F%83%E8%80%83-By-reference"><span class="nav-number">1.</span> <span class="nav-text">傳值(By value)與傳參考(By reference)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#call-by-value-%E5%82%B3%E5%80%BC"><span class="nav-number">1.1.</span> <span class="nav-text">call by value (傳值)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-by-reference-%E5%82%B3%E5%8F%83%E8%80%83"><span class="nav-number">1.2.</span> <span class="nav-text">call by reference (傳參考)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%A4%96%E6%83%85%E6%B3%81"><span class="nav-number">1.3.</span> <span class="nav-text">例外情況</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/10/10/%E5%82%B3%E5%80%BC-By-value-%E8%88%87%E5%82%B3%E5%8F%83%E8%80%83-By-reference/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="傳值(By value)與傳參考(By reference) | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          傳值(By value)與傳參考(By reference)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-10-10 11:20:58" itemprop="dateCreated datePublished" datetime="2019-10-10T11:20:58+08:00">2019-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>1 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="傳值-By-value-與傳參考-By-reference"><a class="header-anchor" href="#傳值-By-value-與傳參考-By-reference"></a>傳值(By value)與傳參考(By reference)</h1>
+<p>講在前面: 這個篇幅會搭配 understanding the weird parts(克服JS奇怪的部分) 的影片章節來學習。</p>
+<span id="more"></span>
+<p>而篇幅會聚焦在 by value(傳值)、 by reference (傳參考)這兩個方向， by sharing 則留待日後更加了解後再學習、比較。</p>
+<p>影片中有兩張關鍵圖片，這裡會以此作為起點並向下延伸。</p>
+<h2 id="call-by-value-傳值"><a class="header-anchor" href="#call-by-value-傳值"></a>call by value (傳值)</h2>
+<p><img src="https://lh3.google.com/u/0/d/1vpQv7t3cnWahm4P8Y9ZPjBQ_wwjLGxKo=w2880-h1530-iv1" alt="Day10-1"></p>
+<p>從圖中可以知道:</p>
+<p>若某個變數值為基本型別值(primitive value)，當指定給另一個變數時，<mark>該變數會建立一個新的記憶體位址，並拷貝這個基本型別的值儲存到新的記憶體位址上。</mark></p>
+<p>來看看一個測試的例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> b;</span><br><span class="line">b = a;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;a的值為: &#x27;</span> + a);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;b的值為: &#x27;</span> + b);</span><br></pre></td></tr></table></figure>
+<p><img src="https://lh3.google.com/u/0/d/1C1mvQDTEkOf_EunFBJE3T899hmMFTHlK=w1298-h1498-iv1" alt="Day10-1"></p>
+<p>到這邊應該還不難理解，再來我們在測試看看另一個例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">var</span> b;</span><br><span class="line">b = a;</span><br><span class="line">a = <span class="number">6</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;a的值為: &#x27;</span> + a);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;b的值為: &#x27;</span> + b);</span><br></pre></td></tr></table></figure>
+<p>跟前一個例子很類似，只是多了一行程式 <mark>改變 <code>a</code> 的值</mark>，這時候再來看看兩個變數的值會是怎麼樣</p>
+<p><img src="https://lh3.google.com/u/0/d/1ZzeXr96BS5hBQrtS5_i6cD-UyXv1hr0a=w1298-h1498-iv1" alt="Day-11-3"></p>
+<p>可以知道，即使我們修改了 <code>a</code> 的值， <code>b</code> 也不會因此而被修改。</p>
+<p>因為將 <code>a</code> 的值傳給 <code>b</code> ，實際上是只有單純的把 <code>a</code> 的值 <code>5</code> 拷貝一份，然後儲存到 <code>b</code> 的記憶體裡。</p>
+<p>而上述就是剛剛講在前面的 <mark>call by value(傳值)</mark></p>
+<p>再來讓我們往下看看 call by reference (傳參考)</p>
+<h2 id="call-by-reference-傳參考"><a class="header-anchor" href="#call-by-reference-傳參考"></a>call by reference (傳參考)</h2>
+<p><img src="https://lh3.google.com/u/0/d/1FzYhUkEgFYABClA0B9EO-h-wXJFTWGmZ=w1298-h1498-iv1" alt="Day11-4"></p>
+<p>從圖中可以知道:</p>
+<p><mark>若某個變數的值為物件時</mark>，當把該變數的值傳給另一個變數時，此時<mark>這兩個變數會指向同一個記憶體位址</mark>。也因此如果修改了物件中的特性與方法，自然就會同時變更到另一個物件。</p>
+<p>來看看這個測試例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">greeting</span>: <span class="string">&#x27;Hello&#x27;</span></span><br><span class="line">  &#125;;</span><br><span class="line"><span class="keyword">var</span> obj2;</span><br><span class="line">obj2 = obj;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2);</span><br></pre></td></tr></table></figure>
+<p>從圖中的結果可以得知當透過 <code>obj2 = obj</code> ，兩者指向同一個記憶體位址，並非是兩個不同的記憶體位址。</p>
+<p>再來看看變更了其中一個物件的特性值，看會是什麼情況。</p>
+<p><img src="https://lh3.google.com/u/0/d/1WRhaxBO3gfvPR-xvMfT1ZaRGkXJzwrs3=w1298-h1498-iv1" alt="Day11-5"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">greeting</span>: <span class="string">&#x27;Hello&#x27;</span></span><br><span class="line">  &#125;;</span><br><span class="line"><span class="keyword">var</span> obj2;</span><br><span class="line">obj2 = obj;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2);</span><br><span class="line">obj2.<span class="property">greeting</span> = <span class="string">&#x27;Hola&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2);</span><br></pre></td></tr></table></figure>
+<p>當 <code>obj2</code> 中的特性 <code>greeting</code> 值修改為 <code>Hola</code> ，可以看到 <code>obj</code> 物件竟然也同時被修改了 <code>greeting</code> 特性的值。</p>
+<p>原因就是因為兩者都指向同一個記憶體位址的緣故，所以才會改了其中一個，而另一個也被修改了。</p>
+<p>而上述就是剛剛講在前面的 <mark>call by reference(傳參考)</mark></p>
+<p><img src="https://lh3.google.com/u/0/d/1je-Ablfv99ZfXEEFNpyMfwnsSclggJTH=w1298-h1498-iv1" alt="Day11-6"></p>
+<p>但凡事總是有所謂的例外情況:</p>
+<h2 id="例外情況"><a class="header-anchor" href="#例外情況"></a>例外情況</h2>
+<p>前面有提到，所有的物件都是 call by reference，</p>
+<p>但當如果有下列這種情況時，就不是 call by reference :</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">greeting</span>: <span class="string">&#x27;Hello&#x27;</span></span><br><span class="line">  &#125;;</span><br><span class="line"><span class="keyword">var</span> obj2;</span><br><span class="line">obj2 = obj;</span><br><span class="line">obj = &#123;</span><br><span class="line">  <span class="attr">greeting</span>: <span class="string">&#x27;Hi&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2);</span><br></pre></td></tr></table></figure>
+<p><code>obj</code> 透過物件字面值的方式建立了一個新的物件，所以此時的 <code>obj</code>、<code>obj2</code> 已經是指向兩個不同記憶體位址的物件。</p>
+<p>自然也就不會因為更改 <code>obj</code> 而 <code>obj2</code> 也跟著被更改。</p>
+<p><img src="https://lh3.google.com/u/0/d/1AnDlULzTH9Qcm4iuxMGK93doemrNYqyh=w1298-h1498-iv1" alt="Day11-7"></p>
+<p>關於 傳值(By value)與傳參考(By reference) 的學習就先到這囉</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/08/03/%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-Rest-parameter-%E8%88%87%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator/" rel="prev" title="其餘參數(Rest parameter)與展開運算子(Spread operator)">
+                  <i class="fa fa-chevron-left"></i> 其餘參數(Rest parameter)與展開運算子(Spread operator)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/11/JavaScript-class-%E9%A1%9E%E5%88%A5/" rel="next" title="JavaScript class 類別">
+                  JavaScript class 類別 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

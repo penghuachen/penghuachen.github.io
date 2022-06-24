@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="其餘參數(rest parameter)與展開運算子(Spread operator) 其餘參數(rest parameter)與展開運算子(Spread operator) 為 ES6 的新特性，然而這兩者雖然使用的方式都是 ... ，但是用途的不同決定我們當下使用的是其餘參數（rest parameter）還是展開運算子(Spread operator)，如下方表格:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="其餘參數(Rest parameter)與展開運算子(Spread operator)">
+<meta property="og:url" content="https://penghuachen.github.io/2019/08/03/%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-Rest-parameter-%E8%88%87%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="其餘參數(rest parameter)與展開運算子(Spread operator) 其餘參數(rest parameter)與展開運算子(Spread operator) 為 ES6 的新特性，然而這兩者雖然使用的方式都是 ... ，但是用途的不同決定我們當下使用的是其餘參數（rest parameter）還是展開運算子(Spread operator)，如下方表格:">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1v_NlRYtwQle2xFsPV-sKFXzp0ozzMgfV=w1444-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1KtRqM1JAOyejMqG0Fdu6njBVXP4g3ONP=w1444-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/138_DQrA-7dgEOrITM7HF9kSROnJWYaZ2=w1444-h1498-iv2">
+<meta property="article:published_time" content="2019-08-03T06:33:57.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.834Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lh3.google.com/u/0/d/1v_NlRYtwQle2xFsPV-sKFXzp0ozzMgfV=w1444-h1498-iv1">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/08/03/%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-Rest-parameter-%E8%88%87%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/08/03/%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-Rest-parameter-%E8%88%87%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator/","path":"2019/08/03/其餘參數-Rest-parameter-與展開運算子-Spread-operator/","title":"其餘參數(Rest parameter)與展開運算子(Spread operator)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>其餘參數(Rest parameter)與展開運算子(Spread operator) | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-rest-parameter-%E8%88%87%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator"><span class="nav-number">1.</span> <span class="nav-text">其餘參數(rest parameter)與展開運算子(Spread operator)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-Rest-parameter-%E7%9A%84%E4%BD%BF%E7%94%A8%E8%88%87%E6%AF%94%E8%BC%83"><span class="nav-number">1.1.</span> <span class="nav-text">其餘參數(Rest parameter)的使用與比較</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E9%BA%BC%E4%BD%BF%E7%94%A8%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8"><span class="nav-number">1.1.1.</span> <span class="nav-text">怎麼使用其餘參數:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8%E8%88%87-arguments-%E7%89%A9%E4%BB%B6%E7%9A%84%E6%AF%94%E8%BC%83"><span class="nav-number">1.1.2.</span> <span class="nav-text">其餘參數與 arguments 物件的比較:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.2.</span> <span class="nav-text">展開運算子(Spread operator)的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E9%BA%BC%E4%BD%BF%E7%94%A8%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90"><span class="nav-number">1.2.1.</span> <span class="nav-text">怎麼使用展開運算子:</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/08/03/%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-Rest-parameter-%E8%88%87%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="其餘參數(Rest parameter)與展開運算子(Spread operator) | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          其餘參數(Rest parameter)與展開運算子(Spread operator)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-08-03 14:33:57" itemprop="dateCreated datePublished" datetime="2019-08-03T14:33:57+08:00">2019-08-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="其餘參數-rest-parameter-與展開運算子-Spread-operator"><a class="header-anchor" href="#其餘參數-rest-parameter-與展開運算子-Spread-operator"></a>其餘參數(rest parameter)與展開運算子(Spread operator)</h1>
+<p><strong>其餘參數(rest parameter)與展開運算子(Spread operator)</strong> 為 ES6 的新特性，然而這兩者雖然使用的方式都是 <code>...</code> ，但是用途的不同決定我們當下使用的是其餘參數（rest parameter）還是展開運算子(Spread operator)，如下方表格:</p>
+<span id="more"></span>
+<table>
+<thead>
+<tr>
+<th>語法</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>其餘參數 <code>...</code></td>
+<td>將一個不確定數量的參數集合在一個陣列中</td>
+</tr>
+<tr>
+<td>展開運算子 <code>...</code></td>
+<td>將陣列中的值展開為個別值</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其餘參數-Rest-parameter-的使用與比較"><a class="header-anchor" href="#其餘參數-Rest-parameter-的使用與比較"></a>其餘參數(Rest parameter)的使用與比較</h2>
+<h3 id="怎麼使用其餘參數"><a class="header-anchor" href="#怎麼使用其餘參數"></a>怎麼使用其餘參數:</h3>
+<p>來看看幾個測試例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">result</span>(<span class="params">...numbers</span>)&#123;</span><br><span class="line">    <span class="comment">//會獲得一組陣列:[1,2,3,4,5]</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(numbers);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">result</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<p>從上面這個例子可以獲得以下的資訊:</p>
+<ol>
+<li>這邊最後獲得的值為一組陣列 <code>[1,2,3,4,5]</code>，表示這邊使用的 <code>...</code> 是作為 <mark>其餘參數</mark> 使用。</li>
+<li>在函式參數位置的 <code>numbers</code> ，則是參數集合在一個陣列之後，我們可以運用的變數。</li>
+<li>透過 <code>console.log(numbers);</code> ，獲得陣列型式的值。</li>
+</ol>
+<p>再往下看看這個例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">result</span>(<span class="params">a,b,...numbers</span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;a的值為: &#x27;</span> + a);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;b的值為: &#x27;</span> + b);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(numbers);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">result</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<p>如同一開始所提: <mark>其餘參數用於將一個不確定數量的參數集合在一個陣列中</mark>，而在其餘參數 <code>...</code> 之前有<code>a</code> 與<code>b</code> 兩個參數，因此<mark>其餘參數只會將扣除<code>a</code> 與<code>b</code> 後剩餘下的參數集合在陣列中。</mark></p>
+<p>所以會得到結果如下圖:</p>
+<p><img src="https://lh3.google.com/u/0/d/1v_NlRYtwQle2xFsPV-sKFXzp0ozzMgfV=w1444-h1498-iv1" alt="Day19-1"></p>
+<h3 id="其餘參數與-arguments-物件的比較"><a class="header-anchor" href="#其餘參數與-arguments-物件的比較"></a>其餘參數與 arguments 物件的比較:</h3>
+<p>再來要談談其餘參數與<code>arguments</code>物件的關係</p>
+<p><mark>其餘參數之所以被創造就是要用來取代ES5的<code>arguments</code>物件</mark></p>
+<p>而<code>arguments</code>物件，是類陣列(array-like)，<strong>因此不能使用陣列的多數方法</strong>:</p>
+<p>來看看這個測試的例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">result</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">result</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="https://lh3.google.com/u/0/d/1KtRqM1JAOyejMqG0Fdu6njBVXP4g3ONP=w1444-h1498-iv1" alt="Day19-2"></p>
+<p>如果想要將<code>arguments</code>物件轉為陣列，可以透過下面測試例子中的方法轉換。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">result</span>(<span class="params"></span>)&#123;</span><br><span class="line">    <span class="keyword">let</span> arg = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">slice</span>.<span class="title function_">call</span>(<span class="variable language_">arguments</span>)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(arg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">result</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<p>在ES6之前只有<code>arguments</code>物件可以使用時，可能還需要透過一些手法處理後才能使用陣列的方法，但ES6之後有了其餘參數一切都變得省事許多！</p>
+<p><img src="https://lh3.google.com/u/0/d/138_DQrA-7dgEOrITM7HF9kSROnJWYaZ2=w1444-h1498-iv2" alt="Day19-3"></p>
+<h2 id="展開運算子-Spread-operator-的使用"><a class="header-anchor" href="#展開運算子-Spread-operator-的使用"></a>展開運算子(Spread operator)的使用</h2>
+<h3 id="怎麼使用展開運算子"><a class="header-anchor" href="#怎麼使用展開運算子"></a>怎麼使用展開運算子:</h3>
+<ol>
+<li><strong>展開運算子的 <code>...</code> 後面必定是接一個陣列或物件</strong></li>
+<li>可以將一個陣列的元素值展開成個別值(簡化展開陣列的過程)</li>
+<li>可以將一個物件的可列舉特性拷貝到新的物件中</li>
+</ol>
+<p>看看這個測試例子幫助理解:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(...numbers);</span><br></pre></td></tr></table></figure>
+<p>可以獲得陣列值被展開的結果</p>
+<p>接下來讓我們將展開運算子運用在函式上:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> numbers = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params">a,b,c</span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b + c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> totalSum = <span class="title function_">sum</span>(...numbers);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(totalSum);</span><br></pre></td></tr></table></figure>
+<p>這裡的 <code>...</code> 為展開運算子，所以會將 <code>numbers</code> 的值展開給 <code>sum </code>函式的 <code>a,b,c</code>參數，於是會得到總和值為 <code>6</code> 。</p>
+<p>最後來看看將展開運算子用在物件上的使用:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>:<span class="string">&quot;Bill&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(obj,<span class="string">&#x27;habbit&#x27;</span>,&#123;</span><br><span class="line">  <span class="attr">value</span>:<span class="string">&quot;Read books&quot;</span>,</span><br><span class="line">  <span class="attr">enumerable</span>: <span class="literal">false</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj2 = &#123;...obj&#125;;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj2);</span><br></pre></td></tr></table></figure>
+<p>由程式碼可以知道，透過展開運算子可以更快速地將物件的<strong>可列舉特性</strong>拷貝給另一個物件。</p>
+<p>而且因為 <code>habbit</code> 特性被設定為不可列舉，所以即使使用展開運算子也無法將這個無法列舉的特性拷貝到 <code>obj2</code> 物件上。</p>
+<p>可以嘗試看看將 <code>enumerable: false</code> 改為 <code>enumerable: true</code>看看差別~</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/23/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day56-%E6%9F%A5%E6%89%BE%E7%89%B9%E5%AE%9Ali%E7%AF%80%E9%BB%9E%E7%9A%84%E7%B4%A2%E5%BC%95%E5%80%BC/" rel="prev" title="連續記錄挑戰Day56-查找特定li節點的索引值">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day56-查找特定li節點的索引值
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/10/10/%E5%82%B3%E5%80%BC-By-value-%E8%88%87%E5%82%B3%E5%8F%83%E8%80%83-By-reference/" rel="next" title="傳值(By value)與傳參考(By reference)">
+                  傳值(By value)與傳參考(By reference) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

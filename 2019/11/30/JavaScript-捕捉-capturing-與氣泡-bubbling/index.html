@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="今天要學習的部分是關於 DOM 的傳遞機制:捕捉與氣泡 在切入今日的主題之前，先快速了解一下 addEventListener 的語法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 捕捉(capturing)與氣泡(bubbling)">
+<meta property="og:url" content="https://penghuachen.github.io/2019/11/30/JavaScript-%E6%8D%95%E6%8D%89-capturing-%E8%88%87%E6%B0%A3%E6%B3%A1-bubbling/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="今天要學習的部分是關於 DOM 的傳遞機制:捕捉與氣泡 在切入今日的主題之前，先快速了解一下 addEventListener 的語法。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/GJskxuv.png">
+<meta property="og:image" content="https://i.imgur.com/bFRdwAF.png">
+<meta property="og:image" content="https://i.imgur.com/Uw4DWwQ.png">
+<meta property="og:image" content="https://i.imgur.com/UC99eGw.png">
+<meta property="og:image" content="https://i.imgur.com/UC99eGw.png">
+<meta property="og:image" content="https://i.imgur.com/Uw4DWwQ.png">
+<meta property="og:image" content="https://i.imgur.com/OddQ6ye.png">
+<meta property="article:published_time" content="2019-11-30T13:18:37.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.830Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/GJskxuv.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/11/30/JavaScript-%E6%8D%95%E6%8D%89-capturing-%E8%88%87%E6%B0%A3%E6%B3%A1-bubbling/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/11/30/JavaScript-%E6%8D%95%E6%8D%89-capturing-%E8%88%87%E6%B0%A3%E6%B3%A1-bubbling/","path":"2019/11/30/JavaScript-捕捉-capturing-與氣泡-bubbling/","title":"JavaScript 捕捉(capturing)與氣泡(bubbling)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaScript 捕捉(capturing)與氣泡(bubbling) | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#addEventListener"><span class="nav-number">1.</span> <span class="nav-text">addEventListener</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8D%95%E6%8D%89%E8%88%87%E6%B0%A3%E6%B3%A1"><span class="nav-number">2.</span> <span class="nav-text">捕捉與氣泡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#e-stopPropagation"><span class="nav-number">3.</span> <span class="nav-text">e.stopPropagation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#e-preventDefault"><span class="nav-number">4.</span> <span class="nav-text">e.preventDefault</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/11/30/JavaScript-%E6%8D%95%E6%8D%89-capturing-%E8%88%87%E6%B0%A3%E6%B3%A1-bubbling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaScript 捕捉(capturing)與氣泡(bubbling) | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript 捕捉(capturing)與氣泡(bubbling)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-11-30 21:18:37" itemprop="dateCreated datePublished" datetime="2019-11-30T21:18:37+08:00">2019-11-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>今天要學習的部分是關於 DOM 的傳遞機制:捕捉與氣泡</p>
+<p>在切入今日的主題之前，先快速了解一下 <code>addEventListener</code> 的語法。</p>
+<span id="more"></span>
+<h2 id="addEventListener"><a class="header-anchor" href="#addEventListener"></a><code>addEventListener</code></h2>
+<p>透過這個語法，我們可以將事件綁定在某個 HTML 元素上，並透過觸發的條件(如滑鼠點擊、按下鍵盤某一個按鍵等)進而得到需求的資訊並執行我們設定的行為。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target.<span class="title function_">addEventListener</span>(type, listener[, options]);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>type</code> : 表示要觸發的方式，例如 <code>click</code>、 <code>keydown</code> 等。</li>
+<li><code>listener</code>: 會是一個函式，用於當條件觸發時需要做的任務</li>
+<li><code>options</code>: 條件觸發時決定是在捕捉或氣泡階段執行。預設為 <code>false</code> ，此時表示於氣泡階段執行; <code>true</code> 則為捕捉階段。</li>
+</ul>
+<p>來看看 <code>addEventListener</code> 的測試例子:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">.box&#123;</span><br><span class="line">  width:100px;</span><br><span class="line">  height:100px;</span><br><span class="line">  background:#ccc;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.box&#x27;</span>);</span><br><span class="line">box.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,test,<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(e)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述就是一個透過 <code>addEventListener</code> 語法而設計的監聽事件，被監聽的對象是 <code>&lt;div&gt;</code> 元素，觸發條件為 <code>click</code> (滑鼠點擊時才觸發)，而作為監聽事件的 <code>test</code> 函式，會傳入一個 <code>e</code> 的參數，這個參數用於接收當事件被觸發時，可以獲得的對應訊息。</p>
+<h2 id="捕捉與氣泡"><a class="header-anchor" href="#捕捉與氣泡"></a>捕捉與氣泡</h2>
+<p>接下來要進入主題，關於捕捉與氣泡的規範可以到 <a target="_blank" rel="noopener" href="https://www.w3.org/TR/DOM-Level-3-Events/#event-flow">w3c event-flow</a> 詳讀，有著更詳細的圖例。</p>
+<p>而這裡為了搭配測試例子，所以簡化了 DOM 的結構。</p>
+<p>先直接來看圖，並透過圖貫穿後續的篇幅:</p>
+<p><img src="https://i.imgur.com/GJskxuv.png" alt="Day22-1"></p>
+<p>上圖為接下來程式碼的 DOM 結構，並標示出了捕捉與氣泡階段的位置，再來來看看測試例子:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  .container &#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: #aaaadd;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .text &#123;</span><br><span class="line">    background: #cccccc;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">  container area</span><br><span class="line">  &lt;p class=&quot;text&quot;&gt;Lorem ipsum dolor sit amet.&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> container = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.container&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> text = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.text&#x27;</span>);</span><br><span class="line"></span><br><span class="line">container.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, test, <span class="literal">true</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;點擊到的元素為: container&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">text.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, test2, <span class="literal">true</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test2</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;點擊到的元素為: text&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>HTML 畫面如下：</p>
+<p><img src="https://i.imgur.com/bFRdwAF.png" alt="Day22-2"></p>
+<ol>
+<li>
+<p><strong><code>container</code> 與 <code>text</code> 皆設定參數為<code>false</code></strong>，當點擊 <code>text</code> 時:<br>
+搭配剛剛的 DOM 結構圖驗證，表示兩者皆於氣泡階段執行，在氣泡階段的執行順序為先 <code>text</code> 在 <code>container</code>，所以會得到如圖的結果。<br>
+<img src="https://i.imgur.com/Uw4DWwQ.png" alt="Day22-3"></p>
+</li>
+<li>
+<p><strong><code>container</code> 與 <code>text</code> 皆設定參數為<code>true</code></strong>，當點擊 <code>text</code> 時:<br>
+表示兩者皆於捕捉階段執行，在捕捉階段的執行順序為先 <code>container</code> 在 <code>text</code>，所以會得到如圖的結果。<br>
+<img src="https://i.imgur.com/UC99eGw.png" alt="Day22-4"></p>
+</li>
+<li>
+<p><strong><code>container</code> 參數為<code>true</code> 而 <code>text</code> 參數為<code>false</code></strong>，當點擊 <code>text</code> 時:<br>
+表示<code>container</code> 在捕捉階段執行而 <code>text</code> 在氣泡階段執行。所以執行順序為先 <code>container</code> 在 <code>text</code>，所以會得到如圖的結果。<br>
+<img src="https://i.imgur.com/UC99eGw.png" alt="Day22-4"></p>
+</li>
+<li>
+<p><strong><code>container</code> 參數為<code>false</code> 而 <code>text</code> 參數為<code>true</code></strong> ，當點擊 <code>text</code> 時:<br>
+表示<code>container</code> 在氣泡階段執行而 <code>text</code> 在捕捉階段執行。所以執行順序為先 <code>text</code> 在 <code>container</code>，所以會得到如圖的結果。<br>
+<img src="https://i.imgur.com/Uw4DWwQ.png" alt="Day22-3"></p>
+</li>
+</ol>
+<h2 id="e-stopPropagation"><a class="header-anchor" href="#e-stopPropagation"></a><code>e.stopPropagation</code></h2>
+<p>因為傳遞機制，所以在點擊 <code>text</code> 元素時，也會因此讓 <code>container</code> 也在這個過程中觸發行為。</p>
+<p>但如果不想要這樣子的話，就必須使用 <code>e.stopPropagation()</code></p>
+<p><code>e.stopPropagation()</code> 可以阻止當前事件捕捉與冒泡的傳遞，如此就不會在這個過程中同時也觸發到其他元素。</p>
+<p>所以來將測試例子改寫一下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> container = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.container&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> text = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.text&#x27;</span>);</span><br><span class="line"></span><br><span class="line">container.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, test, <span class="literal">true</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;點擊到的元素為: container&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">text.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, test2, <span class="literal">true</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test2</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  e.<span class="title function_">stopPropagation</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;點擊到的元素為: text&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>當點擊 <code>text</code> 元素時，因為 <code>e.stopPropagation()</code> 會終止事件傳遞，所以可以得到如圖結果。</p>
+<p><img src="https://i.imgur.com/OddQ6ye.png" alt="Day22-5"></p>
+<h2 id="e-preventDefault"><a class="header-anchor" href="#e-preventDefault"></a><code>e.preventDefault</code></h2>
+<p>最後是如何取消元素自有的預設行為，舉例來說，當點擊 html 的 <code>&lt;a&gt;</code> 標籤時，會直接導向設定的連結。</p>
+<p>但有時候我們會希望先經過一些處理後才導向某個網址，這個時候就需要用到 <code>e.preventDefault()</code> 了。</p>
+<p>透過 <code>e.preventDefault</code> 可以將 HTML 的 <code>&lt;a&gt;</code> 標籤點擊後自動導向的默認行為取消，來看看測試例子</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href =&quot;http://www.google.com&quot; class=&quot;link&quot;&gt;This is a link&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> link  = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.link&#x27;</span>);</span><br><span class="line">link.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,test);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  e.<span class="title function_">preventDefault</span>();</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以嘗試將 <code>e.preventDefault()</code> 註解並看看差異性。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/11/22/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E5%BB%BA%E7%AB%8B-HTML-%E5%85%83%E7%B4%A0%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" rel="prev" title="透過 JavaScript 動態建立 HTML 元素的幾種方式">
+                  <i class="fa fa-chevron-left"></i> 透過 JavaScript 動態建立 HTML 元素的幾種方式
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/12/05/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E4%BF%AE%E6%94%B9CSS-%E6%A8%A3%E5%BC%8F%E3%80%81%E5%B1%AC%E6%80%A7/" rel="next" title="透過 JavaScript 動態修改CSS 樣式、屬性 ">
+                  透過 JavaScript 動態修改CSS 樣式、屬性  <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

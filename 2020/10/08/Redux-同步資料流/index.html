@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Redux 同步資料流 記得昨天 Redux 好朋友說今天要透過例子讓我更加了解運作的部分，而今天要先關於處理同步資料時的運作方式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redux 同步資料流">
+<meta property="og:url" content="https://penghuachen.github.io/2020/10/08/Redux-%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="Redux 同步資料流 記得昨天 Redux 好朋友說今天要透過例子讓我更加了解運作的部分，而今天要先關於處理同步資料時的運作方式。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/t4mBQa3.png">
+<meta property="article:published_time" content="2020-10-08T02:24:24.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.832Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/t4mBQa3.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/10/08/Redux-%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/10/08/Redux-%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81/","path":"2020/10/08/Redux-同步資料流/","title":"Redux 同步資料流"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redux 同步資料流 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redux-%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81"><span class="nav-number">1.</span> <span class="nav-text">Redux 同步資料流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E6%AD%A5%E6%AD%A5%E4%BE%86-%E5%BE%9E%E5%85%83%E4%BB%B6%E4%B8%AD%E9%96%8B%E5%A7%8B"><span class="nav-number">1.1.</span> <span class="nav-text">一步步來: 從元件中開始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A5%BD%E6%88%B2%E4%B8%8A%E5%A0%B4-%E5%B0%87-state-%E8%88%87%E4%BA%8B%E4%BB%B6%E6%90%AC%E5%88%B0-Redux-%E4%B8%AD%E3%80%82"><span class="nav-number">1.2.</span> <span class="nav-text">好戲上場: 將 state 與事件搬到 Redux 中。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%BA%90"><span class="nav-number">1.3.</span> <span class="nav-text">資源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/10/08/Redux-%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redux 同步資料流 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redux 同步資料流
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-08 10:24:24" itemprop="dateCreated datePublished" datetime="2020-10-08T10:24:24+08:00">2020-10-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>6k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Redux-同步資料流"><a class="header-anchor" href="#Redux-同步資料流"></a>Redux 同步資料流</h1>
+<p>記得昨天 Redux 好朋友說今天要透過例子讓我更加了解運作的部分，而今天要先關於<strong>處理同步資料時的運作方式。</strong></p>
+<span id="more"></span>
+<p>此外，還特地從元件中的 state 、事件一步步開始說明，然後再把 state 中的資料與事件搬到 Redux 中，真的很貼心。</p>
+<p>接著讓我們看看提供的例子:</p>
+<h2 id="一步步來-從元件中開始"><a class="header-anchor" href="#一步步來-從元件中開始"></a>一步步來: 從元件中開始</h2>
+<p>這邊 Redux 好朋友先描述了關於這個測試例子的操作情境:</p>
+<ol>
+<li><strong>元件中 state 有一個狀態 number，初始值為 0</strong></li>
+<li>有一個事件: incrementHandler，用來更新 number 的值，每次點擊按鈕時 ＋１。</li>
+<li>有一個事件: decrementHandler，用來更新 number 的值，每次點擊按鈕時 -１。</li>
+</ol>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/recursing-elbakyan-1zdw7?file=/src/App.js:276-292">點擊前往</a></p>
+<h2 id="好戲上場-將-state-與事件搬到-Redux-中。"><a class="header-anchor" href="#好戲上場-將-state-與事件搬到-Redux-中。"></a>好戲上場: 將 state 與事件搬到 Redux 中。</h2>
+<p>接著就是今天的重頭戲，將 state 與事件搬到 Redux 中。</p>
+<p>這邊 Redux 好朋友再次幫我們條列的一個流程:</p>
+<ol>
+<li>安裝 redux, react-redux</li>
+<li>建立 Redux store 物件、 createStore 方法</li>
+<li>在 store 資料夾中建立 rootReducer.js，並建立 Reducer 方法, 初始 state，將 Reducer 方法作為 createStore 參數傳入。</li>
+<li>將 Redux store 物件透過 react-redux 中的 Provider 提供給 App 元件</li>
+<li>在 React 元件中透過 redux 中的 connect 方法讓 React 元件可以和 redux store 連接。</li>
+<li>透過在 React 元件中設定:
+<ul>
+<li>mapStateToProps: 將 Redux store 物件 state 中需要的值提供給 React 元件。</li>
+<li>mapDispatchToProps: 在 React 元件中調用方法，透過方法 dispatch 一個 action，讓 Store 知道是哪一個事件需要被觸發並執行 state 的更新。</li>
+</ul>
+</li>
+</ol>
+<p>接著讓我們看看在範例中依序的設定:</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/zen-volhard-vwu29">點擊前往</a></p>
+<p>首先是安裝 redux, react-redux，這部分應該沒有難度，只需要注意<strong>版本的問題</strong>，在 React 版本 &gt; 16 以上才可以使用。</p>
+<p>接著會將幾個流程一次設定好，在 index.js 中:</p>
+<ol>
+<li>建立 store 物件與引入  createStore 函式</li>
+<li>在 src 資料夾中建立 store 資料夾，建立 rootReducer 方法並引入到 index.js</li>
+<li>將 Redux store 物件透過 react-redux 中的 Provider 提供給 App 元件</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ReactDOM</span> <span class="keyword">from</span> <span class="string">&quot;react-dom&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&quot;./App&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">&quot;redux&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; rootReducer &#125; <span class="keyword">from</span> <span class="string">&quot;./store/rootReducer&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Provider</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rootElement = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;root&quot;</span>);</span><br><span class="line"><span class="keyword">const</span> store = <span class="title function_">createStore</span>(rootReducer);</span><br><span class="line"></span><br><span class="line"><span class="title class_">ReactDOM</span>.<span class="title function_">render</span>(</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">React.StrictMode</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">App</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">React.StrictMode</span>&gt;</span></span>,</span><br><span class="line">  rootElement</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>接著我們在 React 元件中設定:</p>
+<ol>
+<li>透過 react-redux 中的 connect 方法將 react 元件與 redux 的 store 連接。</li>
+<li>先設定 mapStateToProps，將 Redux 中的 state，依據需求在 React 元件中 取得。</li>
+<li>然後設定 mapDispatchToProps，透過 dispatch 一個 action，讓 store 知道是 action type 中 INCREMENTHANDLER、DECREMENTHANDLER 或 incrementTenNumberHandler 在元件中發出一個更新 state 的事件，而在 React 元件中，我們透過 props 的方式取得呼叫這些方法。</li>
+<li>最後為了讓 state 的更新可以更加的有彈性，透過當箭頭函式 dispatch 一個 action 時，將 number 傳入作為 payload 的資料傳到 store 中，在更新上可以更加的有彈性。</li>
+</ol>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>數字: &#123;this.props.number&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.props.incrementHandler&#125;</span>&gt;</span>點擊 + 1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.props.decrementHandler&#125;</span>&gt;</span>點擊 - 1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">            this.props.incrementTenNumberHandler(this.props.number);</span></span><br><span class="line"><span class="language-xml">          &#125;&#125;</span></span><br><span class="line"><span class="language-xml">        &gt;</span></span><br><span class="line"><span class="language-xml">          由當前數字 + 10</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">mapStateToProps</span> = (<span class="params">state</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">number</span>: state.<span class="property">number</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">mapDispatchToProps</span> = (<span class="params">dispatch</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">incrementHandler</span>: <span class="function">() =&gt;</span> <span class="title function_">dispatch</span>(&#123; <span class="attr">type</span>: <span class="string">&quot;INCREMENTHANDLER&quot;</span> &#125;),</span><br><span class="line">    <span class="attr">decrementHandler</span>: <span class="function">() =&gt;</span> <span class="title function_">dispatch</span>(&#123; <span class="attr">type</span>: <span class="string">&quot;DECREMENTHANDLER&quot;</span> &#125;),</span><br><span class="line">    <span class="attr">incrementTenNumberHandler</span>: <span class="function">(<span class="params">number</span>) =&gt;</span></span><br><span class="line">      <span class="title function_">dispatch</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&quot;INCREMENTTENNUMBERHANDLER&quot;</span>,</span><br><span class="line">        <span class="attr">payload</span>: &#123;</span><br><span class="line">          number</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">connect</span>(mapStateToProps, mapDispatchToProps)(<span class="title class_">App</span>);</span><br></pre></td></tr></table></figure>
+<p>在 rootReducer 方法中的設定，透過<strong>判斷 action.type 決定觸發哪一個更新 state 的流程。</strong></p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = &#123;</span><br><span class="line">  <span class="attr">number</span>: <span class="number">0</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">rootReducer</span> = (<span class="params">state = initialState, action</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.<span class="property">type</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;INCREMENTHANDLER&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">number</span>: state.<span class="property">number</span> + <span class="number">1</span></span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;DECREMENTHANDLER&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">number</span>: state.<span class="property">number</span> - <span class="number">1</span></span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;INCREMENTTENNUMBERHANDLER&quot;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">number</span>: action.<span class="property">payload</span>.<span class="property">number</span> + <span class="number">10</span></span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>以上就是一個 Redux 同步資料流的處理，基本上這樣子就是一個簡單又完整在 React 中使用 Redux 管理共同 state 的方式。</p>
+<p>而最後 redux 好朋友還偷偷告訴我們一個秘訣，為了讓 <strong>lint 工具方便檢查到錯誤，以及讓開發團隊可以更好了解使用了哪些 action types 的時候，這邊透過新增一個 action-types 的檔案來管理。</strong></p>
+<p>方式很簡單，將所有目前使用到的 action 都在 action-types 集中管理，並透過匯出的方式在 React 元件、 Redux 中使用。</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/stupefied-dust-9hqcy?file=/src/store/action-types.js">點擊前往</a></p>
+<p>在 action-types 這隻檔案中會看到這樣子的管理：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">INCREMENTHANDLER</span> = <span class="string">&quot;INCREMENTHANDLER&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">DECREMENTHANDLER</span> = <span class="string">&quot;DECREMENTHANDLER&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">INCREMENTTENNUMBERHANDLER</span> = <span class="string">&quot;INCREMENTTENNUMBERHANDLER&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>在 rootReducer 中則會改寫如下:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> actionTypes <span class="keyword">from</span> <span class="string">&#x27;./action-types&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> initialState = &#123;</span><br><span class="line">  <span class="attr">number</span>: <span class="number">0</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">rootReducer</span> = (<span class="params">state = initialState, action</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.<span class="property">type</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> actionTypes.<span class="property">INCREMENTHANDLER</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">number</span>: state.<span class="property">number</span> + <span class="number">1</span></span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="keyword">case</span> actionTypes.<span class="property">DECREMENTHANDLER</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">number</span>: state.<span class="property">number</span> - <span class="number">1</span></span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="keyword">case</span> actionTypes.<span class="property">INCREMENTTENNUMBERHANDLER</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        <span class="attr">number</span>: action.<span class="property">payload</span>.<span class="property">number</span> + <span class="number">10</span></span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在 App.js 中則會改寫如下:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&quot;react-redux&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> actionTypes <span class="keyword">from</span> <span class="string">&quot;./store/action-types&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">App</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>數字: &#123;this.props.number&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.props.incrementHandler&#125;</span>&gt;</span>點擊 + 1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.props.decrementHandler&#125;</span>&gt;</span>點擊 - 1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">button</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">          <span class="attr">onClick</span>=<span class="string">&#123;()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">            this.props.incrementTenNumberHandler(this.props.number);</span></span><br><span class="line"><span class="language-xml">          &#125;&#125;</span></span><br><span class="line"><span class="language-xml">        &gt;</span></span><br><span class="line"><span class="language-xml">          由當前數字 + 10</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">mapStateToProps</span> = (<span class="params">state</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">number</span>: state.<span class="property">number</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">mapDispatchToProps</span> = (<span class="params">dispatch</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">incrementHandler</span>: <span class="function">() =&gt;</span> <span class="title function_">dispatch</span>(&#123; <span class="attr">type</span>: actionTypes.<span class="property">INCREMENTHANDLER</span> &#125;),</span><br><span class="line">    <span class="attr">decrementHandler</span>: <span class="function">() =&gt;</span> <span class="title function_">dispatch</span>(&#123; <span class="attr">type</span>: actionTypes.<span class="property">DECREMENTHANDLER</span> &#125;),</span><br><span class="line">    <span class="attr">incrementTenNumberHandler</span>: <span class="function">(<span class="params">number</span>) =&gt;</span></span><br><span class="line">      <span class="title function_">dispatch</span>(&#123;</span><br><span class="line">        <span class="attr">type</span>: actionTypes.<span class="property">INCREMENTTENNUMBERHANDLER</span>,</span><br><span class="line">        <span class="attr">payload</span>: &#123;</span><br><span class="line">          number</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">connect</span>(mapStateToProps, mapDispatchToProps)(<span class="title class_">App</span>);</span><br></pre></td></tr></table></figure>
+<p>所以當我們在 dispatch 一個 action 時如果有拼寫不對等等的錯誤時，可以得到類似以下的錯誤訊息：</p>
+<p><img src="https://i.imgur.com/t4mBQa3.png" alt=""></p>
+<p>透過 lint 等工具可以讓我們更快知道問題發生的位置。</p>
+<p>以上就是 Redux 好朋友在今天跟我們分享的部分，但是它冷冷的補了一句：「你以為結束了嗎? 不，這其實剛開始…」。</p>
+<p>於是明天要進入的是 Redux 的另外一個重點: 非同步資料流。</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<p>我們明天見。</p>
+<h2 id="資源"><a class="header-anchor" href="#資源"></a>資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://react-redux.js.org/introduction/quick-start">React-Redux</a></li>
+<li><a target="_blank" rel="noopener" href="https://redux.js.org/basics/usage-with-react">Redux</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/07/Redux-%E8%A7%80%E5%BF%B5%E5%88%9D%E6%8E%A2/" rel="prev" title="Redux 觀念初探">
+                  <i class="fa fa-chevron-left"></i> Redux 觀念初探
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/09/Redux-%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E8%99%95%E7%90%86-%E4%BD%BF%E7%94%A8-Redux-Thunk/" rel="next" title="Redux 非同步資料處理 - 使用 Redux Thunk">
+                  Redux 非同步資料處理 - 使用 Redux Thunk <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

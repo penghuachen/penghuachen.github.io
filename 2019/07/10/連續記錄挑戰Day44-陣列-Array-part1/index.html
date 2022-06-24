@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="陣列(Array) 今天的學習紀錄要記錄的是陣列的部分，著重的重點在於什麼是陣列及如何使用陣列。 關於陣列的相關方法則會在後面的篇幅做詳細的介紹與運用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="連續記錄挑戰Day44-陣列-Array-part1">
+<meta property="og:url" content="https://penghuachen.github.io/2019/07/10/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day44-%E9%99%A3%E5%88%97-Array-part1/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="陣列(Array) 今天的學習紀錄要記錄的是陣列的部分，著重的重點在於什麼是陣列及如何使用陣列。 關於陣列的相關方法則會在後面的篇幅做詳細的介紹與運用。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/NvN49Xu.png">
+<meta property="article:published_time" content="2019-07-10T11:21:00.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.844Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/NvN49Xu.png">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/07/10/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day44-%E9%99%A3%E5%88%97-Array-part1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/07/10/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day44-%E9%99%A3%E5%88%97-Array-part1/","path":"2019/07/10/連續記錄挑戰Day44-陣列-Array-part1/","title":"連續記錄挑戰Day44-陣列-Array-part1"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>連續記錄挑戰Day44-陣列-Array-part1 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%A3%E5%88%97-Array"><span class="nav-number">1.</span> <span class="nav-text">陣列(Array)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%9C%E6%96%BC%E9%99%A3%E5%88%97"><span class="nav-number">1.1.</span> <span class="nav-text">關於陣列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E9%99%A3%E5%88%97%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">建立陣列的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%A3%E5%88%97%E8%AE%80%E5%8F%96%E8%88%87%E5%AF%AB%E5%85%A5%E5%85%83%E7%B4%A0"><span class="nav-number">1.3.</span> <span class="nav-text">陣列讀取與寫入元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%A3%E5%88%97%E9%95%B7%E5%BA%A6"><span class="nav-number">1.4.</span> <span class="nav-text">陣列長度</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/07/10/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day44-%E9%99%A3%E5%88%97-Array-part1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="連續記錄挑戰Day44-陣列-Array-part1 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          連續記錄挑戰Day44-陣列-Array-part1
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-07-10 19:21:00" itemprop="dateCreated datePublished" datetime="2019-07-10T19:21:00+08:00">2019-07-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>1 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="陣列-Array"><a class="header-anchor" href="#陣列-Array"></a>陣列(Array)</h1>
+<p>今天的學習紀錄要記錄的是陣列的部分，著重的重點在於什麼是陣列及如何使用陣列。</p>
+<p>關於陣列的相關方法則會在後面的篇幅做詳細的介紹與運用。</p>
+<span id="more"></span>
+<h2 id="關於陣列"><a class="header-anchor" href="#關於陣列"></a>關於陣列</h2>
+<p>陣列是什麼？在ES6大全中提到了關於陣列的定義與一些特性:</p>
+<ol>
+<li>
+<p>是<strong>一組值的有序群集</strong>，而值也稱為元素(element)，數值所在的位置稱為索引(index)</p>
+</li>
+<li>
+<p><strong>陣列的索引值從0開始</strong></p>
+</li>
+</ol>
+<p><img src="https://i.imgur.com/NvN49Xu.png" alt=""></p>
+<ol start="3">
+<li>陣列中的元素可以是不同型別的組成</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a =[<span class="number">1</span>,<span class="string">&#x27;Hello world&#x27;</span>,&#123;<span class="attr">name</span>:<span class="string">&#x27;Bill&#x27;</span>&#125;];</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>陣列是<strong>一種特殊形式的物件</strong>，所以其實也可以透過物件指定值的方法將值新增到陣列</li>
+</ol>
+<p>先複習一下將值指定給物件的其中一種方式:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj=&#123;&#125;;</span><br><span class="line">obj[<span class="string">&#x27;str&#x27;</span>] = <span class="string">&quot;Hello world&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="property">str</span>); <span class="comment">// &#123;str:2&#125;</span></span><br></pre></td></tr></table></figure>
+<p>然後再看看下面的例子，透過任意字串作為索引值:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [];</span><br><span class="line">a[<span class="string">&quot;str&quot;</span>] = <span class="number">2</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// [str:2]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a.<span class="property">length</span>); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+<p>但有一點需要注意的是，<strong>透過上述的方式所新增的元素，是不會計入陣列長度計算的。</strong></p>
+<p>所以使用數字作為索引值存取陣列才是比較好的方式。</p>
+<ol start="5">
+<li>自Array.prototype繼承特性，且Array.prototype定義了ㄧ組陣列操作方法，不只可以在陣列使用，而部分的方法也可以在類陣列(array-like)中使用</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以查看陣列的原型物件定義了哪些方法</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>);</span><br></pre></td></tr></table></figure>
+<h2 id="建立陣列的方法"><a class="header-anchor" href="#建立陣列的方法"></a>建立陣列的方法</h2>
+<ol>
+<li>陣列字面值</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [];</span><br><span class="line"><span class="keyword">let</span> b = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>];</span><br><span class="line"><span class="comment">// 指定陣列位置並賦予值</span></span><br><span class="line">b[<span class="number">4</span>]=<span class="number">5</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b);</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Array 建構式:
+<ul>
+<li>不帶引數的呼叫：等同空陣列<code>[]</code></li>
+<li>帶入單一數值作為引數的呼叫：用於指定陣列的長度</li>
+<li>帶入兩個(含)以上的元素或者單一非數值作為引數的呼叫：建立陣列並將元素依序放入</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line"><span class="comment">//[]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="number">10</span>);</span><br><span class="line"><span class="comment">//[empty x 10]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(b);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="number">1</span>,<span class="number">4</span>,<span class="string">&quot;test&quot;</span>);</span><br><span class="line"><span class="comment">//[1,4,&quot;test&quot;]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(c);</span><br></pre></td></tr></table></figure>
+<h2 id="陣列讀取與寫入元素"><a class="header-anchor" href="#陣列讀取與寫入元素"></a>陣列讀取與寫入元素</h2>
+<ul>
+<li>讀取：透過 <code>array[index]</code> 讀取陣列中index位置的元素</li>
+<li>寫入：透過 <code>array[index] = element</code> 的方式將元素新增到陣列索引值為index的位置</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a =[<span class="string">&#x27;test&#x27;</span>];</span><br><span class="line"><span class="comment">//陣列元素讀取，取得test</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a[<span class="number">0</span>]); </span><br><span class="line"></span><br><span class="line"><span class="comment">//元素寫入陣列，放在陣列索引為1的位置</span></span><br><span class="line">a[<span class="number">1</span>] = <span class="string">&#x27;add element&#x27;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a); </span><br></pre></td></tr></table></figure>
+<h2 id="陣列長度"><a class="header-anchor" href="#陣列長度"></a>陣列長度</h2>
+<ul>
+<li>可以得到該陣列的總長度</li>
+<li>array.length</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(a,a[<span class="number">0</span>],&#123;</span><br><span class="line">    <span class="attr">writable</span>:<span class="literal">false</span>,</span><br><span class="line">    <span class="attr">configurable</span>:<span class="literal">false</span>,</span><br><span class="line">    <span class="attr">enumerable</span>:<span class="literal">false</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/09/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day43-%E7%89%A9%E4%BB%B6-Object-part3/" rel="prev" title="連續記錄挑戰Day43-物件-Object-part3">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day43-物件-Object-part3
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/11/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day45-%E9%99%A3%E5%88%97-Array-part2/" rel="next" title="連續記錄挑戰Day45-陣列-Array-part2">
+                  連續記錄挑戰Day45-陣列-Array-part2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

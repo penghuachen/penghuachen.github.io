@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="透過JS動態修改CSS樣式、屬性是很常有的事情，所以這個篇幅就來看些關於修改的方式吧! 動態修改CSS樣式 在修改CSS樣式的起手式不外乎常用的應該就是下列兩種方式:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="透過 JavaScript 動態修改CSS 樣式、屬性 ">
+<meta property="og:url" content="https://penghuachen.github.io/2019/12/05/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E4%BF%AE%E6%94%B9CSS-%E6%A8%A3%E5%BC%8F%E3%80%81%E5%B1%AC%E6%80%A7/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="透過JS動態修改CSS樣式、屬性是很常有的事情，所以這個篇幅就來看些關於修改的方式吧! 動態修改CSS樣式 在修改CSS樣式的起手式不外乎常用的應該就是下列兩種方式:">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2019-12-05T15:34:29.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.838Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/12/05/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E4%BF%AE%E6%94%B9CSS-%E6%A8%A3%E5%BC%8F%E3%80%81%E5%B1%AC%E6%80%A7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/12/05/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E4%BF%AE%E6%94%B9CSS-%E6%A8%A3%E5%BC%8F%E3%80%81%E5%B1%AC%E6%80%A7/","path":"2019/12/05/透過-JavaScript-動態修改CSS-樣式、屬性/","title":"透過 JavaScript 動態修改CSS 樣式、屬性 "}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>透過 JavaScript 動態修改CSS 樣式、屬性  | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8B%95%E6%85%8B%E4%BF%AE%E6%94%B9CSS%E6%A8%A3%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">動態修改CSS樣式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%83%8C%E6%99%AF%E9%A1%8F%E8%89%B2"><span class="nav-number">1.1.</span> <span class="nav-text">修改背景顏色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E5%AD%97%E9%A1%8F%E8%89%B2"><span class="nav-number">1.2.</span> <span class="nav-text">修改文字顏色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%82%8A%E6%A1%86-border"><span class="nav-number">1.3.</span> <span class="nav-text">修改邊框(border)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-margin-%E3%80%81-padding"><span class="nav-number">1.4.</span> <span class="nav-text">修改 margin 、 padding</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%B1%E8%97%8F%E6%BA%A2%E5%87%BA%E5%85%A7%E5%AE%B9-overflow"><span class="nav-number">2.</span> <span class="nav-text">隱藏溢出內容(overflow)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%B1%AC%E6%80%A7%E7%9A%84%E5%80%BC"><span class="nav-number">2.1.</span> <span class="nav-text">修改屬性的值</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/12/05/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E4%BF%AE%E6%94%B9CSS-%E6%A8%A3%E5%BC%8F%E3%80%81%E5%B1%AC%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="透過 JavaScript 動態修改CSS 樣式、屬性  | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          透過 JavaScript 動態修改CSS 樣式、屬性 
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-12-05 23:34:29" itemprop="dateCreated datePublished" datetime="2019-12-05T23:34:29+08:00">2019-12-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>3.5k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>透過JS動態修改CSS樣式、屬性是很常有的事情，所以這個篇幅就來看些關於修改的方式吧!</p>
+<h2 id="動態修改CSS樣式"><a class="header-anchor" href="#動態修改CSS樣式"></a>動態修改CSS樣式</h2>
+<p>在修改CSS樣式的起手式不外乎常用的應該就是下列兩種方式:</p>
+<span id="more"></span>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(id).<span class="property">style</span>.<span class="property">property</span> = <span class="keyword">new</span> style;</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(classname/id/...).<span class="property">style</span>.<span class="property">property</span> = <span class="keyword">new</span> style;</span><br><span class="line">... </span><br></pre></td></tr></table></figure>
+<p>而上面的寫法與下面的寫法相同:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(id).<span class="property">style</span> = <span class="attr">property</span>:<span class="keyword">new</span> style;</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(classname/id/...).<span class="property">style</span> = <span class="attr">property</span>:<span class="keyword">new</span> style;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>接下來就來運用看看吧!</p>
+<h3 id="修改背景顏色"><a class="header-anchor" href="#修改背景顏色"></a>修改背景顏色</h3>
+<ul>
+<li>HTML程式碼:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  .box &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: yellow;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>JS程式碼:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.box&#x27;</span>);</span><br><span class="line">  box.<span class="property">style</span>.<span class="property">backgroundColor</span> = <span class="string">&quot;black&quot;</span>;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>上下兩種寫法都可以正常執行</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.box&#x27;</span>);</span><br><span class="line">  box.<span class="property">style</span> = <span class="string">&quot;background-color:black&quot;</span>;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>原本的css設定 <code>box</code> 元素背景色為黃色，但被動態修改背景色為黑色了。</p>
+<h3 id="修改文字顏色"><a class="header-anchor" href="#修改文字顏色"></a>修改文字顏色</h3>
+<ul>
+<li>HTML程式碼:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  .box &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: yellow;</span><br><span class="line">  &#125;</span><br><span class="line">  .box p&#123;</span><br><span class="line">    color: blue;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;box&quot;&gt;</span><br><span class="line">  &lt;p&gt;This is test text.&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>JS程式碼:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> paragraph = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.box p&#x27;</span>);</span><br><span class="line">  paragraph.<span class="property">style</span>.<span class="property">color</span> = <span class="string">&quot;red&quot;</span>;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>透過 <code>element.style.color</code> 將 <code>&lt;p&gt;</code> 的文字顏色從藍色修改為紅色了</p>
+<h3 id="修改邊框-border"><a class="header-anchor" href="#修改邊框-border"></a>修改邊框(border)</h3>
+<ul>
+<li>HTML程式碼:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">  .box &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: yellow;</span><br><span class="line">    border: 1px solid #ccc;</span><br><span class="line">    outline : 1px solid #f00;</span><br><span class="line">  &#125;</span><br><span class="line">  .box p&#123;</span><br><span class="line">    color: blue;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;box&quot;&gt;</span><br><span class="line">  &lt;p&gt;This is test text.&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>JS程式碼:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.box&#x27;</span>);</span><br><span class="line">  box.<span class="property">style</span>.<span class="property">border</span> = <span class="string">&quot;5px solid red&quot;</span>;</span><br><span class="line">  box.<span class="property">style</span>.<span class="property">outline</span> = <span class="string">&quot;3px solid blue&quot;</span>;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>原本的 css設定， <code>box</code> 的 <code>border</code> 為灰色、寬度為 <code>1px</code>， <code>outline</code> 為紅色、寬度為 <code>1px</code></p>
+<p>動態修改 <code>box</code> 的 <code>border</code> 變為紅色、寬度為 <code>5px</code>、<code>outline</code> 為藍色、寬度為 <code>3px</code></p>
+<h3 id="修改-margin-、-padding"><a class="header-anchor" href="#修改-margin-、-padding"></a>修改 margin 、 padding</h3>
+<ul>
+<li>HTML程式碼:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">.box &#123;</span><br><span class="line">  width: 100px;</span><br><span class="line">  height: 100px;</span><br><span class="line">  background: yellow;</span><br><span class="line">  border: 1px solid #ccc;</span><br><span class="line">  outline : 1px solid #f00;</span><br><span class="line">&#125;</span><br><span class="line">.box p&#123;</span><br><span class="line">  color: blue;</span><br><span class="line">  padding: 10px;</span><br><span class="line">  margin:15px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;box&quot;&gt;</span><br><span class="line">  &lt;p&gt;This is test text.&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>JS程式碼:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> paragraph = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.box p&#x27;</span>);</span><br><span class="line">  paragraph.<span class="property">style</span>.<span class="property">padding</span> = <span class="string">&quot;5px&quot;</span>;</span><br><span class="line">  paragraph.<span class="property">style</span>.<span class="property">margin</span> = <span class="string">&quot;5px&quot;</span>;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>透過瀏覽器開發工具，可以查看 <code>&lt;p&gt;</code> 的 <code>margin</code> 從原本的 <code>15px</code> 動態已經修改為 <code>5px</code>; <code>padding</code> 從原本的 <code>10px</code> 動態被修改為 <code>5px</code> 。</p>
+<h2 id="隱藏溢出內容-overflow"><a class="header-anchor" href="#隱藏溢出內容-overflow"></a>隱藏溢出內容(overflow)</h2>
+<ul>
+<li>HTML程式碼:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">.box &#123;</span><br><span class="line">  width: 100px;</span><br><span class="line">  height: 100px;</span><br><span class="line">  background: yellow;</span><br><span class="line">&#125;</span><br><span class="line">.box p&#123;</span><br><span class="line">  color: blue;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;box&quot;&gt;</span><br><span class="line">  &lt;p&gt;Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati reiciendis impedit sequi adipisci dolores</span><br><span class="line">    libero quidem quod accusamus, possimus doloremque corrupti nostrum id dolorem autem quo architecto eos quasi ut?</span><br><span class="line">  &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>JS程式碼:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">var</span> paragraph = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.box p&#x27;</span>);</span><br><span class="line">  paragraph.<span class="property">style</span>.<span class="property">overflow</span> = <span class="string">&quot;scroll&quot;</span>;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>原本文字內容多餘 <code>box</code> 高度導致內容溢出，所以動態設定 <code>box</code> 的 <code>overflow</code> 特性，使多出來的元素內容可以以滾軸方式呈現。</p>
+<h3 id="修改屬性的值"><a class="header-anchor" href="#修改屬性的值"></a>修改屬性的值</h3>
+<ul>
+<li>HTML程式碼:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;#&quot;&gt;This is a link&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>JS程式碼:</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">const</span> link = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">  link.<span class="title function_">setAttribute</span>(<span class="string">&#x27;href&#x27;</span>, <span class="string">&#x27;http://www.google.com&#x27;</span>);</span><br><span class="line">  link.<span class="title function_">setAttribute</span>(<span class="string">&#x27;class&#x27;</span>, <span class="string">&#x27;link&#x27;</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(link.<span class="title function_">getAttribute</span>(<span class="string">&#x27;href&#x27;</span>));</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p><code>setAttribute('attribute','value')</code>，透過這個語法可以動態<mark>修改 HTML 標籤中的屬性及新增屬性。</mark></p>
+<p>如同測試例子中 <code>&lt;a&gt;</code> 的 <code>href</code> 屬性的值從原本的 <code>#</code> 被修改為 <code>http://www.google.com</code>;也同時新增了 <code>class=&quot;link&quot;</code> 給 <code>&lt;a&gt;</code> 標籤。</p>
+<p>而 <code>getAttribute(propety)</code> ，則是<mark>可以從 HTML 標籤取得屬性(Attribute)的值。</mark></p>
+<p>關於學習一些常用的 avaScript 動態修改CSS 樣式、屬性的方式就先到這裡囉</p>
+<p>明天見~</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/11/30/JavaScript-%E6%8D%95%E6%8D%89-capturing-%E8%88%87%E6%B0%A3%E6%B3%A1-bubbling/" rel="prev" title="JavaScript 捕捉(capturing)與氣泡(bubbling)">
+                  <i class="fa fa-chevron-left"></i> JavaScript 捕捉(capturing)與氣泡(bubbling)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/12/07/JavaScript-Ajax%E5%8F%8AXMLHttpRequest%E7%89%A9%E4%BB%B6/" rel="next" title="JavaScript Ajax及XMLHttpRequest物件">
+                  JavaScript Ajax及XMLHttpRequest物件 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="JavaScript 的 this 怎能不知道 思來想去，還是決定先將我理解的 this 用兩句話做個結論，再由此延伸後續的詳細差別。  在 ES6 之前，決定this的方式取決於函式如何被呼叫，除非直接指定 this  (例如: bind 、 call 、 apply 方法)。 在 ES6 之後，箭頭函式對於this的綁定則有了重新的定義。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="連續記錄挑戰Day48-this">
+<meta property="og:url" content="https://penghuachen.github.io/2019/07/14/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day48-this/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="JavaScript 的 this 怎能不知道 思來想去，還是決定先將我理解的 this 用兩句話做個結論，再由此延伸後續的詳細差別。  在 ES6 之前，決定this的方式取決於函式如何被呼叫，除非直接指定 this  (例如: bind 、 call 、 apply 方法)。 在 ES6 之後，箭頭函式對於this的綁定則有了重新的定義。">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1Inm0L-x72-2Hglvkb3NQCQy-6Cth0GNO=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1zPeo6oBRWEZ5U7Sx5Yw4hKJQweoTlGWY=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1dHO6FJ_734pxVckfxEmCgXn5b6vCriYz=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1BPoD-1Oyi0IHNV6Jt5dE-YC_bm-1LyGj=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1C5D6xL6LzPJgwqqX3eE_LzvHJPBF9nOI=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/167_GlrhL61N0cjpBr1eqdkAD0ESJQZ5A=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1rT_ySHAVkmiXG893z0Kj4pXp0Yxw-EkP=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1vD84IxHfNq6EQ2X1S-pXyb_mN0Q-PIdd=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1uHJ0G7Z4Q3avUjIyUIQI5c_IDxu_sMYC=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1RNd0bEpmd8wWe9rIGZTNUn3BRW5WOeva=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1_EOQieUqWb6ZafLwN33B2ZzdHGfJvyle=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1ojdayKV99LfsU60Qi6a4X1DptpxE6QVj=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1_NurCl_g7pYzL8SfqVF-O4UuSLFFEJig=w1298-h1498-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/1Ugi0uzmUMuFg1DvUTWERgoscJJ_Du6Tz=w1314-h1530-iv1">
+<meta property="og:image" content="https://lh3.google.com/u/0/d/16PG6Wdt74WMthgCvhQRvLz5EQ_6anmp2=w1314-h1530-iv1">
+<meta property="article:published_time" content="2019-07-14T11:17:53.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.845Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lh3.google.com/u/0/d/1Inm0L-x72-2Hglvkb3NQCQy-6Cth0GNO=w1298-h1498-iv1">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/07/14/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day48-this/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/07/14/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day48-this/","path":"2019/07/14/連續記錄挑戰Day48-this/","title":"連續記錄挑戰Day48-this"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>連續記錄挑戰Day48-this | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript-%E7%9A%84-this-%E6%80%8E%E8%83%BD%E4%B8%8D%E7%9F%A5%E9%81%93"><span class="nav-number">1.</span> <span class="nav-text">JavaScript 的 this 怎能不知道</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6%E4%B9%8B%E5%89%8D%E7%9A%84-this"><span class="nav-number">1.1.</span> <span class="nav-text">ES6之前的 this</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E9%BA%BC%E6%98%AF%E5%85%A8%E5%9F%9F"><span class="nav-number">1.1.1.</span> <span class="nav-text">什麼是全域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8-this"><span class="nav-number">1.1.2.</span> <span class="nav-text">直接使用 this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5%E5%91%BC%E5%8F%AB%E5%87%BD%E5%BC%8F"><span class="nav-number">1.1.3.</span> <span class="nav-text">直接呼叫函式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9A%B4%E6%A0%BC%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84-this"><span class="nav-number">1.1.4.</span> <span class="nav-text">嚴格模式下的 this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%E5%91%BC%E5%8F%AB%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.5.</span> <span class="nav-text">物件呼叫方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#that-%E3%80%81-self-%E6%80%8E%E9%BA%BC%E7%94%A8"><span class="nav-number">1.1.6.</span> <span class="nav-text">that 、 self 怎麼用?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E4%BA%8B%E4%BB%B6-event-%E4%B8%AD%E7%9A%84-this"><span class="nav-number">1.1.7.</span> <span class="nav-text">在事件(event)中的 this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%8B%E5%8D%B3%E5%87%BD%E5%BC%8F-Immediately-Invoked-Function-Expression-IIFE-%E7%9A%84-this"><span class="nav-number">1.1.8.</span> <span class="nav-text">立即函式(Immediately Invoked Function Expression, IIFE)的 this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-call%E3%80%81apply-%E5%8F%8A-bind-%E6%8C%87%E5%AE%9A-this-%E7%9A%84%E5%80%BC"><span class="nav-number">1.1.9.</span> <span class="nav-text">使用 call、apply 及 bind 指定 this 的值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Function-prototype-call"><span class="nav-number">1.1.9.1.</span> <span class="nav-text">Function.prototype.call</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Function-prototype-apply"><span class="nav-number">1.1.9.2.</span> <span class="nav-text">Function.prototype.apply()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Function-prototype-bind"><span class="nav-number">1.1.9.3.</span> <span class="nav-text">Function.prototype.bind()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E6%A7%8B%E5%BC%8F%E7%9A%84-this"><span class="nav-number">1.1.10.</span> <span class="nav-text">建構式的 this</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6%E4%B9%8B%E5%BE%8C%E7%9A%84-this"><span class="nav-number">1.2.</span> <span class="nav-text">ES6之後的 this</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function-%E7%9A%84this"><span class="nav-number">1.2.1.</span> <span class="nav-text">箭頭函式(arrow function) 的this</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/07/14/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day48-this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="連續記錄挑戰Day48-this | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          連續記錄挑戰Day48-this
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-07-14 19:17:53" itemprop="dateCreated datePublished" datetime="2019-07-14T19:17:53+08:00">2019-07-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>6.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>6 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="JavaScript-的-this-怎能不知道"><a class="header-anchor" href="#JavaScript-的-this-怎能不知道"></a>JavaScript 的 this 怎能不知道</h1>
+<p>思來想去，還是決定先將我理解的 <code>this</code> 用兩句話做個結論，再由此延伸後續的詳細差別。</p>
+<ol>
+<li>在 ES6 之前，<mark>決定this的方式取決於函式如何被呼叫</mark>，除非直接指定 <code>this</code>  (例如: <code>bind</code> 、 <code>call</code> 、 <code>apply</code> 方法)。</li>
+<li>在 ES6 之後，<mark>箭頭函式對於this的綁定則有了重新的定義。</mark></li>
+</ol>
+<span id="more"></span>
+<h2 id="ES6之前的-this"><a class="header-anchor" href="#ES6之前的-this"></a>ES6之前的 <code>this</code></h2>
+<p>如前面所提，<mark>決定this的方式取決於函式如何被呼叫</mark>。</p>
+<p>所以再來要對於函式呼叫時 <code>this</code> 的綁定依序了解。</p>
+<h3 id="什麼是全域"><a class="header-anchor" href="#什麼是全域"></a>什麼是全域</h3>
+<p>在後面的篇幅中會很常提及「全域」，所以決定稍微解釋一下方便後續的理解。</p>
+<p>在 克服JS的奇怪部分 中的第2節有提及對於全域的解釋:</p>
+<blockquote>
+<p><mark>在任何地方都可以取用它</mark>，這就是全域的意思。</p>
+</blockquote>
+<p>寫個測試的例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> habbit = <span class="string">&quot;Read books&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getHabbit</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> habbit = <span class="string">&quot;Read comics&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(habbit);</span><br></pre></td></tr></table></figure>
+<p>當我們在全域查詢 <code>habbit</code> 的值時， 可以得到 <code>habbit</code> 的值為 <code>Read books</code> 而不是 <code>Read comic</code> ，就是因為 <code>habbit</code> 的值 <mark>位於全域</mark>。</p>
+<p>關於對於全域的解釋就先到這裡，後續趕緊切入本章的主題~</p>
+<h3 id="直接使用-this"><a class="header-anchor" href="#直接使用-this"></a>直接使用 <code>this</code></h3>
+<p>來看看這個測試例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br></pre></td></tr></table></figure>
+<p>如果我們直接調用 <code>this</code> 並查看，會發現 <mark><code>this</code> 指向全域</mark></p>
+<p><img src="https://lh3.google.com/u/0/d/1Inm0L-x72-2Hglvkb3NQCQy-6Cth0GNO=w1298-h1498-iv1" alt="Day14-1"></p>
+<p>所以當全域中有變數時:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Bill&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br></pre></td></tr></table></figure>
+<p>因為 <code>this</code> 指向全域， 所以才可以取得同樣位於全域的 <code>name</code> 變數的值 <code>Bill</code>。</p>
+<p><img src="https://lh3.google.com/u/0/d/1zPeo6oBRWEZ5U7Sx5Yw4hKJQweoTlGWY=w1298-h1498-iv1" alt="Day14-2"></p>
+<h3 id="直接呼叫函式"><a class="header-anchor" href="#直接呼叫函式"></a>直接呼叫函式</h3>
+<p>當我們 <mark>直接呼叫函式</mark> 的時候，此時的 <mark><code>this</code> 指向全域</mark></p>
+<p>來看看測試例子驗證一下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Bill&quot;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getName</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">getName</span>();</span><br></pre></td></tr></table></figure>
+<p><img src="https://lh3.google.com/u/0/d/1dHO6FJ_734pxVckfxEmCgXn5b6vCriYz=w1298-h1498-iv1" alt="Day14-3"></p>
+<p>因此可以得到全域的 <code>name</code> 的值 <code>Bill</code></p>
+<h3 id="嚴格模式下的-this"><a class="header-anchor" href="#嚴格模式下的-this"></a>嚴格模式下的 <code>this</code></h3>
+<blockquote>
+<p>MDN: 嚴格模式下，如果 <code>this</code> 沒有定義到執行環境( Execution Context)內，其預設值就會是  <code>undefined</code> 。</p>
+</blockquote>
+<p>寫些測試例子驗證一下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">test</span>();</span><br></pre></td></tr></table></figure>
+<p>前面有提到，當我們直接呼叫函式的時候， <code>this</code> 會是指向全域而非 <code>test</code> 函式本身，所以在嚴格模式底下會因為 <code>this</code> 不是定義在執行環境(<code>test</code> 函式)中，所以會是 <code>undefined</code>。</p>
+<p><img src="https://lh3.google.com/u/0/d/1BPoD-1Oyi0IHNV6Jt5dE-YC_bm-1LyGj=w1298-h1498-iv1" alt="Day14-4"></p>
+<h3 id="物件呼叫方法"><a class="header-anchor" href="#物件呼叫方法"></a>物件呼叫方法</h3>
+<p>如果是 <mark>呼叫物件的方法，此時的 <code>this</code> 指向該物件</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> habbit = <span class="string">&quot;Read books&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">habbit</span>: <span class="string">&quot;Read comics&quot;</span>,</span><br><span class="line">  getHabbit : <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">habbit</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj.<span class="title function_">getHabbit</span>());</span><br></pre></td></tr></table></figure>
+<p>此時的 <code>this</code> 指向 <code>obj</code> 物件。 所以 <code>getHabbit</code> 方法中的 <code>this.habbit</code> 會取得 <code>obj</code> 物件的 <code>habbit</code> 的值 <code>Read comics</code> ，而不是全域 <code>habbit</code> 變數的值 <code>Read books</code>。</p>
+<p><img src="https://lh3.google.com/u/0/d/1C5D6xL6LzPJgwqqX3eE_LzvHJPBF9nOI=w1298-h1498-iv1" alt="Day14-5"></p>
+<p><mark>以下注意!!!</mark></p>
+<p>讓我們改寫一下測試的例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> habbit = <span class="string">&quot;Read books&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">habbit</span>: <span class="string">&quot;Read comics&quot;</span>,</span><br><span class="line">  getHabbit : <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;getHabbit方法的habbit值: &#x27;</span> + <span class="variable language_">this</span>.<span class="property">habbit</span>);</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">getAnotherHabbit</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;getAnotherHabbit方法的habbit值: &#x27;</span> + <span class="variable language_">this</span>.<span class="property">habbit</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">getAnotherHabbit</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.<span class="title function_">getHabbit</span>();</span><br></pre></td></tr></table></figure>
+<p>這時候依序會獲得什麼值呢?</p>
+<p>解析的流程如下:</p>
+<ol>
+<li>呼叫 <code>obj</code> 物件的 <code>getHabbit</code> 方法，此時的 <code>this</code> 指向 <code>obj</code> 物件，所以可以看到 <code>getHabbit</code> 方法的值為 <code>Read comics</code></li>
+<li>執行 <code>getHabbit</code> 的程式內容時，會執行 <code>getAnotherHabbit</code> 這個函式，由於在 <code>getHabbit</code> 方法是<mark>直接呼叫 <code>getAnotherHabbit</code></mark> ，所以此時的 <code>this</code> 已變成指向全域(就是Window物件)。</li>
+<li>因為 <code>getAnotherHabbit</code> 函式的 <code>this</code> 指向全域，所以就取得位於全域的變數值 <code>Read books</code>。</li>
+</ol>
+<p><img src="https://lh3.google.com/u/0/d/167_GlrhL61N0cjpBr1eqdkAD0ESJQZ5A=w1298-h1498-iv1" alt="Day14-6"></p>
+<h3 id="that-、-self-怎麼用"><a class="header-anchor" href="#that-、-self-怎麼用"></a><code>that</code> 、 <code>self</code> 怎麼用?</h3>
+<p><code>this</code> 很常在執行過程中因為呼叫函式的方式改變，而 <code>this</code> 也跟著改變。</p>
+<p>所以<mark>必須透過一個變數用來承接原本 <code>this</code> 的值</mark> ，而常見的寫法就是<code>that </code>或者 <code>self</code>  。</p>
+<p>將前一個測試例子改寫一下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> habbit = <span class="string">&quot;Read books&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">habbit</span>: <span class="string">&quot;Read comics&quot;</span>,</span><br><span class="line">  getHabbit : <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;getHabbit方法的habbit值: &#x27;</span> + <span class="variable language_">this</span>.<span class="property">habbit</span>);</span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">getAnotherHabbit</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;getAnotherHabbit方法的habbit值: &#x27;</span> + that.<span class="property">habbit</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">getAnotherHabbit</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.<span class="title function_">getHabbit</span>();</span><br></pre></td></tr></table></figure>
+<p>從圖中可以得知: 因為 <code>that</code> 的值為 <mark><code>this</code> 指向 <code>obj</code> 物件時候的值</mark>，所以 <code>that.habbit</code> 自然也就會拿到 <code>obj</code> 物件中的 <code>habbit</code> 的值 <code>Read comics</code>。</p>
+<p>而 <code>that</code> 則取得 <code>obj</code> 這個物件的相關資訊。</p>
+<p><img src="https://lh3.google.com/u/0/d/1rT_ySHAVkmiXG893z0Kj4pXp0Yxw-EkP=w1298-h1498-iv1" alt="Day14-7"></p>
+<h3 id="在事件-event-中的-this"><a class="header-anchor" href="#在事件-event-中的-this"></a>在事件(event)中的 <code>this</code></h3>
+<p><mark>事件中的 <code>this</code> 會指向那個綁定事件的元素</mark></p>
+<p>寫個例子來驗證:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul class=&quot;orderList&quot;&gt;</span><br><span class="line">  &lt;li&gt;列表A&lt;/li&gt;</span><br><span class="line">  &lt;li&gt;列表B&lt;/li&gt;</span><br><span class="line">  &lt;li&gt;列表C&lt;/li&gt;</span><br><span class="line">  &lt;li&gt;列表D&lt;/li&gt;</span><br><span class="line">  &lt;li&gt;列表E&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> orderList = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.orderList&#x27;</span>);</span><br><span class="line">orderList.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,getListText);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getListText</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這裡在<code> &lt;ul&gt;&lt;/ul&gt;</code> 上 綁定 <code>click</code> 事件，所以當點擊 <code>&lt;ul&gt;&lt;/ul&gt;</code> ，會得到 <code>this</code> 值為 <code>&lt;ul&gt;&lt;/ul&gt;</code> 這個 html 標籤的所有元素。</p>
+<p><img src="https://lh3.google.com/u/0/d/1vD84IxHfNq6EQ2X1S-pXyb_mN0Q-PIdd=w1298-h1498-iv1" alt="Day14-8"></p>
+<h3 id="立即函式-Immediately-Invoked-Function-Expression-IIFE-的-this"><a class="header-anchor" href="#立即函式-Immediately-Invoked-Function-Expression-IIFE-的-this"></a>立即函式(Immediately Invoked Function Expression, IIFE)的 <code>this</code></h3>
+<p>關於立即函式(IIFE)，在MDN中這麼解釋:</p>
+<blockquote>
+<p>MDN: IIFE (Immediately Invoked Function Expression) 是一個定義完馬上就執行的 JavaScript function。</p>
+</blockquote>
+<p>且<mark>立即函式的 <code>this</code>會指向全域</mark></p>
+<p>來個測試例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<p><img src="https://lh3.google.com/u/0/d/1uHJ0G7Z4Q3avUjIyUIQI5c_IDxu_sMYC=w1298-h1498-iv1" alt="Day14-9"></p>
+<h3 id="使用-call、apply-及-bind-指定-this-的值"><a class="header-anchor" href="#使用-call、apply-及-bind-指定-this-的值"></a>使用 <code>call</code>、<code>apply</code> 及 <code>bind</code> 指定 <code>this</code> 的值</h3>
+<p>當我們如果需要一個特定的 <code>this</code> 值的時候，這時也許就會用到 <code>call</code>、<code>apply</code> 及 <code>bind</code> 強迫綁定 <code>this</code>。</p>
+<p>關於 <code>call</code>、<code>apply</code> 及 <code>bind</code> 就讓我們依序往下看吧</p>
+<h4 id="Function-prototype-call"><a class="header-anchor" href="#Function-prototype-call"></a>Function.prototype.call</h4>
+<p>關於 <code> Function.prototype.call</code> 在MDN有這麼一段解釋:</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Function/call">MDN: Function.prototype.call</a><br>
+使用給定的 <code>this</code> 參數以及分別給定的參數來呼叫某個函數</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun.<span class="title function_">call</span>(thisArg[, arg1[, arg2[, ...]]])</span><br></pre></td></tr></table></figure>
+<p>簡單來說， <mark>自己定義 <code>this</code> 的值並傳給目標函式當作該函式的 <code>this</code> 值</mark></p>
+<p>而MDN定義中提到的<strong>其他分別給定的參數</strong>則是 <mark>如果有設定除了 <code>this</code> 以外的參數，會將那些參數一併傳入目標函式中</mark>，如果不需要則不用設定。</p>
+<p>還是很文謅謅，所以趕緊來寫個測試例子驗證看看:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;Bill&quot;</span>,</span><br><span class="line">  <span class="attr">habbit</span>: <span class="string">&quot;Read Books&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">introduce</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span> + <span class="string">&#x27;\&#x27;s habbit is &#x27;</span> + <span class="variable language_">this</span>.<span class="property">habbit</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">introduce.<span class="title function_">call</span>(obj);</span><br></pre></td></tr></table></figure>
+<p>前面有提到，當 <mark>直接呼叫函式的時候， <code>this</code> 指向全域</mark></p>
+<p>但是當我們透過 <code>call()</code> 方法 <mark>將 <code>obj</code> 物件當作 <code>this</code> 傳入 <code>introduce</code> 函式的時候</mark>，此時已經綁定 <code>this</code> ，所以 <code>introduce</code> 函式才得以使用 <code>obj</code> 物件中的值。</p>
+<p><img src="https://lh3.google.com/u/0/d/1RNd0bEpmd8wWe9rIGZTNUn3BRW5WOeva=w1298-h1498-iv1" alt="Day14-10"></p>
+<p>來看看有額外設定其他參數時的情況:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">a,b</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;總和為: &#x27;</span> + (a+b));</span><br><span class="line">&#125;</span><br><span class="line">add.<span class="title function_">call</span>(<span class="literal">null</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="https://lh3.google.com/u/0/d/1_EOQieUqWb6ZafLwN33B2ZzdHGfJvyle=w1298-h1498-iv1" alt="Day14-11"></p>
+<p>從結果可以看到， <code>this</code> 會是指向全域，而數值2及數值3被傳入  <code>add</code> 函式中，所以可以獲得加總後的值為 5。</p>
+<h4 id="Function-prototype-apply"><a class="header-anchor" href="#Function-prototype-apply"></a>Function.prototype.apply()</h4>
+<p>關於 <code> Function.prototype.apply</code> 在MDN有這麼一段解釋:</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Function/apply">MDN: Function.prototype.apply</a><br>
+apply() 方法會呼叫一個以 <code>this</code> 的代表值和一個陣列形式的值組(或是一個 array-like object )為參數的函式。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun.<span class="title function_">apply</span>(thisArg, [argsArray])</span><br></pre></td></tr></table></figure>
+<p>和 <code>call()</code> 差別在於 <mark><code>call()</code>接受一連串的參數傳入，而 <code>apply()</code> 只接受陣列型式的參數</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;Bill&quot;</span>,</span><br><span class="line">  <span class="attr">habbit</span>: <span class="string">&quot;Read Books&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">introduce</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span> + <span class="string">&#x27;\&#x27;s habbit is &#x27;</span> + <span class="variable language_">this</span>.<span class="property">habbit</span>);</span><br><span class="line">&#125;</span><br><span class="line">introduce.<span class="title function_">apply</span>(obj);</span><br></pre></td></tr></table></figure>
+<p>可以這邊看起來和 <code>call()</code> 執行結果沒有差別</p>
+<p><img src="https://lh3.google.com/u/0/d/1ojdayKV99LfsU60Qi6a4X1DptpxE6QVj=w1298-h1498-iv1" alt="Day14-12"></p>
+<p>所以我們再往下看看有額外的參數需要被輸入時的情形:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">add</span>(<span class="params">numberAry</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(numberAry);</span><br><span class="line">  <span class="keyword">const</span> sumTotal = numberAry.<span class="title function_">reduce</span>(<span class="function">(<span class="params">acc,number</span>)=&gt;</span> acc + number,<span class="number">0</span>)</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;總和為: &#x27;</span> + sumTotal);</span><br><span class="line">&#125;</span><br><span class="line">add.<span class="title function_">call</span>(<span class="literal">null</span>,[<span class="number">2</span>,<span class="number">3</span>]);</span><br></pre></td></tr></table></figure>
+<p>因為接受陣列型別的參數，所以可以透過陣列的方法操作元素中的值，獲得總和值為 <code>5</code>。</p>
+<p><img src="https://lh3.google.com/u/0/d/1_NurCl_g7pYzL8SfqVF-O4UuSLFFEJig=w1298-h1498-iv1" alt="Day14-13"></p>
+<h4 id="Function-prototype-bind"><a class="header-anchor" href="#Function-prototype-bind"></a>Function.prototype.bind()</h4>
+<p>最後一個是 <code>bind()</code> 方法， 在MDN有這麼一段解釋:</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">MDN: Function.prototype.bind()</a><br>
+bind() 方法，會建立一個新函式。該函式被呼叫時，會將 this 關鍵字設為給定的參數，並在呼叫時，帶有提供之前，給定順序的參數。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun.<span class="title function_">bind</span>(thisArg[, arg1[, arg2[, ...]]])</span><br></pre></td></tr></table></figure>
+<p>和前兩者差別為 <mark>使用 <code>bind()</code> 會回傳一個綁定自定義 <code>this</code> 值的函式提供我們呼叫。</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;Bill&quot;</span>,</span><br><span class="line">  <span class="attr">habbit</span>: <span class="string">&quot;Read Books&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">introduce</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span> + <span class="string">&#x27;\&#x27;s habbit is &#x27;</span> + <span class="variable language_">this</span>.<span class="property">habbit</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newIntroduce = introduce.<span class="title function_">bind</span>(obj);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(newIntroduce);</span><br><span class="line"><span class="title function_">newIntroduce</span>();</span><br></pre></td></tr></table></figure>
+<p>從圖中可以看到透過變數 <code>newIntroduce</code> 儲存了 <mark>已經綁定 <code>this</code> 後的 <code>introduce</code>函式</mark>，而這裡的 <code>this</code> 指向的是 <code>obj</code> 物件。</p>
+<p>所以當我們呼叫 <code>newIntroduce</code> 函式時，就可以取得與 <code>call()</code> 、 <code>apply()</code> 一樣的結果。</p>
+<p><img src="https://lh3.google.com/u/0/d/1Ugi0uzmUMuFg1DvUTWERgoscJJ_Du6Tz=w1314-h1530-iv1" alt="Day14-14"></p>
+<h3 id="建構式的-this"><a class="header-anchor" href="#建構式的-this"></a>建構式的 <code>this</code></h3>
+<p><mark>建構式的 <code>this</code> 指向使用 <code>new</code> 關鍵字所建立的物件</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params">name,age,habbit</span>)&#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">name</span> = name;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">age</span> = age;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">habbit</span> = habbit;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> person1 = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;Bill&#x27;</span>,<span class="number">22</span>,<span class="string">&#x27;Read&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="https://lh3.google.com/u/0/d/16PG6Wdt74WMthgCvhQRvLz5EQ_6anmp2=w1314-h1530-iv1" alt="Day14-15"></p>
+<h2 id="ES6之後的-this"><a class="header-anchor" href="#ES6之後的-this"></a>ES6之後的 <code>this</code></h2>
+<p>ES6之後對於 <code>this</code> 有了額外的定義:</p>
+<h3 id="箭頭函式-arrow-function-的this"><a class="header-anchor" href="#箭頭函式-arrow-function-的this"></a>箭頭函式(arrow function) 的<code>this</code></h3>
+<blockquote>
+<p>箭頭函式並不擁有自己的 this 變數；使用的 this 值來自封閉的文本上下文，也就是說，箭頭函式遵循常規變量查找規則。因此，如果在當前範圍中搜索不到 this 變量時，他們最終會尋找其封閉範圍。<br>
+<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Functions/Arrow_functions#this_%E4%B8%8D%E5%88%86%E5%AE%B6">箭頭函式的this</a></p>
+</blockquote>
+<p>簡單來說，大致可以歸納出幾個重點:</p>
+<ol>
+<li>箭頭函式(arrow function) <mark>沒有自己的 <code>this</code></mark></li>
+<li>箭頭函式(arrow function)的 <code>this</code> 綁定會透過 範圍鏈(scope chain) 的觀念找到其作用域的this指向，並當作自己的this。</li>
+</ol>
+<p>在往下講之前，需要先稍微了解一下什麼是範圍鏈(scope chain)。</p>
+<p>範圍鏈(scope chain) 的概念會於閉包(closure)的篇幅來詳細的理解。</p>
+<p>這邊只要知道 <mark>當變數在自己的執行環境中如果找不到該變數，就會往外層尋找，直到找到後才停止</mark></p>
+<p>來看個測試例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = <span class="string">&quot;Bill&quot;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getName</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">getName</span>();</span><br></pre></td></tr></table></figure>
+<p>當執行 <code>getName</code> 函式時，因為在函式的執行環境中沒有 <code>name</code> 這個變數，所以會依照範圍鏈(scope chain)的概念往外層尋找，所以會找到位於全域的 <code>name</code> 變數的值 <code>Bill</code></p>
+<p>了解箭頭函式(arrow function)的 <code>this</code> 與範圍鏈(scope chain)的觀念後，再來要看看測試的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Jack&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;Bill&quot;</span>,</span><br><span class="line">  <span class="attr">checkThis</span>: <span class="function">() =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">obj.<span class="title function_">checkThis</span>();</span><br></pre></td></tr></table></figure>
+<p>箭頭函式的 <code>this</code> 會透過範圍鏈(scope chain)的觀念往外層尋找看看作用域的 <code>this</code> 是指向誰，會發現 <code>this</code> 指向 全域(因為<code>obj</code>物件位於全域)，所以箭頭函式的 <code>this</code> 指向 全域，於是就會得到 <code>name</code> 的值 <code>Jack</code></p>
+<p>讓我們再看看另一個例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Jack&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&quot;Bill&quot;</span>,</span><br><span class="line">  <span class="attr">checkThis</span>: <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    test = <span class="function">() =&gt;</span> &#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>);&#125;</span><br><span class="line">    <span class="title function_">test</span>(); </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.<span class="title function_">checkThis</span>();</span><br></pre></td></tr></table></figure>
+<p>箭頭函式的 <code>this</code> 會透過範圍鏈(scope chain)的觀念往外層尋找看看作用域的 <code>this</code> 是指向誰，會發現 <code>this</code> 指向<code>obj</code> 物件(因為箭頭函式 <code>test</code> 的外層 <code>checkThis</code> 函式指向 <code>obj</code>物件)，於是就會得到 <code>name</code> 的值 <code>Bill</code>。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/07/13/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day47-%E9%96%89%E5%8C%85-closure/" rel="prev" title="連續記錄挑戰Day47-閉包(closure)">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day47-閉包(closure)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/07/15/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day49-%E9%81%9E%E8%BF%B4%E5%87%BD%E5%BC%8F-recursive-funciton/" rel="next" title="連續記錄挑戰Day49-遞迴函式(recursive funciton)">
+                  連續記錄挑戰Day49-遞迴函式(recursive funciton) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

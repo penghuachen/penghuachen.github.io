@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="css 大全 - transform 初探 -part2 函式用途與設定 附上練習時的連結： transform 語法練習，詳細tranform語法介紹如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="連續記錄挑戰Day18-transform初探- part2">
+<meta property="og:url" content="https://penghuachen.github.io/2019/06/14/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day18-transform%E5%88%9D%E6%8E%A2-part2/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="css 大全 - transform 初探 -part2 函式用途與設定 附上練習時的連結： transform 語法練習，詳細tranform語法介紹如下：">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2019-06-14T13:57:18.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.840Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="HTML&#x2F;CSS">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2019/06/14/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day18-transform%E5%88%9D%E6%8E%A2-part2/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2019/06/14/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day18-transform%E5%88%9D%E6%8E%A2-part2/","path":"2019/06/14/連續記錄挑戰Day18-transform初探-part2/","title":"連續記錄挑戰Day18-transform初探- part2"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>連續記錄挑戰Day18-transform初探- part2 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#css-%E5%A4%A7%E5%85%A8-transform-%E5%88%9D%E6%8E%A2-part2"><span class="nav-number">1.</span> <span class="nav-text">css 大全 - transform 初探 -part2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E5%BC%8F%E7%94%A8%E9%80%94%E8%88%87%E8%A8%AD%E5%AE%9A"><span class="nav-number">1.1.</span> <span class="nav-text">函式用途與設定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#translate-%E4%BD%BF%E5%85%83%E7%B4%A0%E9%9A%A8%E8%91%97%E5%BA%A7%E6%A8%99%E8%BB%B8%E7%A7%BB%E5%8B%95%EF%BC%8C%E8%80%8CtranslateX-%E3%80%81translateY-%E4%B9%9F%E8%A2%AB%E7%A8%B1%E7%82%BA2D%E5%B9%B3%E7%A7%BB%E5%87%BD%E5%BC%8F%EF%BC%8C%E5%8E%9F%E9%BB%9E%E7%82%BA%E5%B7%A6%E4%B8%8A%E8%A7%92%E3%80%82"><span class="nav-number">1.1.1.</span> <span class="nav-text">translate():使元素隨著座標軸移動，而translateX()、translateY()也被稱為2D平移函式，原點為左上角。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scale-%E8%83%BD%E8%AE%93%E5%85%83%E7%B4%A0%E4%BE%9D%E6%93%9A%E6%8C%87%E5%AE%9A%E7%9A%84%E6%95%B8%E5%80%BC%E8%AE%8A%E5%A4%A7%E6%88%96%E8%AE%8A%E5%B0%8F%EF%BC%8C%E8%B2%A0%E5%80%BC%E5%8F%AF%E4%BB%A5%E4%BD%BF%E5%85%83%E7%B4%A0%E7%94%A2%E7%94%9F%E9%A1%9B%E5%80%92%E7%9A%84%E6%95%88%E6%9E%9C"><span class="nav-number">1.1.2.</span> <span class="nav-text">scale():能讓元素依據指定的數值變大或變小，負值可以使元素產生顛倒的效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rotate-%E8%83%BD%E8%AE%93%E5%85%83%E7%B4%A0%E6%9C%9D%E6%9F%90%E5%80%8B%E8%BB%B8%E6%88%963D%E7%A9%BA%E9%96%93%E7%9A%84%E4%BB%BB%E4%BD%95%E5%90%91%E9%87%8F%E6%97%8B%E8%BD%89"><span class="nav-number">1.1.3.</span> <span class="nav-text">rotate():能讓元素朝某個軸或3D空間的任何向量旋轉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#skew-%E8%83%BD%E8%AE%93%E5%85%83%E7%B4%A0%E6%B2%BF%E8%91%97x%E6%88%96%E8%80%85y%E8%BB%B8%E5%82%BE%E6%96%9C%EF%BC%8C%E4%BD%86%E6%B2%92%E6%9C%89Z%E8%BB%B8%E7%9A%84%E5%82%BE%E6%96%9C"><span class="nav-number">1.1.4.</span> <span class="nav-text">skew():能讓元素沿著x或者y軸傾斜，但沒有Z軸的傾斜</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#perspective-%E8%83%BD%E8%AE%93%E5%85%83%E7%B4%A0%E5%9C%A83D%E7%A9%BA%E9%96%93%E4%B8%AD%EF%BC%8C%E8%97%89%E7%94%B1%E6%94%B9%E8%AE%8A%E9%80%8F%E8%A6%96%EF%BC%8C%E7%9C%8B%E5%88%B0%E7%94%B1%E5%89%8D%E5%88%B0%E5%BE%8C%E6%B7%B1%E5%BA%A6%E7%9A%84%E5%A4%96%E8%A7%80%E3%80%82"><span class="nav-number">1.1.5.</span> <span class="nav-text">perspective():能讓元素在3D空間中，藉由改變透視，看到由前到後深度的外觀。</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/06/14/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day18-transform%E5%88%9D%E6%8E%A2-part2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="連續記錄挑戰Day18-transform初探- part2 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          連續記錄挑戰Day18-transform初探- part2
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-06-14 21:57:18" itemprop="dateCreated datePublished" datetime="2019-06-14T21:57:18+08:00">2019-06-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%8A%E7%8E%A9Css/" itemprop="url" rel="index"><span itemprop="name">把玩Css</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>883</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>1 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="css-大全-transform-初探-part2"><a class="header-anchor" href="#css-大全-transform-初探-part2"></a>css 大全 - transform 初探 -part2</h1>
+<h2 id="函式用途與設定"><a class="header-anchor" href="#函式用途與設定"></a>函式用途與設定</h2>
+<p>附上練習時的連結： <a target="_blank" rel="noopener" href="https://codepen.io/kids5346/pen/NZqzQx">transform 語法練習</a>，詳細tranform語法介紹如下：</p>
+<span id="more"></span>
+<h3 id="translate-使元素隨著座標軸移動，而translateX-、translateY-也被稱為2D平移函式，原點為左上角。"><a class="header-anchor" href="#translate-使元素隨著座標軸移動，而translateX-、translateY-也被稱為2D平移函式，原點為左上角。"></a>translate():使<strong>元素隨著座標軸移動</strong>，而translateX()、translateY()也被稱為2D平移函式，原點為左上角。</h3>
+<table>
+<thead>
+<tr>
+<th>函式</th>
+<th>允許值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>translateX().translateY()</td>
+<td>[length、percentage]</td>
+</tr>
+<tr>
+<td>translateZ()</td>
+<td>[length]</td>
+</tr>
+<tr>
+<td>translate3d()</td>
+<td>[length、percentage] [length、percentage] [length]</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>此處percentage的<strong>實際長度會依照元素本身的尺寸</strong>為基準計算</li>
+</ul>
+<h3 id="scale-能讓元素依據指定的數值變大或變小，負值可以使元素產生顛倒的效果"><a class="header-anchor" href="#scale-能讓元素依據指定的數值變大或變小，負值可以使元素產生顛倒的效果"></a>scale():<strong>能讓元素依據指定的數值變大或變小，負值可以使元素產生顛倒的效果</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函式</th>
+<th>允許值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scaleX().scaleY().scaleZ()</td>
+<td>[number]</td>
+</tr>
+<tr>
+<td>scale3d()</td>
+<td>[number、number、number]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rotate-能讓元素朝某個軸或3D空間的任何向量旋轉"><a class="header-anchor" href="#rotate-能讓元素朝某個軸或3D空間的任何向量旋轉"></a>rotate():<strong>能讓元素朝某個軸或3D空間的任何向量旋轉</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函式</th>
+<th>允許值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rotateX().rotateY().rotateZ()</td>
+<td>[angle]</td>
+</tr>
+<tr>
+<td>rotate3d()</td>
+<td>[number、number、number、angle]</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>rotate3d():前三個數值為空間向量的x.y.z的值，最後一個是角度的旋轉量
+<ul>
+<li>Ex: rotate3d(0,0,1,45deg) = rotate(45deg) = rotateZ(45deg)</li>
+<li><strong>Ex:rotate(1,1,0,45deg) 不等於 rotateX(45deg) rotateY(45deg) rotateZ(0deg)</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="skew-能讓元素沿著x或者y軸傾斜，但沒有Z軸的傾斜"><a class="header-anchor" href="#skew-能讓元素沿著x或者y軸傾斜，但沒有Z軸的傾斜"></a>skew():<strong>能讓元素沿著x或者y軸傾斜，但沒有Z軸的傾斜</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函式</th>
+<th>允許值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>skewX().skewY()</td>
+<td>[angle]</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>skew(a,b)的行為是透過矩陣運算而達成，所以也不能等於是skew(a) + skew(b)</li>
+</ul>
+<h3 id="perspective-能讓元素在3D空間中，藉由改變透視，看到由前到後深度的外觀。"><a class="header-anchor" href="#perspective-能讓元素在3D空間中，藉由改變透視，看到由前到後深度的外觀。"></a>perspective():<strong>能讓元素在3D空間中，藉由改變透視，看到由前到後深度的外觀。</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函式</th>
+<th>允許值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>perspective()</td>
+<td>[length(正且非零的值)]</td>
+</tr>
+</tbody>
+</table>
+  <div style="text-align:center;font-weight:bold;">力圖在這個世界上找尋可留下的感動，並用著文字扎實的記錄著。</div>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/HTML-CSS/" rel="tag"># HTML/CSS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/13/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day17-transform%E5%88%9D%E6%8E%A2-part1/" rel="prev" title="連續記錄挑戰Day17-transform初探- part1">
+                  <i class="fa fa-chevron-left"></i> 連續記錄挑戰Day17-transform初探- part1
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/06/15/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day19-transform%E5%88%9D%E6%8E%A2-part3/" rel="next" title="連續記錄挑戰Day19-transform初探- part3">
+                  連續記錄挑戰Day19-transform初探- part3 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

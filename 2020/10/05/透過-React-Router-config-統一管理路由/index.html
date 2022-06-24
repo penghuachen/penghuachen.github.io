@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"penghuachen.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="透過 React Router config 統一管理路由 前幾天我們學習到了如何在元件中使用 Router 來導航，而今天要學習的部分則是如何透過集中管理所有路由的方式實現導航到各個頁面的方式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="透過 React Router config 統一管理路由">
+<meta property="og:url" content="https://penghuachen.github.io/2020/10/05/%E9%80%8F%E9%81%8E-React-Router-config-%E7%B5%B1%E4%B8%80%E7%AE%A1%E7%90%86%E8%B7%AF%E7%94%B1/index.html">
+<meta property="og:site_name" content="PH 前端修煉記錄">
+<meta property="og:description" content="透過 React Router config 統一管理路由 前幾天我們學習到了如何在元件中使用 Router 來導航，而今天要學習的部分則是如何透過集中管理所有路由的方式實現導航到各個頁面的方式。">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-10-05T02:19:56.000Z">
+<meta property="article:modified_time" content="2022-06-24T10:38:07.838Z">
+<meta property="article:author" content="Penghua Chen">
+<meta property="article:tag" content="React">
+<meta property="article:tag" content="第十二屆 iT邦幫忙鐵人賽">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://penghuachen.github.io/2020/10/05/%E9%80%8F%E9%81%8E-React-Router-config-%E7%B5%B1%E4%B8%80%E7%AE%A1%E7%90%86%E8%B7%AF%E7%94%B1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://penghuachen.github.io/2020/10/05/%E9%80%8F%E9%81%8E-React-Router-config-%E7%B5%B1%E4%B8%80%E7%AE%A1%E7%90%86%E8%B7%AF%E7%94%B1/","path":"2020/10/05/透過-React-Router-config-統一管理路由/","title":"透過 React Router config 統一管理路由"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>透過 React Router config 統一管理路由 | PH 前端修煉記錄</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">PH 前端修煉記錄</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%8F%E9%81%8E-React-Router-config-%E7%B5%B1%E4%B8%80%E7%AE%A1%E7%90%86%E8%B7%AF%E7%94%B1"><span class="nav-number">1.</span> <span class="nav-text">透過 React Router config 統一管理路由</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A4%8E-Router-config-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.1.</span> <span class="nav-text">基礎 Router config 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8-Router-config-%E4%B8%AD%E9%85%8D%E7%BD%AE%E5%B7%A2%E7%8B%80%E8%B7%AF%E7%94%B1"><span class="nav-number">1.2.</span> <span class="nav-text">在 Router config  中配置巢狀路由</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B3%87%E6%BA%90"><span class="nav-number">1.3.</span> <span class="nav-text">資源</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Penghua Chen"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Penghua Chen</p>
+  <div class="site-description" itemprop="description">目前進駐在台南的好想工作室。</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/10/05/%E9%80%8F%E9%81%8E-React-Router-config-%E7%B5%B1%E4%B8%80%E7%AE%A1%E7%90%86%E8%B7%AF%E7%94%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="透過 React Router config 統一管理路由 | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          透過 React Router config 統一管理路由
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-10-05 10:19:56" itemprop="dateCreated datePublished" datetime="2020-10-05T10:19:56+08:00">2020-10-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>4.1k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>4 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="透過-React-Router-config-統一管理路由"><a class="header-anchor" href="#透過-React-Router-config-統一管理路由"></a>透過 React Router config 統一管理路由</h1>
+<p>前幾天我們學習到了如何在元件中使用 Router 來導航，而今天要學習的部分則是如何透過<strong>集中管理所有路由的方式實現導航到各個頁面的方式</strong>。</p>
+<span id="more"></span>
+<p>而這個方式就是在配置一個 router 的 config 檔案。</p>
+<p>今天會透過兩個範例來理解這個部分:</p>
+<ol>
+<li>只有一層路由的 Router 配置</li>
+<li>具有巢狀路由的 Router 配置</li>
+</ol>
+<p>接著就趕緊今天的進度吧!</p>
+<h2 id="基礎-Router-config-配置"><a class="header-anchor" href="#基礎-Router-config-配置"></a>基礎 Router config 配置</h2>
+<p>首先要學習的部分是配置只有一層路由的頁面切換，相信大家都已經有基本的概念了，所以這邊就直接來看看如何透過集中管理路由的方式達成:</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/blissful-dubinsky-q9lr7?file=/src/App.js">點擊前往</a>。</p>
+<p>首先先建立一個用來管理路由的檔案:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// router/index.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重點觀察位置</span></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/car&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">React</span>.<span class="title function_">lazy</span>(<span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&quot;../components/Car&quot;</span>))</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/airplane&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">React</span>.<span class="title function_">lazy</span>(<span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&quot;../components/Airplane&quot;</span>))</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> routes;</span><br></pre></td></tr></table></figure>
+<p>這邊有幾個重點:</p>
+<ol>
+<li>將畫面上需要的路由統一設定於此，而這邊設定了 <code>/car</code>, <code>/airplane</code> 兩個元件的路由</li>
+<li>另外透過懶加載(lazy load)的方式引入元件。</li>
+<li>將 routes 匯出提供其他元件可以使用。</li>
+</ol>
+<p>基本上上述的配置就已經完成了集中路由管理的設定，接著我們到元件中配置路由。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.js</span></span><br><span class="line"><span class="comment">// 重點觀察位置</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Suspense</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NavLink</span>, <span class="title class_">Route</span>, <span class="title class_">Switch</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> routes <span class="keyword">from</span> <span class="string">&quot;./router&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">Suspense</span> <span class="attr">fallback</span>=<span class="string">&#123;</span>&lt;<span class="attr">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>&#125;&gt;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>基礎 Router config 配置<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">to</span>=<span class="string">&quot;/car&quot;</span>&gt;</span>Car<span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">to</span>=<span class="string">&quot;/airplane&quot;</span>&gt;</span>Airplne<span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        &#123;/* 重點觀察位置 */&#125;</span></span><br><span class="line"><span class="language-xml">        &#123;routes.map((route, index) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">          // console.log(route);</span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">          return (</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">key</span>=<span class="string">&#123;index&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">path</span>=<span class="string">&#123;route.path&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                // 重點觀察位置</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">render</span>=<span class="string">&#123;(props)</span> =&gt;</span> <span class="tag">&lt;<span class="name">route.component</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">              /&gt;</span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          );</span></span><br><span class="line"><span class="language-xml">        &#125;)&#125;</span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">Suspense</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>路由的配置基本上與前幾天提到的相差不遠，但這裡透過 <code>map</code> 方法依據 <code>routes</code> 中的元素進行 <code>Route</code> 的建立。</p>
+<p>此外需要注意的是，由於在 router 中使用了懶加載的方式，所以在 App.js 中需要將 dom 內容放置於 <code>&lt;Suspense</code> 元件之中，才可以正常運作。</p>
+<p>這部分熟悉之後，接著我們再多些變化，配置具有巢狀路由的 Router 配置。</p>
+<h2 id="在-Router-config-中配置巢狀路由"><a class="header-anchor" href="#在-Router-config-中配置巢狀路由"></a>在 Router config  中配置巢狀路由</h2>
+<p>接著我們透過上面的<a target="_blank" rel="noopener" href="https://codesandbox.io/s/blissful-dubinsky-q9lr7?file=/src/App.js">測試範例</a>，額外新增一個具有巢狀路由需求的配置到範例中。</p>
+<p>首先是集中管理路由 router 檔案:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// router/index.js</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 重點觀察位置</span></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/car&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">React</span>.<span class="title function_">lazy</span>(<span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&quot;../components/Car&quot;</span>))</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/airplane&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">React</span>.<span class="title function_">lazy</span>(<span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&quot;../components/Airplane&quot;</span>))</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/nested&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">React</span>.<span class="title function_">lazy</span>(<span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&quot;../components/Nested&quot;</span>)),</span><br><span class="line">    <span class="attr">routes</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;/cmp-1&quot;</span>,</span><br><span class="line">        <span class="attr">component</span>: <span class="title class_">React</span>.<span class="title function_">lazy</span>(<span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&quot;../components/CmpOne&quot;</span>))</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;/cmp-2&quot;</span>,</span><br><span class="line">        <span class="attr">component</span>: <span class="title class_">React</span>.<span class="title function_">lazy</span>(<span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&quot;../components/CmpTwo&quot;</span>))</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> routes;</span><br></pre></td></tr></table></figure>
+<p>這邊可以看到新增了一個新的 Nested 元件路徑以及在這個元件中的子元件路徑。</p>
+<p>接著為了讓 Nested 元件中可以取得 routes 的內容，所以這邊我們還需要在 App.js 中將 routes 傳入:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// App.js</span></span><br><span class="line">&lt;<span class="title class_">Switch</span>&gt;</span><br><span class="line">  &#123;routes.<span class="title function_">map</span>(<span class="function">(<span class="params">route, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// console.log(route);</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">key</span>=<span class="string">&#123;index&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">path</span>=<span class="string">&#123;route.path&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        // 重點觀察位置</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">        <span class="attr">render</span>=<span class="string">&#123;(props)</span> =&gt;</span> (</span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">route.component</span> &#123;<span class="attr">...props</span>&#125; <span class="attr">routes</span>=<span class="string">&#123;route.routes&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        )&#125;</span></span><br><span class="line"><span class="language-xml">      /&gt;</span></span><br><span class="line">    );</span><br><span class="line">  &#125;)&#125;</span><br><span class="line">&lt;/<span class="title class_">Switch</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>這邊的 <code>route.routes</code> 就是將子元件的資訊傳入至 Nested 中，接著我們就可以在 Nested 元件中配置路由囉！</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Nested.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">React</span>, &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">NavLink</span>, <span class="title class_">Route</span>, <span class="title class_">Switch</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="title class_">Nested</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span> &#123;</span><br><span class="line">  <span class="title function_">render</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// console.log(this.props);</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Nested Component<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">to</span>=<span class="string">&#123;this.props.match.url</span> + &quot;/<span class="attr">cmp-1</span>&quot;&#125;&gt;</span>cmp-1<span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">to</span>=<span class="string">&#123;this.props.match.url</span> + &quot;/<span class="attr">cmp-2</span>&quot;&#125;&gt;</span>cmp-2<span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          &#123;/* 重點觀察位置 */&#125;</span></span><br><span class="line"><span class="language-xml">          &#123;this.props.routes.map((route, index) =&gt; &#123;</span></span><br><span class="line"><span class="language-xml">            return (</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">Route</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">key</span>=<span class="string">&#123;index&#125;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">path</span>=<span class="string">&#123;this.props.match.url</span> + <span class="attr">route.path</span>&#125;</span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                <span class="attr">render</span>=<span class="string">&#123;(props)</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-xml">                  // console.log(this.props.match.url + route.path);</span></span><br><span class="line"><span class="language-xml">                  return <span class="tag">&lt;<span class="name">route.component</span> &#123;<span class="attr">...props</span>&#125; /&gt;</span>;</span></span><br><span class="line"><span class="language-xml">                &#125;&#125;</span></span><br><span class="line"><span class="language-xml">              /&gt;</span></span><br><span class="line"><span class="language-xml">            );</span></span><br><span class="line"><span class="language-xml">          &#125;)&#125;</span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 Nested 元件中，可以看到我們一樣透過 map 將傳入的 <code>routes</code> 內容迭代後建立 <code>&lt;Route&gt;</code> 元件，而路徑的配置則於前面的篇幅已經提過，透過 <code>this.props.match.url</code> 的方式取得後再於該巢狀元件的路徑組合，這樣就可以成功匹配巢狀元件的內容。</p>
+<p>鐵人賽文章與程式碼同步發佈於:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/penghuachen/React_30">Github</a></li>
+</ul>
+<h2 id="資源"><a class="header-anchor" href="#資源"></a>資源</h2>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://reactrouter.com/web/example/route-config">Router config</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>歡迎關注我的其它發布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/React/" rel="tag"># React</a>
+              <a href="/tags/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" rel="tag"># 第十二屆 iT邦幫忙鐵人賽</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/10/04/%E5%B7%A2%E7%8B%80%E8%B7%AF%E7%94%B1%E3%80%81-Query-%E5%8F%83%E6%95%B8%E8%88%87%E9%87%8D%E5%B0%8E%E5%90%91/" rel="prev" title="巢狀路由、 Query 參數與重導向">
+                  <i class="fa fa-chevron-left"></i> 巢狀路由、 Query 參數與重導向
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/10/06/React-Router-%E8%88%87-hooks/" rel="next" title="React Router 與 hooks">
+                  React Router 與 hooks <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="總字數">320k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">4:51</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
