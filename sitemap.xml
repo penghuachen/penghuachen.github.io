@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://penghuachen.github.io/2022/06/24/Setting-up-for-TDD/</loc>
-    
-    <lastmod>2022-06-24</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://penghuachen.github.io/tags/index.html</loc>
     
     <lastmod>2022-06-24</lastmod>
@@ -1070,20 +1061,6 @@
   </url>
   
   <url>
-    <loc>https://penghuachen.github.io/tags/unit-test/</loc>
-    <lastmod>2022-06-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://penghuachen.github.io/tags/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6/</loc>
-    <lastmod>2022-06-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://penghuachen.github.io/tags/i%E9%96%B1%E8%AE%80/</loc>
     <lastmod>2022-06-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1177,13 +1154,6 @@
   </url>
   
   <url>
-    <loc>https://penghuachen.github.io/categories/vue/</loc>
-    <lastmod>2022-06-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://penghuachen.github.io/categories/i%E9%96%B1%E8%AE%80/</loc>
     <lastmod>2022-06-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1198,13 +1168,6 @@
   </url>
   
   <url>
-    <loc>https://penghuachen.github.io/categories/vue/unit-test/</loc>
-    <lastmod>2022-06-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://penghuachen.github.io/categories/html5/</loc>
     <lastmod>2022-06-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1213,13 +1176,6 @@
   
   <url>
     <loc>https://penghuachen.github.io/categories/Vue/</loc>
-    <lastmod>2022-06-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://penghuachen.github.io/categories/vue/unit-test/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E5%96%AE%E5%85%83%E6%B8%AC%E8%A9%A6/</loc>
     <lastmod>2022-06-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

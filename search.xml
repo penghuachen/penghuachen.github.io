@@ -1842,46 +1842,6 @@ modules option now can be {Object} and allow to setup CSS Modules options:</p>
       </tags>
   </entry>
   <entry>
-    <title>Setting up for TDD</title>
-    <url>/2022/06/24/Setting-up-for-TDD/</url>
-    <content><![CDATA[<p>透過 <a href="https://lmiller1990.github.io/vue-testing-handbook/v3/">Vue Testing HandBook</a> + <a href="https://test-utils.vuejs.org/">Vue Test Utils</a> 學習如何在 vue3 中撰寫單元測試。</p>
-<h1 id="Setting-up-for-TDD"><a class="header-anchor" href="#Setting-up-for-TDD"></a>Setting up for TDD</h1>
-<h2 id="prerequisite"><a class="header-anchor" href="#prerequisite"></a>prerequisite</h2>
-<p>專案採用 vite 建立，但由於不採用 vitest 作為框架的單元測試工具，這邊要額外以下工具到專案中：</p>
-<ol>
-<li><a href="https://jestjs.io/">jest</a></li>
-<li><a href="https://www.npmjs.com/package/jest-environment-jsdom">jest-environment-jsdom</a></li>
-<li><a href="https://github.com/vuejs/vue-jest">vue3-jest</a></li>
-<li><a href="https://www.npmjs.com/package/babel-jest">babel-jest</a></li>
-<li><a href="https://test-utils.vuejs.org/">test-utils</a></li>
-<li><a href="https://www.npmjs.com/package/@babel/preset-env">@babel/preset-env</a></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install --save-dev jest</span><br><span class="line">npm install --save-dev jest-environment-jsdom</span><br><span class="line">npm install --save-dev @vue/vue3-jest@28 (參考 repo 當下最新版本而定)</span><br><span class="line">npm install --save-dev babel-jest </span><br><span class="line">npm install --save-dev npm install --save-dev @vue/test-utils@next</span><br><span class="line">npm install --save-dev @babel/preset-env</span><br></pre></td></tr></table></figure>
-<p>還要設定以下的 config:</p>
-<h3 id="jest-config-js"><a class="header-anchor" href="#jest-config-js"></a>jest.config.js</h3>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 可以透過 jest --init 設定基礎選項</span></span><br><span class="line"><span class="comment">// 以下為主要設定內容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// The test environment that will be used for testing</span></span><br><span class="line"><span class="attr">testEnvironment</span>: <span class="string">&#x27;jsdom&#x27;</span>,</span><br><span class="line"><span class="comment">// A map from regular expressions to paths to transformers</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">transform</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;^.+\\.vue$&#x27;</span>: <span class="string">&#x27;@vue/vue3-jest&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;^.+\\js$&#x27;</span>: <span class="string">&#x27;babel-jest&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module</span></span><br><span class="line"><span class="attr">moduleNameMapper</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;^@/(.*)$&#x27;</span>: <span class="string">&#x27;&lt;rootDir&gt;/src/$1&#x27;</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">// An array of file extensions your modules use    </span></span><br><span class="line"><span class="attr">moduleFileExtensions</span>: [<span class="string">&#x27;vue&#x27;</span>, <span class="string">&#x27;js&#x27;</span>, <span class="string">&#x27;json&#x27;</span>, <span class="string">&#x27;jsx&#x27;</span>, <span class="string">&#x27;ts&#x27;</span>, <span class="string">&#x27;tsx&#x27;</span>, <span class="string">&#x27;node&#x27;</span>],</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
-<h3 id="babel-config-js"><a class="header-anchor" href="#babel-config-js"></a>babel.config.js</h3>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123; <span class="attr">presets</span>: [<span class="string">&#x27;@babel/preset-env&#x27;</span>] &#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="撰寫第一個測試-for-Greeting-元件"><a class="header-anchor" href="#撰寫第一個測試-for-Greeting-元件"></a>撰寫第一個測試 for <code>Greeting</code> 元件</h2>
-<p>測試重點：</p>
-<ol>
-<li>可以成功渲染 <code>Greeting</code> 元件</li>
-<li>確定 <code>greeting</code> 的值為 <code>&quot;Vue and TDD&quot;</code></li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Greeting.spec.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; mount &#125; <span class="keyword">from</span> <span class="string">&#x27;@vue/test-utils&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Greeting <span class="keyword">from</span> <span class="string">&#x27;@/components/Greeting.vue&#x27;</span>;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">&#x27;Greeting.vue&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  it(<span class="string">&#x27;renders a greeting&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> wrapper = mount(Greeting);</span><br><span class="line"></span><br><span class="line">    expect(wrapper.text()).toMatch(<span class="string">&#x27;Vue and TDD&#x27;</span>);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// Greeting.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &#123;&#123; greeting &#125;&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;Greeting&#x27;,</span><br><span class="line"></span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      greeting: &#x27;Vue and TDD&#x27;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>vue</category>
-        <category>unit test</category>
-        <category>前端框架單元測試</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-        <tag>unit test</tag>
-        <tag>前端框架單元測試</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Styled Component</title>
     <url>/2020/09/26/Styled-Component/</url>
     <content><![CDATA[<h1 id="Styled-Component"><a class="header-anchor" href="#Styled-Component"></a>Styled Component</h1>
