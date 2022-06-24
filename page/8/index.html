@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -299,6 +337,14 @@
 <li><strong>Component</strong> 的建立與使用的方式。</li>
 </ol>
 <p>事不宜遲，趕緊學習吧!!</p>
+<span id="more"></span>
+<h2 id="React-Element"><a class="header-anchor" href="#React-Element"></a>React Element</h2>
+<p>首先要了解的部分是 React Element，先來看看官方怎麼定義一個 React 應用程式的最小組成:</p>
+<blockquote>
+<p>建立 React 應用程式最小的單位是 element。</p>
+</blockquote>
+<p>我們透過 JSX 語法所建立的 element，只是一個<strong>單純的物件(Object)</strong>，但有一個很重要的觀念在於 「<strong>React 透過 React DOM ，比對當前 HTML 上的 DOM 與我們建立的 React Element，如果有不同就會將當前 HTML 上的 DOM 更新來符合 React Element 目前的結構」。</strong></p>
+<p>此外需要先建立的觀念是: <strong>React Element 並不一定是 component，但是 component 是由 React Element 而組成的。</strong></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/19/React-Element-%E8%88%87-Component/#more" rel="contents">
@@ -418,6 +464,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="什麼是-JSX"><a class="header-anchor" href="#什麼是-JSX"></a>什麼是 JSX?</h1>
 <p>今天 React 好朋友要帶我看看在 React 中很常使用的語法: <strong>JSX</strong>，這個語法是一個 JavaScript 的語法擴充，而且是在寫 React 的時候，官方推薦使用的語法。</p>
+<span id="more"></span>
+<p>JSX 語法的重點在於<strong>允許我們在 JS 的檔案中使用 HTML 的標籤，並且使用 JSX 語法建立的是「<mark>一個 React 的 element</mark>」，此外這樣的標籤語法比起 HTML，更貼近於 JavaScript。</strong></p>
+<p>趕緊來看看怎麼使用吧！</p>
+<h2 id="怎麼使用-JSX-語法"><a class="header-anchor" href="#怎麼使用-JSX-語法"></a>怎麼使用 JSX 語法</h2>
+<h3 id="使用-JSX-的基本方式"><a class="header-anchor" href="#使用-JSX-的基本方式"></a>使用 JSX 的基本方式</h3>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/jsx-demo-jvwfr">點擊前往</a>。</p>
+<p>在 React 中，我們可以這麼寫：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> element = <span class="language-xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/18/%E4%BB%80%E9%BA%BC%E6%98%AF-JSX/#more" rel="contents">
@@ -537,6 +591,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="建立第一個-React-Code"><a class="header-anchor" href="#建立第一個-React-Code"></a>建立第一個 React Code</h1>
 <p>學習新技術的第一天總是精神奕奕，趕緊跟 React 好朋友學習吧！</p>
+<span id="more"></span>
+<p>今天 React 好朋友跟我說，學習一門技術最快的方式就是把手弄髒(get hands dirty)，所以它打算透過舉一個簡單的範例來讓我了解 React 是如何建立一個元件(component) 並將資料傳入到元件中(component)的。</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/affectionate-leftpad-pi2eu?file=/src/App.js">點擊前往</a>。</p>
+<h2 id="初探-React，建立第一個元件"><a class="header-anchor" href="#初探-React，建立第一個元件"></a>初探 React，建立第一個元件</h2>
+<h3 id="React-環境建置-使用-create-react-app"><a class="header-anchor" href="#React-環境建置-使用-create-react-app"></a>React 環境建置: 使用 create-react-app</h3>
+<p>往下理解 React 如何建立元件(component)之前，需要先建立環境。</p>
+<p>而這裡則透過使用 <strong>create-react-app 的方式建立環境</strong></p>
+<p>至於建立的方式則是可以參考官方提供的方式： <a target="_blank" rel="noopener" href="https://github.com/facebook/create-react-app#quick-overview">Quick Overview</a>。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/17/%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E5%80%8B-React-Code/#more" rel="contents">
@@ -656,6 +718,25 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="拉開序幕，認識-React-好朋友"><a class="header-anchor" href="#拉開序幕，認識-React-好朋友"></a>拉開序幕，認識 React 好朋友</h1>
 <p>胎嘎後，大家好，沒想到今年我又決定參加鐵人賽了。</p>
+<span id="more"></span>
+<p>而今年要撰寫的主題已經非常清楚的寫在標題上，那就是想透過這三十天和 React 交個朋友培養一下感情～</p>
+<p>按照慣例，還是需要寫一下這三十天預期想達成的目標。</p>
+<p>這次的目標期許自己可以完成以下的學習:</p>
+<ol>
+<li><strong>React</strong> 的相關使用方式</li>
+<li><strong>React Router</strong>，建立路由導航</li>
+<li><strong>React Redux</strong>，學習管理共同狀態</li>
+<li>透過一個小小的 <strong>Side Project</strong> 將這次的學習運用進去</li>
+</ol>
+<p>而依據上述的學習目標會嘗試分成幾個軸線延伸:</p>
+<p>首先是:</p>
+<ol>
+<li>React 定義的一些術語，<strong>舉凡 JSX 語法、 React Element 的定義</strong>等等。</li>
+<li>Class-based Component 與相關的使用，例如**「事件操作」、「生命週期」、「狀態(State)更新」、「傳遞狀態(State)到元件中」**等。</li>
+<li>Function Component 與相關的使用，<strong>了解 React hooks 相較於 Class-based Component ，可以做到什麼事情</strong></li>
+<li>在 React 中<strong>管理樣式的幾種方式(CSS modules、Styled component)</strong> 等</li>
+<li>學習 <strong>HOC(Higher Order Component)</strong> 的觀念與基礎的使用</li>
+</ol>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/16/%E6%8B%89%E9%96%8B%E5%BA%8F%E5%B9%95%EF%BC%8C%E8%AA%8D%E8%AD%98-React-%E5%A5%BD%E6%9C%8B%E5%8F%8B/#more" rel="contents">
@@ -769,8 +850,21 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><img src="https://i.imgur.com/Lf6sGeC.gif" alt=""></p>
+          <p><img src="https://i.imgur.com/Lf6sGeC.gif" alt></p>
 <p>這陣子剛好因為專案需求，所以需要做一個<mark>簡訊驗證碼</mark>的功能，於是就嘗試自己手刻了一個簡易的四碼輸入驗證的元件，於是順道做了個學習與開發的記錄。</p>
+<span id="more"></span>
+<h2 id="元件功能"><a class="header-anchor" href="#元件功能"></a>元件功能</h2>
+<p>為了挑戰一下，所以稍微在製作這個元件上多做了些事情，功能如下:</p>
+<ol>
+<li><mark>過濾數字以外的所有字符(包含特殊字符)</mark>，僅可輸入數字。</li>
+<li>如果輸入為非數字，則<mark>停留在當前欄位，直到輸入符合條件的值</mark>。</li>
+<li>輸入符合的值，<mark>自動跳至下一個欄位</mark>，提高使用者體驗。</li>
+<li>修改欄位中的值，會<mark>自動將值選取(select)起來</mark>，提高使用者體驗</li>
+</ol>
+<h2 id="實作重點記錄"><a class="header-anchor" href="#實作重點記錄"></a>實作重點記錄</h2>
+<h3 id="限制欄位值的輸入長度"><a class="header-anchor" href="#限制欄位值的輸入長度"></a>限制欄位值的輸入長度</h3>
+<p>這邊透過 <code>&lt;input type=&quot;text&quot; maxlength=&quot;1&quot;&gt;</code> 控制輸入的欄位值只能<strong>一位數</strong>。</p>
+<p>依據 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input">MDN</a> 中提到關於 <code>maxlength</code> 的定義: 「<mark>可以限定設定輸入值的長度</mark>」。所以我們可以達成這個目的。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/06/20/vue%E4%B8%80%E5%80%8B%E7%B0%A1%E6%98%93%E9%A9%97%E8%AD%89%E7%A2%BC%E5%85%83%E4%BB%B6/#more" rel="contents">
@@ -811,7 +905,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -820,12 +914,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

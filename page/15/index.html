@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -290,6 +328,17 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="物件-object"><a class="header-anchor" href="#物件-object"></a>物件(object)</h1>
 <p>今天要學習的是物件(Object)，事不宜遲，開始學習吧！</p>
+<span id="more"></span>
+<h2 id="物件的特性與存取"><a class="header-anchor" href="#物件的特性與存取"></a>物件的特性與存取</h2>
+<p>在物件中，每個特性都有一組對應的名稱(key)與值(value)，如下式程式碼的 <strong>name</strong> 與 <strong>Bill</strong>。</p>
+<p>要注意的是<mark>物件中的特性並不是用<code>;</code>的方式區隔，而會以<code>,</code>的隔開每個特性。</mark></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// name為名稱，而Bill為值。</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;Bill&#x27;</span>,</span><br><span class="line">    <span class="attr">habbit</span>: <span class="string">&#x27;play computer&#x27;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>對於物件特性的取值方式則有兩種:</p>
+<ul>
+<li>透過 <code>.</code>的 <mark>特性存取</mark></li>
+<li>透過<code>[&quot;&quot;]</code>的<mark>鍵值存取</mark></li>
+</ul>
+<p>Ex:透過 <code>.</code> 的方式<strong>取值</strong></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/07/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day41-%E7%89%A9%E4%BB%B6-Object-part1/#more" rel="contents">
@@ -405,6 +454,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="提高效率的一些工具及技巧"><a class="header-anchor" href="#提高效率的一些工具及技巧"></a>提高效率的一些工具及技巧</h1>
 <p>關於寫程式以外的一些工具，如果我們可以妥善的運用，對於整體的開發效率也會有相輔相成的效果！而底下是我目前會用的一些小工具</p>
+<span id="more"></span>
+<h2 id="Marinara-Pomodoro®-Assistant-br-google-應用程式商店"><a class="header-anchor" href="#Marinara-Pomodoro®-Assistant-br-google-應用程式商店"></a>Marinara: Pomodoro® Assistant <br>(google 應用程式商店)</h2>
+<p><img src="https://i.imgur.com/BDQ4uD1.png" alt></p>
+<h2 id="什麼是番茄鐘工作法？"><a class="header-anchor" href="#什麼是番茄鐘工作法？"></a>什麼是番茄鐘工作法？</h2>
+<p>關於蕃茄鐘的詳細解說，可以看看: <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%95%AA%E8%8C%84%E5%B7%A5%E4%BD%9C%E6%B3%95">維基百科-番茄工作法</a></p>
+<p>不過作法就是： <strong>以25分鐘為一個單位，並專注於當前任務，並用五分鐘時間專心休息，重複循環。</strong></p>
+<p>個人覺得如果無法時常保持專心的話，也許可以透過這個方法培養專注力。</p>
+<h2 id="Life-Is-Too-Short-br-google-應用程式商店"><a class="header-anchor" href="#Life-Is-Too-Short-br-google-應用程式商店"></a>Life Is Too Short <br>(google 應用程式商店)</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/06/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day40-%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E5%8F%8A%E6%8A%80%E5%B7%A7/#more" rel="contents">
@@ -520,6 +577,20 @@
     <div class="post-body" itemprop="articleBody">
           <h3 id="try-catch-finally"><a class="header-anchor" href="#try-catch-finally"></a>try/catch/finally</h3>
 <p>用來處理Javascript的例外機制</p>
+<span id="more"></span>
+<p>Ex:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  正常情況下，這個區塊的程式碼會依序執行，但當有丟出(throw)例外狀況時，就會將例外狀況丟入catch區塊處理。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="comment">// node js 於終端機輸入參數的方式</span></span><br><span class="line">  <span class="keyword">let</span> numInput = process.<span class="property">argv</span>[<span class="number">2</span>];</span><br><span class="line">  <span class="keyword">if</span> (numInput == <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;符合條件：輸入為1&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> numInput;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  catch區塊透過 e 這個區域變數承接try區塊中所丟出的例外情況的訊息，而且除了值以外，也可以承接Error物件的內容。 </span></span><br><span class="line"><span class="comment">  而這裡的e為try區塊 throw的 numInput</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">catch</span> (e) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;不符合條件，你輸入的值為&#x27;</span> + e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  finally區塊所包含的述句永遠會被執行。</span></span><br><span class="line"><span class="comment">  當try區塊以下列方式終止時，也會執行。</span></span><br><span class="line"><span class="comment">  1. 抵達區塊結尾正常結束</span></span><br><span class="line"><span class="comment">  2. 因為break / continue / return  </span></span><br><span class="line"><span class="comment">  3. catch有接到錯誤訊息</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  狀況題：當使用try/catch/finally時，全域有撰寫一程式碼為 console.log(&#x27;test&#x27;)，試看執行時的情況。</span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment">  1. 抵達區塊結尾正常結束 : try &gt; finally ，外部 console.log不執行</span></span><br><span class="line"><span class="comment">  2. 因為break / continue / return  :</span></span><br><span class="line"><span class="comment">    - 正常情況結束 ： try &gt; finally ，外部 console.log不執行</span></span><br><span class="line"><span class="comment">    - 有例外情況時：  try &gt; catch &gt; finally ，外部 console.log會執行。若是沒有自己的catch子句處理例外情況的話，則會先執行finally區塊，然後跳至最接近的catch子句</span></span><br><span class="line"><span class="comment">  3. catch有接到錯誤訊息:try &gt; catch &gt; finally ，外部 console.log會執行</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">finally</span> &#123;</span><br><span class="line">  numInput = <span class="number">0</span>;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(numInput);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;test&#x27;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="其他述句"><a class="header-anchor" href="#其他述句"></a>其他述句</h2>
+<h3 id="with"><a class="header-anchor" href="#with"></a>with</h3>
+<p>可以更容易讀取深層巢狀的物件階層。</p>
+<ul>
+<li>語法：<br>
+with(object){<br>
+statement<br>
+}</li>
+<li>在strict模式中被禁用，而在非strict中也應該盡可能不要用到。因為使用with的程式碼很難優化。</li>
+</ul>
+<p>Ex:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/05/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day39-Javascript-%E8%BF%B0%E5%8F%A5-part3/#more" rel="contents">
@@ -673,6 +744,20 @@
 </ul>
 </li>
 </ul>
+<span id="more"></span> 
+<h2 id="迴圈"><a class="header-anchor" href="#迴圈"></a>迴圈</h2>
+<p>透過條件的限定，當條件符合時，重複執行某段程式碼。</p>
+<h3 id="while"><a class="header-anchor" href="#while"></a>while</h3>
+<p>條件符合時會執行迴圈中的內容</p>
+<ul>
+<li>
+<p>語法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//當expression為true時，執行statement</span></span><br><span class="line"><span class="comment">//statement中一定要有個會隨著每次執行時而改變的變數，不然會造成無窮迴圈</span></span><br><span class="line"><span class="keyword">while</span>(expression)&#123;</span><br><span class="line">    statement</span><br><span class="line">&#125;</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+<p>Ex1:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/*當b=5時，跳出while迴圈*/</span></span><br><span class="line"><span class="keyword">var</span> b = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(b&lt;<span class="number">5</span>)&#123;</span><br><span class="line"><span class="comment">/*b 隨著每次執行時而改變，不然會造成無窮迴圈*/</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(b);</span><br><span class="line">    b++;</span><br><span class="line">&#125;    </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="do-while"><a class="header-anchor" href="#do-while"></a>do/while</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/04/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day38-Javascript-%E8%BF%B0%E5%8F%A5-part2/#more" rel="contents">
@@ -789,6 +874,33 @@
           <h1 id="述句-statements-part1"><a class="header-anchor" href="#述句-statements-part1"></a>述句(statements) part1</h1>
 <p>述句(statements)就像是js的句子。</p>
 <p>當述句被執行時，會執行句中的設定，使得某些事情發生。</p>
+<span id="more"></span>
+<p>Outline:</p>
+<ul>
+<li>宣告述句
+<ul>
+<li>var</li>
+<li>function</li>
+</ul>
+</li>
+<li>條件句
+<ul>
+<li>if</li>
+<li>switch</li>
+</ul>
+</li>
+<li>迴圈
+<ul>
+<li>while</li>
+<li>do/while</li>
+<li>for</li>
+</ul>
+</li>
+</ul>
+<h2 id="宣告述句"><a class="header-anchor" href="#宣告述句"></a>宣告述句</h2>
+<h3 id="var"><a class="header-anchor" href="#var"></a>var</h3>
+<p>宣告一組變數或一個變數。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">&#x27;Hello world!&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">1</span>,</span><br><span class="line">    c = <span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="keyword">return</span> x*x;&#125;;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/03/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day37-Javascript-%E8%BF%B0%E5%8F%A5-part1/#more" rel="contents">
@@ -829,7 +941,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -838,12 +950,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

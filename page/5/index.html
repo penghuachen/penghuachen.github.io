@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -294,6 +332,18 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="巢狀路由、-Query-參數與重導向"><a class="header-anchor" href="#巢狀路由、-Query-參數與重導向"></a>巢狀路由、 Query 參數與重導向</h1>
 <p>今天要學習的是關於如何在 React router 中<strong>設定巢狀路由、設定 Query 參數以及重導向(Redirect)。</strong></p>
+<span id="more"></span>
+<p>今天學習的部分都可以參考測試例子來幫助理解。</p>
+<p>接著就趕緊今天的學習吧!</p>
+<h2 id="巢狀路由-Nesting-Route"><a class="header-anchor" href="#巢狀路由-Nesting-Route"></a>巢狀路由(Nesting Route)</h2>
+<p>按照慣例，一樣先將測試範例中的情境描述一下，加速進入狀況:</p>
+<ol>
+<li>設置兩個按鈕作為第一層 Router 切換畫面使用，此時也會看到預設寫在 PageA 元件中的兩個按鈕:</li>
+</ol>
+<p><img src="https://i.imgur.com/K4HQ4bw.png" alt></p>
+<ol start="2">
+<li>接著當點擊 PageA 元件中任一個按鈕的時候，顯示對應的元件內容，以Page A Nested Component 為例：</li>
+</ol>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/04/%E5%B7%A2%E7%8B%80%E8%B7%AF%E7%94%B1%E3%80%81-Query-%E5%8F%83%E6%95%B8%E8%88%87%E9%87%8D%E5%B0%8E%E5%90%91/#more" rel="contents">
@@ -413,6 +463,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="React-router-配置動態參數並取得-api-資料內容"><a class="header-anchor" href="#React-router-配置動態參數並取得-api-資料內容"></a>React router 配置動態參數並取得 api 資料內容</h1>
 <p>今天的篇幅要來學習透過<strong>切換動態參數的方式並取得 api 的資料內容後，渲染在網頁上。</strong></p>
+<span id="more"></span>
+<p>這部分我們延續昨天的 <a target="_blank" rel="noopener" href="https://codesandbox.io/s/quiet-mountain-glw7z">測試範例</a>，並改寫成透過 call api 的方式將資料替換成取得的資料。</p>
+<p>另外還要學習如何透過 <code>&lt;NavLink&gt;</code> 以外的方式達到同樣的目的。</p>
+<h2 id="改寫測試範例並配置路由的動態參數"><a class="header-anchor" href="#改寫測試範例並配置路由的動態參數"></a>改寫測試範例並配置路由的動態參數</h2>
+<p>首先我們先將昨天的程式碼改寫，讓兩個作為導航用的按鈕都會切換到同一個元件(PageA)，並且取得 props 中 router 提供的相關參數:</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/immutable-water-gtwdl?file=/src/App.js">點擊前往</a>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;./styles.css&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">PageA</span> <span class="keyword">from</span> <span class="string">&quot;./containers/PageA&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  <span class="title class_">BrowserRouter</span> <span class="keyword">as</span> <span class="title class_">Router</span>,</span><br><span class="line">  <span class="title class_">Switch</span>,</span><br><span class="line">  <span class="title class_">Route</span>,</span><br><span class="line">  <span class="title class_">NavLink</span>,</span><br><span class="line">  <span class="title class_">Redirect</span></span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&quot;react-router-dom&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;<span class="name">Router</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>使用 NavLink<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">to</span>=<span class="string">&quot;/PageA/1&quot;</span> <span class="attr">activeClassName</span>=<span class="string">&quot;active&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                PageA, id: 1</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">NavLink</span> <span class="attr">to</span>=<span class="string">&quot;/PageA/2&quot;</span> <span class="attr">activeClassName</span>=<span class="string">&quot;active&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">                PageA, id: 2</span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;/<span class="name">NavLink</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">              <span class="tag">&lt;<span class="name">Redirect</span> <span class="attr">to</span>=<span class="string">&quot;/PageA/1&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">          <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/PageA/:id&quot;</span> <span class="attr">component</span>=<span class="string">&#123;PageA&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">Switch</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">      <span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>透過設定 <code>&lt;NavLink to=&quot;/PageA/1&quot;&gt;</code> 配置<strong>當路由路徑為 <code>/PageA/1</code> 的時候，會渲染 PageA 且 <code>id = 1</code> 的內容</strong>，但是這樣還不夠，所以我們還要額外搭配 <code>&lt;Route path=&quot;/PageA/:id&quot; component=&#123;PageA&#125; /&gt;</code> 的方式才能成功導航，這邊的 <strong><code>:id</code>就是用來讓我們動態傳遞參數用的</strong>。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/03/React-router-%E9%85%8D%E7%BD%AE%E5%8B%95%E6%85%8B%E5%8F%83%E6%95%B8%E4%B8%A6%E5%8F%96%E5%BE%97-api-%E8%B3%87%E6%96%99%E5%85%A7%E5%AE%B9/#more" rel="contents">
@@ -532,6 +590,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="初探-React-Router"><a class="header-anchor" href="#初探-React-Router"></a>初探 React Router</h1>
 <p>在網頁中最常使用的操作肯定要有<strong>透過導航列切換頁面</strong>這一個功能，而在 React 中我們可以透過 React router 的方式達成<strong>切換元件，渲染對應元件的內容來達成就像是跳轉到該頁面的目的。</strong></p>
+<span id="more"></span>
+<p>意思是在 React 中，透過 router 切換的 url 並非是真正的跳轉至具有該 url 的頁面，透過這個 path 用來切換的是我們寫在 React 中的元件。</p>
+<p>後續幾天的篇幅會搭配著文件提供的部分範例來學習在不是使用 hook 與使用 hook 下的不同寫法。</p>
+<p>接著讓我們來學習關於 router 常用的一些方式吧!</p>
+<h2 id="使用-react-router-dom-套件"><a class="header-anchor" href="#使用-react-router-dom-套件"></a>使用 react-router-dom 套件</h2>
+<p>這是一套並非由 Facebook 團隊開發的套件，但是在 React 中卻廣為被應用於配置路由的套件。</p>
+<p>首先，我們先進行安裝:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save react-router-dom</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/02/%E5%88%9D%E6%8E%A2-React-Router/#more" rel="contents">
@@ -651,6 +717,18 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="在-React-中執行非同步請求"><a class="header-anchor" href="#在-React-中執行非同步請求"></a>在 React 中執行非同步請求</h1>
 <p>今天要學習的部分是在 React 中透過 axios 來操作非同步請求的 CRUD，</p>
+<span id="more"></span>
+<p>為了減少在學習時還要為了找尋可以練習 CRUD 的資源，這邊我們就透過 JSONPlaceholder 這一套來練習 CRUD 的部分，可以更專注於本章篇幅的學習主軸。</p>
+<p>不過首先，我們先學 axios 這個套件的一些使用方式吧!</p>
+<h2 id="Axios-是什麼與如何使用"><a class="header-anchor" href="#Axios-是什麼與如何使用"></a>Axios 是什麼與如何使用</h2>
+<p>axios 是一套基於 promise 的 http 庫，是可以用來發送非同步請求的 library。</p>
+<p>以往在前端開發時，常常會透過以下方式來發送非同步請求:</p>
+<ul>
+<li>XMLHttpRequest</li>
+<li>Fetch</li>
+<li>jQuery 的 $ajax</li>
+</ul>
+<p>然而由於 axios 的出現，讓我們在做非同步請求時，可以透過更簡單的方式來執行。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/01/%E5%9C%A8-React-%E4%B8%AD%E5%9F%B7%E8%A1%8C%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%AB%8B%E6%B1%82/#more" rel="contents">
@@ -771,6 +849,19 @@
           <h1 id="Context-API"><a class="header-anchor" href="#Context-API"></a>Context API</h1>
 <p>今天要學習的部分是 Context API 的簡單使用。</p>
 <p>在一般的使用情境中，我們都透過傳遞 <code>props</code> 到子元件中，讓子元件可以使用父層的資料，但隨著專案的複雜度提升等等的因素，可能會有需要<strong>傳遞多層 <code>props</code> 的情況發生</strong>，這時候可在開發與維護時都會造成一定的疏漏或困擾。</p>
+<span id="more"></span>
+<p>而透過這個 API 提供的方法，可以讓我們在 class component 或者 function component 中解決因為 <strong>多層傳遞 props 可能會造成的問題。</strong></p>
+<p>而用法上其實也很清楚易懂，趕緊往下學習吧!</p>
+<h2 id="Context-API-的使用"><a class="header-anchor" href="#Context-API-的使用"></a>Context API 的使用</h2>
+<p>這裡我們將流程大致順過一次:</p>
+<ol>
+<li>使用 Context API 的第一步，就是<strong>先建立一個 Context 物件，讓元件可以訂閱這個 Context 物件</strong>。</li>
+<li>透過 <strong><code>Context.Provider </code>的方式讓訂閱的元件可以使用到這個 <code>Context</code> 物件中，我們指定的值</strong>(<strong>這邊要設定在使用元件 Tag 的地方</strong>)。</li>
+<li><strong>最後透過 <code>Context.Consumer</code> 的方式在元件中使用這個 <code>Context</code> 物件中的值。</strong></li>
+<li>在 class-based component 中需要定義 <strong><code>static contextType = MyContext;</code></strong> 或者 <code>Component.contextType = MyContext;</code> 才可以在元件中使用 <code>this.context</code></li>
+<li>在 function component 中，可以透過 <strong><code>&#123; context =&gt; &#123; React element, component &#125; &#125;</code></strong> 的方式使用 <code>context</code> 物件</li>
+</ol>
+<p>最後需要注意的一點時， <strong>Context 物件可以放入的不是單純只有值，函式、物件及陣列等等都可以在這裡設定，並且讓所有使用到這個 Context 物件的地方都可以享用這些設定</strong></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/30/Context-API/#more" rel="contents">
@@ -811,7 +902,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -820,12 +911,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -293,6 +331,15 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>今天的篇幅比較簡單，但是在透過框架開發時卻是一個會影響開發時間、效率很重要的關鍵工具之一，那就是 React 的 developer tools。</p>
+<span id="more"></span>
+<p><img src="https://i.imgur.com/2UxaNk5.png" alt></p>
+<p>在開發過程時，我們肯定需要常常觀察元件(Component)中像是 state 的變化等等，這個時候就是 React developer tools 派上用場的時候囉!!</p>
+<p>而目前的學習階段由於還沒有學習到 Redux，所以 Redux 的 developer tools 的使用就留待後面學習到的時候再說囉XD</p>
+<p>接著讓我們來學習如何使用吧</p>
+<h2 id="透過瀏覽器安裝-React-developer-tools。"><a class="header-anchor" href="#透過瀏覽器安裝-React-developer-tools。"></a>透過瀏覽器安裝 React developer tools。</h2>
+<p>這邊介紹在 Google Chrome 與 Firefox 中安裝的部分。</p>
+<p>在 Google Chrome 可以透過 chrome 線上應用程式商店中安裝，<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?utm_source=chrome-ntp-icon">點擊連結前往</a>。</p>
+<p><img src="https://i.imgur.com/KQ49OrA.png" alt></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/24/%E4%BD%BF%E7%94%A8-React-developer-Tool-%E6%8F%90%E9%AB%98%E9%96%8B%E7%99%BC%E6%95%88%E7%8E%87/#more" rel="contents">
@@ -412,6 +459,23 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="Class-based-Component-生命週期方法-續"><a class="header-anchor" href="#Class-based-Component-生命週期方法-續"></a>Class-based Component 生命週期方法(續)</h1>
 <p>今天的篇幅要延續昨天的部分繼續，要來看看在<a target="_blank" rel="noopener" href="https://zh-hant.reactjs.org/docs/react-component.html">官方文件</a>中如何定義了這些方法，以及哪些是常用的、應用在什麼地方。</p>
+<span id="more"></span>
+<p>學習順序會依照元件建立、更新及銷毀的生命週期順序來學習。</p>
+<p>並在最後透過發一個非同步請求的範例來作為 ending，事不宜遲，趕緊來學習吧!</p>
+<h2 id="元件-Component-建立時-mounting-的生命週期方法"><a class="header-anchor" href="#元件-Component-建立時-mounting-的生命週期方法"></a>元件(Component)建立時(mounting)的生命週期方法</h2>
+<p>所有方法:</p>
+<ul>
+<li><code>constructor</code></li>
+<li><code>static getDerivedStateFromProps</code></li>
+<li><code>render</code></li>
+<li><code>componentDidMount</code></li>
+</ul>
+<p><strong>常用方法:</strong></p>
+<ul>
+<li><code>constructor</code></li>
+<li><code>render</code></li>
+<li><code>componentDidMount</code></li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/23/Class-based-Component-%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F%E6%96%B9%E6%B3%95-%E7%BA%8C/#more" rel="contents">
@@ -531,6 +595,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="Class-based-Component-的生命週期"><a class="header-anchor" href="#Class-based-Component-的生命週期"></a>Class-based Component 的生命週期</h1>
 <p>今天要學習關於 Class-based Component 的生命週期(lifecycle)，了解元件(Component)在建立、更新及銷毀時會經歷過哪些階段、元件和子元件之間的建立順序與我們可以在這些時候做些什麼事情。</p>
+<span id="more"></span>
+<p>而這些生命週期的方法只能在<strong>Class-based Component 中使用，在 Function Component 中則是需要透過 React hooks 的方式達成，但這個我們留待後面的篇幅在做學習。</strong></p>
+<p>而 Class-based Component 的生命週期會拆分兩篇來做學習，今天先透過測試範例，一步步了解 Class-based Component 中建立元件、更新元件以及銷毀元件時會用到的生命週期方法:</p>
+<p>明天的部分則是針對這些方法來了解官方的定義。</p>
+<p>接著讓我們趕緊進入正題吧!</p>
+<h2 id="Class-component-的生命週期"><a class="header-anchor" href="#Class-component-的生命週期"></a>Class component 的生命週期</h2>
+<p>在官方文件中有提供一份清楚易懂的<a target="_blank" rel="noopener" href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/">生命週期示意圖</a>。</p>
+<p><img src="https://i.imgur.com/Ongt46L.png" alt></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/22/Class-based-Component-%E7%9A%84%E7%94%9F%E5%91%BD%E9%80%B1%E6%9C%9F/#more" rel="contents">
@@ -650,6 +722,17 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="事件處理的使用與了解"><a class="header-anchor" href="#事件處理的使用與了解"></a>事件處理的使用與了解</h1>
 <p>昨天的 <a target="_blank" rel="noopener" href="https://hackmd.io/39D2cl2wTc-rep0l7Zhpow">在 class-based Component 中的 State 與事件處理</a> 中我們對於事件處理的部分有稍微提了一些，而今天的篇幅是針對於在使用事件時的一些細節學習。</p>
+<span id="more"></span>
+<p>而今天的內容會依據官方文件提供的例子，再搭配一些簡單的測試範例來學習。</p>
+<h2 id="將參數傳給-Event-Handler"><a class="header-anchor" href="#將參數傳給-Event-Handler"></a>將參數傳給 Event Handler</h2>
+<p>我們可以透過如下兩種方式將額外的參數傳給 Event Handler:</p>
+<ul>
+<li><code>Function.prototype.bind()</code></li>
+<li><code>arrow function</code></li>
+</ul>
+<p>如同文件提供的例子:</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;button onClick=&#123;<span class="function">(<span class="params">e</span>) =&gt;</span> <span class="variable language_">this</span>.<span class="title function_">deleteRow</span>(id, e)&#125;&gt;<span class="title class_">Delete</span> <span class="title class_">Row</span>&lt;/button&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.deleteRow.bind(this,</span> <span class="attr">id</span>)&#125;&gt;</span>Delete Row<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p>接著讓我們分析一下這兩種寫法的細節:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/21/%E4%BA%8B%E4%BB%B6%E8%99%95%E7%90%86%E7%9A%84%E4%BD%BF%E7%94%A8%E8%88%87%E4%BA%86%E8%A7%A3/#more" rel="contents">
@@ -769,6 +852,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="在-Class-based-Component-中的-State-與事件處理"><a class="header-anchor" href="#在-Class-based-Component-中的-State-與事件處理"></a>在 Class-based Component 中的 State 與事件處理</h1>
 <p>今天 React 好朋友要帶我學習的部分是如何在 Class-based 的元件(component)中透過<strong>修改 state 的值來達到更新畫面(UI)</strong>，而為了幫助自己更快了解，這邊會同時將 React 中事件處理的部分也一併學習，並且搭配一個簡單的測試情境，才可以更好地吸收。</p>
+<span id="more"></span>
+<h2 id="在-Class-based-的元件-component-中的-state"><a class="header-anchor" href="#在-Class-based-的元件-component-中的-state"></a>在 Class-based 的元件(component)中的 state</h2>
+<p>很重要的一個觀念: <strong>state 可以用來在 class-based 的元件(component)中，對於資料進行更新。</strong></p>
+<p><strong>而在還沒有 React Hook 的時期，這是透過資料來更新畫面(UI)的唯一撰寫方式</strong>，然而 React Hook 的出現，使得寫法得以有所變化：<strong>這讓我們可以在 Functional 元件(component)中透過修改 state 的值來重新渲染畫面(UI)</strong></p>
+<p>這邊我們模擬一個使用情境，並透過這個情境來了解如何在 <strong>Class-based 的元件(component)中修改 state 中的資料並觸發 React 重新更新畫面(UI)。</strong></p>
+<h3 id="情境-透過點擊-click-按鈕，將目前元件中的姓名與年齡替換成另一組資料"><a class="header-anchor" href="#情境-透過點擊-click-按鈕，將目前元件中的姓名與年齡替換成另一組資料"></a>情境: 透過點擊(click)按鈕，將目前元件中的姓名與年齡替換成另一組資料</h3>
+<h4 id="首先-先將-Function-component-轉換成-Class-based-component"><a class="header-anchor" href="#首先-先將-Function-component-轉換成-Class-based-component"></a>首先: 先將 Function component 轉換成 Class-based component:</h4>
+<p>(P.S. 這裡將 Function component 轉換成 Class-based component 的目的是在於了解這兩者之間該如何轉換哦!)</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/09/20/%E5%9C%A8-Class-based-Component-%E4%B8%AD%E7%9A%84-State-%E8%88%87%E4%BA%8B%E4%BB%B6%E8%99%95%E7%90%86/#more" rel="contents">
@@ -809,7 +900,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -818,12 +909,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

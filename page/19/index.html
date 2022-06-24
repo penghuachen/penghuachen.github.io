@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -295,6 +333,13 @@
           <h1 id="為什麽會出現浮動和什麽時候需要清除浮動？清除浮動的方式"><a class="header-anchor" href="#為什麽會出現浮動和什麽時候需要清除浮動？清除浮動的方式"></a>為什麽會出現浮動和什麽時候需要清除浮動？清除浮動的方式?</h1>
 <h2 id="起源："><a class="header-anchor" href="#起源："></a>起源：</h2>
 <p>原本是因應<strong>文繞圖</strong>的需求被創造出來，但在還沒有flex/grid時，被發現用於排版上相較table的方式好，所以被拿來運用在排版上，但必須要知道這是誤用，每個語法都有自己被開發出來的意義。</p>
+<span id="more"></span>
+<p><img src="https://i.imgur.com/fsP9aJf.png" alt></p>
+<h2 id="特性："><a class="header-anchor" href="#特性："></a>特性：</h2>
+<p>當元素設定為float時，元素會脫離normal flow而浮動起來，此時的容器會因此而高度變成0</p>
+<p>示意圖如下：</p>
+<p><img src="https://i.imgur.com/BtHuOOm.png" alt></p>
+<p>上述狀況會造成的影響：</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/16/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day20-float%E5%92%8C%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8B%95%E7%9A%84%E6%96%B9%E6%B3%95/#more" rel="contents">
@@ -426,6 +471,51 @@
 <ul>
 <li>備註： 最後一個length為Z軸設定長度的參數</li>
 </ul>
+<span id="more"></span>
+<h3 id="transform-style-設定後可以看到元素如同處在3D的空間的樣貌。"><a class="header-anchor" href="#transform-style-設定後可以看到元素如同處在3D的空間的樣貌。"></a>transform-style : 設定後可以看到元素如同處在3D的空間的樣貌。</h3>
+<table>
+<thead>
+<tr>
+<th>語法</th>
+<th>允許值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>transform-style</td>
+<td>[flat]、[preserve-3d]</td>
+</tr>
+</tbody>
+</table>
+<p>下列屬性為設定transform:preserve-3d時屬性的預設值，所以當3d轉換突然變為2d平面時，很可能是下列任一屬性有被修改：</p>
+<ul>
+<li>over-flow:visible</li>
+<li>filter:none</li>
+<li>clip:auto</li>
+<li>clip-path:none</li>
+<li>mask-image:none</li>
+<li>mask-border-source:none</li>
+<li>mix-blend-mode:normal</li>
+</ul>
+<h3 id="perspective-與perspective-函式不同之處在於："><a class="header-anchor" href="#perspective-與perspective-函式不同之處在於："></a>perspective: 與perspective()函式不同之處在於：</h3>
+<table>
+<thead>
+<tr>
+<th>語法</th>
+<th>差別</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>perspective</td>
+<td><strong>會讓元素共享同一個3d空間，且效果會套用到所有元素上</strong></td>
+</tr>
+<tr>
+<td>perspective()</td>
+<td><strong>會讓元素有各自的3d空間，且效果只會套用在指定的元素上</strong></td>
+</tr>
+</tbody>
+</table>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/15/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day19-transform%E5%88%9D%E6%8E%A2-part3/#more" rel="contents">
@@ -542,6 +632,53 @@
           <h1 id="css-大全-transform-初探-part2"><a class="header-anchor" href="#css-大全-transform-初探-part2"></a>css 大全 - transform 初探 -part2</h1>
 <h2 id="函式用途與設定"><a class="header-anchor" href="#函式用途與設定"></a>函式用途與設定</h2>
 <p>附上練習時的連結： <a target="_blank" rel="noopener" href="https://codepen.io/kids5346/pen/NZqzQx">transform 語法練習</a>，詳細tranform語法介紹如下：</p>
+<span id="more"></span>
+<h3 id="translate-使元素隨著座標軸移動，而translateX-、translateY-也被稱為2D平移函式，原點為左上角。"><a class="header-anchor" href="#translate-使元素隨著座標軸移動，而translateX-、translateY-也被稱為2D平移函式，原點為左上角。"></a>translate():使<strong>元素隨著座標軸移動</strong>，而translateX()、translateY()也被稱為2D平移函式，原點為左上角。</h3>
+<table>
+<thead>
+<tr>
+<th>函式</th>
+<th>允許值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>translateX().translateY()</td>
+<td>[length、percentage]</td>
+</tr>
+<tr>
+<td>translateZ()</td>
+<td>[length]</td>
+</tr>
+<tr>
+<td>translate3d()</td>
+<td>[length、percentage] [length、percentage] [length]</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>此處percentage的<strong>實際長度會依照元素本身的尺寸</strong>為基準計算</li>
+</ul>
+<h3 id="scale-能讓元素依據指定的數值變大或變小，負值可以使元素產生顛倒的效果"><a class="header-anchor" href="#scale-能讓元素依據指定的數值變大或變小，負值可以使元素產生顛倒的效果"></a>scale():<strong>能讓元素依據指定的數值變大或變小，負值可以使元素產生顛倒的效果</strong></h3>
+<table>
+<thead>
+<tr>
+<th>函式</th>
+<th>允許值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scaleX().scaleY().scaleZ()</td>
+<td>[number]</td>
+</tr>
+<tr>
+<td>scale3d()</td>
+<td>[number、number、number]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rotate-能讓元素朝某個軸或3D空間的任何向量旋轉"><a class="header-anchor" href="#rotate-能讓元素朝某個軸或3D空間的任何向量旋轉"></a>rotate():<strong>能讓元素朝某個軸或3D空間的任何向量旋轉</strong></h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/14/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day18-transform%E5%88%9D%E6%8E%A2-part2/#more" rel="contents">
@@ -666,6 +803,75 @@
 </ul>
 </li>
 </ul>
+<span id="more"></span>
+<ul>
+<li>球面系統：描述3D空間中的角度</li>
+</ul>
+<p>而：</p>
+<ul>
+<li>2D平面的旋轉實際上是描述對於Ｚ軸旋轉
+<ul>
+<li>rotate(45deg) = rotateZ(45deg)</li>
+</ul>
+</li>
+<li>相對於X軸旋轉會讓元素接近或遠離使用者</li>
+<li>相對於Y軸旋轉則會讓元素左右翻轉</li>
+</ul>
+<h2 id="轉換-transform-語法與觀念"><a class="header-anchor" href="#轉換-transform-語法與觀念"></a>轉換(transform)語法與觀念</h2>
+<ul>
+<li>transform可以設定的語法：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>none(Default)</th>
+<th>translate()</th>
+<th>scale()</th>
+<th>rotate()</th>
+<th>skew()</th>
+<th>martrix()</th>
+<th>perspective()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-</td>
+<td>translate3d()</td>
+<td>scale3d()</td>
+<td>rotate3d()</td>
+<td>skewX()</td>
+<td>martrix3d()</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>translateX()</td>
+<td>scaleX()</td>
+<td>rotateX()</td>
+<td>skewY()</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>translateY()</td>
+<td>scaleY()</td>
+<td>rotateY()</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>-</td>
+<td>translateZ()</td>
+<td>scaleZ()</td>
+<td>rotateZ()</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/13/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day17-transform%E5%88%9D%E6%8E%A2-part1/#more" rel="contents">
@@ -794,6 +1000,12 @@
 <p>border-width設定橘色部份的邊框</p>
 </li>
 </ul>
+<span id="more"></span>
+<p><img src="https://i.imgur.com/hjze63t.png" alt="Wiggly Moustache"></p>
+<h2 id="最後結果"><a class="header-anchor" href="#最後結果"></a>最後結果</h2>
+<p><img src="https://i.imgur.com/r7eCn2o.png" alt="Wiggly Moustache"></p>
+<p>附上 codepen(CSSBattle 目前無法透過附上連結看到別人所寫的程式碼，所以我另外寫在 codepen 方便點擊。可直接複製貼上即可查看結果)</p>
+<p><a target="_blank" rel="noopener" href="https://codepen.io/kids5346/pen/ydyQoj">#12 Wiggly Moustache</a></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/12/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day16-12-Wiggly-Moustache/#more" rel="contents">
@@ -834,7 +1046,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -843,12 +1055,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

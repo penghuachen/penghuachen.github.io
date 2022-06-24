@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -290,6 +328,57 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="切版的自我檢查清單"><a class="header-anchor" href="#切版的自我檢查清單"></a>切版的自我檢查清單</h1>
 <p>這陣子在<a target="_blank" rel="noopener" href="https://goodideas-studio.com">好想工作室</a>的環境中學習，讓自己在切版的觀念上又有更扎實的觀念，也在這段過程中整理了一些關於應該要注意的細節，當作一份檢查清單使用。 而這份清單會伴隨自己的學習而不斷更新。</p>
+<span id="more"></span>
+<ul>
+<li>記住<strong>容器和元素</strong>之間的關係：</li>
+<li><strong>元素和元素</strong>之間的關係
+<ul>
+<li>決定使用的是padding or margin</li>
+</ul>
+</li>
+<li>任何引入到html的檔案順序
+<ul>
+<li>ex: css引入順序會決定css的權重問題</li>
+<li>ex2:js的引入順序會決定js的程式執行問題</li>
+</ul>
+</li>
+<li>對於經過再次修改的區塊
+<ul>
+<li>必須要確認和設計稿是否能有高程度的符合</li>
+</ul>
+</li>
+<li>撰寫時思考所使用的技巧維護性是否夠彈性</li>
+<li>如果沒有設計稿(手機/電腦)，也要先思考過版面的配置在撰寫，避免回過頭需要花費太多時間重構架構
+<ul>
+<li>寧願在思考上多花點時間，也不要在重構上花費太多時間</li>
+<li>需要做確認的部分就花時間做確認</li>
+</ul>
+</li>
+<li>RWD 響應式網頁
+<ul>
+<li>網頁重點在於網頁內容的資訊在於較小的裝置上能否<strong>有效的呈現</strong>，且<strong>使用者體驗是流暢、舒服的</strong></li>
+<li>版面配置切換時，盡量保持斷點在切換時版面配置是有一致性，避免某個斷點有過於突兀的版面切換，視覺上比較流暢</li>
+<li>RWD不能只檢查直立時的頁面是否有問題，也要檢查水平的時候是否也是正常</li>
+<li>因為可讀性，所以將@media設定的程式碼放在對應的原程式碼底下，在修改及維護上會更加直觀、快速</li>
+</ul>
+</li>
+<li>字與字、行與行、元素與元素之間的距離，站在使用者的角度考量</li>
+<li>替程式碼命名
+<ul>
+<li>詞性很重要，可以幫助命名能力的提升</li>
+<li>命名就是一個短註解，設定上要能讓開發者快速了解用意</li>
+</ul>
+</li>
+<li>相較起來最遵從規範開發的瀏覽器
+<ul>
+<li>firebox</li>
+</ul>
+</li>
+<li>以模組化的概念切版，讓每個區塊都可以獨自正常運作。(在程式上這個觀念更為重要)</li>
+<li>若是遇到不懂的部分，找尋相關規範的相關定義了解原理並記錄起來，以免日後為了重複問題又耗費過多時間。</li>
+</ul>
+<div style="text-align:center;font-weight:bold;">力圖在這個世界上找尋可留下的感動，並用著文字扎實的記錄著。</div>
+
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/22/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day26-%E5%AF%AB%E7%B5%A6%E8%87%AA%E5%B7%B1%E7%9A%84%E9%97%9C%E6%96%BC%E5%88%87%E7%89%88%E6%99%82%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%E7%B4%B0%E7%AF%80%E6%8F%90%E9%86%92/#more" rel="contents">
@@ -410,6 +499,19 @@
 <li>定義給 button, input, meter, output, progress, select, or textarea元素做使用</li>
 <li>Ex:</li>
 </ul>
+<span id="more"></span>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//for 屬性設定與id需要相同</span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;text&quot;</span>&gt;</span>click<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;text&quot;</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="關於-checkbox-複選框"><a class="header-anchor" href="#關於-checkbox-複選框"></a>關於 checkbox (複選框)</h2>
+<ul>
+<li>用於當選項需要可以重複勾選時使用</li>
+<li>透過checked屬性可以設定複選框預設值，checked=&quot;checked&quot;意即預設為已經勾選複選框</li>
+<li>Ex:</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>請勾選：<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">checked</span>=<span class="string">&quot;checked&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="小測試：關於label-checkbox的簡單運用"><a class="header-anchor" href="#小測試：關於label-checkbox的簡單運用"></a>小測試：關於label + checkbox的簡單運用</h2>
+<ul>
+<li>Ex:</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/21/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day25-%E9%80%8F%E9%81%8Elabel-checkbox%E5%AF%A6%E7%8F%BE%E7%B4%94css%E6%89%8B%E5%88%BBRWD%E9%81%B8%E5%96%AE/#more" rel="contents">
@@ -525,8 +627,36 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="counter"><a class="header-anchor" href="#counter"></a>counter</h1>
 <h2 id="What-is-counter"><a class="header-anchor" href="#What-is-counter"></a>What is counter ?</h2>
-<p><img src="https://i.imgur.com/CuHNMP8.png" alt=""></p>
+<p><img src="https://i.imgur.com/CuHNMP8.png" alt></p>
 <p>counters是由css所維護的&quot;變量&quot;，而且可以透過css規則增量並追蹤被使用的次數。counters也允許我們調整內容的外觀。</p>
+<span id="more"></span>
+<h2 id="How-to-use-counter"><a class="header-anchor" href="#How-to-use-counter"></a>How to use counter?</h2>
+<ul>
+<li>counter-reset : 啟動或者重置一個計數器
+<ul>
+<li>Ex :</li>
+</ul>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.container&#123;</span><br><span class="line">    counter-reset:num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>counter-increment ： 設定該計數器所要的增量，<strong>設定在子層的偽元素裡</strong>
+<ul>
+<li>Ex :</li>
+</ul>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> /* value 可以設定每次要增量的數值，這裡的num和容器中counter-reset的名稱相同 */</span><br><span class="line"></span><br><span class="line">h2:after&#123;</span><br><span class="line">    counter-increment : num value;</span><br><span class="line">    content: &quot;num &quot; counter(num) &quot;: &quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>counter() : 透過此函式將變量帶入到content</li>
+<li>content : 寫入counter產生的變量以及所需要的文字內容
+<ul>
+<li>Ex :  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> /* value 可以設定每次要增量的數值，這裡的num和容器counter-reset的名稱相同 */</span><br><span class="line"></span><br><span class="line">h2&#123;</span><br><span class="line">    counter-increment : num value;</span><br><span class="line">    content: &quot;num &quot; counter(num) &quot;: &quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>引用： <a target="_blank" rel="noopener" href="https://www.w3schools.com/css/css_counters.asp">w3school</a></p>
+</blockquote>
+<h2 id="Demo"><a class="header-anchor" href="#Demo"></a>Demo</h2>
+<p>透過counter自訂清單編號的樣式</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/20/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day24-css-counter/#more" rel="contents">
@@ -652,6 +782,159 @@
 <li>彈性項目(flex item)會依照設定的語法平均獲得容器的空間剩餘量(flex-grow)，或者縮小自己以適應容器的大小(flex-shrink)。</li>
 <li>flex讓元素在二維空間的排序上(<strong>如水平排列或者困擾許久的垂直排列</strong>)變得簡單許多。</li>
 </ul>
+<span id="more"></span>
+<h2 id="What-is-flex-properties-關於flex的特性"><a class="header-anchor" href="#What-is-flex-properties-關於flex的特性"></a>What is flex properties? 關於flex的特性?</h2>
+<ul>
+<li>FFC 中有些原本用於BFC中的屬性會是無效的:
+<ul>
+<li>clear / float</li>
+<li>vertical align</li>
+<li>:first-line / :first-letter</li>
+<li>column</li>
+<li>設定為flex的容器不會有margin-collapse</li>
+</ul>
+</li>
+</ul>
+<h2 id="How-to-use-flex-如何使用flex語法？"><a class="header-anchor" href="#How-to-use-flex-如何使用flex語法？"></a>How to use flex ? 如何使用flex語法？</h2>
+<ul>
+<li>
+<p>主軸(main axis)  &amp; 次軸 (cross axis):<br>
+<strong>前提</strong>：那就是預設書寫模式是由左至右(LTR)，由上至下的方式(也就是設定 writing-mode:horizontal-tb)</p>
+<ul>
+<li><img src="https://i.imgur.com/jVmW4TZ.png" alt></li>
+</ul>
+</li>
+<li>
+<p>在容器設定的語法：</p>
+<ul>
+<li>
+<p>display: flex / inline-flex</p>
+</li>
+<li>
+<p>flex-wrap</p>
+<ul>
+<li>wrap / wrap-reverse / nowrap / initial / inherit</li>
+</ul>
+</li>
+<li>
+<p>flex-direction</p>
+<ul>
+<li>row / row-reverse / column / column-reverse / initial / inherit</li>
+</ul>
+</li>
+<li>
+<p>justify-content</p>
+<ul>
+<li>flex-start / flex-end / center / space-around / space-between / initial / inherit</li>
+</ul>
+</li>
+<li>
+<p>align-items</p>
+<ul>
+<li>flex-start / flex-end / center / space-around / space-between / <strong>stretch</strong> / <strong>baseline</strong> / initial / inherit</li>
+</ul>
+</li>
+<li>
+<p>align-content</p>
+<ul>
+<li>flex-start / flex-end / center / space-around / space-between /  <strong>stretch</strong> / initial / inherit</li>
+</ul>
+<p>p.s  粗體字為特定語法才有的設定</p>
+</li>
+</ul>
+</li>
+<li>
+<p>在元素設定的語法：</p>
+<ul>
+<li>
+<p>align-self</p>
+<ul>
+<li>flex-start / flex-end / center / space-around / space-between / <strong>stretch</strong> / <strong>baseline</strong> / <strong>auto(Default)</strong> / initial / inherit</li>
+</ul>
+</li>
+<li>
+<p>flex</p>
+<ul>
+<li>flex-basis
+<ul>
+<li>決定設定值為寬/高的依據： <strong>主軸是誰</strong></li>
+<li>主軸row: 寬</li>
+<li>主軸column: 高</li>
+<li>優先性： flex-basis &gt; width;</li>
+<li>flex-basis:auto 則大小為元素本身大小</li>
+<li>
+<div style="color:red;">如果有設定 min/max-width的話，則還是會依照min/max-width設定值去跑。</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>flex-shrink (寫個例子)</p>
+<ul>
+<li><strong>當子層寬度總和大於父層時，且不允許折行的情況下</strong>，會依照比例的縮小，符合父層空間</li>
+<li>計算方式
+<ul>
+<li>當寬度值為固定時，並且有給shrink的值時：
+<ul>
+<li>先得到總共超出多少空間</li>
+<li>超出空間 * 各區塊shrink後的權重總和</li>
+<li>( 超出空間 * 各區塊shrink ／  超出空間 * 各區塊shrink後的權重總和 ) * 超出寬度</li>
+<li>用原本item的寬度 - 每個區塊應被扣除的寬度＝等於實際寬度</li>
+<li>Ex :</li>
+</ul>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">.container&#123;</span><br><span class="line">    width:500px;</span><br><span class="line">    background:#ccc;</span><br><span class="line">    display:flex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.box&#123;</span><br><span class="line">    width:300px;</span><br><span class="line">    height:50px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.box1&#123;</span><br><span class="line">    background:#ada;</span><br><span class="line">    flex-shrink:2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.box2&#123;</span><br><span class="line">    background:#aad;</span><br><span class="line">    flex-shrink:1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">    套入上述計算方式：</span><br><span class="line">    1. 先得到總共超出多少空間</span><br><span class="line">        300*2 - 500 = 100(px)</span><br><span class="line">    2. 超出空間 * 各區塊shrink後的權重總和 = 100*2 + 100*1 = 300</span><br><span class="line">    3. 得到box1 = 300 - 200 / 300 * 100 = 233.33(px)</span><br><span class="line">    4. 得到box2  = 300 - 100 / 300 * 100 = 266.66(px)</span><br><span class="line"></span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>flex-grow</p>
+<ul>
+<li>依照比例獲得相對的空間大小(<strong>當子層空間總和不超過父層時</strong>)</li>
+<li>row:分配寬</li>
+<li>column:分配高</li>
+<li>計算方式：
+<ul>
+<li>實際寬度 + 多出空間 * 各元素flex-grow值/flex-grow值總和</li>
+<li><strong>若是flex-grow值總和 &lt; 1，則不會將多出的空間完全分配給各元素</strong></li>
+<li>
+<div style="color:red;"> 會受到max-width影響，如果超過max-width的寬度，則以max-width優先</div>
+</li>
+<li>Ex :  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">      .container&#123;</span><br><span class="line">          width:500px;</span><br><span class="line">          background:#ccc;</span><br><span class="line">          display:flex;</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      .box&#123;</span><br><span class="line">          width:200px;</span><br><span class="line">          height:50px;</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      .box1&#123;</span><br><span class="line">          background:#ada;</span><br><span class="line">          flex-grow:2;</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      .box2&#123;</span><br><span class="line">          background:#aad;</span><br><span class="line">          flex-grow:1;</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      /*</span><br><span class="line">          套入上述計算方式：</span><br><span class="line">box1 = 200 + 100 * 2 / 3 = 266.66(px)</span><br><span class="line">box2 = 200 + 100 * 1 / 3 = 233.33(px)</span><br><span class="line">      </span><br><span class="line">      */</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>auto (same as 0 1 auto)</p>
+</li>
+<li>
+<p>initial (Same as 0 1 auto)</p>
+</li>
+<li>
+<p>none(Same as 0 0 auto)</p>
+</li>
+<li>
+<p>inherit</p>
+</li>
+<li>
+<p>order</p>
+</li>
+<li>
+<p>數值越小，排序越前面</p>
+</li>
+<li>
+<p>0(default)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="The-relationship-between-flex-and-writing-mode-flex和書寫模式的之間的關係？"><a class="header-anchor" href="#The-relationship-between-flex-and-writing-mode-flex和書寫模式的之間的關係？"></a>The relationship between flex and writing-mode? flex和書寫模式的之間的關係？</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/19/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day23-CSS3-%E7%9A%84-Flexbox-%E4%BB%A5%E5%8F%8A%E9%81%A9%E7%94%A8%E5%A0%B4%E6%99%AF%EF%BC%9F/#more" rel="contents">
@@ -768,6 +1051,28 @@
           <h1 id="css-大全-transition-轉場-初探-part1"><a class="header-anchor" href="#css-大全-transition-轉場-初探-part1"></a>css 大全 -transition(轉場) 初探 part1</h1>
 <h2 id="用途-讓元素狀態改變時使屬性值的數值逐步的變化"><a class="header-anchor" href="#用途-讓元素狀態改變時使屬性值的數值逐步的變化"></a>用途 : <strong>讓元素狀態改變時使屬性值的數值逐步的變化</strong></h2>
 <p>能讓css屬性在數值變化時有&quot;活起來&quot;的效果(使用程式改變ID、class時亦是。)通常用在和使用者的互動上。</p>
+<span id="more"></span>
+<h2 id="轉場屬性："><a class="header-anchor" href="#轉場屬性："></a>轉場屬性：</h2>
+<h3 id="transition-property-可以指定特定的css屬性名稱才能有轉場的效果，亦可以同時指定css屬性名稱使用"><a class="header-anchor" href="#transition-property-可以指定特定的css屬性名稱才能有轉場的效果，亦可以同時指定css屬性名稱使用"></a>transition-property:可以指定特定的css屬性名稱才能有轉場的效果，亦可以同時指定css屬性名稱使用</h3>
+<table>
+<thead>
+<tr>
+<th>語法</th>
+<th>數值</th>
+<th>適用於</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>transition-property</td>
+<td>none、all、property-name</td>
+<td>所有元素以及<br>:before、:after偽元素</td>
+</tr>
+</tbody>
+</table>
+<p>問題:如何確定有使用到轉場效果的css屬性名稱?</p>
+<p>答案:透過js監聽事件的方法，可以獲得相關的資訊，程式碼如下：</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//使用監聽事件查看使用transition時有變動的css屬性(搭配console查看)</span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/17/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day21-transition-%E5%88%9D%E6%8E%A2-part1/#more" rel="contents">
@@ -808,7 +1113,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -817,12 +1122,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

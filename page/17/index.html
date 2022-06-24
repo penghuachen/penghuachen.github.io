@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -290,6 +328,27 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="初探Boostrap4"><a class="header-anchor" href="#初探Boostrap4"></a>初探Boostrap4</h1>
 <p>關於學習Boostrap4的過程中，我覺得最重要的是要了解：</p>
+<span id="more"></span>
+<ul>
+<li>什麼是Boostrap4？</li>
+<li>為什麼要套用Boostrap4?是因為什麼目的？</li>
+<li>Boostrap4是基於什麼觀念被開發出來？</li>
+<li>Boostrap4在版面配置上有著什麼特別的設定？</li>
+<li>Boostrap4元件的HTML架構、CSS是如何被撰寫？</li>
+<li>當需要額外的客製化css設定時，應該怎麼做比較好？</li>
+<li>Boostrap4的class命名有什麼規則？</li>
+<li>Boostrap4預設了哪些響應式斷點？</li>
+<li>Boostrap4在字體部分變更了什麼？</li>
+</ul>
+<p>框架可以幫助我們更快的生成一些常用的元件及版型，例如導覽列(Navbar)等。</p>
+<p>但要提醒的一點是，如果不了解HTML/CSS的話，當遇到需要修改時可能會束手無策，所以不能完全依賴框架，也要具備HTML/CSS的相關基本知識才行。</p>
+<p>但要如何改動框架中的設定，我覺得必須從官方提供的 <a target="_blank" rel="noopener" href="https://github.com/twbs/bootstrap/blob/master/dist/css/bootstrap.css">Source Code</a>著手。</p>
+<p>因為無論是元件或者版型等等的設定都可以透過Source Code了解其來龍去脈，所以閱讀官方程式碼是需要的！</p>
+<h2 id="什麼是Boostrap4？"><a class="header-anchor" href="#什麼是Boostrap4？"></a>什麼是Boostrap4？</h2>
+<ul>
+<li>使用框架提供的元件及已經設定好的 class，就可以快速架構出一個網站的雛形。</li>
+<li>是一套行動優先的框架，且已經預設五個尺寸的響應式斷點</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/27/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day31-%E5%88%9D%E6%8E%A2Boostrap4/#more" rel="contents">
@@ -408,6 +467,64 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>在爬面試題目找關於css3的新增的部分時，找到了 <a target="_blank" rel="noopener" href="https://www.tutorialrepublic.com/">TutorialRepublic</a>這個網站，對於css3的新特性整理的很詳細、易懂，於是我就摘錄了關於新增特性的部分並另外彙整支援度(CanIUse)w3.org的定義以及w3school的範例Demo。</p>
+<span id="more"></span>
+<h1 id="CSS3-有哪些新特性？"><a class="header-anchor" href="#CSS3-有哪些新特性？"></a>CSS3 有哪些新特性？</h1>
+<p>僅列舉新增的特性。</p>
+<h2 id="Animation"><a class="header-anchor" href="#Animation"></a>Animation</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>animation</td>
+<td>Specifies the keyframe-based animations.</td>
+</tr>
+<tr>
+<td>animation-delay</td>
+<td>Specifies when the animation will start.</td>
+</tr>
+<tr>
+<td>animation-direction</td>
+<td>Specifies whether the animation should play in reverse on alternate cycles or not.</td>
+</tr>
+<tr>
+<td>animation-duration</td>
+<td>Specifies the number of seconds or milliseconds an animation should take to complete one cycle.</td>
+</tr>
+<tr>
+<td>animation-fill-mode</td>
+<td>Specifies how a CSS animation should apply styles to its target before and after it is executing.</td>
+</tr>
+<tr>
+<td>animation-iteration-count</td>
+<td>Specifies the number of times an animation cycle should be played before stopping.</td>
+</tr>
+<tr>
+<td>animation-name (@keyframes)</td>
+<td>Specifies the name of @keyframes defined animations that should be applied to the selected element.</td>
+</tr>
+<tr>
+<td>animation-play-state</td>
+<td>Specifies whether the animation is running or paused.</td>
+</tr>
+<tr>
+<td>animation-timing-function</td>
+<td>Specifies how a CSS animation should progress over the duration of each cycle.</td>
+</tr>
+</tbody>
+</table>
+<p>支援度：<a target="_blank" rel="noopener" href="https://caniuse.com/#feat=css-animation">caniuse</a></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.tutorialrepublic.com/css-reference/css3-animation-property.php">TutorialRepublic</a></p>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.w3schools.com/css/css3_animations.asp">w3schools</a></p>
+</blockquote>
+<h2 id="Background"><a class="header-anchor" href="#Background"></a>Background</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/26/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day30-CSS3%E6%9C%89%E4%BB%80%E9%BA%BC%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9F/#more" rel="contents">
@@ -523,6 +640,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="純css手刻Tab頁籤"><a class="header-anchor" href="#純css手刻Tab頁籤"></a>純css手刻Tab頁籤</h1>
 <p>今天有個版面需要做出簡單的Tab頁籤切換，而爬資料的時候發現可以透過純css手刻出來，所以就運用了這個技巧，也順道將學習的重點摘錄上來。</p>
+<span id="more"></span>
+<h2 id="重點觀念："><a class="header-anchor" href="#重點觀念："></a>重點觀念：</h2>
+<p>CSS selctor target : 透過 a 標籤的錨點與元素的id做對應，當使用 :target selector時，可以針對元素作樣式的改變。</p>
+<p>Ex: css :target 的運用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>css target selector<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#test&quot;</span>&gt;</span>Test<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#test2&quot;</span>&gt;</span>Test<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;test&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;test2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*當點擊到 id=&quot;test&quot; 的元素時，因為使用了:target selector，所以可以藉此改變該元素的樣式*/</span></span><br><span class="line"><span class="selector-id">#test</span><span class="selector-pseudo">:target</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">background</span>:<span class="number">#f00</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#test2</span><span class="selector-pseudo">:target</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">background</span>:<span class="number">#00f</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="手刻Tab頁籤的思維："><a class="header-anchor" href="#手刻Tab頁籤的思維："></a>手刻Tab頁籤的思維：</h2>
+<p>1.css target selector：透過id與a link 中href的值對應，當選取到時，可以將樣式套用在對象上。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/25/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day29-%E7%B4%94css%E6%89%8B%E5%88%BBTab%E9%A0%81%E7%B1%A4/#more" rel="contents">
@@ -639,6 +764,25 @@
           <h1 id="如何使用-jQuery-ui-以slider為例"><a class="header-anchor" href="#如何使用-jQuery-ui-以slider為例"></a>如何使用 jQuery ui ? - 以slider為例</h1>
 <h2 id="jQuery-來源"><a class="header-anchor" href="#jQuery-來源"></a>jQuery 來源</h2>
 <p>使用方式有兩種:</p>
+<span id="more"></span>
+<p><span style="color:#f00;">引入順序需要先引入<strong>jQuery的js檔案</strong>後才引入<strong>jQuery-ui的js檔案</strong>，否則會報錯</span></p>
+<ul>
+<li>
+<p>透過cdn引入 :</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;https://code.jquery.com/jquery-3.4.1.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;https://code.jquery.com/ui/1.12.1/jquery-ui.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>透過將jQuery source code下載後儲存，並在專案中引入使用</p>
+</li>
+</ul>
+<h2 id="使用-jQuery的-range-slider"><a class="header-anchor" href="#使用-jQuery的-range-slider"></a>使用 jQuery的 range slider</h2>
+<p>將 range slider 程式碼複製一份到專案需求位置，就可以看到雛形結構。之後再依照需求調整css樣式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- jQuery官網提供之程式碼--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>jQuery UI Slider - Range slider<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="comment">&lt;!--   引入jQuery source code and css  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;/resources/demos/style.css&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://code.jquery.com/jquery-1.12.4.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://code.jquery.com/ui/1.12.1/jquery-ui.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="comment">&lt;!--  slider設定相關數值的程式部分  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  $( <span class="keyword">function</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    $( <span class="string">&quot;#slider-range&quot;</span> ).<span class="title function_">slider</span>(&#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">range</span>: <span class="literal">true</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">min</span>: <span class="number">0</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">max</span>: <span class="number">500</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">values</span>: [ <span class="number">75</span>, <span class="number">300</span> ],</span></span><br><span class="line"><span class="language-javascript">      <span class="attr">slide</span>: <span class="keyword">function</span>(<span class="params"> event, ui </span>) &#123;</span></span><br><span class="line"><span class="language-javascript">        $( <span class="string">&quot;#amount&quot;</span> ).<span class="title function_">val</span>( <span class="string">&quot;$&quot;</span> + ui.<span class="property">values</span>[ <span class="number">0</span> ] + <span class="string">&quot; - $&quot;</span> + ui.<span class="property">values</span>[ <span class="number">1</span> ] );</span></span><br><span class="line"><span class="language-javascript">      &#125;</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">    $( <span class="string">&quot;#amount&quot;</span> ).<span class="title function_">val</span>( <span class="string">&quot;$&quot;</span> + $( <span class="string">&quot;#slider-range&quot;</span> ).<span class="title function_">slider</span>( <span class="string">&quot;values&quot;</span>, <span class="number">0</span> ) +</span></span><br><span class="line"><span class="language-javascript">      <span class="string">&quot; - $&quot;</span> + $( <span class="string">&quot;#slider-range&quot;</span> ).<span class="title function_">slider</span>( <span class="string">&quot;values&quot;</span>, <span class="number">1</span> ) );</span></span><br><span class="line"><span class="language-javascript">  &#125; );</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;amount&quot;</span>&gt;</span>Price range:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;amount&quot;</span> <span class="attr">readonly</span> <span class="attr">style</span>=<span class="string">&quot;border:0; color:#f6931f; font-weight:bold;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;slider-range&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://jqueryui.com/slider/#range">jQuery UI slider</a></p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/24/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day28-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8-jQuery-ui-%E4%BB%A5range-slider%E7%82%BA%E4%BE%8B/#more" rel="contents">
@@ -759,6 +903,13 @@
           <h1 id="style-標籤寫在-body-後與-body-前有什麽區別？"><a class="header-anchor" href="#style-標籤寫在-body-後與-body-前有什麽區別？"></a>style 標籤寫在 body 後與 body 前有什麽區別？</h1>
 <h2 id="將style標籤-span-style-color-f00-寫於body之前-span-："><a class="header-anchor" href="#將style標籤-span-style-color-f00-寫於body之前-span-："></a>將style標籤<span style="color:#f00;">寫於body之前</span>：</h2>
 <p>也就是寫在 head 標籤中，瀏覽器會依照其渲染流程。</p>
+<span id="more"></span>
+<h2 id="將style標籤-span-style-color-f00-寫於body中-span-："><a class="header-anchor" href="#將style標籤-span-style-color-f00-寫於body中-span-："></a>將style標籤<span style="color:#f00;">寫於body中</span>：</h2>
+<p>會導致<strong>當樣式的加載晚於HTML加載時，造成頁面停止渲染直到樣式被加載後重新渲染頁面</strong>，而這樣子的狀況就會導致FOUC(flash of unstyled content)，造成頁面會有閃爍狀況。</p>
+<h2 id="將style標籤-span-style-color-f00-寫於body之後-span-："><a class="header-anchor" href="#將style標籤-span-style-color-f00-寫於body之後-span-："></a>將style標籤<span style="color:#f00;">寫於body之後</span>：</h2>
+<p>導致<strong>瀏覽器會等到css也加載完之後在開始渲染</strong>，而這樣子的狀況就會導致頁面會有一小段時間呈現白屏情形</p>
+<h2 id="結論："><a class="header-anchor" href="#結論："></a>結論：</h2>
+<p>將css樣式放入 head 標籤中使瀏覽器可以在此階段就完成DOM Tree和CSS rule Tree的生成，並透過 render tree將其繪製後渲染到螢幕上是最好的方法。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/23/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day27-style-%E6%A8%99%E7%B1%A4%E5%AF%AB%E5%9C%A8-body-%E5%BE%8C%E8%88%87-body-%E5%89%8D%E6%9C%89%E4%BB%80%E9%BA%BD%E5%8D%80%E5%88%A5/#more" rel="contents">
@@ -799,7 +950,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -808,12 +959,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -290,6 +328,24 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="Ajax-Asynchronous-JavaScript-and-XML-非同步-JavaScript-及-XML"><a class="header-anchor" href="#Ajax-Asynchronous-JavaScript-and-XML-非同步-JavaScript-及-XML"></a>Ajax(Asynchronous JavaScript and XML) 非同步 JavaScript 及 XML</h2>
 <p>在 MDN 是這麼解釋著：</p>
+<span id="more"></span>
+<blockquote>
+<p>AJAX 代表 Asynchronous JavaScript And XML，即非同步 JavaScript 及 XML。簡單地說，AJAX 使用 XMLHttpRequest(XHR) 物件來與伺服器進行通訊。它可以傳送並接收多種格式的資訊，包括 JSON、XML、HTML、以及文字檔案。AJAX 最吸引人的特點是「非同步」的本質，這代表它可以與伺服溝通、交換資料、以及更新頁面，且無須重整網頁。<br>
+<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/Guide/AJAX/Getting_Started#AJAX_%E6%98%AF%E4%BB%80%E9%BA%BC%EF%BC%9F">什麼是AJAX?</a></p>
+</blockquote>
+<p>而上述提到了關於Ajax兩個很重要的觀念：</p>
+<ol>
+<li>
+<p>AJAX 使用 XMLHttpRequest 物件來與伺服器進行溝通、交換資料、以及更新頁面，且無須重整網頁(此為AJAX的非同步特性)</p>
+</li>
+<li>
+<p>XMLHttpRequest 物件可以傳送並接收多種格式的資訊，包括 JSON、XML、HTML、以及文字檔案</p>
+</li>
+</ol>
+<h2 id="XMLHttpRequest-物件-XHR物件"><a class="header-anchor" href="#XMLHttpRequest-物件-XHR物件"></a>XMLHttpRequest 物件(XHR物件)</h2>
+<p>既然 Ajax 是使用 XMLHttpRequest 物件作為與伺服器溝通的橋樑，那就必須了解一下關於這個XHR物件的屬性、方法。</p>
+<p>由於XHR物件有許多的屬性與方法，在此不一一敘述，僅提到測試例子有使用到的語法。</p>
+<p>(註：XMLHttpRequest物件以下簡稱為XHR物件)</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/12/07/JavaScript-Ajax%E5%8F%8AXMLHttpRequest%E7%89%A9%E4%BB%B6/#more" rel="contents">
@@ -406,6 +462,15 @@
           <p>透過JS動態修改CSS樣式、屬性是很常有的事情，所以這個篇幅就來看些關於修改的方式吧!</p>
 <h2 id="動態修改CSS樣式"><a class="header-anchor" href="#動態修改CSS樣式"></a>動態修改CSS樣式</h2>
 <p>在修改CSS樣式的起手式不外乎常用的應該就是下列兩種方式:</p>
+<span id="more"></span>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(id).<span class="property">style</span>.<span class="property">property</span> = <span class="keyword">new</span> style;</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(classname/id/...).<span class="property">style</span>.<span class="property">property</span> = <span class="keyword">new</span> style;</span><br><span class="line">... </span><br></pre></td></tr></table></figure>
+<p>而上面的寫法與下面的寫法相同:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(id).<span class="property">style</span> = <span class="attr">property</span>:<span class="keyword">new</span> style;</span><br><span class="line"><span class="variable language_">document</span>.<span class="title function_">querySelector</span>(classname/id/...).<span class="property">style</span> = <span class="attr">property</span>:<span class="keyword">new</span> style;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>接下來就來運用看看吧!</p>
+<h3 id="修改背景顏色"><a class="header-anchor" href="#修改背景顏色"></a>修改背景顏色</h3>
+<ul>
+<li>HTML程式碼:</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/12/05/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E4%BF%AE%E6%94%B9CSS-%E6%A8%A3%E5%BC%8F%E3%80%81%E5%B1%AC%E6%80%A7/#more" rel="contents">
@@ -521,6 +586,18 @@
     <div class="post-body" itemprop="articleBody">
           <p>今天要學習的部分是關於 DOM 的傳遞機制:捕捉與氣泡</p>
 <p>在切入今日的主題之前，先快速了解一下 <code>addEventListener</code> 的語法。</p>
+<span id="more"></span>
+<h2 id="addEventListener"><a class="header-anchor" href="#addEventListener"></a><code>addEventListener</code></h2>
+<p>透過這個語法，我們可以將事件綁定在某個 HTML 元素上，並透過觸發的條件(如滑鼠點擊、按下鍵盤某一個按鍵等)進而得到需求的資訊並執行我們設定的行為。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">target.<span class="title function_">addEventListener</span>(type, listener[, options]);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>type</code> : 表示要觸發的方式，例如 <code>click</code>、 <code>keydown</code> 等。</li>
+<li><code>listener</code>: 會是一個函式，用於當條件觸發時需要做的任務</li>
+<li><code>options</code>: 條件觸發時決定是在捕捉或氣泡階段執行。預設為 <code>false</code> ，此時表示於氣泡階段執行; <code>true</code> 則為捕捉階段。</li>
+</ul>
+<p>來看看 <code>addEventListener</code> 的測試例子:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">.box&#123;</span><br><span class="line">  width:100px;</span><br><span class="line">  height:100px;</span><br><span class="line">  background:#ccc;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;box&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> box = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.box&#x27;</span>);</span><br><span class="line">box.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,test,<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params">e</span>)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(e)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/11/30/JavaScript-%E6%8D%95%E6%8D%89-capturing-%E8%88%87%E6%B0%A3%E6%B3%A1-bubbling/#more" rel="contents">
@@ -636,6 +713,16 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="透過-JavaScript-動態建立-HTML-元素的幾種方式"><a class="header-anchor" href="#透過-JavaScript-動態建立-HTML-元素的幾種方式"></a>透過 JavaScript 動態建立 HTML 元素的幾種方式</h1>
 <p>今天要來學習的是如何透過JS在網頁上建立一個 HTML 的元素。</p>
+<span id="more"></span>
+<p>如何使用 <code>Document.createElement()</code> 以及 <code>Element.innierHTML</code> 兩種方式達成目的</p>
+<p>事不宜遲，趕緊往下看吧!</p>
+<h2 id="Document-createElement-用途"><a class="header-anchor" href="#Document-createElement-用途"></a><code>Document.createElement()</code> 用途</h2>
+<p>可以在 HTML 中透過 <code>Document.createElement()</code> 這個方法指定要在哪個 HTML 元素底下建立另一個 HTML 元素。</p>
+<h2 id="如何使用-Document-createElement"><a class="header-anchor" href="#如何使用-Document-createElement"></a>如何使用 <code>Document.createElement()</code></h2>
+<p>關於怎麼使用，就直接看看測試的例子吧！</p>
+<ul>
+<li>測試例子一: 在 <code>&lt;ul&gt;</code> 元素底下新增 <code>&lt;li&gt;</code> 元素</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/11/22/%E9%80%8F%E9%81%8E-JavaScript-%E5%8B%95%E6%85%8B%E5%BB%BA%E7%AB%8B-HTML-%E5%85%83%E7%B4%A0%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/#more" rel="contents">
@@ -752,6 +839,13 @@
           <h1 id="ES6-模板字串-Template-literals"><a class="header-anchor" href="#ES6-模板字串-Template-literals"></a>ES6 模板字串(Template literals)</h1>
 <p>今天要來學習的部分是 ES6 好用的語法，<strong>模板字串(Template literals)</strong></p>
 <p>這個語法大大增加了開發的效率，是個非常好用的技巧，讓我們趕緊學起來吧！</p>
+<span id="more"></span>
+<h2 id="ES6之前新增字串的方式"><a class="header-anchor" href="#ES6之前新增字串的方式"></a>ES6之前新增字串的方式</h2>
+<p>在ES6之前我們新增字串的方式是透過 <code>' '</code> 以及 <code>+</code> 作為字串間串連的橋樑，程式碼大致如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Bill&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hi, my name is:&#x27;</span> + name);</span><br></pre></td></tr></table></figure>
+<p>透過上述的方式可以讓變數的值與字串搭配運用。</p>
+<p>但如果今天字串的內容是一段HTML架構呢?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var className = container;</span><br><span class="line">var string  = &#x27;&lt;div class=&quot;&#x27;+ className +&#x27;&quot;&gt;&lt;/div&gt;&#x27;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/10/14/ES6-%E6%A8%A1%E6%9D%BF%E5%AD%97%E4%B8%B2-Template-literals/#more" rel="contents">
@@ -792,7 +886,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -801,12 +895,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

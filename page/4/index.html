@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -294,6 +332,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="Redux-非同步資料處理-使用-Redux-Thunk"><a class="header-anchor" href="#Redux-非同步資料處理-使用-Redux-Thunk"></a>Redux 非同步資料處理 - 使用 Redux Thunk</h1>
 <p>在 Redux 中我們只能處理<strong>同步的資料</strong>，並<strong>不允許處理非同步的邏輯</strong>。</p>
+<span id="more"></span>
+<p>但是在實務上我們常常需要透過串接 api 的方式請求一個非同步的資料到我們的專案中使用，這時候應該怎麼辦呢?</p>
+<p>這時候有幾個方式可以選擇，而今天要學習的是透過 Redux Thunk Middleware 來處理非同步相關的邏輯。</p>
+<p>不過在這之前，我們需要先了解 <strong>Middleware</strong> 的定義，以及我們是在什麼時間點運用它。</p>
+<p>讓我們接著下去學習吧!</p>
+<h2 id="Middleware-是什麼"><a class="header-anchor" href="#Middleware-是什麼"></a>Middleware 是什麼?</h2>
+<p>Middleware 的中文意思是「中介軟體」、「中介層」，而在專案開發中，我們可以在特定的流程中透過 Middleware 的方式<strong>額外進行一些處理後才往下進行後續的流程。</strong></p>
+<p>這邊舉個大家常用的套件， <a target="_blank" rel="noopener" href="https://github.com/axios/axios">axios</a>，相信大家不會很陌生，在串接 api 時我們很常使用到。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/09/Redux-%E9%9D%9E%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E8%99%95%E7%90%86-%E4%BD%BF%E7%94%A8-Redux-Thunk/#more" rel="contents">
@@ -413,6 +459,18 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="Redux-同步資料流"><a class="header-anchor" href="#Redux-同步資料流"></a>Redux 同步資料流</h1>
 <p>記得昨天 Redux 好朋友說今天要透過例子讓我更加了解運作的部分，而今天要先關於<strong>處理同步資料時的運作方式。</strong></p>
+<span id="more"></span>
+<p>此外，還特地從元件中的 state 、事件一步步開始說明，然後再把 state 中的資料與事件搬到 Redux 中，真的很貼心。</p>
+<p>接著讓我們看看提供的例子:</p>
+<h2 id="一步步來-從元件中開始"><a class="header-anchor" href="#一步步來-從元件中開始"></a>一步步來: 從元件中開始</h2>
+<p>這邊 Redux 好朋友先描述了關於這個測試例子的操作情境:</p>
+<ol>
+<li><strong>元件中 state 有一個狀態 number，初始值為 0</strong></li>
+<li>有一個事件: incrementHandler，用來更新 number 的值，每次點擊按鈕時 ＋１。</li>
+<li>有一個事件: decrementHandler，用來更新 number 的值，每次點擊按鈕時 -１。</li>
+</ol>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/recursing-elbakyan-1zdw7?file=/src/App.js:276-292">點擊前往</a></p>
+<h2 id="好戲上場-將-state-與事件搬到-Redux-中。"><a class="header-anchor" href="#好戲上場-將-state-與事件搬到-Redux-中。"></a>好戲上場: 將 state 與事件搬到 Redux 中。</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/08/Redux-%E5%90%8C%E6%AD%A5%E8%B3%87%E6%96%99%E6%B5%81/#more" rel="contents">
@@ -532,6 +590,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="Redux-觀念初探"><a class="header-anchor" href="#Redux-觀念初探"></a>Redux 觀念初探</h1>
 <p>今天要學習的部分是<strong>管理應用程式中所有 State 的神器， Redux。</strong> 如果沒有它，當我們開發的應得程式越來越複雜的時候，亦或者是 containers 之間彼此需要相同資料的時候，就會顯得舉步維艱。</p>
+<span id="more"></span>
+<p>而今天是和 Redux 交朋友的第一天，所以我們先從認識 Redux 一些相關的詞彙與概念來慢慢增進與 redux 的關係吧!</p>
+<p>相關的知識可以從<a target="_blank" rel="noopener" href="https://redux.js.org/tutorials/essentials/part-1-overview-concepts#redux-essentials-part-1-redux-overview-and-concepts">官方文件</a>中查看。</p>
+<h2 id="想認識-redux-嗎-先認識我常用的詞彙與用途吧"><a class="header-anchor" href="#想認識-redux-嗎-先認識我常用的詞彙與用途吧"></a>想認識 redux 嗎? 先認識我常用的詞彙與用途吧!</h2>
+<h3 id="Redux-好朋友幫助我的兩三事"><a class="header-anchor" href="#Redux-好朋友幫助我的兩三事"></a>Redux 好朋友幫助我的兩三事</h3>
+<p>Redux 好朋友可以幫助我在開發 React 應用程式的時候可以<strong>更有效地[管理/更新]全域 state 的狀態。</strong></p>
+<p>至於如何更新 state 的狀態呢?</p>
+<p>我們在 React Component 中透過觸發事件(event) 來更新 state，<strong>在 Redux 也是相同的</strong>，我們在 Redux 中使用<strong>稱為 actions 的事件來更新 state</strong>。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/07/Redux-%E8%A7%80%E5%BF%B5%E5%88%9D%E6%8E%A2/#more" rel="contents">
@@ -651,6 +717,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="React-Router-與-hooks"><a class="header-anchor" href="#React-Router-與-hooks"></a>React Router 與 hooks</h1>
 <p>在 React Router 的部分最後要介紹的是<strong>使用 hooks 的方式。</strong></p>
+<span id="more"></span>
+<p>透過 hooks 可以讓我們在設計 Router 上更加的有效率且方便。</p>
+<p>而今天這個部分會透過官方文件提供的部分範例來學習在 Router 中如何使用 hooks 的部分。</p>
+<p>接著就趕緊學習吧！</p>
+<h2 id="第一個官方範例-學習-useParams"><a class="header-anchor" href="#第一個官方範例-學習-useParams"></a>第一個官方範例: 學習 <code>useParams</code></h2>
+<p>當我們在 Router 中使用<strong>動態參數</strong>的設計方式時，總是會需要取得 URL 上的 <code>id</code> 值。</p>
+<p>而 hooks 提供了 <strong><code>useParams</code></strong> 讓我們可以更方便的取得 <code>id</code> 值。 而不用再透過 <code>this.props.match.params</code> 的方式取得這個值。</p>
+<p>來看看官方提供的這個<a target="_blank" rel="noopener" href="https://reactrouter.com/web/example/url-params">範例</a>：</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/06/React-Router-%E8%88%87-hooks/#more" rel="contents">
@@ -770,6 +844,17 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="透過-React-Router-config-統一管理路由"><a class="header-anchor" href="#透過-React-Router-config-統一管理路由"></a>透過 React Router config 統一管理路由</h1>
 <p>前幾天我們學習到了如何在元件中使用 Router 來導航，而今天要學習的部分則是如何透過<strong>集中管理所有路由的方式實現導航到各個頁面的方式</strong>。</p>
+<span id="more"></span>
+<p>而這個方式就是在配置一個 router 的 config 檔案。</p>
+<p>今天會透過兩個範例來理解這個部分:</p>
+<ol>
+<li>只有一層路由的 Router 配置</li>
+<li>具有巢狀路由的 Router 配置</li>
+</ol>
+<p>接著就趕緊今天的進度吧!</p>
+<h2 id="基礎-Router-config-配置"><a class="header-anchor" href="#基礎-Router-config-配置"></a>基礎 Router config 配置</h2>
+<p>首先要學習的部分是配置只有一層路由的頁面切換，相信大家都已經有基本的概念了，所以這邊就直接來看看如何透過集中管理路由的方式達成:</p>
+<p>相關測試範例，<a target="_blank" rel="noopener" href="https://codesandbox.io/s/blissful-dubinsky-q9lr7?file=/src/App.js">點擊前往</a>。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/05/%E9%80%8F%E9%81%8E-React-Router-config-%E7%B5%B1%E4%B8%80%E7%AE%A1%E7%90%86%E8%B7%AF%E7%94%B1/#more" rel="contents">
@@ -810,7 +895,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -819,12 +904,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

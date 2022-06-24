@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -290,6 +328,17 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="查找特定li節點的索引值"><a class="header-anchor" href="#查找特定li節點的索引值"></a>查找特定li節點的索引值</h1>
 <p>當我們可能有需要點擊到某個節點後刪除那個節點時，就需要取得節點的位置。</p>
+<span id="more"></span>
+<p>例如一個ul li 的清單，我們想要刪除特定的li時，就需要前面提到的方法，其中有些方法需要知道</p>
+<ol>
+<li>list.children 代表要找的是ul裡面的所有子節點，會回傳一組HTMLCollection(4) [li, li, li, li]的資料。 而children與childNodes不同的地方在於children只會回傳節點不為空值的子節點，而childNodes則都會回傳</li>
+<li>parentNode則是可以得到指定節點的父節點</li>
+<li>因為透過querySelectorAll會得到為nodeList的類陣列物件，所以可以以Array.prototype.indexOf.call()的方式取得該節點的索引值</li>
+</ol>
+<p>Ex: 點擊a連結時，取得li的索引值</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;list&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1234 <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>點擊<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1234 <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>點擊<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1234 <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>點擊<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>1234 <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>點擊<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> list = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.list&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> listLi = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;.list li&#x27;</span>);</span><br><span class="line">list.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, getLiIndex);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取得ul的所有子節點</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(list.<span class="property">children</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getLiIndex</span>(<span class="params">e</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (e.<span class="property">target</span>.<span class="property">nodeName</span> !== <span class="string">&#x27;A&#x27;</span>) <span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">//將ul的所有子節點作為this值傳入，並取得點擊到的li的索引值</span></span><br><span class="line">  <span class="keyword">let</span> index = <span class="title class_">Array</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">indexOf</span>.<span class="title function_">call</span>(list.<span class="property">children</span>, e.<span class="property">target</span>.<span class="property">parentNode</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(index);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/23/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day56-%E6%9F%A5%E6%89%BE%E7%89%B9%E5%AE%9Ali%E7%AF%80%E9%BB%9E%E7%9A%84%E7%B4%A2%E5%BC%95%E5%80%BC/#more" rel="contents">
@@ -407,6 +456,12 @@
 <h2 id="scrollBy-pageXOffSet-pageYOffSet-scrollX-scrollY"><a class="header-anchor" href="#scrollBy-pageXOffSet-pageYOffSet-scrollX-scrollY"></a>scrollBy / pageXOffSet / pageYOffSet / scrollX / scrollY</h2>
 <p>scrollBy的用途是：「在窗口中依照指定的偏移量滾動文檔。」</p>
 <p>scrollBy語法是window物件中才有的方法，使用時需要注意透過<strong>window</strong>.scrollBy()控制。</p>
+<span id="more"></span>
+<p>而pageXOffSet其實就是scrollX以及pageYOffSet是scrollY，使用上是相等的。</p>
+<p>當透過scrollBy獲得值時，可以發現其中的x偏移量=scrollX、y偏移量=scrollY</p>
+<p>寫法一：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="title function_">scrollBy</span>(x偏移量,y偏移量)</span><br></pre></td></tr></table></figure>
+<p>寫法二：</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/22/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day55-%E4%BD%BF%E7%94%A8Javascript%E6%93%8D%E4%BD%9CDOM-Document-Object-Model-part3/#more" rel="contents">
@@ -523,6 +578,21 @@
           <h1 id="陣列方法的-filter-map-reduce-深入理解與運用"><a class="header-anchor" href="#陣列方法的-filter-map-reduce-深入理解與運用"></a>陣列方法的 filter / map / reduce 深入理解與運用</h1>
 <h2 id="Array-prototype-filter"><a class="header-anchor" href="#Array-prototype-filter"></a>Array.prototype.filter()</h2>
 <p>filter的中文翻譯是「過濾」，可想而知就是可以用來作為資料篩選時使用</p>
+<span id="more"></span>
+<p>而 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/filter">MDN</a> 上是這麼解釋關於filter的用途:</p>
+<blockquote>
+<p>filter() 方法會建立一個經<strong>指定之函式運算</strong>後，由<strong>原陣列中通過該函式檢驗之元素所構成的新陣列</strong>。</p>
+</blockquote>
+<p>意思是<strong>filter()會讓陣列中的元素一個個傳入我們自定義的函式裡，並回傳經過判斷後為true的值到新的陣列中</strong>，而這個過程<strong>不會修改到原陣列</strong>。</p>
+<p>而其語法為:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newArray = arr.<span class="title function_">filter</span>(<span class="title function_">callback</span>(element[, index[, array]])[, thisArg])</span><br></pre></td></tr></table></figure>
+<ul>
+<li>callback:用在測試陣列中的每個元素，回傳為true時將當前元素保留至新陣列</li>
+<li>element:原陣列中的每個元素</li>
+<li>index:原陣列中每個元素的索引值</li>
+<li>array:原陣列</li>
+<li>thisArg:callback函式的this值</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/20/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day54-%E9%99%A3%E5%88%97%E6%96%B9%E6%B3%95%E7%9A%84-filter-map-reduce-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%88%87%E9%81%8B%E7%94%A8/#more" rel="contents">
@@ -647,6 +717,13 @@
 <li>nodeValue:Text / Comment節點的文字內容</li>
 <li>nodeName:元素的tag name，會被轉為大寫</li>
 </ul>
+<span id="more"></span>
+<p>Ex1:parentNode(使用編輯器編譯並開起網頁查看)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;list&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>string1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>string2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>string3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ul的父節點為body，所以會取得body的程式碼</span></span><br><span class="line"><span class="keyword">let</span> getList = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.list&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(getList.<span class="property">parentNode</span>);</span><br></pre></td></tr></table></figure>
+<p>Ex2:childNodes(使用編輯器編譯並開起網頁查看)</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;list&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>string1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>string2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>string3<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取得li的子節點，就是文字這個節點</span></span><br><span class="line"><span class="keyword">let</span> getList = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.list li&#x27;</span>);</span><br><span class="line"><span class="comment">//NodeList(1)</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(getList.<span class="property">childNodes</span>); </span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/19/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day53-%E4%BD%BF%E7%94%A8Javascript%E6%93%8D%E4%BD%9CDOM-Document-Object-Model-part2/#more" rel="contents">
@@ -770,6 +847,18 @@
 <li>箭頭函式(arrow function) 不能用作建構式，因此沒有自己的prototype</li>
 <li>箭頭函式(arrow function)的this不因為 call()/apply()/bind()而被修改</li>
 </ul>
+<span id="more"></span>
+<h2 id="箭頭函式-arrow-function-的特有寫法"><a class="header-anchor" href="#箭頭函式-arrow-function-的特有寫法"></a>箭頭函式(arrow function)的特有寫法</h2>
+<p>箭頭函式有著全新樣貌的寫法，整理如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc</span> = (<span class="params"></span>) =&gt;&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;test&#x27;</span>);&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc2</span> = a =&gt; &#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(a);&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc3</span> = a =&gt; <span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc4</span> = (<span class="params">a,b</span>)=&gt;&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(a+b);&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc5</span> = (<span class="params"></span>)=&gt;(&#123;<span class="attr">name</span>:<span class="string">&quot;Bill&quot;</span>&#125;);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>如果<mark>沒有參數</mark>，可以只寫 <code>()</code>，如 <code>arrowFunc</code></li>
+<li>如果<mark>只有一個參數</mark>，可以不寫 <code>()</code>，如 <code>arrowFunc2</code></li>
+<li>如果<mark>程式碼行數只有單行</mark>，可以不需要 <code>&#123;&#125;</code>，如 <code>arrowFunc3</code></li>
+<li>如果<mark>有兩個參數以上</mark>，則必須寫 <code>()</code>，如 <code>arrowFunc4</code></li>
+<li>如果是<mark>物件格式</mark>，因為 <code>&#123;&#125;</code> 在箭頭函式中有意義， 所以必須要用 <code>()</code> 將整個物件包住，如<code>arrowFunc5</code></li>
+</ol>
+<h2 id="箭頭函式-arrow-function-沒有自己的this"><a class="header-anchor" href="#箭頭函式-arrow-function-沒有自己的this"></a>箭頭函式(arrow function)沒有自己的this</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/18/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day52-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/#more" rel="contents">
@@ -810,7 +899,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -819,12 +908,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

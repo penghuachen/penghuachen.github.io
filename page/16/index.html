@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -290,6 +328,43 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="運算式與運算子"><a class="header-anchor" href="#運算式與運算子"></a>運算式與運算子</h1>
 <p>Javascript直譯器可以透過計算運算式產生一個結果值，而複雜的運算式則是由運算子建構而成。</p>
+<span id="more"></span>
+<p>Outline</p>
+<ul>
+<li>運算式
+<ul>
+<li>基本運算式</li>
+<li>物件與陣列的初值設定式 (概觀)</li>
+<li>函式運算式 (概觀)</li>
+<li>特性存取運算式 (概觀)</li>
+<li>調用運算式 (概觀)</li>
+<li>物件創建運算式(概觀)</li>
+<li>算術運算式</li>
+<li>關係運算式</li>
+<li>邏輯運算式</li>
+</ul>
+</li>
+</ul>
+<h2 id="運算式"><a class="header-anchor" href="#運算式"></a>運算式</h2>
+<h3 id="基本運算式"><a class="header-anchor" href="#基本運算式"></a>基本運算式</h3>
+<p>包括：常數(constant)或字面值(literal value)、保留字、變數參考</p>
+<ul>
+<li>常數(constant)或字面值(literal value): 1.23 / “hello world”</li>
+<li>語言關鍵字:
+<ul>
+<li>true / false 結果值為布林值的 true / false值</li>
+<li>null 結果值為 null</li>
+<li>this 結果值為物件</li>
+</ul>
+</li>
+<li>變數參考:
+<ul>
+<li>undefined</li>
+<li>sum (結果值為sum的值)</li>
+</ul>
+</li>
+</ul>
+<h3 id="物件與陣列的初值設定式-概觀"><a class="header-anchor" href="#物件與陣列的初值設定式-概觀"></a>物件與陣列的初值設定式(概觀)</h3>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/02/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day36-Javascript-%E9%81%8B%E7%AE%97%E5%BC%8F%E8%88%87%E9%81%8B%E7%AE%97%E5%AD%90/#more" rel="contents">
@@ -411,6 +486,12 @@
 <li>變數的型別與介紹</li>
 <li>ES6新的變數宣告方法: <code>let</code> 與 <code>const</code></li>
 </ol>
+<span id="more"></span>
+<h3 id="什麼是變數"><a class="header-anchor" href="#什麼是變數"></a>什麼是變數 ?</h3>
+<p>「變數」，可以想成是用來存放資料的箱子，透過這個箱子中儲存的值，才使程式在執行過程中不斷存取資料的行為得以執行。</p>
+<p>變數的宣告方式在ES6之前只能透過<code>var</code>宣告，宣告方式如下:</p>
+<p><strong>var 變數名稱 = 初始值;</strong></p>
+<p><code>var number = 5;</code></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/07/01/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day35-Javascript-%E8%AE%8A%E6%95%B8/#more" rel="contents">
@@ -541,6 +622,30 @@
 </ul>
 </li>
 </ul>
+<span id="more"></span>
+<h2 id="什麼是定位-position-？"><a class="header-anchor" href="#什麼是定位-position-？"></a>什麼是定位(position)？</h2>
+<p>可以讓我們將元素輕易的放置在需求的位置上，是一個非常好用的技巧。</p>
+<p>而定位的參考基準會依照語法設定的不同，其參考基準點也不同。</p>
+<h2 id="定位-position-的語法設定"><a class="header-anchor" href="#定位-position-的語法設定"></a>定位(position)的語法設定</h2>
+<table>
+<thead>
+<tr>
+<th>語法</th>
+<th>數值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>position</td>
+<td>relative / absolute / static(Default) / sticky / fixed</td>
+</tr>
+<tr>
+<td>offset</td>
+<td>top / right / bottom / left</td>
+</tr>
+</tbody>
+</table>
+<h2 id="定位-position-的偏移-offset"><a class="header-anchor" href="#定位-position-的偏移-offset"></a>定位(position)的偏移(offset)</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/30/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day34-position-%E5%AE%9A%E4%BD%8D/#more" rel="contents">
@@ -657,6 +762,30 @@
           <h1 id="Float-浮動"><a class="header-anchor" href="#Float-浮動"></a>Float 浮動</h1>
 <p>前言：</p>
 <p>浮動元素一直被用於當作網頁排版的技巧，但<strong>浮動元素從來就不是為了排版而生</strong>，所以必須要知道雖然可以這麼用，卻是誤用。</p>
+<span id="more"></span>
+<p>關於 float 的一些特性，趁著有空的時候做個整理並且記錄放上來，也順帶和前面的 <a href="https://penghuachen.github.io/2019/06/16/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day20-float%E5%92%8C%E6%B8%85%E9%99%A4%E6%B5%AE%E5%8B%95%E7%9A%84%E6%96%B9%E6%B3%95/">連續記錄挑戰Day20-float和清除浮動的方法</a> 做個呼應。</p>
+<p>Outline</p>
+<ul>
+<li>什麼是浮動 Float?</li>
+<li>浮動的語法怎麼設定？</li>
+<li>浮動的相關規則
+<ul>
+<li>當元素設定為浮動時，其他內容會圍繞四周</li>
+<li>浮動元素左/右的最外邊緣不能是容器左/右的最內邊緣</li>
+<li>浮動元素的左外側邊界必須要在前一個已經設定浮動元素的右邊界，反之亦然。</li>
+<li>浮動元素的上邊緣不能比容器高，且當浮動元素若位於兩個重疊邊界的範圍間，則浮動元素的放置位置會如同設定 display:block的效果。</li>
+<li>浮動元素的上邊緣不能高於前一個浮動元素或區塊元素的上邊緣，且元素寬度加總大於容器寬度時，次排序的浮動元素會自動往下一排放置。</li>
+<li>浮動元素若放置於行方框(例如p段落)中最前面時，浮動位置為該行方框的上緣，與行方框切齊，而並不會浮動到最上方。</li>
+<li>浮動元素與margin負值:可以讓浮動元素移動到容器之外</li>
+<li>浮動元素在行內方框(例如span)及區塊元素時的邊框、背景、內容的重疊情形</li>
+</ul>
+</li>
+<li>什麼是clear?</li>
+<li>clear語法怎麼設定？</li>
+</ul>
+<h2 id="什麼是浮動-Float"><a class="header-anchor" href="#什麼是浮動-Float"></a>什麼是浮動 Float?</h2>
+<p><strong>可以使元素脫離原本的文檔流向，使得容器高度會因為沒有元素無法撐開(高度=0)，但要記住依然會影響排版的結果。</strong></p>
+<h2 id="浮動的語法怎麼設定？"><a class="header-anchor" href="#浮動的語法怎麼設定？"></a>浮動的語法怎麼設定？</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/29/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day33-Float%20%E6%B5%AE%E5%8B%95/#more" rel="contents">
@@ -772,6 +901,44 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="Git-初探系列-1"><a class="header-anchor" href="#Git-初探系列-1"></a>Git 初探系列 #1</h1>
 <p>關於Git，雖然不是前端的技術之一，但卻是和他人協作中不可或缺的重要工具之一。協作專案時會遇到的困難點很多都可以透過Git作為溝通的橋樑，也可以記錄每一次修改的記錄(如果你願意的話)。</p>
+<span id="more"></span>
+<p>當然，最重要的一點：可以保護自己(誤)。</p>
+<p>好工具，不學嗎？</p>
+<p>Outline:</p>
+<ul>
+<li>Git 是什麼？</li>
+<li>使用Git的前置作業
+<ul>
+<li>第一次接觸Git應該要有的基本了解-Https與SSH優點及缺點</li>
+<li>設定SSH金鑰方式</li>
+<li>設定使用者名稱與帳號</li>
+</ul>
+</li>
+<li>Git在本地端與遠端的運作關係圖(個人認為的基礎關係圖)
+<ul>
+<li>Git在本地端與遠端的基本運作關係(上傳)</li>
+<li>Git在本地端與遠端的基本運作關係(下載)</li>
+</ul>
+</li>
+</ul>
+<h2 id="Git-是什麼？"><a class="header-anchor" href="#Git-是什麼？"></a>Git 是什麼？</h2>
+<p>淺談幾種版本控制的方式：</p>
+<ul>
+<li>
+<p>關於version control(版本控制)<br>
+可以記錄檔案在某一段時間裡的變化，例如新增、刪除、修改等。亦可以從中找回先前的某一個版本的記錄。</p>
+</li>
+<li>
+<p>Local Version Control Systems(本地端版本控制)<br>
+透過複製檔案到其他目錄的方式執行版本控制但這個方法很容易出錯，也不易查詢。<br>
+<img src="https://i.imgur.com/vxRLRqp.png" alt></p>
+</li>
+<li>
+<p>Centralized Version Control System(CVCSs 集中化版本控制系統)<br>
+將檔案全部集中於單一伺服器進行控管。<br>
+但當伺服器產生問題時，就會造成很大的問題。</p>
+</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/06/28/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day32-Git-%E5%88%9D%E6%8E%A2%E7%B3%BB%E5%88%97-1/#more" rel="contents">
@@ -812,7 +979,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -821,12 +988,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

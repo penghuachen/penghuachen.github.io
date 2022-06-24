@@ -1628,7 +1628,7 @@ header.header {
   width: 100%;
 }
 .with-love {
-  color: #f00;
+  color: #999;
   display: inline-block;
   margin: 0 5px;
 }
@@ -2880,4 +2880,33 @@ mark.search-keyword {
   .comments {
     padding: 10px 12px;
   }
+}
+body {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+.links-of-recent-posts {
+  margin: 30px 10px;
+}
+.links-of-recent-posts-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 5px;
+  text-align: left;
+}
+.links-of-recent-posts-list {
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+.links-of-recent-posts-list li {
+  transition: all 0.2s;
+}
+.links-of-recent-posts-list li a:hover,
+.links-of-recent-posts-list li:hover {
+  color: #0076d0;
 }

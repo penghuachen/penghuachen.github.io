@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -293,6 +331,13 @@
 <p>MDN : 可以將陣列或物件中的資料取出成獨立變數。</p>
 </blockquote>
 <p>解構賦值是ES6的新特性，可以快速的將值從陣列或物件中取出。</p>
+<span id="more"></span>
+<p>如果能好好熟悉運用的話，不僅快速、更可以提高程式碼的可讀性。</p>
+<p>趕緊往下看吧!</p>
+<h2 id="陣列解構"><a class="header-anchor" href="#陣列解構"></a>陣列解構</h2>
+<p>有一個很重要的觀念需要記住: <mark>等號的左側要用來儲存右側解開後的值</mark></p>
+<p>把握住這個觀念，在使用解構賦值的技巧就會容易許多</p>
+<p>關於陣列如何解構，讓我們透過底下幾個測試例子來看看吧</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/10/13/JavaScript-ES6-%E8%A7%A3%E6%A7%8B%E8%B3%A6%E5%80%BC/#more" rel="contents">
@@ -410,6 +455,15 @@
 <h2 id="簡單介紹"><a class="header-anchor" href="#簡單介紹"></a>簡單介紹</h2>
 <p>嚴格模式(strict mode) 在ES5被引進，提供開發者能夠在語法更為嚴謹、受限的模式下進行開發，彌補了 JavaScript 的一些重要缺陷。</p>
 <p>也提供了更強大的檢查與更高的安全性。</p>
+<span id="more"></span>
+<h2 id="怎麼使用嚴格模式-strict-mode"><a class="header-anchor" href="#怎麼使用嚴格模式-strict-mode"></a>怎麼使用嚴格模式(strict mode)</h2>
+<p>當設定 <code>'use strict'</code> 或者 <code>&quot;use strict&quot;</code>，就代表後續的程式碼處於嚴格模式下，但依據設定的位置不同，則嚴格模式的有效範圍也不同:</p>
+<ol>
+<li><strong>在全域設定的話，代表全部的程式碼都會處於嚴格模式(strict mode)</strong>;</li>
+<li><strong>在函式中設定，則嚴格模式(strict mode)的有效範圍則侷限在該函式底下的所有程式碼。</strong></li>
+</ol>
+<p>來看看測試例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">3</span> ;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>)&#123;</span><br><span class="line">  b = <span class="number">5</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">test</span>();</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/10/12/JavaScript-%E5%9A%B4%E6%A0%BC%E6%A8%A1%E5%BC%8F-Strict-mode/#more" rel="contents">
@@ -525,6 +579,16 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="JavaScript-class-類別"><a class="header-anchor" href="#JavaScript-class-類別"></a>JavaScript class 類別</h1>
 <p>今天要學習的部分是 <code>class</code> 類別。</p>
+<span id="more"></span>
+<p><code>class</code> 類別是 ES6 新引進的語法，但總是被戲稱為「語法糖」，至於原因讓我們來看看 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Classes">MDN</a> 怎麼描述這個語法:</p>
+<blockquote>
+<p>ECMAScript 6 中引入了類別 (<code>class</code>) 作為 JavaScript 現有原型程式(prototype-based)繼承的語法糖。 類別語法並不是要引入新的物件導向繼承模型到 JavaScript 中，而是提供一個更簡潔的語法來建立物件和處理繼承。</p>
+</blockquote>
+<p>也因此在 JavaScript 的 <code>class</code> 其實與多數語言的對於 <code>class</code> 定義是不太一樣的。</p>
+<p>接下來，讓我們看看如何透過這個語法改寫傳統函式建立物件與處理繼承的部分吧。</p>
+<h2 id="ES6-class-類別比較與使用"><a class="header-anchor" href="#ES6-class-類別比較與使用"></a>ES6 <code>class</code> 類別比較與使用</h2>
+<p>首先，我們先透過傳統寫法來建立物件的原型。</p>
+<p>先來看看這個測試的例子：</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/10/11/JavaScript-class-%E9%A1%9E%E5%88%A5/#more" rel="contents">
@@ -640,6 +704,14 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="傳值-By-value-與傳參考-By-reference"><a class="header-anchor" href="#傳值-By-value-與傳參考-By-reference"></a>傳值(By value)與傳參考(By reference)</h1>
 <p>講在前面: 這個篇幅會搭配 understanding the weird parts(克服JS奇怪的部分) 的影片章節來學習。</p>
+<span id="more"></span>
+<p>而篇幅會聚焦在 by value(傳值)、 by reference (傳參考)這兩個方向， by sharing 則留待日後更加了解後再學習、比較。</p>
+<p>影片中有兩張關鍵圖片，這裡會以此作為起點並向下延伸。</p>
+<h2 id="call-by-value-傳值"><a class="header-anchor" href="#call-by-value-傳值"></a>call by value (傳值)</h2>
+<p><img src="https://lh3.google.com/u/0/d/1vpQv7t3cnWahm4P8Y9ZPjBQ_wwjLGxKo=w2880-h1530-iv1" alt="Day10-1"></p>
+<p>從圖中可以知道:</p>
+<p>若某個變數值為基本型別值(primitive value)，當指定給另一個變數時，<mark>該變數會建立一個新的記憶體位址，並拷貝這個基本型別的值儲存到新的記憶體位址上。</mark></p>
+<p>來看看一個測試的例子:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/10/10/%E5%82%B3%E5%80%BC-By-value-%E8%88%87%E5%82%B3%E5%8F%83%E8%80%83-By-reference/#more" rel="contents">
@@ -755,6 +827,35 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="其餘參數-rest-parameter-與展開運算子-Spread-operator"><a class="header-anchor" href="#其餘參數-rest-parameter-與展開運算子-Spread-operator"></a>其餘參數(rest parameter)與展開運算子(Spread operator)</h1>
 <p><strong>其餘參數(rest parameter)與展開運算子(Spread operator)</strong> 為 ES6 的新特性，然而這兩者雖然使用的方式都是 <code>...</code> ，但是用途的不同決定我們當下使用的是其餘參數（rest parameter）還是展開運算子(Spread operator)，如下方表格:</p>
+<span id="more"></span>
+<table>
+<thead>
+<tr>
+<th>語法</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>其餘參數 <code>...</code></td>
+<td>將一個不確定數量的參數集合在一個陣列中</td>
+</tr>
+<tr>
+<td>展開運算子 <code>...</code></td>
+<td>將陣列中的值展開為個別值</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其餘參數-Rest-parameter-的使用與比較"><a class="header-anchor" href="#其餘參數-Rest-parameter-的使用與比較"></a>其餘參數(Rest parameter)的使用與比較</h2>
+<h3 id="怎麼使用其餘參數"><a class="header-anchor" href="#怎麼使用其餘參數"></a>怎麼使用其餘參數:</h3>
+<p>來看看幾個測試例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">result</span>(<span class="params">...numbers</span>)&#123;</span><br><span class="line">    <span class="comment">//會獲得一組陣列:[1,2,3,4,5]</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(numbers);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">result</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<p>從上面這個例子可以獲得以下的資訊:</p>
+<ol>
+<li>這邊最後獲得的值為一組陣列 <code>[1,2,3,4,5]</code>，表示這邊使用的 <code>...</code> 是作為 <mark>其餘參數</mark> 使用。</li>
+<li>在函式參數位置的 <code>numbers</code> ，則是參數集合在一個陣列之後，我們可以運用的變數。</li>
+<li>透過 <code>console.log(numbers);</code> ，獲得陣列型式的值。</li>
+</ol>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/08/03/%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-Rest-parameter-%E8%88%87%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator/#more" rel="contents">
@@ -795,7 +896,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -804,12 +905,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

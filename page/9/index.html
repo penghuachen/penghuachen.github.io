@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -289,6 +327,17 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>此篇幅聚焦於如何快速透過 vue2-google-maps 來製作一個客製化需求的 google map。</p>
+<span id="more"></span>
+<p>如果之前有玩過 google 提供的 <a target="_blank" rel="noopener" href="https://developers.google.com/maps/documentation/javascript/tutorial">範例</a>，那就能很快理解 vue2-google-maps 該怎麼使用。</p>
+<p>至於透過原生寫法製作一個客製化需求 google map，則另外找時間再寫一篇了。</p>
+<h2 id="安裝-注意事項"><a class="header-anchor" href="#安裝-注意事項"></a>安裝 &amp; 注意事項</h2>
+<ul>
+<li>安裝 vue2-google-maps:</li>
+</ul>
+<p>透過 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/vue2-google-maps">npm</a> 或者 <a target="_blank" rel="noopener" href="https://github.com/xkjyeah/vue-google-maps">github</a> 其實就可以很清楚知道該怎麼使用，寫的挺清楚的。</p>
+<p>如果是透過 npm 方式安裝:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install vue2-google-maps</span><br></pre></td></tr></table></figure>
+<p>順帶一提，如果透過 yarn 方式安裝則是:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/06/13/%E5%9C%A8-vue-cli3-%E4%B8%AD%E4%BD%BF%E7%94%A8-vue2-google-maps-%E6%8A%8A%E7%8E%A9-google-map/#more" rel="contents">
@@ -404,6 +453,18 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="關於-fetch"><a class="header-anchor" href="#關於-fetch"></a>關於 fetch()</h2>
 <p>先來看看 MDN 是如何介紹的:</p>
+<span id="more"></span>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/API/Fetch_API/Using_Fetch">MDN</a><br>
+Fetch API 提供了工具使操作 http pipeline 更加容易, 像是日常會用到的發送和接送資料都可以使用。並且有 global 的 fetch() 可以直接呼叫, 使開發能夠用更簡潔的語法取得非同步資料。<br>
+以往都是依賴 XMLHttpRequest。 但相較下 Fetch 使用上更容易，並被廣泛使用在 Service Workers。Fetch 在設定 HTTP 相關的設定時, 也提供可讀性比較好的方法, 這些設定包括 CORS 以及其他 header。</p>
+</blockquote>
+<p>從這裡可以得到一個結論: 透過 <mark><code>fetch()</code> 取得非同步資料的過程會比使用 <code>XMLHttpRequest</code> 物件還要來的更加容易、簡單。</mark></p>
+<p><code>fetch()</code> 方法有一個必填的參數:<mark>要請求的網址</mark>，且使用 <code>fetch()</code> 的話，<mark>無論請求成功或失敗都一定得到一個 <code>promise</code> 的回應</mark>。</p>
+<p>然後 <code>fetch()</code> 回傳的為一個包含 <code>Response</code> 的 <code>promise</code> 物件，這個物件中定義了我們可以使用的方法。</p>
+<p>且因為剛有提到，<strong>無論請求成功或失敗都一定得到一個 <code>promise</code> 的回應</strong>，所以 <code>fetch()</code> 會透過 <code>then()</code> 、 <code>catch</code> 來接收成功取得的非同步的資料或者請求失敗時的錯誤訊息。</p>
+<h2 id="使用-fetch"><a class="header-anchor" href="#使用-fetch"></a>使用 fetch()</h2>
+<p>先來看看一個測試的例子:</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/01/24/%E4%BD%BF%E7%94%A8-fetch-%E4%BE%86%E4%BB%8B%E6%8E%A5-api-%E5%90%A7/#more" rel="contents">
@@ -519,6 +580,23 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="Promise-resolve"><a class="header-anchor" href="#Promise-resolve"></a><code>Promise.resolve()</code></h2>
 <p>先來看看一段 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve">MDN</a>的解釋:</p>
+<span id="more"></span>
+<blockquote>
+<p>Promise.resolve(value) 方法回傳一個以 value 判定結果的 Promise 物件。若 value 是個 thenable (例如，具有 &quot;then&quot;方法)，則回傳的 promise 將依其結果採取其最終狀態；若 value 是 promise，則作為呼叫 Promise.resolve 之結果；其他情形都將回傳以 value 實現的 promise。</p>
+</blockquote>
+<p>有點繞舌，不過大致重點如下:</p>
+<ol>
+<li><code>Promise.resolve()</code> 接受三種形式的值: <code>value</code>、<code>promise</code>、<code>thenable</code>。</li>
+<li>如果是 <code>Promise.resolve(value)</code>，會得到一個以 <code>value</code> 做為判定成功(resolve)或失敗(reject)的一個 <code>Promise</code> 物件。</li>
+<li>如果是 <code>Promise.resolve(promise)</code>，則會呼叫該 <code>promise</code> 成功執行且完成的結果</li>
+<li>如果是 <code>Promise.resolve(thenable)</code>，則會以 <code>thenable</code> 的最終狀態作為結果。</li>
+</ol>
+<p>接下來，來針對第2、3、4點來做些測試的例子吧！</p>
+<ul>
+<li>測試例子一: <code>Promise.resolve(value)</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="string">&#x27;Success&#x27;</span>).<span class="title function_">then</span>(<span class="function"><span class="params">value</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(value));</span><br></pre></td></tr></table></figure>
+<p>當 <code>Promise.resolve(value)</code> 的 <code>value</code> 是一個值時，透過 <code>then()</code> 取得的就是那個 <code>value</code> 的值 <code>Success</code></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/01/19/JavaScript-Promise-Part2/#more" rel="contents">
@@ -634,6 +712,16 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="什麼是-Promise"><a class="header-anchor" href="#什麼是-Promise"></a>什麼是 <code>Promise</code></h2>
 <p>先來看看 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Promise">MDN</a> 怎麼解釋 Promise 的:</p>
+<span id="more"></span>
+<blockquote>
+<p><code>Promise</code> 物件代表一個即將完成、或失敗的<strong>非同步操作</strong>，以及它所產生的值。</p>
+</blockquote>
+<h2 id="建立-Promise-物件與簡易操作"><a class="header-anchor" href="#建立-Promise-物件與簡易操作"></a>建立 <code>Promise</code> 物件與簡易操作</h2>
+<p>建立一個 <code>Promise</code> 物件的方式很簡單:透過 <code>new</code> 關鍵字即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timeUp = <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span><span class="title function_">resolve</span>(<span class="string">&#x27;時間到了!&#x27;</span>),<span class="number">1000</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>如上面的程式碼，這樣就已經建立一個 <code>Promise</code> 物件。</p>
+<p>再來，要怎麼拿到 <code>時間到了!</code> 這個值呢?</p>
+<p><mark>如果要拿到<code>resolve()</code>中的 <code>時間到了!</code>這個值，必須要透過 <code>then(...)</code>的方式取出。</mark></p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/01/18/JavaScript-Promise-Part1/#more" rel="contents">
@@ -749,6 +837,21 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="什麼是-jQuery"><a class="header-anchor" href="#什麼是-jQuery"></a>什麼是 jQuery ?</h2>
 <p>既然要使用jQuery的語法，那不免要先提一下什麼是jQuery才行。</p>
+<span id="more"></span>
+<p>所以就讓我們先簡單了解jQuery是什麼，以及簡單的使用吧!</p>
+<blockquote>
+<p>jQuery是一套跨瀏覽器的JavaScript函式庫，簡化HTML與JavaScript之間的操作。[1]由約翰·雷西格（John Resig）在2006年1月的BarCamp NYC上釋出第一個版本。<br>
+…<br>
+jQuery的語法設計使得許多操作變得容易，如操作文件（document）、選擇文件物件模型（DOM）元素、建立動畫效果、處理事件、以及開發Ajax程式。<br>
+<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/JQuery">wiki jQuery</a></p>
+</blockquote>
+<p>從維基百科的解釋可以知道，jQuery在<mark>操作DOM、動畫效果、事件處理以及Ajax部分，都可以有比寫原生JavaScript還要更快速的處理方式。</mark></p>
+<p>因為jQuery本身將那些功能都已經封裝好提供我們使用了。</p>
+<h2 id="怎麼使用-jQuery"><a class="header-anchor" href="#怎麼使用-jQuery"></a>怎麼使用 jQuery ?</h2>
+<p>使用的方式也很簡單，有兩種方式:</p>
+<ul>
+<li>透過CDN引入</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/01/12/%E4%BD%BF%E7%94%A8-jQuery%E7%9A%84-Ajax-%E6%8A%80%E8%A1%93%E5%92%8C%E4%BB%8B%E6%8E%A5api/#more" rel="contents">
@@ -789,7 +892,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -798,12 +901,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>

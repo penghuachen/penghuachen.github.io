@@ -61,6 +61,9 @@
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切換導航欄" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -83,7 +86,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a></li><li class="menu-item menu-item-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>網站地圖</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜尋
         </a>
@@ -174,10 +177,45 @@
       <span class="links-of-author-item">
         <a href="https://github.com/penghuachen" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;penghuachen" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="mailto:kids5346@gmail.com" title="E-Mail → mailto:kids5346@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
   </div>
 
 
 
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      最近文章
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/" title="2021&#x2F;05&#x2F;22&#x2F;i閱讀系列-無限賽局&#x2F;">i閱讀系列-無限賽局</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/" title="2021&#x2F;05&#x2F;09&#x2F;把玩-vue-leaflet&#x2F;">把玩 vue-leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/" title="2021&#x2F;05&#x2F;05&#x2F;把玩-Leaflet&#x2F;">把玩 Leaflet</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
+          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
+        </li>
+    </ul>
+  </div>
         </div>
       </div>
     </div>
@@ -421,8 +459,35 @@
     
     <div class="post-body" itemprop="articleBody">
           <h1 id="無限賽局"><a class="header-anchor" href="#無限賽局"></a>無限賽局</h1>
-<p><img src="https://i.imgur.com/l6F2RqA.png" alt=""></p>
+<p><img src="https://i.imgur.com/l6F2RqA.png" alt></p>
 <p><mark>以「無限賽局」、「無限思維」、「有限賽局」、「有限思維」貫穿全文並加以詳述</mark></p>
+<span id="more"></span>
+<ul>
+<li>有限賽局：已知玩家、已知規則、有限時間獲得一個結果(贏、輸或者平手)</li>
+<li>有限思維：在武斷的時間與武斷的標準下嘗試獲得一個結果、贏過對手，爭一個「暫時」的輸贏;或者試圖從客戶、消費者等身上獲得某些成果(能獲取多少利益)，藉此達成某些標準。思考的角度是「我」而非「我們」，不喜歡突發狀況介入</li>
+<li>無限賽局：未知玩家、少許規則(允許打破規則)、無限時間以及暫時的結果</li>
+<li>無限思維：思考的是如何讓組織可以永續發展，做出對社會有益的事情，並藉由夠好的品質吸引客戶、消費者願意消費(能替顧客帶來什麼好處)，思考的角度是「我們」而非「我」，已有突發狀況隨時介入的準備，並接受因為意外而發生的改變</li>
+<li>舉凡教育、人生等都屬於無限賽局的一種</li>
+<li>面對無限賽局，應該要思考能夠長期延續的做法，而非短期獲益的手段</li>
+<li>在無限賽局中採取有限思維的做法傷害的是彼此的信任、合作。</li>
+<li>以美國打越戰為例，北越以無限賽局的思維迎戰美國基於有限思維的打的作戰導致資源耗盡，不得不退出戰場</li>
+<li>有限思維領導者優先關注比較和取勝，以實現有限的目標為前提，而這也會導致組織只關心「緊急的事」而不是「重要的事」</li>
+</ul>
+<h2 id="推動無限思維的五項條件"><a class="header-anchor" href="#推動無限思維的五項條件"></a>推動無限思維的五項條件</h2>
+<ul>
+<li>崇高的信念</li>
+<li>號召志同道合的夥伴</li>
+<li>服務導向：對別人好，自己也會受益</li>
+<li>經得起考驗</li>
+<li>高遠的理想</li>
+</ul>
+<h3 id="崇高的信念"><a class="header-anchor" href="#崇高的信念"></a>崇高的信念</h3>
+<p><strong>關鍵在於：願意為了這個信念而付出並且不後悔。</strong></p>
+<ul>
+<li><strong>「是對一個尚不存在的未來懷抱具體的願景;這個未來令人嚮往到願意犧牲小我。來實現這個願景」</strong></li>
+<li>有限目標所獲得的成就無法持續長久，但信念可以不斷堅持並使工作和生活能有不同意義</li>
+<li>不只著眼自己的成就，放眼更大的目標</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/22/i%E9%96%B1%E8%AE%80%E7%B3%BB%E5%88%97-%E7%84%A1%E9%99%90%E8%B3%BD%E5%B1%80/#more" rel="contents">
@@ -541,6 +606,21 @@
 </div>
 <h2 id="前言"><a class="header-anchor" href="#前言"></a>前言</h2>
 <p>vue Leaflet 是一套將開源的地圖服務 <a target="_blank" rel="noopener" href="https://leafletjs.com/">Leaflet</a> 封裝成 vue 版本的服務，所以如果曾經使用過 Leaflet 的讀者相信在上手這一個套件可以很快瞭解怎麼使用。</p>
+<span id="more"></span>
+<p>如果還沒有用過 <a target="_blank" rel="noopener" href="https://leafletjs.com/">Leaflet</a> 的讀者可以先前往筆者另外一篇 <a href="https://penghuachen.github.io/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/">把玩 Leaflet</a> 文章先瞭解看看 Leaflet 怎麼使用哦！</p>
+<p>該篇文章以 <a target="_blank" rel="noopener" href="https://leafletjs.com/examples/quick-start/">Leaflet Quick Start Guide</a> 的官方快速入門文件為依據並且一一測試篇幅中提到的部分，以及加上筆者自己額外過程中的理解而寫成的文章，有興趣的讀者可以前往查看。</p>
+<p>另外為了方便讀者閱讀，這裡整理出來方便讀者梳理文章的重點：</p>
+<ol>
+<li>安裝 vue-leaflet</li>
+<li>建立第一個地圖(Map)，設定座標中心點</li>
+<li>使用圖層服務設定地圖風格</li>
+<li>在地圖上畫出範圍(range)：以圓形(circle)和多邊形(polygon)為例</li>
+<li>設定第一個 marker 、建立一個 marker 的點擊(click)事件與使用 popup</li>
+<li>解決在 vue-leaflet 中 marker icon 無法顯示的問題</li>
+<li>如何在 vue-leaflet 中使用 leaflet 提供的方法</li>
+</ol>
+<p>而本篇幅會依據使用情境的增加，逐步的更新上來，所以有興趣把玩 Leaflet 的讀者可以持續追蹤哦！</p>
+<h2 id="安裝-vue-leaflet"><a class="header-anchor" href="#安裝-vue-leaflet"></a>安裝 vue-leaflet</h2>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/09/%E6%8A%8A%E7%8E%A9-vue-leaflet/#more" rel="contents">
@@ -659,6 +739,20 @@
 </div>
 <h2 id="前言"><a class="header-anchor" href="#前言"></a>前言</h2>
 <p>Leaflet 是一套開源的地圖服務，此外這套服務在網頁端與手機端都可以有良好的使用者體驗。</p>
+<span id="more"></span>
+<p>如果讀者在之前有嘗試過 Google 的地圖服務，那麼在使用這套服務時相信不會遇到太大的問題，因為使用方式上並不會有太迥異的做法。</p>
+<p>但如果是第一次接觸地圖服務的讀者，那麼也不用擔心，筆者今天會依據 <a target="_blank" rel="noopener" href="https://leafletjs.com/examples/quick-start/">Leaflet Quick Start Guide</a> 的篇幅一步步測試文章中提到的部分。</p>
+<p>不得不說的是，<a target="_blank" rel="noopener" href="https://leafletjs.com/examples/quick-start/">Leaflet Quick Start Guide</a> 的內容真的很淺顯易懂，只要願意花心思好好看完，對於 Leaflet 的基礎應用就可以上手囉！</p>
+<p>而快速入門的篇幅大概可以歸納出以下的範圍，這裡整理出來方便讀者梳理文章的重點：</p>
+<ol>
+<li>透過 CDN 引入 Leaflet 服務</li>
+<li>建立第一個地圖(Map)</li>
+<li>使用圖層服務設定地圖風格</li>
+<li>在地圖上畫出範圍(range)：以圓形(circle)和多邊形(polygon)為例</li>
+<li>設定第一個 marker 與使用 popup</li>
+<li>在整體地圖與 marker 建立可以觸發的點擊(click)事件</li>
+</ol>
+<p>而本篇幅會依據使用情境的增加，逐步的更新上來，所以有興趣把玩 Leaflet 的讀者可以持續追蹤哦！</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/05/%E6%8A%8A%E7%8E%A9-Leaflet/#more" rel="contents">
@@ -777,6 +871,13 @@
 </div>
 <h2 id="前言"><a class="header-anchor" href="#前言"></a>前言</h2>
 <p>vue-chartjs 是基於 chart.js 服務封裝成 vue component 的圖表服務，基本上常見的圖表需求都可以透過這個服務達到目的。</p>
+<span id="more"></span>
+<p>由於筆者這陣子在專案中有使用圖表的需求，但要實作的功能只是簡單的將 API 回來的資料渲染到圖表上而已，並沒有辦法運用到這個服務的全部功能，所以筆者決定採用逐次更新的方式完善這個服務的學習。</p>
+<p>所以如果有興趣的讀者可以持續關注此篇幅，內容會不定期更新！</p>
+<p>那麼就趕緊進入主題吧！</p>
+<h2 id="安裝-vue-chartjs-、-chart-js"><a class="header-anchor" href="#安裝-vue-chartjs-、-chart-js"></a>安裝 vue-chartjs 、 chart.js</h2>
+<p>使用 vue-chartjs 時要同時安裝 chart.js 才可以，畢竟是基於 chart.js 封裝而來的服務。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn add vue-chartjs chart.js </span><br><span class="line"></span><br><span class="line">npm install vue-chartjs chart.js --save</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/#more" rel="contents">
@@ -817,7 +918,7 @@
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa-solid fa-code"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Penghua Chen</span>
 </div>
@@ -826,12 +927,14 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
+      <span>總字數：</span>
     <span title="總字數">320k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
+      <span>所需總閱讀時間 &asymp;</span>
     <span title="所需總閱讀時間">4:51</span>
   </span>
 </div>
