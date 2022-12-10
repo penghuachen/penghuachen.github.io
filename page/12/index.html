@@ -157,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -192,6 +192,10 @@
     <ul class="links-of-recent-posts-list">
         <li class="links-of-recent-posts-item">
           <i class="fas fa-bookmark"></i>
+          <a href="/2022/12/10/CSS-%E6%96%B0%E9%81%B8%E6%93%87%E5%99%A8-has-%E5%81%BD%E9%A1%9E%E9%81%B8%E6%93%87%E5%99%A8/" title="2022&#x2F;12&#x2F;10&#x2F;CSS-新選擇器-has-偽類選擇器&#x2F;">CSS 新選擇器 :has() 偽類選擇器</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
           <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
         </li>
         <li class="links-of-recent-posts-item">
@@ -209,10 +213,6 @@
         <li class="links-of-recent-posts-item">
           <i class="fas fa-bookmark"></i>
           <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <i class="fas fa-bookmark"></i>
-          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
         </li>
     </ul>
   </div>
@@ -237,6 +237,164 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/08/03/%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-Rest-parameter-%E8%88%87%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2019/08/03/%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-Rest-parameter-%E8%88%87%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator/" class="post-title-link" itemprop="url">其餘參數(Rest parameter)與展開運算子(Spread operator)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2019-08-03 14:33:57" itemprop="dateCreated datePublished" datetime="2019-08-03T14:33:57+08:00">2019-08-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span class="firestore-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/08/03/%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-Rest-parameter-%E8%88%87%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/03/其餘參數-Rest-parameter-與展開運算子-Spread-operator/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>1.9k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>2 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="其餘參數-rest-parameter-與展開運算子-Spread-operator"><a class="header-anchor" href="#其餘參數-rest-parameter-與展開運算子-Spread-operator"></a>其餘參數(rest parameter)與展開運算子(Spread operator)</h1>
+<p><strong>其餘參數(rest parameter)與展開運算子(Spread operator)</strong> 為 ES6 的新特性，然而這兩者雖然使用的方式都是 <code>...</code> ，但是用途的不同決定我們當下使用的是其餘參數（rest parameter）還是展開運算子(Spread operator)，如下方表格:</p>
+<span id="more"></span>
+<table>
+<thead>
+<tr>
+<th>語法</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>其餘參數 <code>...</code></td>
+<td>將一個不確定數量的參數集合在一個陣列中</td>
+</tr>
+<tr>
+<td>展開運算子 <code>...</code></td>
+<td>將陣列中的值展開為個別值</td>
+</tr>
+</tbody>
+</table>
+<h2 id="其餘參數-Rest-parameter-的使用與比較"><a class="header-anchor" href="#其餘參數-Rest-parameter-的使用與比較"></a>其餘參數(Rest parameter)的使用與比較</h2>
+<h3 id="怎麼使用其餘參數"><a class="header-anchor" href="#怎麼使用其餘參數"></a>怎麼使用其餘參數:</h3>
+<p>來看看幾個測試例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">result</span>(<span class="params">...numbers</span>)&#123;</span><br><span class="line">    <span class="comment">//會獲得一組陣列:[1,2,3,4,5]</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(numbers);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">result</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<p>從上面這個例子可以獲得以下的資訊:</p>
+<ol>
+<li>這邊最後獲得的值為一組陣列 <code>[1,2,3,4,5]</code>，表示這邊使用的 <code>...</code> 是作為 <mark>其餘參數</mark> 使用。</li>
+<li>在函式參數位置的 <code>numbers</code> ，則是參數集合在一個陣列之後，我們可以運用的變數。</li>
+<li>透過 <code>console.log(numbers);</code> ，獲得陣列型式的值。</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/08/03/%E5%85%B6%E9%A4%98%E5%8F%83%E6%95%B8-Rest-parameter-%E8%88%87%E5%B1%95%E9%96%8B%E9%81%8B%E7%AE%97%E5%AD%90-Spread-operator/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -805,157 +963,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2019/07/18/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day52-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Penghua Chen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="PH 前端修煉記錄">
-      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | PH 前端修煉記錄">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2019/07/18/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day52-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/" class="post-title-link" itemprop="url">連續記錄挑戰Day52-箭頭函式(arrow function)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2019-07-18 23:18:14" itemprop="dateCreated datePublished" datetime="2019-07-18T23:18:14+08:00">2019-07-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Javascript/" itemprop="url" rel="index"><span itemprop="name">Javascript</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-item" title="閱讀次數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">閱讀次數：</span>
-      <span class="firestore-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2019/07/18/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day52-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/18/連續記錄挑戰Day52-箭頭函式-arrow-function/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>2k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>2 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="ES6-箭頭函式-arrow-function"><a class="header-anchor" href="#ES6-箭頭函式-arrow-function"></a>ES6 箭頭函式(arrow function)</h1>
-<p>今天要提的部分是關於 ES6的新語法，箭頭函式(arrow function)。</p>
-<p>它與ES6之前的函式有著一些差別:</p>
-<ul>
-<li>箭頭函式(arrow function) 特有寫法</li>
-<li>箭頭函式(arrow function) 沒有自己的this</li>
-<li>箭頭函式(arrow function) 沒有自己的arguments</li>
-<li>箭頭函式(arrow function) 不能用作建構式，因此沒有自己的prototype</li>
-<li>箭頭函式(arrow function)的this不因為 call()/apply()/bind()而被修改</li>
-</ul>
-<span id="more"></span>
-<h2 id="箭頭函式-arrow-function-的特有寫法"><a class="header-anchor" href="#箭頭函式-arrow-function-的特有寫法"></a>箭頭函式(arrow function)的特有寫法</h2>
-<p>箭頭函式有著全新樣貌的寫法，整理如下:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc</span> = (<span class="params"></span>) =&gt;&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;test&#x27;</span>);&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc2</span> = a =&gt; &#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(a);&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc3</span> = a =&gt; <span class="variable language_">console</span>.<span class="title function_">log</span>(a);</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc4</span> = (<span class="params">a,b</span>)=&gt;&#123;<span class="variable language_">console</span>.<span class="title function_">log</span>(a+b);&#125;</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">arrowFunc5</span> = (<span class="params"></span>)=&gt;(&#123;<span class="attr">name</span>:<span class="string">&quot;Bill&quot;</span>&#125;);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>如果<mark>沒有參數</mark>，可以只寫 <code>()</code>，如 <code>arrowFunc</code></li>
-<li>如果<mark>只有一個參數</mark>，可以不寫 <code>()</code>，如 <code>arrowFunc2</code></li>
-<li>如果<mark>程式碼行數只有單行</mark>，可以不需要 <code>&#123;&#125;</code>，如 <code>arrowFunc3</code></li>
-<li>如果<mark>有兩個參數以上</mark>，則必須寫 <code>()</code>，如 <code>arrowFunc4</code></li>
-<li>如果是<mark>物件格式</mark>，因為 <code>&#123;&#125;</code> 在箭頭函式中有意義， 所以必須要用 <code>()</code> 將整個物件包住，如<code>arrowFunc5</code></li>
-</ol>
-<h2 id="箭頭函式-arrow-function-沒有自己的this"><a class="header-anchor" href="#箭頭函式-arrow-function-沒有自己的this"></a>箭頭函式(arrow function)沒有自己的this</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/07/18/%E9%80%A3%E7%BA%8C%E8%A8%98%E9%8C%84%E6%8C%91%E6%88%B0Day52-%E7%AE%AD%E9%A0%AD%E5%87%BD%E5%BC%8F-arrow-function/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
 
 </div>
@@ -979,14 +988,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">320k</span>
+    <span title="總字數">322k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:51</span>
+    <span title="所需總閱讀時間">4:52</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動

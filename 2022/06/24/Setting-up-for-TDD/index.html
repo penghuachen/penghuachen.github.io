@@ -28,7 +28,7 @@
 <meta property="og:description" content="透過 Vue Testing HandBook + Vue Test Utils 學習如何在 vue3 中撰寫單元測試。 Setting up for TDD prerequisite 專案採用 vite 建立，但由於不採用 vitest 作為框架的單元測試工具，這邊要額外以下工具到專案中：  jest jest-environment-jsdom vue3-jest babel-jest tes">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-06-24T10:45:17.000Z">
-<meta property="article:modified_time" content="2022-06-24T11:02:07.106Z">
+<meta property="article:modified_time" content="2022-06-25T12:59:22.421Z">
 <meta property="article:author" content="Penghua Chen">
 <meta property="article:tag" content="vue">
 <meta property="article:tag" content="unit test">
@@ -163,7 +163,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -198,6 +198,10 @@
     <ul class="links-of-recent-posts-list">
         <li class="links-of-recent-posts-item">
           <i class="fas fa-bookmark"></i>
+          <a href="/2022/12/10/CSS-%E6%96%B0%E9%81%B8%E6%93%87%E5%99%A8-has-%E5%81%BD%E9%A1%9E%E9%81%B8%E6%93%87%E5%99%A8/" title="2022&#x2F;12&#x2F;10&#x2F;CSS-新選擇器-has-偽類選擇器&#x2F;">CSS 新選擇器 :has() 偽類選擇器</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
           <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
         </li>
         <li class="links-of-recent-posts-item">
@@ -215,10 +219,6 @@
         <li class="links-of-recent-posts-item">
           <i class="fas fa-bookmark"></i>
           <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <i class="fas fa-bookmark"></i>
-          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
         </li>
     </ul>
   </div>
@@ -281,9 +281,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">發表於</span>
-      
 
-      <time title="創建時間：2022-06-24 18:45:17 / 修改時間：19:02:07" itemprop="dateCreated datePublished" datetime="2022-06-24T18:45:17+08:00">2022-06-24</time>
+      <time title="創建時間：2022-06-24 18:45:17" itemprop="dateCreated datePublished" datetime="2022-06-24T18:45:17+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-25 20:59:22" itemprop="dateModified" datetime="2022-06-25T20:59:22+08:00">2022-06-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -361,7 +367,7 @@
 <li><a target="_blank" rel="noopener" href="https://test-utils.vuejs.org/">test-utils</a></li>
 <li><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@babel/preset-env">@babel/preset-env</a></li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev jest</span><br><span class="line">npm install --save-dev jest-environment-jsdom</span><br><span class="line">npm install --save-dev @vue/vue3-jest@28 (參考 repo 當下最新版本而定)</span><br><span class="line">npm install --save-dev babel-jest </span><br><span class="line">npm install --save-dev npm install --save-dev @vue/test-utils@next</span><br><span class="line">npm install --save-dev @babel/preset-env</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev jest</span><br><span class="line">npm install --save-dev jest-environment-jsdom</span><br><span class="line">npm install --save-dev @vue/vue3-jest@28 (參考 repo 當下最新版本而定)</span><br><span class="line">npm install --save-dev babel-jest </span><br><span class="line">npm install --save-dev @vue/test-utils@next</span><br><span class="line">npm install --save-dev @babel/preset-env</span><br></pre></td></tr></table></figure>
 <p>還要設定以下的 config:</p>
 <h3 id="jest-config-js"><a class="header-anchor" href="#jest-config-js"></a>jest.config.js</h3>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 可以透過 jest --init 設定基礎選項</span></span><br><span class="line"><span class="comment">// 以下為主要設定內容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// The test environment that will be used for testing</span></span><br><span class="line"><span class="attr">testEnvironment</span>: <span class="string">&#x27;jsdom&#x27;</span>,</span><br><span class="line"><span class="comment">// A map from regular expressions to paths to transformers</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">transform</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;^.+\\.vue$&#x27;</span>: <span class="string">&#x27;@vue/vue3-jest&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;^.+\\js$&#x27;</span>: <span class="string">&#x27;babel-jest&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module</span></span><br><span class="line"><span class="attr">moduleNameMapper</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;^@/(.*)$&#x27;</span>: <span class="string">&#x27;&lt;rootDir&gt;/src/$1&#x27;</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">// An array of file extensions your modules use    </span></span><br><span class="line"><span class="attr">moduleFileExtensions</span>: [<span class="string">&#x27;vue&#x27;</span>, <span class="string">&#x27;js&#x27;</span>, <span class="string">&#x27;json&#x27;</span>, <span class="string">&#x27;jsx&#x27;</span>, <span class="string">&#x27;ts&#x27;</span>, <span class="string">&#x27;tsx&#x27;</span>, <span class="string">&#x27;node&#x27;</span>],</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
@@ -397,6 +403,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2022/12/10/CSS-%E6%96%B0%E9%81%B8%E6%93%87%E5%99%A8-has-%E5%81%BD%E9%A1%9E%E9%81%B8%E6%93%87%E5%99%A8/" rel="next" title="CSS 新選擇器 :has() 偽類選擇器">
+                  CSS 新選擇器 :has() 偽類選擇器 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -434,14 +443,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">320k</span>
+    <span title="總字數">322k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:51</span>
+    <span title="所需總閱讀時間">4:52</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動

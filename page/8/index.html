@@ -157,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -192,6 +192,10 @@
     <ul class="links-of-recent-posts-list">
         <li class="links-of-recent-posts-item">
           <i class="fas fa-bookmark"></i>
+          <a href="/2022/12/10/CSS-%E6%96%B0%E9%81%B8%E6%93%87%E5%99%A8-has-%E5%81%BD%E9%A1%9E%E9%81%B8%E6%93%87%E5%99%A8/" title="2022&#x2F;12&#x2F;10&#x2F;CSS-新選擇器-has-偽類選擇器&#x2F;">CSS 新選擇器 :has() 偽類選擇器</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
           <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
         </li>
         <li class="links-of-recent-posts-item">
@@ -209,10 +213,6 @@
         <li class="links-of-recent-posts-item">
           <i class="fas fa-bookmark"></i>
           <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <i class="fas fa-bookmark"></i>
-          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
         </li>
     </ul>
   </div>
@@ -237,6 +237,147 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/09/20/%E5%9C%A8-Class-based-Component-%E4%B8%AD%E7%9A%84-State-%E8%88%87%E4%BA%8B%E4%BB%B6%E8%99%95%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2020/09/20/%E5%9C%A8-Class-based-Component-%E4%B8%AD%E7%9A%84-State-%E8%88%87%E4%BA%8B%E4%BB%B6%E8%99%95%E7%90%86/" class="post-title-link" itemprop="url">在 Class-based Component 中的 State 與事件處理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2020-09-20 11:29:43" itemprop="dateCreated datePublished" datetime="2020-09-20T11:29:43+08:00">2020-09-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span class="firestore-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/09/20/%E5%9C%A8-Class-based-Component-%E4%B8%AD%E7%9A%84-State-%E8%88%87%E4%BA%8B%E4%BB%B6%E8%99%95%E7%90%86/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/20/在-Class-based-Component-中的-State-與事件處理/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>5.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>5 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="在-Class-based-Component-中的-State-與事件處理"><a class="header-anchor" href="#在-Class-based-Component-中的-State-與事件處理"></a>在 Class-based Component 中的 State 與事件處理</h1>
+<p>今天 React 好朋友要帶我學習的部分是如何在 Class-based 的元件(component)中透過<strong>修改 state 的值來達到更新畫面(UI)</strong>，而為了幫助自己更快了解，這邊會同時將 React 中事件處理的部分也一併學習，並且搭配一個簡單的測試情境，才可以更好地吸收。</p>
+<span id="more"></span>
+<h2 id="在-Class-based-的元件-component-中的-state"><a class="header-anchor" href="#在-Class-based-的元件-component-中的-state"></a>在 Class-based 的元件(component)中的 state</h2>
+<p>很重要的一個觀念: <strong>state 可以用來在 class-based 的元件(component)中，對於資料進行更新。</strong></p>
+<p><strong>而在還沒有 React Hook 的時期，這是透過資料來更新畫面(UI)的唯一撰寫方式</strong>，然而 React Hook 的出現，使得寫法得以有所變化：<strong>這讓我們可以在 Functional 元件(component)中透過修改 state 的值來重新渲染畫面(UI)</strong></p>
+<p>這邊我們模擬一個使用情境，並透過這個情境來了解如何在 <strong>Class-based 的元件(component)中修改 state 中的資料並觸發 React 重新更新畫面(UI)。</strong></p>
+<h3 id="情境-透過點擊-click-按鈕，將目前元件中的姓名與年齡替換成另一組資料"><a class="header-anchor" href="#情境-透過點擊-click-按鈕，將目前元件中的姓名與年齡替換成另一組資料"></a>情境: 透過點擊(click)按鈕，將目前元件中的姓名與年齡替換成另一組資料</h3>
+<h4 id="首先-先將-Function-component-轉換成-Class-based-component"><a class="header-anchor" href="#首先-先將-Function-component-轉換成-Class-based-component"></a>首先: 先將 Function component 轉換成 Class-based component:</h4>
+<p>(P.S. 這裡將 Function component 轉換成 Class-based component 的目的是在於了解這兩者之間該如何轉換哦!)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/20/%E5%9C%A8-Class-based-Component-%E4%B8%AD%E7%9A%84-State-%E8%88%87%E4%BA%8B%E4%BB%B6%E8%99%95%E7%90%86/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -818,150 +959,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/06/20/vue%E4%B8%80%E5%80%8B%E7%B0%A1%E6%98%93%E9%A9%97%E8%AD%89%E7%A2%BC%E5%85%83%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Penghua Chen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="PH 前端修煉記錄">
-      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | PH 前端修煉記錄">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/06/20/vue%E4%B8%80%E5%80%8B%E7%B0%A1%E6%98%93%E9%A9%97%E8%AD%89%E7%A2%BC%E5%85%83%E4%BB%B6/" class="post-title-link" itemprop="url">vue一個簡易驗證碼元件</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2020-06-20 18:41:59" itemprop="dateCreated datePublished" datetime="2020-06-20T18:41:59+08:00">2020-06-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/vue-vue-cli3/" itemprop="url" rel="index"><span itemprop="name">vue vue cli3</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-item" title="閱讀次數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">閱讀次數：</span>
-      <span class="firestore-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/06/20/vue%E4%B8%80%E5%80%8B%E7%B0%A1%E6%98%93%E9%A9%97%E8%AD%89%E7%A2%BC%E5%85%83%E4%BB%B6/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/20/vue一個簡易驗證碼元件/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>2.8k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>3 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><img src="https://i.imgur.com/Lf6sGeC.gif" alt></p>
-<p>這陣子剛好因為專案需求，所以需要做一個<mark>簡訊驗證碼</mark>的功能，於是就嘗試自己手刻了一個簡易的四碼輸入驗證的元件，於是順道做了個學習與開發的記錄。</p>
-<span id="more"></span>
-<h2 id="元件功能"><a class="header-anchor" href="#元件功能"></a>元件功能</h2>
-<p>為了挑戰一下，所以稍微在製作這個元件上多做了些事情，功能如下:</p>
-<ol>
-<li><mark>過濾數字以外的所有字符(包含特殊字符)</mark>，僅可輸入數字。</li>
-<li>如果輸入為非數字，則<mark>停留在當前欄位，直到輸入符合條件的值</mark>。</li>
-<li>輸入符合的值，<mark>自動跳至下一個欄位</mark>，提高使用者體驗。</li>
-<li>修改欄位中的值，會<mark>自動將值選取(select)起來</mark>，提高使用者體驗</li>
-</ol>
-<h2 id="實作重點記錄"><a class="header-anchor" href="#實作重點記錄"></a>實作重點記錄</h2>
-<h3 id="限制欄位值的輸入長度"><a class="header-anchor" href="#限制欄位值的輸入長度"></a>限制欄位值的輸入長度</h3>
-<p>這邊透過 <code>&lt;input type=&quot;text&quot; maxlength=&quot;1&quot;&gt;</code> 控制輸入的欄位值只能<strong>一位數</strong>。</p>
-<p>依據 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input">MDN</a> 中提到關於 <code>maxlength</code> 的定義: 「<mark>可以限定設定輸入值的長度</mark>」。所以我們可以達成這個目的。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/20/vue%E4%B8%80%E5%80%8B%E7%B0%A1%E6%98%93%E9%A9%97%E8%AD%89%E7%A2%BC%E5%85%83%E4%BB%B6/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
 
 </div>
@@ -985,14 +984,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">320k</span>
+    <span title="總字數">322k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:51</span>
+    <span title="所需總閱讀時間">4:52</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動

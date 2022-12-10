@@ -157,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-count">111</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
@@ -192,6 +192,10 @@
     <ul class="links-of-recent-posts-list">
         <li class="links-of-recent-posts-item">
           <i class="fas fa-bookmark"></i>
+          <a href="/2022/12/10/CSS-%E6%96%B0%E9%81%B8%E6%93%87%E5%99%A8-has-%E5%81%BD%E9%A1%9E%E9%81%B8%E6%93%87%E5%99%A8/" title="2022&#x2F;12&#x2F;10&#x2F;CSS-新選擇器-has-偽類選擇器&#x2F;">CSS 新選擇器 :has() 偽類選擇器</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <i class="fas fa-bookmark"></i>
           <a href="/2022/06/24/Setting-up-for-TDD/" title="2022&#x2F;06&#x2F;24&#x2F;Setting-up-for-TDD&#x2F;">Setting up for TDD</a>
         </li>
         <li class="links-of-recent-posts-item">
@@ -209,10 +213,6 @@
         <li class="links-of-recent-posts-item">
           <i class="fas fa-bookmark"></i>
           <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" title="2021&#x2F;05&#x2F;01&#x2F;把玩-vue-chartjs&#x2F;">把玩 vue-chartjs</a>
-        </li>
-        <li class="links-of-recent-posts-item">
-          <i class="fas fa-bookmark"></i>
-          <a href="/2021/04/27/%E6%95%B4%E7%90%86-Vue2-%E4%B8%AD%E5%9C%A8%E5%85%83%E4%BB%B6%E8%A3%A1%E9%81%94%E5%88%B0%E9%9B%99%E5%90%91%E7%B6%81%E5%AE%9A%E7%9A%84%E5%B9%BE%E7%A8%AE%E6%96%B9%E5%BC%8F/" title="2021&#x2F;04&#x2F;27&#x2F;整理-Vue2-中在元件裡達到雙向綁定的幾種方式&#x2F;">整理 Vue2 中在元件裡達到雙向綁定的幾種方式</a>
         </li>
     </ul>
   </div>
@@ -237,6 +237,145 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Penghua Chen">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PH 前端修煉記錄">
+      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | PH 前端修煉記錄">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/" class="post-title-link" itemprop="url">把玩 vue-chartjs</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2021-05-01 11:29:39" itemprop="dateCreated datePublished" datetime="2021-05-01T11:29:39+08:00">2021-05-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="閱讀次數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">閱讀次數：</span>
+      <span class="firestore-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/05/01/把玩-vue-chartjs/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="文章字數">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">文章字數：</span>
+      <span>2.8k</span>
+    </span>
+    <span class="post-meta-item" title="所需閱讀時間">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+      <span>3 分鐘</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <div style="text-align: center">
+  <img src="https://i.imgur.com/3RiBUvM.png">
+</div>
+<h2 id="前言"><a class="header-anchor" href="#前言"></a>前言</h2>
+<p>vue-chartjs 是基於 chart.js 服務封裝成 vue component 的圖表服務，基本上常見的圖表需求都可以透過這個服務達到目的。</p>
+<span id="more"></span>
+<p>由於筆者這陣子在專案中有使用圖表的需求，但要實作的功能只是簡單的將 API 回來的資料渲染到圖表上而已，並沒有辦法運用到這個服務的全部功能，所以筆者決定採用逐次更新的方式完善這個服務的學習。</p>
+<p>所以如果有興趣的讀者可以持續關注此篇幅，內容會不定期更新！</p>
+<p>那麼就趕緊進入主題吧！</p>
+<h2 id="安裝-vue-chartjs-、-chart-js"><a class="header-anchor" href="#安裝-vue-chartjs-、-chart-js"></a>安裝 vue-chartjs 、 chart.js</h2>
+<p>使用 vue-chartjs 時要同時安裝 chart.js 才可以，畢竟是基於 chart.js 封裝而來的服務。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yarn add vue-chartjs chart.js </span><br><span class="line"></span><br><span class="line">npm install vue-chartjs chart.js --save</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/05/01/%E6%8A%8A%E7%8E%A9-vue-chartjs/#more" rel="contents">
+                閱讀全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -817,149 +956,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://penghuachen.github.io/2020/10/15/%E5%AE%8C%E8%B3%BD%E6%97%A5%EF%BC%8C%E5%BF%83%E5%BE%97%E8%88%87%E9%9A%8E%E6%AE%B5%E5%AD%B8%E7%BF%92%E9%A9%97%E6%94%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Penghua Chen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="PH 前端修煉記錄">
-      <meta itemprop="description" content="目前進駐在台南的好想工作室。">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | PH 前端修煉記錄">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/10/15/%E5%AE%8C%E8%B3%BD%E6%97%A5%EF%BC%8C%E5%BF%83%E5%BE%97%E8%88%87%E9%9A%8E%E6%AE%B5%E5%AD%B8%E7%BF%92%E9%A9%97%E6%94%B6/" class="post-title-link" itemprop="url">完賽日，心得與階段學習驗收</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2020-10-15 09:51:42" itemprop="dateCreated datePublished" datetime="2020-10-15T09:51:42+08:00">2020-10-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2022-06-24 18:38:07" itemprop="dateModified" datetime="2022-06-24T18:38:07+08:00">2022-06-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分類於</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/React/" itemprop="url" rel="index"><span itemprop="name">React</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/React/%E7%AC%AC%E5%8D%81%E4%BA%8C%E5%B1%86-iT%E9%82%A6%E5%B9%AB%E5%BF%99%E9%90%B5%E4%BA%BA%E8%B3%BD/" itemprop="url" rel="index"><span itemprop="name">第十二屆 iT邦幫忙鐵人賽</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-item" title="閱讀次數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-eye"></i>
-      </span>
-      <span class="post-meta-item-text">閱讀次數：</span>
-      <span class="firestore-visitors-count"></span>
-    </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/10/15/%E5%AE%8C%E8%B3%BD%E6%97%A5%EF%BC%8C%E5%BF%83%E5%BE%97%E8%88%87%E9%9A%8E%E6%AE%B5%E5%AD%B8%E7%BF%92%E9%A9%97%E6%94%B6/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/10/15/完賽日，心得與階段學習驗收/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="文章字數">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">文章字數：</span>
-      <span>1k</span>
-    </span>
-    <span class="post-meta-item" title="所需閱讀時間">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
-      <span>1 分鐘</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="完賽日，心得與階段學習驗收"><a class="header-anchor" href="#完賽日，心得與階段學習驗收"></a>完賽日，心得與階段學習驗收</h1>
-<p>今年度的鐵人賽於今天即將完賽，終於要告一段落啦!!!</p>
-<span id="more"></span>
-<p>回顧這三十天的的學習，給自己打了個差強人意的分數。</p>
-<p>不過整體來說還是把 React 的基礎算是有了個基本的了解</p>
-<p>而本次給自己訂定的目標，算是有成功達標，真的是小確幸XD</p>
-<p>不過該如何運用到實務經驗中才是考驗的開始，填坑之路才正要前行!</p>
-<p>而今天的篇幅最後附上作為驗收的小小 <a target="_blank" rel="noopener" href="https://codesandbox.io/s/naughty-river-98rk7">demo</a> 以及本次的學習文章目錄。</p>
-<p>簡單說明一下這個 demo 是一個非常簡單的照片牆，透過串接 <a target="_blank" rel="noopener" href="https://unsplash.com/developers">Unsplash API</a> 的資料來完成。</p>
-<p>而為了可以將這段時間學到的觀念運用到，所以使用了 React Redux 來管理狀態，至於在頁面切換的部分則是透過 React Router 完成。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/15/%E5%AE%8C%E8%B3%BD%E6%97%A5%EF%BC%8C%E5%BF%83%E5%BE%97%E8%88%87%E9%9A%8E%E6%AE%B5%E5%AD%B8%E7%BF%92%E9%A9%97%E6%94%B6/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一頁"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一頁"></i></a>
   </nav>
 
 </div>
@@ -983,14 +981,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>總字數：</span>
-    <span title="總字數">320k</span>
+    <span title="總字數">322k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>所需總閱讀時間 &asymp;</span>
-    <span title="所需總閱讀時間">4:51</span>
+    <span title="所需總閱讀時間">4:52</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 強力驅動

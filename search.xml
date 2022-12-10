@@ -1980,7 +1980,7 @@ modules option now can be {Object} and allow to setup CSS Modules options:</p>
 <li><a href="https://test-utils.vuejs.org/">test-utils</a></li>
 <li><a href="https://www.npmjs.com/package/@babel/preset-env">@babel/preset-env</a></li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install --save-dev jest</span><br><span class="line">npm install --save-dev jest-environment-jsdom</span><br><span class="line">npm install --save-dev @vue/vue3-jest@28 (參考 repo 當下最新版本而定)</span><br><span class="line">npm install --save-dev babel-jest </span><br><span class="line">npm install --save-dev npm install --save-dev @vue/test-utils@next</span><br><span class="line">npm install --save-dev @babel/preset-env</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install --save-dev jest</span><br><span class="line">npm install --save-dev jest-environment-jsdom</span><br><span class="line">npm install --save-dev @vue/vue3-jest@28 (參考 repo 當下最新版本而定)</span><br><span class="line">npm install --save-dev babel-jest </span><br><span class="line">npm install --save-dev @vue/test-utils@next</span><br><span class="line">npm install --save-dev @babel/preset-env</span><br></pre></td></tr></table></figure>
 <p>還要設定以下的 config:</p>
 <h3 id="jest-config-js"><a class="header-anchor" href="#jest-config-js"></a>jest.config.js</h3>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 可以透過 jest --init 設定基礎選項</span></span><br><span class="line"><span class="comment">// 以下為主要設定內容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// The test environment that will be used for testing</span></span><br><span class="line"><span class="attr">testEnvironment</span>: <span class="string">&#x27;jsdom&#x27;</span>,</span><br><span class="line"><span class="comment">// A map from regular expressions to paths to transformers</span></span><br><span class="line">    </span><br><span class="line"><span class="attr">transform</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;^.+\\.vue$&#x27;</span>: <span class="string">&#x27;@vue/vue3-jest&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;^.+\\js$&#x27;</span>: <span class="string">&#x27;babel-jest&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module</span></span><br><span class="line"><span class="attr">moduleNameMapper</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;^@/(.*)$&#x27;</span>: <span class="string">&#x27;&lt;rootDir&gt;/src/$1&#x27;</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">// An array of file extensions your modules use    </span></span><br><span class="line"><span class="attr">moduleFileExtensions</span>: [<span class="string">&#x27;vue&#x27;</span>, <span class="string">&#x27;js&#x27;</span>, <span class="string">&#x27;json&#x27;</span>, <span class="string">&#x27;jsx&#x27;</span>, <span class="string">&#x27;ts&#x27;</span>, <span class="string">&#x27;tsx&#x27;</span>, <span class="string">&#x27;node&#x27;</span>],</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
@@ -9663,6 +9663,39 @@ Ex:location(以google網頁為例)</li>
       </categories>
       <tags>
         <tag>Javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSS 新選擇器 :has() 偽類選擇器</title>
+    <url>/2022/12/10/CSS-%E6%96%B0%E9%81%B8%E6%93%87%E5%99%A8-has-%E5%81%BD%E9%A1%9E%E9%81%B8%E6%93%87%E5%99%A8/</url>
+    <content><![CDATA[<p><code>:has()</code> 是一個全新的 css 選擇器，這個選擇器允許我們在滿足條件的情況下匹配父元素，來看看這個例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;#&quot;&gt;</span><br><span class="line">  &lt;img src=&quot;https://fakeimg.pl/250x100/&quot;&gt;</span><br><span class="line">  一段有文字＋圖片的連結</span><br><span class="line">&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">&lt;br&gt;</span><br><span class="line"></span><br><span class="line">&lt;a href=&quot;#&quot;&gt;一段只有文字的連結&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:has</span>(<span class="selector-tag">img</span>) &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: solid;</span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">5px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>當 <code>a</code> 中有 <code>img</code> 的時候，此時 <code>a</code> 的文字顏色為紅色，呈現效果如下：</p>
+<p><img src="https://i.imgur.com/w8U00zd.png" alt=""></p>
+<p>當然也可以搭配其他的選擇器一起使用，例如今天想要將 <code>section</code> 中沒有 <code>h1</code> 元素的區塊，調整文字顏色為藍色時：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;section&gt;</span><br><span class="line">  &lt;h1&gt;Lorem ipsum dolor sit amet.&lt;/h1&gt;</span><br><span class="line">&lt;/section&gt;</span><br><span class="line"></span><br><span class="line">&lt;section&gt;Lorem ipsum dolor sit amet.&lt;/section&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">section</span><span class="selector-pseudo">:not</span>(<span class="selector-pseudo">:has</span>(<span class="selector-tag">h1</span>)) &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/jR5j5eE.png" alt=""></p>
+<p>而如果今天想要依據後面的元素來選擇前面的元素也是沒有問題，例如當如果 <code>h1</code> 後面的兄弟元素為 <code>p</code> 時， <code>h1</code> 的文字顏色為紅色</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;section&gt;</span><br><span class="line">  &lt;h2&gt;heading&lt;/h2&gt;</span><br><span class="line">  &lt;p&gt;Lorem ipsum dolor sit amet.&lt;/p&gt;</span><br><span class="line">&lt;/section&gt;</span><br><span class="line"></span><br><span class="line">&lt;section&gt;</span><br><span class="line">  &lt;h2&gt;heading&lt;/h2&gt;</span><br><span class="line">  &lt;span&gt;Lorem ipsum dolor sit amet.&lt;/span&gt;</span><br><span class="line">&lt;/section&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">section</span> <span class="selector-tag">h2</span><span class="selector-pseudo">:has</span>(+ <span class="selector-tag">p</span>) &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/dsAo8wW.png" alt=""></p>
+<p>搭配其他偽類(如 <code>:hover</code>) 也可以正常使用，我們稍微改寫一下前一個例子，當如果 <code>h1</code> 後面的兄弟元素為 <code>p</code> 並且被 hover 時， <code>h1</code> 的文字顏色為紅色</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">section</span> <span class="selector-tag">h2</span><span class="selector-pseudo">:has</span>(+ <span class="selector-tag">p</span><span class="selector-pseudo">:hover</span>) &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/7hNr1if.png" alt=""></p>
+<p><code>:has()</code> 讓我們在選取元素上的靈活度又多了一些，在撰寫 css 的部分又多了一樣利器可以使用囉！</p>
+<h2 id="參考"><a class="header-anchor" href="#參考"></a>參考</h2>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/:has">:has()</a></li>
+<li><a href="https://www.zhangxinxu.com/wordpress/2022/08/css-has-pseudo-class/">来了，来了，CSS :has()伪类她来了</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>把玩Css</category>
+      </categories>
+      <tags>
+        <tag>HTML/CSS</tag>
       </tags>
   </entry>
 </search>
