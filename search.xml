@@ -9698,4 +9698,46 @@ Ex:location(以google網頁為例)</li>
         <tag>HTML/CSS</tag>
       </tags>
   </entry>
+  <entry>
+    <title>學習 SQL 系列 - 什麼是 SQL?</title>
+    <url>/2023/10/01/%E5%AD%B8%E7%BF%92-SQL-%E7%B3%BB%E5%88%97-%E4%BB%80%E9%BA%BC%E6%98%AF-SQL/</url>
+    <content><![CDATA[<p>*此系列不定時新增、擴充文章內容與更新學習進度</p>
+<h1 id="學習-SQL-系列-什麼是-SQL"><a class="header-anchor" href="#學習-SQL-系列-什麼是-SQL"></a>學習 SQL 系列 - 什麼是 SQL?</h1>
+<ul>
+<li>SQL 全名為 Structured Query Language，結構化<mark>查詢</mark>語言。</li>
+<li>透過 SQL 語法可以存取(access)與操作(manipulate)資料庫(database)。</li>
+<li>SQL 是一種標準(standard)，而各家服務(資料庫程式，如 MySql)基於這個標準皆有自己額外的擴充。</li>
+</ul>
+<h2 id="SQL-可以做到什麼事情？"><a class="header-anchor" href="#SQL-可以做到什麼事情？"></a>SQL 可以做到什麼事情？</h2>
+<ul>
+<li>SQL 可以對資料庫執行<mark>查詢(query)</mark></li>
+<li>SQL 可以在資料庫中 <mark>插入(insert)</mark> 記錄(record)</li>
+<li>SQL 可以 <mark>更新(update)</mark> 資料庫中的記錄</li>
+<li>SQL 可以從資料庫中 <mark>刪除(delete)</mark> 記錄</li>
+<li>SQL 可以<mark>建立(create)新的資料庫</mark></li>
+<li>SQL 可以在資料庫中<mark>建立新表</mark></li>
+<li>SQL 可以在資料庫中<mark>建立預存程序</mark></li>
+<li>SQL 可以設定<mark>表格、流程和檢視的權限(permission)</mark></li>
+</ul>
+<h2 id="RDBMS-Relational-Database-Management-System"><a class="header-anchor" href="#RDBMS-Relational-Database-Management-System"></a>RDBMS (Relational Database Management System)</h2>
+<ul>
+<li>關連式資料庫，由直欄(column)、橫列(row)組成一個表格(table)，可以預先定義資料所需要的資訊，並用來儲存資料於此。</li>
+<li>每一橫列可以透過一個主索引鍵(Primary key)作為唯一識別符，表格之間可以透過外部索引鍵(Foreign key)建立關聯。</li>
+</ul>
+<p>[reference: <a href="https://phoenixnap.com/kb/what-is-a-relational-database">https://phoenixnap.com/kb/what-is-a-relational-database</a>]<br>
+<img src="https://phoenixnap.com/kb/wp-content/uploads/2021/06/relational-database-table-elements.png" alt=""></p>
+<h2 id="學習-SQL-系列文章系列"><a class="header-anchor" href="#學習-SQL-系列文章系列"></a>學習 SQL 系列文章系列</h2>
+<p>*彙整學習記錄於此</p>
+<h2 id="參考資源"><a class="header-anchor" href="#參考資源"></a>參考資源</h2>
+<ul>
+<li><a href="https://www.w3schools.com/sql/sql_intro.asp">w3schools - SQL Tutorial</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>SQL</category>
+      </categories>
+      <tags>
+        <tag>SQL</tag>
+      </tags>
+  </entry>
 </search>
